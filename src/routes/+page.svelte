@@ -22,7 +22,7 @@
 				<Icon icon="lucide:dot" class="h-4 w-4 text-red-600" />
 				<span>AACHEN</span>
 				<Icon icon="lucide:dot" class="h-4 w-4" />
-				<span>2024</span>
+				<span>EST. 2019</span>
 			</div>
 		</header>
 
