@@ -5,15 +5,14 @@
 
 <div class="relative min-h-screen bg-white p-4 font-sans text-black antialiased">
 	<div class="absolute right-0 top-0 h-24 w-24 bg-red-600"></div>
-	<div class="absolute bottom-0 left-0 h-16 w-16 bg-black"></div>
+	<div class="absolute right-14 top-14 h-12 w-12 bg-black"></div>
 
 	<main class="relative mx-auto max-w-md py-12">
 		<header class="mb-12">
-			<div class="mb-8 flex items-start justify-between">
+			<div class="mb-8 flex items-start">
 				<div class="h-12 w-12 rounded-full border-2 border-red-600">
 					<img alt="SuaraKami logo" loading="eager" src={logo} />
 				</div>
-				<div class="h-12 w-12 bg-black"></div>
 			</div>
 			<h1 class="mb-4 text-5xl font-bold leading-none tracking-tight sm:text-6xl">
 				SUARA<br />KAMI
