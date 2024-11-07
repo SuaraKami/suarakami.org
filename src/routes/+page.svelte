@@ -3,7 +3,7 @@
 	import logo from '$lib/assets/logo.png';
 </script>
 
-<div class="relative min-h-screen bg-white p-4 font-sans text-black">
+<div class="relative min-h-screen bg-white p-4 font-sans text-black antialiased">
 	<div class="absolute right-0 top-0 h-24 w-24 bg-red-600"></div>
 	<div class="absolute bottom-0 left-0 h-16 w-16 bg-black"></div>
 
@@ -13,7 +13,7 @@
 				<div class="h-12 w-12 rounded-full border-2 border-red-600">
 					<img alt="SuaraKami logo" loading="eager" src={logo} />
 				</div>
-        <div class="w-12 h-12 bg-black"></div>
+				<div class="h-12 w-12 bg-black"></div>
 			</div>
 			<h1 class="mb-4 text-5xl font-bold leading-none tracking-tight sm:text-6xl">
 				SUARA<br />KAMI
@@ -28,7 +28,8 @@
 
 		<div class="mb-12 border-l-2 border-black pl-4">
 			<p class="text-lg font-medium">
-				Pergerakan pemuda non-profit dan non-partisan dibidang sosial politik dalam lingkup demokrasi 🇮🇩
+				Pergerakan pemuda non-profit dan non-partisan dibidang sosial politik dalam lingkup
+				demokrasi 🇮🇩
 			</p>
 		</div>
 
@@ -98,7 +99,7 @@
 		</div>
 
 		<footer class="mt-12 flex items-center justify-between text-sm">
-      <span>© {new Date().getFullYear()} SuaraKami</span>
+			<span>© {new Date().getFullYear()} SuaraKami</span>
 			<div class="h-px w-12 bg-black"></div>
 		</footer>
 	</main>

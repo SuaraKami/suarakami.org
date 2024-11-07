@@ -7,9 +7,9 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Plus Jakarta Sans Variable', ...defaultTheme.fontFamily.sans],
-			},
-		},
+				sans: ['Plus Jakarta Sans Variable', ...defaultTheme.fontFamily.sans]
+			}
+		}
 	},
 
 	plugins: []
