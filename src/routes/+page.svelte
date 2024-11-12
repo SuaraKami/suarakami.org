@@ -11,7 +11,7 @@
 		<header class="mb-12">
 			<div class="mb-8 flex items-start">
 				<div class="h-12 w-12 rounded-full border-2 border-red-600">
-					<img alt="SuaraKami logo" loading="eager" src={logo} />
+					<img alt="SuaraKami logo" loading="eager" src={logo} width="44" height="44" />
 				</div>
 			</div>
 			<h1 class="mb-4 text-5xl font-bold leading-none tracking-tight sm:text-6xl">
