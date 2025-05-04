@@ -34,6 +34,17 @@
 
 		<div class="mb-12 grid grid-cols-2 gap-4">
 			<a
+				href="https://forms.gle/BeZrtBptqEZPesT1A"
+				class="group relative col-span-2 flex h-24 items-center justify-center bg-[#8B5CF6] text-white"
+			>
+				<Icon icon="lucide:file-text" class="mr-2 h-6 w-6" />
+				<span class="text-sm font-bold tracking-wider">KKN Indonesia Gemas!</span>
+				<Icon
+					icon="lucide:external-link"
+					class="absolute right-2 top-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+				/>
+			</a>
+			<a
 				href="https://www.instagram.com/suarakami"
 				class="group relative flex h-24 items-center justify-center bg-gradient-to-br from-purple-600 to-pink-500 text-white"
 			>
