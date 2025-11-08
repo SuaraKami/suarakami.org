@@ -1,7 +1,4 @@
 export const siteConfig = {
-  title: 'SuaraKami',
-  description:
-    'SuaraKami is a platform dedicated to amplifying Indonesian voices worldwide through storytelling, community engagement, and cultural exchange.',
   i18n: {
     languages: {
       en: {

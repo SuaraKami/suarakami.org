@@ -9,9 +9,6 @@ import Events from '@/components/landing/Events.astro'
 import Hero from '@/components/landing/Hero.astro'
 import Separator from '@/components/Separator.vue'
 import { getLangFromUrl } from '@/i18n/utils'
-import { siteConfig } from '@/site.config'
-
-const { title, description } = siteConfig
 
 const lang = getLangFromUrl(Astro.url)
 const page = await getEntry('index', lang)
@@ -24,7 +21,7 @@ if (!page) {
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={page.data.title} description={page.data.description} />
   </head>
   <body>
     <Header />
