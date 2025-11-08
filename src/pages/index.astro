@@ -1,0 +1,113 @@
+---
+import { Icon } from 'astro-icon/components'
+import { getCollection } from 'astro:content'
+import logo from '@/assets/logo.png'
+import Layout from '@/layouts/Layout.astro'
+import { cn } from '@/lib/utils'
+
+const links = await getCollection('links')
+const featuredIdx = links.findIndex(link => link.data.featured)
+const featured = links[featuredIdx]
+const restLinks = links.filter((_, idx) => idx !== featuredIdx)
+---
+
+<Layout
+  title="SuaraKami - Youth Initiative for Public Policy Education"
+  description="SuaraKami adalah sebuah inisiatif non-profit diaspora muda Indonesia yang berpusat di Aachen, Jerman. Kami bergerak dalam lingkup demokrasi dan berdedikasi di bidang pendidikan kebijakan publik"
+>
+  <div class="absolute top-0 right-0 h-24 w-24 bg-red-600"></div>
+  <div class="absolute top-14 right-14 h-12 w-12 bg-black"></div>
+  <main class="relative mx-auto max-w-md py-12">
+    <header class="mb-12">
+      <div class="mb-8 flex items-start">
+        <div class="h-12 w-12 rounded-full border-2 border-red-600">
+          <img alt="SuaraKami logo" loading="eager" src={logo.src} width="44" height="44" />
+        </div>
+      </div>
+      <h1
+        class="mb-4 text-5xl leading-none font-bold tracking-tight sm:text-6xl"
+      >
+        SUARA<br />KAMI
+      </h1>
+      <div class="flex items-center gap-2 text-sm">
+        <Icon name="lucide:dot" class="h-4 w-4 text-red-600" />
+        <span>AACHEN</span>
+        <Icon name="lucide:dot" class="h-4 w-4" />
+        <span>EST. 2019</span>
+      </div>
+    </header>
+
+    <div class="mb-12 border-l-2 border-black pl-4">
+      <p class="text-lg font-medium">
+        Pergerakan pemuda non-profit dan non-partisan dibidang sosial politik dalam lingkup demokrasi 🇮🇩
+      </p>
+    </div>
+
+    <div class="mb-12 grid grid-cols-2 gap-4">
+      {
+        featured && (
+          <a
+            href={featured.data.url}
+            class={`
+              group relative col-span-2 flex h-24 items-center justify-center
+              bg-[#8B5CF6] text-white
+            `}
+          >
+            <Icon name={featured.data.icon} class="mr-2 h-6 w-6" />
+            {featured.data.title && (
+              <span class="ml-2 text-sm font-bold tracking-wider">
+                {featured.data.title}
+              </span>
+            )}
+            <Icon
+              name="lucide:external-link"
+              class={`
+                absolute top-2 right-2 h-4 w-4 transition-transform
+                group-hover:translate-x-1
+              `}
+            />
+          </a>
+        )
+      }
+      {
+        restLinks.map(link => (
+          <a
+            href={link.data.url}
+            class={cn('group relative flex h-24 items-center justify-center', link.data.class)}
+          >
+            <Icon name={link.data.icon} class="size-6" />
+            {link.data.title && (
+              <span class="ml-2 text-sm font-bold tracking-wider">
+                {link.data.title}
+              </span>
+            )}
+            <Icon
+              name="lucide:external-link"
+              class={`
+                absolute top-2 right-2 h-4 w-4 transition-transform
+                group-hover:translate-x-1
+              `}
+            />
+          </a>
+        ))
+      }
+    </div>
+    <div class="relative">
+      <div class="absolute top-0 bottom-0 -left-4 w-1 bg-red-600"></div>
+      <button
+        class={`
+          inline-flex items-center justify-start gap-4 px-4 py-2 text-lg
+          font-medium whitespace-nowrap
+          hover:bg-transparent hover:text-red-600
+        `}
+      >
+        <Icon name="lucide:mail" class="h-5 w-5" />
+        info@suarakami.id
+      </button>
+    </div>
+    <footer class="mt-12 flex items-center justify-between text-sm">
+      <span>© {new Date().getFullYear()} SuaraKami</span>
+      <div class="h-px w-12 bg-black"></div>
+    </footer>
+  </main>
+</Layout>
