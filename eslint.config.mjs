@@ -14,7 +14,7 @@ export default antfu(
       },
     },
     formatters: {
-      astro: 'prettier',
+      astro: true,
     },
     typescript: true,
     vue: {
