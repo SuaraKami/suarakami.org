@@ -1,4 +1,8 @@
 {
+  "yaml.schemas": {
+    "./.astro/collections/index.schema.json": ["/src/content/index/**/*.yml"]
+  },
+
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
   "editor.formatOnSave": false,
