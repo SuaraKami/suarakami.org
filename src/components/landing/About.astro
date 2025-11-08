@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import type { LanguageKeys } from '@/i18n/ui'
+import { useTranslations } from '@/i18n/utils'
+import Container from '../Container.vue'
+
+interface Props {
+  page: CollectionEntry<'index'>
+  lang: LanguageKeys
+}
+const { page, lang } = Astro.props
+
+const t = useTranslations(lang)
+const paragraphs = page.data.about.split('\n').filter(Boolean)
+---
+
+<section id="about">
+  <Container>
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 space-y-4 md:col-span-3">
+        <span class="font-mono text-xs tracking-wider opacity-40">01</span>
+        <h2 class="text-5xl leading-tight font-light md:text-6xl">
+          {t('landing.whoWeAre')}
+        </h2>
+      </div>
+      <div class="col-span-12 space-y-8 md:col-span-8 md:col-start-5">
+        {
+          paragraphs.map((paragraph, i) => (
+            <p
+              class={
+                i === 0
+                  ? `
+                    text-xl leading-relaxed font-light tracking-tight
+                    md:text-2xl
+                    lg:text-3xl
+                  `
+                  : 'text-lg leading-relaxed font-light opacity-60 md:text-xl'
+              }
+            >
+              {paragraph}
+            </p>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,29 @@
+title: SuaraKami - Youth Initiative for Public Policy Education
+description: 'SuaraKami adalah sebuah inisiatif non-profit diaspora muda Indonesia yang berpusat di Aachen, Jerman. Kami bergerak dalam lingkup demokrasi dan berdedikasi di bidang pendidikan kebijakan publik.'
+hero:
+  title: 'KKN The Series: tax.talk'
+  description: 'Yuk ngopi bareng di tax.talk (KKN The Series): diskusi ringan tentang kenapa pajak penting dan bagaimana itu membentuk hidup yang kita jalani bersama.'
+  date: 2025-11-14
+  time: '19:00 - 21:00 CET'
+  location: 'Humboldt-Haus RWTH Aachen, 2. OG'
+  link:
+    label: Registrasi
+    to: 'https://tally.so/r/EkzdAr'
+    target: _blank
+
+about: |
+  SuaraKami adalah komunitas yang dikelola anak muda Indonesia di Aachen. Kami lahir dari keyakinan bahwa kita semua butuh ruang aman untuk menyampaikan gagasan secara terbuka, disambut dengan rasa ingin tahu, lalu diasah lewat perdebatan yang membangun.
+
+  Kami membuat konten sosial media agar isu publik terasa dekat dan mudah dimengerti, menyelenggarakan ruang dialog untuk melatih perdebatan yang saling menghormati dan memastikan setiap suara didengar, serta nantinya membangun platform digital untuk membantu mewujudkan tujuan kami.
+
+  Tujuan kami jelas: memperkuat publik dari bawah ke atas dan ikut membentuk Indonesia yang lebih adil, yang tidak mudah dikendalikan oleh kepentingan sepihak. Kami tetap idealis sekaligus pragmatis, berpihak pada kepentingan publik, dan bekerja kolaboratif dalam semangat gotong royong.
+events:
+  - title: Independent Media Platform
+    description: 'Launched a platform reaching 50,000+ monthly readers with stories on governance and social issues'
+    when: 2021 - Present
+  - title: Community Dialogue Forums
+    description: 'Facilitated dialogues on democracy and human rights with 500+ participants'
+    when: 2020 - Present
+  - title: Digital Literacy Campaign
+    description: 'Implemented campaigns improving digital literacy for 1,200+ individuals'
+    when: 2023 - Present
