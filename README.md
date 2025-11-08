@@ -5,7 +5,7 @@
 Make sure to install the dependencies:
 
 ```bash
-pnpm install
+bun install
 ```
 
 ## Development Server
@@ -13,7 +13,7 @@ pnpm install
 Start the development server on `http://localhost:4321`:
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 ## Production
@@ -21,11 +21,11 @@ pnpm dev
 Build the application for production:
 
 ```bash
-pnpm build
+bun build
 ```
 
 Locally preview production build:
 
 ```bash
-pnpm preview
+bun preview
 ```
