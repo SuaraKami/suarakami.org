@@ -1,7 +1,7 @@
 // @ts-check
 import mdx from '@astrojs/mdx'
-import netlify from '@astrojs/netlify'
 import sitemap from '@astrojs/sitemap'
+import vercel from '@astrojs/vercel'
 import vue from '@astrojs/vue'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, fontProviders } from 'astro/config'
@@ -11,7 +11,7 @@ import Icons from 'unplugin-icons/vite'
 export default defineConfig({
   site: 'https://suarakami.netlify.app/',
   integrations: [mdx(), sitemap(), vue()],
-  adapter: netlify(),
+  adapter: vercel(),
   vite: {
     plugins: [
       tailwindcss(),
