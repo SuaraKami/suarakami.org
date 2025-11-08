@@ -1,5 +1,4 @@
 // @ts-check
-import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import vercel from '@astrojs/vercel'
 import vue from '@astrojs/vue'
@@ -10,8 +9,8 @@ import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://suarakami.netlify.app/',
-  integrations: [mdx(), sitemap(), vue(), playformCompress()],
+  site: 'https://suarakami.org',
+  integrations: [sitemap(), vue(), playformCompress()],
   adapter: vercel(),
   vite: {
     plugins: [
