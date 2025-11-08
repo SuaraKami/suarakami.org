@@ -1,12 +1,12 @@
 ---
-import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/logo.svg'
+import ExternalLink from '@/components/ExternalLink.astro'
+import FeaturedLink from '@/components/FeaturedLink.astro'
 import Layout from '@/layouts/Layout.astro'
-import { cn } from '@/lib/utils'
 
 const links = await getCollection('links')
-const featuredIdx = links.findIndex(link => link.data.featured)
+const featuredIdx = links.findIndex((link) => link.data.featured)
 const featured = links[featuredIdx]
 const restLinks = links.filter((_, idx) => idx !== featuredIdx)
 ---
@@ -15,99 +15,55 @@ const restLinks = links.filter((_, idx) => idx !== featuredIdx)
   title="SuaraKami - Youth Initiative for Public Policy Education"
   description="SuaraKami adalah sebuah inisiatif non-profit diaspora muda Indonesia yang berpusat di Aachen, Jerman. Kami bergerak dalam lingkup demokrasi dan berdedikasi di bidang pendidikan kebijakan publik"
 >
-  <div class="absolute top-0 right-0 h-24 w-24 bg-red-600"></div>
-  <div class="absolute top-14 right-14 h-12 w-12 bg-black"></div>
-  <main class="relative mx-auto max-w-md py-12">
-    <header class="mb-12">
-      <div class="mb-8 flex items-start">
-        <div class="h-12 w-12 rounded-full border-2 border-red-600">
-          <img alt="SuaraKami logo" loading="eager" src={logo.src} width="44" height="44" />
-        </div>
+  <main class="min-h-screen bg-background text-foreground">
+    <header class="px-6 pt-16 pb-12 md:px-12 md:pt-24 md:pb-16 lg:px-16 lg:pt-32 lg:pb-20">
+      <div class="relative">
+        <a href="/" class="mb-16 inline-block transition-opacity hover:opacity-60">
+          <img src={logo.src} alt="SuaraKami" class="h-6 w-auto md:h-8" />
+        </a>
+        <div class="absolute -top-8 right-0 h-0.5 w-24 bg-accent md:w-32"></div>
       </div>
-      <h1
-        class="mb-4 text-5xl leading-none font-bold tracking-tight sm:text-6xl"
-      >
-        SUARA<br />KAMI
-      </h1>
-      <div class="flex items-center gap-2 text-sm">
-        <Icon name="lucide:dot" class="h-4 w-4 text-red-600" />
-        <span>AACHEN</span>
-        <Icon name="lucide:dot" class="h-4 w-4" />
-        <span>EST. 2019</span>
+      <div class="mt-12 ml-auto max-w-md md:mt-16 lg:mt-20">
+        <p class="text-right text-base leading-relaxed font-light md:text-lg lg:text-xl">
+          Pergerakan pemuda non-profit dan non-partisan dibidang sosial politik dalam lingkup demokrasi 🇮🇩
+        </p>
       </div>
     </header>
 
-    <div class="mb-12 border-l-2 border-black pl-4">
-      <p class="text-lg font-medium">
-        Pergerakan pemuda non-profit dan non-partisan dibidang sosial politik dalam lingkup demokrasi 🇮🇩
-      </p>
-    </div>
-
-    <div class="mb-12 grid grid-cols-2 gap-4">
+    <section class="px-6 pb-16 md:px-12 md:pb-24 lg:px-16 lg:pb-32">
       {
         featured && (
-          <a
-            href={featured.data.url}
-            class={`
-              group relative col-span-2 flex h-24 items-center justify-center
-              bg-[#8B5CF6] text-white
-            `}
-          >
-            <Icon name={featured.data.icon} class="mr-2 h-6 w-6" />
-            {featured.data.title && (
-              <span class="ml-2 text-sm font-bold tracking-wider">
-                {featured.data.title}
-              </span>
-            )}
-            <Icon
-              name="lucide:external-link"
-              class={`
-                absolute top-2 right-2 h-4 w-4 transition-transform
-                group-hover:translate-x-1
-              `}
-            />
-          </a>
+          <FeaturedLink title={featured.data.title} description={featured.data.description} href={featured.data.url} />
         )
       }
-      {
-        restLinks.map(link => (
-          <a
-            href={link.data.url}
-            class={cn('group relative flex h-24 items-center justify-center', link.data.class)}
-          >
-            <Icon name={link.data.icon} class="size-6" />
-            {link.data.title && (
-              <span class="ml-2 text-sm font-bold tracking-wider">
-                {link.data.title}
-              </span>
-            )}
-            <Icon
-              name="lucide:external-link"
-              class={`
-                absolute top-2 right-2 h-4 w-4 transition-transform
-                group-hover:translate-x-1
-              `}
-            />
-          </a>
-        ))
-      }
-    </div>
-    <div class="relative">
-      <div class="absolute top-0 bottom-0 -left-4 w-1 bg-red-600"></div>
-      <button
-        class={`
-          inline-flex items-center justify-start gap-4 px-4 py-2 text-lg
-          font-medium whitespace-nowrap
-          hover:bg-transparent hover:text-red-600
-        `}
-      >
-        <Icon name="lucide:mail" class="h-5 w-5" />
-        info@suarakami.id
-      </button>
-    </div>
-    <footer class="mt-12 flex items-center justify-between text-sm">
-      <span>© {new Date().getFullYear()} SuaraKami</span>
-      <div class="h-px w-12 bg-black"></div>
+    </section>
+
+    <section class="px-6 pb-20 md:px-12 md:pb-32 lg:px-16 lg:pb-40">
+      <div class="max-w-6xl">
+        <div class="space-y-1">
+          {
+            restLinks.map((link, idx) => (
+              <ExternalLink title={link.data.title} href={link.data.url} icon={link.data.icon} index={idx} />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-foreground/20 px-6 py-12 md:px-12 md:py-16 lg:px-16">
+      <div class="flex flex-col items-start justify-between gap-12 md:flex-row md:gap-8">
+        <div class="space-y-4">
+          <p class="font-mono text-xs tracking-wider uppercase opacity-40">SuaraKami</p>
+          <p class="max-w-md text-sm leading-relaxed font-light opacity-60 md:text-base">
+            Born in Aachen, made for Indonesians everywhere
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <div class="h-8 w-8 bg-accent"></div>
+          <p class="font-mono text-xs tracking-wider uppercase opacity-40">2025</p>
+        </div>
+      </div>
     </footer>
   </main>
 </Layout>

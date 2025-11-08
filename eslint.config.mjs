@@ -4,12 +4,9 @@ import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
 
 export default antfu(
   {
-    astro: {
-      overrides: {
-        'style/indent': ['error', 2],
-        'style/jsx-indent': 'off',
-        'style/jsx-one-expression-per-line': 'off',
-      },
+    astro: true,
+    formatters: {
+      astro: true,
     },
     typescript: true,
   },
@@ -25,6 +22,7 @@ export default antfu(
       ...eslintPluginBetterTailwindcss.configs.recommended.rules,
       'better-tailwindcss/enforce-consistent-line-wrapping': ['warn', {
         preferSingleLine: true,
+        printWidth: 100,
       }],
     },
     settings: {

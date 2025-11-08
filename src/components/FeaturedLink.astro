@@ -1,0 +1,66 @@
+---
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  title: string
+  description?: string
+  href: string
+}
+
+const { title, description, href } = Astro.props
+---
+
+<div class="relative">
+  <div class="absolute top-0 -left-6 h-full w-[40vw] bg-accent opacity-5 md:-left-12 lg:-left-16"></div>
+
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={`
+      group relative block max-w-4xl border border-foreground/20 p-2 transition-all duration-500
+      hover:border-accent
+      sm:p-8
+      md:ml-[8vw] md:p-12
+      lg:p-16
+    `}
+  >
+    <div class="mb-6 flex items-center gap-4 md:mb-8">
+      <div class="h-2 w-2 bg-accent"></div>
+      <p class="font-mono text-xs tracking-widest uppercase opacity-60 md:text-sm">Featured</p>
+    </div>
+
+    <h2
+      class={`
+        mb-6 w-68 text-right text-3xl leading-none font-light tracking-tight uppercase
+        transition-opacity
+        group-hover:opacity-60
+        sm:w-72 sm:text-4xl
+        md:mb-8 md:w-96 md:text-5xl
+        lg:mb-12 lg:w-xl lg:text-7xl
+      `}
+    >
+      {title}
+      <br />
+    </h2>
+
+    <div class="max-w-lg md:ml-[8vw]">
+      <p class="mb-6 text-base leading-relaxed font-light opacity-80 md:mb-8 md:text-lg">
+        {description ?? 'No description provided.'}
+      </p>
+
+      <div class="flex items-center gap-3 text-accent">
+        <span class="font-mono text-sm tracking-wider uppercase md:text-base">Open Link</span>
+        <Icon
+          name="lucide:arrow-right"
+          class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-2"
+          stroke-width={1.5}
+        />
+      </div>
+    </div>
+
+    <div class="absolute right-8 bottom-8 md:right-12 md:bottom-12">
+      <p class="text-8xl leading-none font-light opacity-5 md:text-9xl">01</p>
+    </div>
+  </a>
+</div>

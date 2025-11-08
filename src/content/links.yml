@@ -1,28 +1,26 @@
 gform:
   title: KKN The Series "tax.talk"
+  description: 'Ngopi bareng di tax.talk: diskusi ringan soal kenapa pajak penting dan pengaruhnya buat kehidupan kita.'
   url: https://tally.so/r/EkzdAr
   featured: true
-  icon: lucide:file-text
-  class: bg-[#8B5CF6] text-white
 
 instagrarm:
+  title: Instagram
   url: https://www.instagram.com/suarakami
   icon: simple-icons:instagram
   featured: true
-  class: bg-gradient-to-br from-purple-600 to-pink-500 text-white
 
 x:
+  title: X / Twitter
   url: https://x.com/suarakamiapp
   icon: simple-icons:x
-  class: bg-black text-white
 
 linkedin:
+  title: LinkedIn
   url: https://www.linkedin.com/company/suarakami
   icon: simple-icons:linkedin
-  class: bg-[#0A66C2] text-white
 
 website:
   title: Website
   url: https://suarakami.org
   icon: lucide:globe
-  class: border-2 border-black bg-white uppercase
