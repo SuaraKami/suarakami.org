@@ -10,7 +10,7 @@ pnpm install
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Start the development server on `http://localhost:4321`:
 
 ```bash
 pnpm dev
@@ -29,5 +29,3 @@ Locally preview production build:
 ```bash
 pnpm preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
