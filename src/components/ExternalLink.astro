@@ -16,9 +16,9 @@ const { title, href, index, icon = 'lucide:external-link' } = Astro.props
   target="_blank"
   rel="noopener noreferrer"
   class:list={[
-    `group block border-b border-foreground/20 py-6 transition-all`,
+    `group block border-b border-border py-6 transition-colors`,
     'duration-300',
-    'hover:border-foreground/60',
+    'hover:border-accent',
     'md:py-8',
     { 'border-y': index === 0 },
     { 'md:ml-[10vw]': index % 2 === 1 },
