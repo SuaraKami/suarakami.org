@@ -8,15 +8,19 @@ import eslintParserVue from 'vue-eslint-parser'
 
 export default antfu(
   {
-    astro: true,
-    formatters: true,
+    astro: {
+      overrides: {
+        'style/brace-style': 'off',
+      },
+    },
+    formatters: {
+      astro: 'prettier',
+    },
     typescript: true,
-    vue: true,
-  },
-  {
-    files: ['**/*.vue'],
-    rules: {
-      'import/first': 'off',
+    vue: {
+      overrides: {
+        'import/first': 'off',
+      },
     },
   },
   {
@@ -40,10 +44,6 @@ export default antfu(
       'better-tailwindcss/enforce-consistent-line-wrapping': ['warn', {
         preferSingleLine: true,
       }],
-      'better-tailwindcss/enforce-consistent-class-order': ['warn', {
-        order: 'improved',
-      }],
-      'better-tailwindcss/no-unregistered-classes': 'warn',
     },
     settings: {
       'better-tailwindcss': {

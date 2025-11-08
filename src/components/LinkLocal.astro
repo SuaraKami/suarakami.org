@@ -22,8 +22,7 @@ let isActive: boolean
 if (isExternal) {
   finalHref = href
   isActive = false
-}
- else {
+} else {
   const lang = locale ?? getLangFromUrl(Astro.url)
   const translatePath = useTranslatedPath(lang)
 
