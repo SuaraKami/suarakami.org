@@ -11,6 +11,7 @@ export default antfu(
     astro: true,
     formatters: {
       astro: true,
+      css: true,
     },
     stylistic: {
       overrides: {

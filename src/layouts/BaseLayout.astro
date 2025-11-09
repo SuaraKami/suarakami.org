@@ -1,6 +1,7 @@
 ---
 import type { LanguageKeys } from '@/i18n'
 import BaseHead from '@/components/BaseHead.astro'
+import CustomCursor from '@/components/CustomCursor.vue'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import LanguageRedirect from '@/components/LanguageRedirect.astro'
@@ -22,6 +23,7 @@ const { title, description, lang = 'en', includeLanguageRedirect = false } = Ast
   </head>
   <body>
     {includeLanguageRedirect && <LanguageRedirect />}
+    <CustomCursor lang={lang} client:only="vue" />
     <Header />
     <main class="my-16 lg:my-48">
       <slot />

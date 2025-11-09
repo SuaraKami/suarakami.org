@@ -49,10 +49,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
+    cursor: none;
   }
+
   ::selection {
     @apply bg-accent/20;
+  }
+
+  a,
+  button {
+    cursor: none;
   }
 }
