@@ -29,15 +29,19 @@ const t = useTranslations(lang)
       <DialogOverlay
         class="
           fixed inset-0 z-50 bg-black/80
-          data-[state=closed]:animate-out data-[state=closed]:fade-out-0
-          data-[state=open]:animate-in data-[state=open]:fade-in-0
+          data-[state=closed]:animate-out
+          data-[state=closed]:duration-[calc(var(--duration-circle-out)+500ms)]
+          data-[state=closed]:fade-out
+          data-[state=open]:animate-in
+          data-[state=open]:duration-(--duration-circle-in)
+          data-[state=open]:ease-in-out data-[state=open]:fade-in
         "
       />
       <DialogContent
         class="
-          fixed inset-0 z-50 bg-background duration-200
-          data-[state=closed]:animate-out data-[state=closed]:fade-out-0
-          data-[state=open]:animate-in data-[state=open]:fade-in-0
+          fixed inset-0 z-50 bg-background
+          data-[state=closed]:animate-circle-out
+          data-[state=open]:animate-circle-in
         "
       >
         <VisuallyHidden>
