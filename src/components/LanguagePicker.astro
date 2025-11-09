@@ -15,7 +15,12 @@ const { class: className = '', langClass = '', activeLangClass = '' } = Astro.pr
 
 const { languages } = siteConfig.i18n
 const languageKeys = Object.keys(languages) as Array<LanguageKeys>
-const isActiveLang = (code: string) => code === getLangFromUrl(Astro.url)
+
+const referer = Astro.request.headers.get('Referer')
+const url = new URL(referer!)
+const href = `${url.pathname}${url.search}${url.hash}`
+
+const isActiveLang = (code: string) => code === getLangFromUrl(url)
 ---
 
 <div class={className}>
@@ -23,7 +28,7 @@ const isActiveLang = (code: string) => code === getLangFromUrl(Astro.url)
     languageKeys.map((lang, i) => (
       <>
         <LinkLocal
-          href={Astro.url.pathname}
+          href={href}
           locale={lang}
           class={cn(langClass, {
             [activeLangClass]: isActiveLang(lang),
@@ -31,7 +36,7 @@ const isActiveLang = (code: string) => code === getLangFromUrl(Astro.url)
         >
           {lang}
         </LinkLocal>
-        {i < Object.keys(languages).length - 1 ? <slot name="separator" /> : null}
+        {i < Object.keys(languages).length - 1 && <slot name="separator" />}
       </>
     ))
   }
