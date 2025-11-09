@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useMediaQuery, useWindowScroll } from '@vueuse/core'
+import { useWindowScroll } from '@vueuse/core'
 import { ref, watch } from 'vue'
+import { useIsDesktop } from '@/composables/useIsDesktop'
 import Container from './Container.vue'
 
 const { directions } = useWindowScroll({ throttle: 300 })
-const isDesktop = useMediaQuery('(width >= 48rem)')
+const isDesktop = useIsDesktop()
 const isHeaderVisible = ref(true)
 
 function updateVisibility() {
