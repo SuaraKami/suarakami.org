@@ -2,7 +2,6 @@
 import type { LanguageKeys } from '@/i18n'
 import { computed } from 'vue'
 import { siteConfig } from '@/site.config'
-import ClientOnly from './ClientOnly.vue'
 
 interface Props {
   lang?: LanguageKeys
@@ -53,9 +52,7 @@ const title = computed(() =>
 </script>
 
 <template>
-  <ClientOnly v-slot="{ attrs }">
-    <time v-bind="attrs" :datetime="isoDate" :title="title">
-      {{ formattedDate }}
-    </time>
-  </ClientOnly>
+  <time :datetime="isoDate" :title="title">
+    {{ formattedDate }}
+  </time>
 </template>
