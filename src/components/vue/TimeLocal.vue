@@ -32,7 +32,7 @@ interface Props {
 
 const {
   datetime = Date.now(),
-  lang = siteConfig.i18n.defaultLang,
+  lang,
   ...formatOptions
 } = defineProps<Props>()
 
@@ -41,8 +41,8 @@ const date = computed(() => {
 })
 
 const formattedDate = computed(() => {
-  const { languages } = siteConfig.i18n
-  return date.value.toLocaleDateString(languages[lang].code, formatOptions)
+  const { languages, defaultLang } = siteConfig.i18n
+  return date.value.toLocaleDateString(languages[lang ?? defaultLang].code, formatOptions)
 })
 
 const isoDate = computed(() => date.value.toISOString())

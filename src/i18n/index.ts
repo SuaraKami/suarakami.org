@@ -7,10 +7,12 @@ const LANG_COOKIE = 'i18n_lang'
 
 export { type LanguageKeys }
 
-export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split('/')
-  if (lang in ui)
-    return lang as LanguageKeys
+export function getLangFromUrl(url?: URL) {
+  if (url) {
+    const [, lang] = url.pathname.split('/')
+    if (lang in ui)
+      return lang as LanguageKeys
+  }
   return defaultLang
 }
 

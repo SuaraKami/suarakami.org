@@ -1,11 +1,11 @@
 ---
 import type { LanguageKeys } from '@/i18n'
 import BaseHead from '@/components/BaseHead.astro'
-import CustomCursor from '@/components/CustomCursor.vue'
 import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import LanguageRedirect from '@/components/LanguageRedirect.astro'
 import SmoothScroll from '@/components/SmoothScroll.astro'
+import CustomCursor from '@/components/vue/CustomCursor.vue'
 
 interface Props {
   title: string
@@ -26,7 +26,7 @@ const { title, description, lang = 'en', includeLanguageRedirect = false } = Ast
     {includeLanguageRedirect && <LanguageRedirect />}
     <SmoothScroll />
     <CustomCursor lang={lang} client:only="vue" />
-    <Header />
+    <Header lang={lang} />
     <main class="my-16 lg:my-48">
       <slot />
     </main>

@@ -1,15 +1,20 @@
 ---
-import { getLangFromUrl, useTranslations } from '@/i18n'
+import type { LanguageKeys } from '@/i18n'
+import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
-import VHeader from './Header.vue'
-import LinkLocal from './LinkLocal.vue'
 import Logo from './Logo.astro'
+import VHeader from './vue/Header.vue'
+import LinkLocal from './vue/LinkLocal.vue'
 
-const lang = getLangFromUrl(Astro.url)
+interface Props {
+  lang: LanguageKeys
+}
+
+const { lang } = Astro.props
 const t = useTranslations(lang)
 ---
 
-<VHeader lang="en" client:idle>
+<VHeader lang={lang} client:idle>
   <Logo slot="logo" />
   {
     siteConfig.navigation.map((link, i) => (
