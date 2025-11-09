@@ -2,21 +2,15 @@
 import { getLangFromUrl, useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 import VHeader from './Header.vue'
-import LanguagePicker from './LanguagePicker.vue'
 import LinkLocal from './LinkLocal.vue'
 import Logo from './Logo.astro'
-import MobileNavigation from './MobileNavigation.vue'
-import TimeLocal from './TimeLocal.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
-
-const { footer } = siteConfig
 ---
 
-<VHeader lang="en" client:visible>
+<VHeader lang="en" client:idle>
   <Logo slot="logo" />
-
   {
     siteConfig.navigation.map((link, i) => (
       <LinkLocal href={link.to} class="group flex items-center gap-2" client:only="vue">
@@ -32,51 +26,4 @@ const { footer } = siteConfig
       </LinkLocal>
     ))
   }
-
-  <LanguagePicker
-    class={`
-      flex items-center gap-2 border-l border-border pl-6 font-mono text-xs
-      tracking-wider uppercase opacity-40
-    `}
-    langClass="opacity-40 transition-opacity hover:opacity-60"
-    activeLangClass="opacity-100"
-    client:only="vue"
-  >
-    <span slot="separator">/</span>
-  </LanguagePicker>
-
-  <MobileNavigation slot="mobile-nav" lang={lang} client:only="vue">
-    <Logo slot="logo" />
-
-    <LanguagePicker
-      slot="language-picker"
-      class="space-y-3"
-      langClass={`
-        block text-2xl font-light tracking-tight uppercase opacity-30
-        transition-opacity
-        hover:opacity-60
-      `}
-      activeLangClass="opacity-100"
-      client:only="vue"
-    />
-
-    <div
-      slot="footer"
-      class={`
-        relative col-span-12 overflow-hidden bg-foreground p-6 text-background
-      `}
-    >
-      <div
-        class={`
-          absolute top-1/2 right-6 -translate-y-1/2 text-[120px] leading-none
-          font-light opacity-10
-        `}
-      >
-        <TimeLocal datetime={Date.now()} year="2-digit" />
-      </div>
-      <p class="relative z-10 text-xs font-medium tracking-widest uppercase">
-        {footer.tagline}
-      </p>
-    </div>
-  </MobileNavigation>
 </VHeader>

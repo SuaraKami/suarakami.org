@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const show = ref(false)
+
+onMounted(() => {
+  show.value = true
+})
+</script>
+
+<template>
+  <slot v-if="show" v-bind="$attrs" />
+  <slot v-else name="fallback" />
+</template>

@@ -3,6 +3,7 @@ import type { LanguageKeys } from '@/i18n'
 import { useEventListener, useMediaQuery, useMouse } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import { useTranslations } from '@/i18n'
+import ClientOnly from './ClientOnly.vue'
 
 const props = defineProps<{
   lang: LanguageKeys
@@ -31,24 +32,26 @@ useEventListener(document, 'mouseout', event => checkHoverTarget(event, false))
 </script>
 
 <template>
-  <div
-    v-if="hasHover"
-    class="
-      pointer-events-none fixed z-9999 flex -translate-x-1/2 -translate-y-1/2
-      items-center justify-center rounded-full bg-sky-600 mix-blend-difference
-      transition-[width,height,background-color] duration-300 ease-in-out
-    "
-    :class="isHoveringLink ? 'size-20' : 'size-5'"
-    :style="cursorStyle"
-  >
-    <span
-      v-if="isHoveringLink"
+  <ClientOnly>
+    <div
+      v-if="hasHover"
       class="
-        text-xs font-medium tracking-widest text-white uppercase duration-200
-        fade-in
+        pointer-events-none fixed z-9999 flex -translate-x-1/2 -translate-y-1/2
+        items-center justify-center rounded-full bg-sky-600 mix-blend-difference
+        transition-[width,height,background-color] duration-300 ease-in-out
       "
+      :class="isHoveringLink ? 'size-20' : 'size-5'"
+      :style="cursorStyle"
     >
-      {{ t('cursor.view') }}
-    </span>
-  </div>
+      <span
+        v-if="isHoveringLink"
+        class="
+          text-xs font-medium tracking-widest text-white uppercase duration-200
+          fade-in
+        "
+      >
+        {{ t('cursor.view') }}
+      </span>
+    </div>
+  </ClientOnly>
 </template>

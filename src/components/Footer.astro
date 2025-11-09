@@ -1,7 +1,7 @@
 ---
 import { siteConfig } from '@/site.config'
 import Container from './Container.vue'
-import TimeLocal from './TimeLocal.astro'
+import TimeLocal from './TimeLocal.vue'
 
 const { footer } = siteConfig
 ---
@@ -16,7 +16,7 @@ const { footer } = siteConfig
         lg:pt-12
       `}
     >
-      <p>&copy; <TimeLocal year="numeric" /> {footer.copyright}</p>
+      <p>&copy; <TimeLocal year="numeric" client:only="vue" /> {footer.copyright}</p>
       <p>{footer.tagline}</p>
     </div>
   </Container>

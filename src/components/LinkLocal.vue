@@ -4,12 +4,13 @@ import { computed } from 'vue'
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
 import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
 import { cn } from '@/lib/utils'
+import ClientOnly from './ClientOnly.vue'
 
 const {
   href,
   locale,
-  class: className = '',
-  activeClass = '',
+  class: className,
+  activeClass,
 } = defineProps<{
   href: string
   locale?: LanguageKeys
@@ -53,9 +54,11 @@ const linkData = computed(() => {
 })
 
 const linkClass = computed(() => {
-  return cn(className, {
-    [activeClass]: linkData.value.isActive,
-  })
+  return activeClass
+    ? cn(className, {
+        [activeClass]: linkData.value.isActive,
+      })
+    : className
 })
 
 function normalizePath(pathname: string): string {
@@ -70,7 +73,9 @@ function handleClick() {
 </script>
 
 <template>
-  <a :href="linkData.href" :class="linkClass" @click="handleClick">
-    <slot />
-  </a>
+  <ClientOnly>
+    <a :href="linkData.href" :class="linkClass" @click="handleClick">
+      <slot />
+    </a>
+  </ClientOnly>
 </template>

@@ -3,17 +3,18 @@ import type { LanguageKeys } from '@/i18n'
 import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, VisuallyHidden } from 'reka-ui'
 import Languages from '~icons/lucide/languages'
 import Mail from '~icons/lucide/mail'
-import Menu from '~icons/lucide/menu'
 import X from '~icons/lucide/x'
 import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
+import LanguagePicker from './LanguagePicker.vue'
 import LinkLocal from './LinkLocal.vue'
+import TimeLocal from './TimeLocal.vue'
 
 const { lang } = defineProps<{
   lang: LanguageKeys
 }>()
 
-const { navigation, socialMediaLinks, email } = siteConfig
+const { navigation, socialMediaLinks, email, footer } = siteConfig
 const t = useTranslations(lang)
 </script>
 
@@ -23,7 +24,13 @@ const t = useTranslations(lang)
       aria-label="Open menu"
       class="transition-opacity hover:opacity-50 md:hidden"
     >
-      <Menu class="size-5" stroke-width="{1.5}" />
+      <svg viewBox="0 0 24 24" class="size-6" stroke-width="1.5">
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          d="M0 5h24M0 12h24M0 19h24"
+        />
+      </svg>
     </DialogTrigger>
     <DialogPortal>
       <DialogOverlay
@@ -57,7 +64,7 @@ const t = useTranslations(lang)
             "
           >
             <slot name="logo" />
-            <DialogClose aria-label="Close" as-child>
+            <DialogClose as-child>
               <button
                 aria-label="Close menu" class="
                   transition-opacity
@@ -135,7 +142,15 @@ const t = useTranslations(lang)
                 "
               >
                 <Languages class="size-4 opacity-20" />
-                <slot name="language-picker" />
+                <LanguagePicker
+                  class="space-y-3"
+                  lang-class="
+                    block text-2xl font-light tracking-tight uppercase
+                    opacity-30 transition-opacity
+                    hover:opacity-60
+                  "
+                  active-lang-class="opacity-100"
+                />
               </div>
 
               <DialogClose as-child>
@@ -222,7 +237,28 @@ const t = useTranslations(lang)
                   </DialogClose>
                 </div>
               </div>
-              <slot name="footer" />
+              <div
+                class="
+                  relative col-span-12 overflow-hidden bg-foreground p-6
+                  text-background
+                "
+              >
+                <div
+                  class="
+                    absolute top-1/2 right-6 -translate-y-1/2 text-[120px]
+                    leading-none font-light opacity-10
+                  "
+                >
+                  <TimeLocal :lang :datetime="Date.now()" year="2-digit" />
+                </div>
+                <p
+                  class="
+                    relative z-10 text-xs font-medium tracking-widest uppercase
+                  "
+                >
+                  {{ footer.tagline }}
+                </p>
+              </div>
             </div>
           </div>
         </div>

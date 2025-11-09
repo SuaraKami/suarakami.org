@@ -2,6 +2,7 @@
 import type { LanguageKeys } from '@/i18n'
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
 import { siteConfig } from '@/site.config'
+import ClientOnly from './ClientOnly.vue'
 import LinkLocal from './LinkLocal.vue'
 
 const {
@@ -21,17 +22,19 @@ const { currentHref } = useBrowserUrl()
 </script>
 
 <template>
-  <div :class="className">
-    <template v-for="(lang, i) in languageKeys" :key="lang">
-      <LinkLocal
-        :href="currentHref"
-        :locale="lang"
-        :class="langClass"
-        :active-class="activeLangClass"
-      >
-        {{ lang }}
-      </LinkLocal>
-      <slot v-if="i < languageKeys.length - 1" name="separator" />
-    </template>
-  </div>
+  <ClientOnly>
+    <div :class="className">
+      <template v-for="(lang, i) in languageKeys" :key="lang">
+        <LinkLocal
+          :href="currentHref"
+          :locale="lang"
+          :class="langClass"
+          :active-class="activeLangClass"
+        >
+          {{ lang }}
+        </LinkLocal>
+        <slot v-if="i < languageKeys.length - 1" name="separator" />
+      </template>
+    </div>
+  </ClientOnly>
 </template>
