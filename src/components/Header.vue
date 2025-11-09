@@ -3,6 +3,7 @@ import type { LanguageKeys } from '@/i18n'
 import { useWindowScroll } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 import { useIsDesktop } from '@/composables/useIsDesktop'
+import ClientOnly from './ClientOnly.vue'
 import Container from './Container.vue'
 import LanguagePicker from './LanguagePicker.vue'
 import MobileNavigation from './MobileNavigation.vue'
@@ -58,11 +59,13 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
             </template>
           </LanguagePicker>
         </nav>
-        <MobileNavigation v-if="!isDesktop" :lang>
-          <template #logo>
-            <slot name="logo" />
-          </template>
-        </MobileNavigation>
+        <ClientOnly v-slot="{ attrs }">
+          <MobileNavigation v-if="!isDesktop" v-bind="attrs" :lang>
+            <template #logo>
+              <slot name="logo" />
+            </template>
+          </MobileNavigation>
+        </ClientOnly>
       </div>
     </Container>
   </header>
