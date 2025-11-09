@@ -21,17 +21,17 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
-        provider: fontProviders.google(),
-        name: 'Geist',
-        cssVariable: '--font-geist',
-        weights: ['300'],
+        provider: fontProviders.fontshare(),
+        name: 'Cabinet Grotesk',
+        cssVariable: '--font-cabinet',
+        weights: ['500'],
         styles: ['normal'],
       },
       {
         provider: fontProviders.google(),
         name: 'IBM Plex Mono',
         cssVariable: '--font-ibm-mono',
-        weights: ['300'],
+        weights: ['400'],
         styles: ['normal'],
       },
     ],

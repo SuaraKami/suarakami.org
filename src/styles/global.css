@@ -3,7 +3,7 @@
 @import 'lenis/dist/lenis.css';
 
 :root {
-  --ui-container: 100rem;
+  --ui-container: 115rem;
 
   --duration-circle-in: 0.8s;
   --duration-circle-out: 0.6s;
@@ -17,7 +17,7 @@
 }
 
 @theme {
-  --font-sans: var(--font-geist), sans-serif, system-ui;
+  --font-sans: var(--font-cabinet), sans-serif, system-ui;
   --font-mono: var(--font-ibm-mono), monospace;
 
   --animate-circle-in: circle-in var(--duration-circle-in) cubic-bezier(0.4, 0, 0.2, 1);
