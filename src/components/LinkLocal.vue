@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n/ui'
+import type { LanguageKeys } from '@/i18n'
 import { computed } from 'vue'
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
-import { useTranslatedPath } from '@/i18n/utils'
+import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
 import { cn } from '@/lib/utils'
 
 const {
@@ -41,9 +41,7 @@ const linkData = computed(() => {
   const translatedPath = translatePath(parsedUrl.pathname)
   const finalHref = `${translatedPath}${parsedUrl.search}${parsedUrl.hash}`
 
-  const normalizedFinalPath = normalizePath(translatedPath)
-  const normalizedCurrentPath = normalizePath(url.pathname)
-  const pathsMatch = normalizedFinalPath === normalizedCurrentPath
+  const pathsMatch = normalizePath(translatedPath) === normalizePath(url.pathname)
   const hashesMatch = parsedUrl.hash ? parsedUrl.hash === url.hash : true
   const isActive = pathsMatch && hashesMatch
 
@@ -63,10 +61,16 @@ const linkClass = computed(() => {
 function normalizePath(pathname: string): string {
   return pathname.replace(/\/$/, '') || '/'
 }
+
+function handleClick() {
+  if (locale) {
+    setPreferredLangCookie(locale)
+  }
+}
 </script>
 
 <template>
-  <a :href="linkData.href" :class="linkClass">
+  <a :href="linkData.href" :class="linkClass" @click="handleClick">
     <slot />
   </a>
 </template>

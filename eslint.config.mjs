@@ -8,13 +8,14 @@ import eslintParserVue from 'vue-eslint-parser'
 
 export default antfu(
   {
-    astro: {
+    astro: true,
+    formatters: {
+      astro: true,
+    },
+    stylistic: {
       overrides: {
         'style/brace-style': 'off',
       },
-    },
-    formatters: {
-      astro: true,
     },
     typescript: true,
     vue: {

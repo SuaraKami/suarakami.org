@@ -1,0 +1,31 @@
+---
+import type { LanguageKeys } from '@/i18n'
+import BaseHead from '@/components/BaseHead.astro'
+import Footer from '@/components/Footer.astro'
+import Header from '@/components/Header.astro'
+import LanguageRedirect from '@/components/LanguageRedirect.astro'
+
+interface Props {
+  title: string
+  description: string
+  lang?: LanguageKeys
+  includeLanguageRedirect?: boolean
+}
+
+const { title, description, lang = 'en', includeLanguageRedirect = false } = Astro.props
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    {includeLanguageRedirect && <LanguageRedirect />}
+    <Header />
+    <main class="my-16 lg:my-48">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,14 +1,12 @@
 ---
-import type { LanguageKeys } from '@/i18n/ui'
+import type { LanguageKeys } from '@/i18n'
 import { getEntry } from 'astro:content'
-import BaseHead from '@/components/BaseHead.astro'
-import Footer from '@/components/Footer.astro'
-import Header from '@/components/Header.astro'
 import About from '@/components/landing/About.astro'
 import Contact from '@/components/landing/Contact.astro'
 import Events from '@/components/landing/Events.astro'
 import Hero from '@/components/landing/Hero.astro'
 import Separator from '@/components/Separator.vue'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 import { siteConfig } from '@/site.config'
 
 export function getStaticPaths() {
@@ -26,22 +24,12 @@ if (!page) {
 }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={page.data.title} description={page.data.description} />
-  </head>
-  <body>
-    <Header />
-    <main class="my-16 lg:my-48">
-      <Hero page={page} lang={lang} />
-      <Separator />
-      <About page={page} lang={lang} />
-      <Separator />
-      <Events page={page} lang={lang} />
-      <Separator />
-      <Contact lang={lang} />
-    </main>
-    <Footer />
-  </body>
-</html>
+<BaseLayout title={page.data.title} description={page.data.description} lang={lang}>
+  <Hero page={page} lang={lang} />
+  <Separator />
+  <About page={page} lang={lang} />
+  <Separator />
+  <Events page={page} lang={lang} />
+  <Separator />
+  <Contact lang={lang} />
+</BaseLayout>

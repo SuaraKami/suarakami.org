@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n/ui'
+import type { LanguageKeys } from '@/i18n'
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
 import { siteConfig } from '@/site.config'
 import LinkLocal from './LinkLocal.vue'

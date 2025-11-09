@@ -3,6 +3,6 @@ import logo from '@/assets/logo.svg'
 import LinkLocal from './LinkLocal.vue'
 ---
 
-<LinkLocal href="/" aria-label="SuaraKami" client:visible>
+<LinkLocal href="/" aria-label="SuaraKami" client:only="vue">
   <img src={logo.src} alt="SuaraKami Logo" class="h-7 w-auto shrink-0 md:h-8" />
 </LinkLocal>

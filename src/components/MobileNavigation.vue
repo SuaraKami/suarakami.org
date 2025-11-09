@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { LanguageKeys } from '@/i18n/ui'
+import type { LanguageKeys } from '@/i18n'
 import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, VisuallyHidden } from 'reka-ui'
 import Languages from '~icons/lucide/languages'
 import Mail from '~icons/lucide/mail'
 import Menu from '~icons/lucide/menu'
 import X from '~icons/lucide/x'
-import { useTranslations } from '@/i18n/utils'
+import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 import LinkLocal from './LinkLocal.vue'
 
