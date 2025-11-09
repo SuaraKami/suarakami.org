@@ -13,7 +13,7 @@ const t = useTranslations(lang)
   <Logo slot="logo" />
   {
     siteConfig.navigation.map((link, i) => (
-      <LinkLocal href={link.to} class="group flex items-center gap-2" client:only="vue">
+      <LinkLocal href={link.to} class="group flex items-center gap-2" client:idle>
         <span class="font-mono text-xs tracking-wider opacity-40">{String(i + 1).padStart(2, '0')}</span>
         <span
           class={`

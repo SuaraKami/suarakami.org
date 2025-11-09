@@ -73,9 +73,24 @@ function handleClick() {
 </script>
 
 <template>
-  <ClientOnly v-slot="{ attrs }">
-    <a v-bind="attrs" :href="linkData.href" :class="linkClass" @click="handleClick">
-      <slot />
-    </a>
+  <ClientOnly>
+    <template #default="{ attrs }">
+      <a
+        v-bind="attrs"
+        :href="linkData.href"
+        :class="linkClass"
+        @click="handleClick"
+      >
+        <slot />
+      </a>
+    </template>
+    <template #fallback>
+      <a
+        v-bind="$attrs" :href="href" :class="className"
+        data-allow-mismatch="attribute"
+      >
+        <slot />
+      </a>
+    </template>
   </ClientOnly>
 </template>
