@@ -6,10 +6,10 @@ import { useTranslations } from '@/i18n'
 import Container from '../vue/Container.vue'
 
 interface Props {
-  page: CollectionEntry<'index'>
+  events: CollectionEntry<'event'>[]
   lang: LanguageKeys
 }
-const { page, lang } = Astro.props
+const { events, lang } = Astro.props
 
 const t = useTranslations(lang)
 ---
@@ -23,7 +23,7 @@ const t = useTranslations(lang)
       </div>
       <div class="col-span-12 md:col-span-8 md:col-start-5">
         <div class="space-y-0">
-          <AccordionEvents items={page.data.events} client:visible />
+          <AccordionEvents items={events} client:visible />
         </div>
       </div>
     </div>

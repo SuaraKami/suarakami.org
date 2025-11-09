@@ -1,5 +1,5 @@
 ---
-import { getEntry } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import About from '@/components/landing/About.astro'
 import Contact from '@/components/landing/Contact.astro'
 import Events from '@/components/landing/Events.astro'
@@ -10,6 +10,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const page = await getEntry('index', lang)
+const events = await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))
 
 if (!page) {
   throw new Error('Could not find page')
@@ -21,7 +22,7 @@ if (!page) {
   <Separator />
   <About page={page} lang={lang} />
   <Separator />
-  <Events page={page} lang={lang} />
+  <Events events={events} lang={lang} />
   <Separator />
   <Contact lang={lang} />
 </BaseLayout>

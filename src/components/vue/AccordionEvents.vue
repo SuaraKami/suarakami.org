@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { InferEntrySchema } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
 import { cn } from '@/lib/utils'
 
-type EventItem = InferEntrySchema<'index'>['events'][number]
+type EventItem = CollectionEntry<'event'>
 
 export interface AccordionProps<T extends EventItem = EventItem> extends Pick<AccordionRootProps, 'collapsible' | 'defaultValue' | 'modelValue' | 'type' | 'disabled' | 'unmountOnHide'> {
   items: T[]
@@ -40,7 +40,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
     <AccordionItem
       v-for="(item, index) in props.items"
       :key="index"
-      :value="item.title || String(index)"
+      :value="item.data.title || String(index)"
       class="border-b border-foreground/20 last:border-0"
     >
       <AccordionHeader as="div" class="flex">
@@ -60,11 +60,11 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
                 md:col-span-2
               "
             >
-              {{ item.when }}
+              {{ item.data.date }}
             </span>
             <div class="col-span-8 space-y-4 md:col-span-9">
               <h3 class="text-2xl font-light md:text-3xl">
-                {{ item.title }}
+                {{ item.data.title }}
               </h3>
             </div>
             <div class="col-span-1 flex justify-end">
@@ -80,7 +80,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
       </AccordionHeader>
 
       <AccordionContent
-        v-if="item.description" class="
+        v-if="item.data.description" class="
           overflow-hidden
           focus:outline-none
           data-[state=closed]:animate-[accordion-up_200ms_ease-out]
@@ -92,7 +92,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
             className="col-span-12 md:col-span-9 md:col-start-3"
           >
             <p className="font-light opacity-60">
-              {{ item.description }}
+              {{ item.data.description }}
             </p>
           </div>
         </div>
