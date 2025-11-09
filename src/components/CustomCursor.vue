@@ -35,12 +35,11 @@ useEventListener(document, 'mouseout', event => checkHoverTarget(event, false))
     v-if="hasHover"
     class="
       pointer-events-none fixed z-9999 flex -translate-x-1/2 -translate-y-1/2
-      items-center justify-center rounded-full mix-blend-difference
+      items-center justify-center rounded-full bg-sky-600 mix-blend-difference
       transition-[width,height,background-color] duration-300 ease-in-out
     "
     :class="isHoveringLink ? 'size-20' : 'size-5'"
     :style="cursorStyle"
-    style="background-color: oklch(0.55 0.18 250);"
   >
     <span
       v-if="isHoveringLink"
