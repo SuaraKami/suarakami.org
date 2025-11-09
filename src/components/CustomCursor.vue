@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { LanguageKeys } from '@/i18n'
-import { useEventListener, useMouse } from '@vueuse/core'
+import { useEventListener, useMediaQuery, useMouse } from '@vueuse/core'
 import { computed, ref } from 'vue'
 import { useTranslations } from '@/i18n'
 
@@ -11,6 +11,8 @@ const props = defineProps<{
 const t = useTranslations(props.lang)
 const { x, y } = useMouse({ type: 'client' })
 const isHoveringLink = ref(false)
+
+const hasHover = useMediaQuery('(hover: hover) and (pointer: fine)')
 
 const cursorStyle = computed(() => ({
   left: `${x.value}px`,
@@ -30,6 +32,7 @@ useEventListener(document, 'mouseout', event => checkHoverTarget(event, false))
 
 <template>
   <div
+    v-if="hasHover"
     class="
       pointer-events-none fixed z-9999 flex -translate-x-1/2 -translate-y-1/2
       items-center justify-center rounded-full mix-blend-difference
