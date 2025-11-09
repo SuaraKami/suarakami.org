@@ -1,0 +1,17 @@
+---
+/**
+ * SmoothScroll component that initializes Lenis for smooth scrolling behavior.
+ * This runs on page load and affects the entire page's scroll experience.
+ * Configuration reduces scroll speed to prevent users from scrolling too fast.
+ */
+---
+
+<script>
+  import Lenis from 'lenis'
+
+  // eslint-disable-next-line no-new
+  new Lenis({
+    autoRaf: true,
+    wheelMultiplier: 0.6,
+  })
+</script>
