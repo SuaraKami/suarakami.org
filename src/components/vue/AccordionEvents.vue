@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { InferEntrySchema } from 'astro:content'
 import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
+import { cn } from '@/lib/utils'
 
 type EventItem = InferEntrySchema<'index'>['events'][number]
 
@@ -44,11 +45,13 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
     >
       <AccordionHeader as="div" class="flex">
         <AccordionTrigger
-          class="
-            group w-full py-8 text-left transition-opacity
-            hover:opacity-50
-            md:py-12
-          "
+          :class="cn(
+            `group w-full py-8 text-left transition-opacity hover:opacity-50`,
+            {
+              'md:pb-12': index === 0,
+              'md:py-12': index > 0,
+            },
+          )"
         >
           <div class="grid grid-cols-12 items-start gap-6">
             <span
