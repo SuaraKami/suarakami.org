@@ -13,6 +13,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <slot v-if="show" v-bind="$attrs" />
+  <slot v-if="show" :attrs="$attrs" />
   <slot v-else name="fallback" />
 </template>

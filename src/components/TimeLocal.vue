@@ -53,8 +53,8 @@ const title = computed(() =>
 </script>
 
 <template>
-  <ClientOnly>
-    <time :datetime="isoDate" :title="title">
+  <ClientOnly v-slot="{ attrs }">
+    <time v-bind="attrs" :datetime="isoDate" :title="title">
       {{ formattedDate }}
     </time>
   </ClientOnly>

@@ -32,9 +32,10 @@ useEventListener(document, 'mouseout', event => checkHoverTarget(event, false))
 </script>
 
 <template>
-  <ClientOnly>
+  <ClientOnly v-slot="{ attrs }">
     <div
       v-if="hasHover"
+      v-bind="attrs"
       class="
         pointer-events-none fixed z-9999 flex -translate-x-1/2 -translate-y-1/2
         items-center justify-center rounded-full bg-sky-600 mix-blend-difference

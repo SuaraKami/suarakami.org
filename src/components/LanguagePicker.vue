@@ -22,8 +22,8 @@ const { currentHref } = useBrowserUrl()
 </script>
 
 <template>
-  <ClientOnly>
-    <div :class="className">
+  <ClientOnly v-slot="{ attrs }">
+    <div v-bind="attrs" :class="className">
       <template v-for="(lang, i) in languageKeys" :key="lang">
         <LinkLocal
           :href="currentHref"
