@@ -52,7 +52,7 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased cursor-none overflow-x-hidden;
+    @apply bg-background text-foreground antialiased cursor-none select-none overflow-x-hidden;
   }
 
   ::selection {
