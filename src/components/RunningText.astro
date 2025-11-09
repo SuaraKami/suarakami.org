@@ -1,0 +1,33 @@
+---
+const keywords = [
+  'Public Policy Education',
+  'Democracy & Human Rights',
+  'Community Dialogue',
+  'Critical Thinking',
+  'Gotong Royong',
+  'Aachen-Indonesia',
+  'Civic Participation',
+  'Independent Media',
+  'Climate Action',
+  'Social Justice',
+]
+---
+
+<div class="overflow-hidden border-b border-foreground/10">
+  <div class="overflow-hidden py-2">
+    <div class="flex animate-marquee">
+      {
+        Array.from({ length: 3 }).map(() => (
+          <span
+            class={`
+              px-8 font-mono text-[10px] tracking-[0.3em] whitespace-nowrap
+              uppercase opacity-40
+            `}
+          >
+            {keywords.map((k) => `${k}  •  `)}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</div>
