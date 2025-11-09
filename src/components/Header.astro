@@ -2,8 +2,8 @@
 import { getLangFromUrl, useTranslations } from '@/i18n/utils'
 import { siteConfig } from '@/site.config'
 import VHeader from './Header.vue'
-import LanguagePicker from './LanguagePicker.astro'
-import LinkLocal from './LinkLocal.astro'
+import LanguagePicker from './LanguagePicker.vue'
+import LinkLocal from './LinkLocal.vue'
 import Logo from './Logo.astro'
 import MobileNavigation from './MobileNavigation.vue'
 import TimeLocal from './TimeLocal.astro'
@@ -19,7 +19,7 @@ const { footer } = siteConfig
 
   {
     siteConfig.navigation.map((link, i) => (
-      <LinkLocal href={link.to} class="group flex items-center gap-2">
+      <LinkLocal href={link.to} class="group flex items-center gap-2" client:load>
         <span class="font-mono text-xs tracking-wider opacity-40">{String(i + 1).padStart(2, '0')}</span>
         <span
           class={`
@@ -40,7 +40,7 @@ const { footer } = siteConfig
     `}
     langClass="opacity-40 transition-opacity hover:opacity-60"
     activeLangClass="opacity-100"
-    server:defer
+    client:load
   >
     <span slot="separator">/</span>
   </LanguagePicker>
@@ -57,7 +57,7 @@ const { footer } = siteConfig
         hover:opacity-60
       `}
       activeLangClass="opacity-100"
-      server:defer
+      client:load
     />
 
     <div

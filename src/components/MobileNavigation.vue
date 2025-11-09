@@ -7,6 +7,7 @@ import Menu from '~icons/lucide/menu'
 import X from '~icons/lucide/x'
 import { useTranslations } from '@/i18n/utils'
 import { siteConfig } from '@/site.config'
+import LinkLocal from './LinkLocal.vue'
 
 const { lang } = defineProps<{
   lang: LanguageKeys
@@ -66,7 +67,7 @@ const t = useTranslations(lang)
           <div class="flex-1 overflow-y-auto">
             <div class="grid h-full grid-cols-12 gap-0">
               <DialogClose as-child>
-                <a
+                <LinkLocal
                   :href="navigation[0]!.to"
                   class="
                     group col-span-12 flex flex-col justify-between border-b
@@ -89,10 +90,10 @@ const t = useTranslations(lang)
                       {{ t(`nav.${navigation[0]!.code}`) }}
                     </h2>
                   </div>
-                </a>
+                </LinkLocal>
               </DialogClose>
               <DialogClose as-child>
-                <a
+                <LinkLocal
                   :href="navigation[1]!.to"
                   class="
                     group relative col-span-7 flex flex-col justify-between
@@ -121,7 +122,7 @@ const t = useTranslations(lang)
                       {{ t(`nav.${navigation[1]!.code}`) }}
                     </h2>
                   </div>
-                </a>
+                </LinkLocal>
               </DialogClose>
               <div
                 class="
@@ -134,7 +135,7 @@ const t = useTranslations(lang)
               </div>
 
               <DialogClose as-child>
-                <a
+                <LinkLocal
                   :href="navigation[2]!.to"
                   class="
                     group col-span-7 flex flex-col justify-between border-t
@@ -157,7 +158,7 @@ const t = useTranslations(lang)
                       {{ t(`nav.${navigation[2]!.code}`) }}
                     </h2>
                   </div>
-                </a>
+                </LinkLocal>
               </DialogClose>
               <div
                 class="

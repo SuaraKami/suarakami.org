@@ -48,26 +48,3 @@ export function useTranslatedPath(lang: keyof typeof ui) {
     return normalizedPath === '/' ? `/${l}` : `/${l}${normalizedPath}`
   }
 }
-
-export function isLinkActive(href: string, currentUrl: URL, baseOrigin: string) {
-  const parsedUrl = new URL(href, baseOrigin)
-
-  if (parsedUrl.origin !== baseOrigin) {
-    return false
-  }
-
-  const targetPath = parsedUrl.pathname
-  const targetHash = parsedUrl.hash
-  const currentPath = currentUrl.pathname
-  const currentHash = currentUrl.hash
-
-  if (!targetPath && targetHash) {
-    return currentHash === targetHash
-  }
-
-  const normalizedTarget = getPathWithoutLang(targetPath).replace(/\/$/, '') || '/'
-  const normalizedCurrent = getPathWithoutLang(currentPath).replace(/\/$/, '') || '/'
-  const pathsMatch = normalizedTarget === normalizedCurrent
-
-  return targetHash ? pathsMatch && currentHash === targetHash : pathsMatch
-}
