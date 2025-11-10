@@ -18,10 +18,15 @@ const isHeaderVisible = ref(true)
 const isAtTop = computed(() => y.value === 0)
 
 const isPassedHero = computed(() => {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
   const heroSection = document.getElementById('featured')
   if (!heroSection) {
     return false
   }
+
   const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
   return y.value > heroBottom
 })
