@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { LanguageKeys } from '@/i18n'
-import { useWindowScroll } from '@vueuse/core'
+import { useElementByPoint, useWindowScroll } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 import { useIsDesktop } from '@/composables/useIsDesktop'
 import ClientOnly from './ClientOnly.vue'
@@ -17,6 +17,21 @@ const isDesktop = useIsDesktop()
 const isHeaderVisible = ref(true)
 const isAtTop = computed(() => y.value === 0)
 
+const { element } = useElementByPoint({ x: 0, y: computed(() => y.value + 100) })
+const isPassedHero = computed(() => {
+  const el = element.value
+  if (!el) {
+    return false
+  }
+
+  const heroSection = document.getElementById('featured')
+  if (!heroSection) {
+    return false
+  }
+
+  return !heroSection.contains(el)
+})
+
 function updateVisibility() {
   if (isDesktop.value || directions.top || isAtTop.value) {
     isHeaderVisible.value = true
@@ -32,13 +47,15 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 <template>
   <header
     class="
-      sticky top-0 z-50 border-b border-border bg-primary transition-transform
-      duration-300 ease-out
+      sticky top-0 z-50 border-b border-border transition-all duration-300
+      ease-out
       md:relative md:translate-y-0
     "
     :class="{
       'translate-y-0': isHeaderVisible,
       '-translate-y-full': !isHeaderVisible,
+      'bg-primary': isPassedHero,
+      'bg-background': !isPassedHero,
     }"
   >
     <Container>
