@@ -5,7 +5,7 @@ import { siteConfig } from '@/site.config'
 
 interface Props {
   lang?: LanguageKeys
-  datetime?: string | number | Date
+  datetime: string | number | Date
   localeMatcher?: 'best fit' | 'lookup'
   weekday?: 'long' | 'short' | 'narrow'
   era?: 'long' | 'short' | 'narrow'
@@ -31,7 +31,7 @@ interface Props {
 }
 
 const {
-  datetime = Date.now(),
+  datetime,
   lang,
   ...formatOptions
 } = defineProps<Props>()

@@ -93,11 +93,11 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
           data-[state=open]:animate-[accordion-down_200ms_ease-out]
         "
       >
-        <div className="grid grid-cols-12 gap-6 pb-12">
+        <div class="grid grid-cols-12 gap-6 pb-12">
           <div
-            className="col-span-12 md:col-span-9 md:col-start-3"
+            class="col-span-12 md:col-span-9 md:col-start-3"
           >
-            <p className="opacity-60">
+            <p class="opacity-60">
               {{ item.data.description }}
             </p>
           </div>
