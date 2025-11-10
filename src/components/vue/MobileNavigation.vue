@@ -37,7 +37,7 @@ const t = useTranslations(lang)
         class="
           fixed inset-0 z-50 bg-black/80
           data-[state=closed]:animate-out
-          data-[state=closed]:duration-[calc(var(--duration-circle-out)+500ms)]
+          data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)]
           data-[state=closed]:fade-out
           data-[state=open]:animate-in
           data-[state=open]:duration-(--duration-circle-in)
@@ -46,7 +46,7 @@ const t = useTranslations(lang)
       />
       <DialogContent
         class="
-          fixed inset-0 z-50 bg-background
+          group fixed inset-0 z-50 bg-background
           data-[state=closed]:animate-circle-out
           data-[state=open]:animate-circle-in
         "
@@ -57,7 +57,17 @@ const t = useTranslations(lang)
             Navigate to different sections of the website
           </DialogDescription>
         </VisuallyHidden>
-        <div class="flex h-full flex-col">
+        <div
+          class="
+            flex h-full flex-col
+            group-data-[state=closed]:animate-out
+            group-data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)]
+            group-data-[state=closed]:fade-out
+            group-data-[state=open]:animate-in
+            group-data-[state=open]:duration-(--duration-circle-in)
+            group-data-[state=open]:fade-in
+          "
+        >
           <div
             class="
               flex items-center justify-between border-b border-border-dark px-6
