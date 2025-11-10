@@ -60,7 +60,8 @@ const t = useTranslations(lang)
         <div class="flex h-full flex-col">
           <div
             class="
-              flex items-center justify-between border-b border-border-dark px-6 py-8
+              flex items-center justify-between border-b border-border-dark px-6
+              py-8
             "
           >
             <slot name="logo" />

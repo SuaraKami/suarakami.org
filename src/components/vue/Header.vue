@@ -46,8 +46,8 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 <template>
   <header
     class="
-      sticky top-0 z-50 border-b border-border-dark transition-all duration-300
-      ease-out
+      sticky top-0 z-50 border-b border-border-dark
+      transition-[translate,background-color] duration-300 ease-out
       md:relative md:translate-y-0
     "
     :class="{

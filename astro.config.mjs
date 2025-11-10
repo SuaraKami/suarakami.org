@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel'
 import vue from '@astrojs/vue'
 import playformCompress from '@playform/compress'
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig, fontProviders } from 'astro/config'
+import { defineConfig } from 'astro/config'
 import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
@@ -25,18 +25,38 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
-        provider: fontProviders.fontshare(),
+        provider: 'local',
         name: 'Cabinet Grotesk',
         cssVariable: '--font-cabinet',
-        weights: ['500'],
-        styles: ['normal'],
+        variants: [
+          {
+            weight: 300,
+            style: 'normal',
+            src: ['./src/assets/fonts/CabinetGrotesk-Light.woff2'],
+          },
+          {
+            weight: 400,
+            style: 'normal',
+            src: ['./src/assets/fonts/CabinetGrotesk-Regular.woff2'],
+          },
+          {
+            weight: 500,
+            style: 'normal',
+            src: ['./src/assets/fonts/CabinetGrotesk-Medium.woff2'],
+          },
+        ],
       },
       {
-        provider: fontProviders.google(),
+        provider: 'local',
         name: 'IBM Plex Mono',
         cssVariable: '--font-ibm-mono',
-        weights: ['400'],
-        styles: ['normal'],
+        variants: [
+          {
+            weight: 400,
+            style: 'normal',
+            src: ['./src/assets/fonts/IBMPlexMono-Regular.woff2'],
+          },
+        ],
       },
     ],
   },
