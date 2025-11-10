@@ -3,8 +3,6 @@
 @import 'lenis/dist/lenis.css';
 
 :root {
-  --ui-container: 115rem;
-
   --duration-circle-in: 0.8s;
   --duration-circle-out: 0.6s;
 

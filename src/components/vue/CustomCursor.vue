@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
 import { useEventListener, useMediaQuery, useMouse } from '@vueuse/core'
 import { computed, ref } from 'vue'
-import { useTranslations } from '@/i18n'
 import ClientOnly from './ClientOnly.vue'
 
-const props = defineProps<{
-  lang: LanguageKeys
-}>()
-
-const t = useTranslations(props.lang)
 const { x, y } = useMouse({ type: 'client' })
 const isHoveringLink = ref(false)
 
@@ -41,18 +34,8 @@ useEventListener(document, 'mouseout', event => checkHoverTarget(event, false))
         items-center justify-center rounded-full bg-sky-600 mix-blend-difference
         transition-[width,height,background-color] duration-300 ease-in-out
       "
-      :class="isHoveringLink ? 'size-20' : 'size-5'"
+      :class="isHoveringLink ? 'size-12' : 'size-5'"
       :style="cursorStyle"
-    >
-      <span
-        v-if="isHoveringLink"
-        class="
-          text-xs font-medium tracking-widest text-white uppercase duration-200
-          fade-in
-        "
-      >
-        {{ t('cursor.view') }}
-      </span>
-    </div>
+    />
   </ClientOnly>
 </template>

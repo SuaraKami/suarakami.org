@@ -2,7 +2,6 @@
 import type { LanguageKeys } from '@/i18n'
 import { getCollection, getEntry } from 'astro:content'
 import About from '@/components/landing/About.astro'
-import Contact from '@/components/landing/Contact.astro'
 import Events from '@/components/landing/Events.astro'
 import Hero from '@/components/landing/Hero.astro'
 import Separator from '@/components/vue/Separator.vue'
@@ -33,6 +32,4 @@ if (!page) {
   <About page={page} lang={lang} />
   <Separator />
   <Events events={events} lang={lang} />
-  <Separator />
-  <Contact lang={lang} />
 </BaseLayout>

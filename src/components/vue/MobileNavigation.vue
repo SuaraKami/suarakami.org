@@ -98,14 +98,13 @@ const t = useTranslations(lang)
                   "
                 >
                   <span
-                    class="
-                      text-xs font-medium tracking-widest uppercase opacity-20
-                    "
+                    class="text-xs tracking-widest uppercase opacity-20"
                   >01</span>
                   <div>
                     <h2
                       class="
-                        text-5xl tracking-tight transition-transform
+                        text-5xl font-semibold tracking-tight
+                        transition-transform
                         group-hover:translate-x-2
                       "
                     >
@@ -130,14 +129,13 @@ const t = useTranslations(lang)
                     "
                   />
                   <span
-                    class="
-                      text-xs font-medium tracking-widest uppercase opacity-20
-                    "
+                    class="text-xs tracking-widest uppercase opacity-20"
                   >02</span>
                   <div>
                     <h2
                       class="
-                        text-4xl tracking-tight transition-transform
+                        text-4xl font-semibold tracking-tight
+                        transition-transform
                         group-hover:translate-x-2
                       "
                     >
@@ -174,14 +172,13 @@ const t = useTranslations(lang)
                   "
                 >
                   <span
-                    class="
-                      text-xs font-medium tracking-widest uppercase opacity-20
-                    "
+                    class="text-xs tracking-widest uppercase opacity-20"
                   >03</span>
                   <div>
                     <h2
                       class="
-                        text-4xl tracking-tight transition-transform
+                        text-4xl font-semibold tracking-tight
+                        transition-transform
                         group-hover:translate-x-2
                       "
                     >
@@ -204,9 +201,7 @@ const t = useTranslations(lang)
                 <Mail class="size-4 opacity-20" />
                 <div class="space-y-2">
                   <p
-                    class="
-                      text-xs font-medium tracking-widest uppercase opacity-40
-                    "
+                    class="text-xs tracking-widest uppercase opacity-40"
                   >
                     {{ t('contact.email') }}
                   </p>
@@ -237,8 +232,8 @@ const t = useTranslations(lang)
                       rel="noopener noreferrer"
                       target="_blank"
                       class="
-                        flex items-center gap-2 text-xs font-medium
-                        tracking-widest uppercase transition-opacity
+                        flex items-center gap-2 text-xs tracking-widest
+                        uppercase transition-opacity
                         hover:opacity-50
                       "
                     >
@@ -263,9 +258,7 @@ const t = useTranslations(lang)
                   <TimeLocal :lang :datetime="Date.now()" year="2-digit" />
                 </div>
                 <p
-                  class="
-                    relative z-10 text-xs font-medium tracking-widest uppercase
-                  "
+                  class="relative z-10 text-xs tracking-widest uppercase"
                 >
                   {{ footer.tagline }}
                 </p>

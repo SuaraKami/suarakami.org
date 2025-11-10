@@ -15,90 +15,90 @@ const t = useTranslations(lang)
 ---
 
 <section id="featured" class="bg-primary">
-  <Container class="py-32 md:py-48 lg:py-64">
-    <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 flex flex-col justify-start lg:col-span-6">
-        <h1
-          class={`
-            mb-8 text-5xl leading-[0.85] font-black tracking-tight text-balance
-            wrap-break-word
-            sm:text-6xl
-            md:mb-12 md:text-7xl
-            lg:mb-16 lg:text-8xl
-            xl:text-9xl
-          `}
-        >
-          {page.data.hero.title}
-        </h1>
-        <p
-          class={`
-            mb-0 max-w-xl text-lg leading-relaxed opacity-70
-            md:text-xl
-            lg:text-2xl
-          `}
-        >
-          {page.data.hero.description}
-        </p>
-      </div>
-      <div
+  <Container grid class={`
+    gap-y-12 pt-20 pb-36
+    md:pt-24 md:pb-48
+    lg:pt-32 lg:pb-64
+  `}>
+    <div class="col-span-12 flex flex-col justify-start lg:col-span-6">
+      <h1
         class={`
-          col-span-12 flex flex-col space-y-12
-          md:space-y-16
-          lg:col-span-4 lg:col-start-8 lg:space-y-20
+          mb-8 text-5xl leading-tight font-black tracking-tight text-balance
+          wrap-break-word
+          sm:text-6xl
+          md:mb-12 md:text-7xl
+          lg:mb-16 lg:text-8xl
+          xl:text-9xl
         `}
       >
-        <div class="space-y-12 md:space-y-16">
-          <div class="space-y-4">
-            <div class="flex items-baseline gap-3">
-              <span class="font-mono text-xs tracking-wider opacity-40">01</span>
-              <p class="font-mono text-xs tracking-wider uppercase opacity-60">
-                {t('landing.date')}
-              </p>
-            </div>
-            <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-              <TimeLocal datetime={page.data.hero.date} weekday="long" year="numeric" month="long" day="numeric" />
+        {page.data.hero.title}
+      </h1>
+      <p
+        class={`
+          mb-0 max-w-xl text-lg leading-relaxed opacity-70
+          md:text-xl
+          lg:text-2xl
+        `}
+      >
+        {page.data.hero.description}
+      </p>
+    </div>
+    <div
+      class={`
+        col-span-12 flex flex-col space-y-12
+        md:space-y-16
+        lg:col-span-4 lg:col-start-8 lg:space-y-20
+      `}
+    >
+      <div class="space-y-12 md:space-y-16">
+        <div class="space-y-4">
+          <div class="flex items-baseline">
+            <p class="font-mono text-xs tracking-wider uppercase opacity-60">
+              {t('landing.date')}
             </p>
           </div>
-          <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">
-            <div class="flex items-baseline gap-3">
-              <span class="font-mono text-xs tracking-wider opacity-40">02</span>
-              <p class="font-mono text-xs tracking-wider uppercase opacity-60">
-                {t('landing.time')}
-              </p>
-            </div>
-            <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-              {page.data.hero.time}
-            </p>
-          </div>
-          <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">
-            <div class="flex items-baseline gap-3">
-              <span class="font-mono text-xs tracking-wider opacity-40">03</span>
-              <p class="font-mono text-xs tracking-wider uppercase opacity-60">
-                {t('landing.location')}
-              </p>
-            </div>
-            <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-              {page.data.hero.location}
-            </p>
-          </div>
+          <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
+            <TimeLocal datetime={page.data.hero.date} weekday="long" year="numeric" month="long" day="numeric" />
+          </p>
         </div>
-        <div class="pt-8 md:pt-12">
-          <a
-            href={page.data.hero.link.to}
-            target={page.data.hero.link.target}
-            rel="noopener noreferrer"
-            class={`
-              border-2 border-border-dark px-8 py-4 text-sm tracking-widest
-              uppercase transition-colors duration-200
-              hover:bg-foreground hover:text-background
-              md:px-16 md:py-5 md:text-base
-            `}
-          >
-            <span class="text-sm tracking-wide uppercase">
-              {page.data.hero.link.label}
-            </span>
-          </a>
+        <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">
+          <div class="flex items-baseline">
+            <p class="font-mono text-xs tracking-wider uppercase opacity-60">
+              {t('landing.time')}
+            </p>
+          </div>
+          <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
+            {page.data.hero.time}
+          </p>
         </div>
+        <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">
+          <div class="flex items-baseline">
+            <p class="font-mono text-xs tracking-wider uppercase opacity-60">
+              {t('landing.location')}
+            </p>
+          </div>
+          <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
+            {page.data.hero.location}
+          </p>
+        </div>
+      </div>
+      <div class="pt-8 md:pt-12">
+        <a
+          href={page.data.hero.link.to}
+          target={page.data.hero.link.target}
+          rel="noopener noreferrer"
+          class={`
+            border border-border-dark bg-foreground px-8 py-4 text-sm
+            tracking-widest text-background uppercase transition-colors
+            duration-200
+            hover:opacity-80
+            md:px-16 md:py-5 md:text-base
+          `}
+        >
+          <span class="text-sm tracking-wide uppercase">
+            {page.data.hero.link.label}
+          </span>
+        </a>
       </div>
     </div>
   </Container>

@@ -18,7 +18,6 @@ export const ui = defineUI({
     'landing.location': 'Location',
     'landing.whoWeAre': 'Who we are',
     'landing.whatWeDo': 'What we do',
-    'cursor.view': 'View',
   },
   id: {
     'nav.about': 'Tentang',
@@ -31,6 +30,5 @@ export const ui = defineUI({
     'landing.location': 'Tempat',
     'landing.whoWeAre': 'Siapa kami',
     'landing.whatWeDo': 'Apa yang kami kerjakan',
-    'cursor.view': 'Lihat',
   },
 } as const)

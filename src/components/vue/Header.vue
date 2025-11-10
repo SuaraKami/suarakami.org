@@ -65,7 +65,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
           <LanguagePicker
             class="
               flex items-center gap-2 border-l border-border-dark pl-6 font-mono
-              text-xs tracking-wider uppercase opacity-40
+              text-xs font-bold tracking-wider uppercase
             "
             lang-class="opacity-40 transition-opacity hover:opacity-60"
             active-lang-class="opacity-100"

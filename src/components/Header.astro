@@ -17,12 +17,11 @@ const t = useTranslations(lang)
 <VHeader lang={lang} client:idle>
   <Logo slot="logo" />
   {
-    siteConfig.navigation.map((link, i) => (
-      <LinkLocal href={link.to} class="group flex items-center gap-2" client:idle>
-        <span class="font-mono text-xs tracking-wider opacity-40">{String(i + 1).padStart(2, '0')}</span>
+    siteConfig.navigation.map((link) => (
+      <LinkLocal href={link.to} class="flex items-center" client:idle>
         <span
           class={`
-            text-sm tracking-wide uppercase transition-opacity
+            text-sm font-bold tracking-wide uppercase transition-opacity
             hover:opacity-50
           `}
         >

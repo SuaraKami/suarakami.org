@@ -25,11 +25,11 @@ const { title, description, lang = 'en', includeLanguageRedirect = false } = Ast
   <body>
     {includeLanguageRedirect && <LanguageRedirect />}
     <SmoothScroll client:load />
-    <CustomCursor lang={lang} client:only="vue" />
+    <CustomCursor client:only="vue" />
     <Header lang={lang} />
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
