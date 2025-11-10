@@ -17,17 +17,22 @@ const keywords = [
   overflow-hidden border-b border-border bg-foreground text-background
 `}>
   <div class="overflow-hidden py-2">
-    <div class="flex animate-marquee">
+    <div class="inline-flex w-max animate-marquee">
       {
-        Array.from({ length: 3 }).map(() => (
-          <span
-            class={`
-              px-8 font-mono text-[10px] tracking-[0.3em] whitespace-nowrap
-              uppercase
-            `}
-          >
-            {keywords.map((k) => `${k}  •  `)}
-          </span>
+        Array.from({ length: 2 }).map(() => (
+          <div class="flex">
+            {keywords.map((keyword) => (
+              <span
+                class={`
+                  font-mono text-[10px] tracking-[0.3em] whitespace-nowrap
+                  uppercase
+                `}
+              >
+                {keyword}
+                <span class="inline-block px-8">•</span>
+              </span>
+            ))}
+          </div>
         ))
       }
     </div>
