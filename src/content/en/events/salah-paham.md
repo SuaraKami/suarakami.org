@@ -1,5 +1,5 @@
 ---
-title: "The Series: Salah paHAM — Menengok ke Belakang, Merajut Masa Depan"
+title: "Salah paHAM — Menengok ke Belakang, Merajut Masa Depan"
 description: "The event explored Indonesia's struggle for truth and justice 25 years after Reformasi, highlighting the importance of collective memory, accountability, and youth participation in shaping a human-rights-oriented democracy."
 date: "11 November 2023"
 photos: []
