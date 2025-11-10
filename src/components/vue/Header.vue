@@ -76,7 +76,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
           </LanguagePicker>
         </nav>
         <ClientOnly v-slot="{ attrs }">
-          <MobileNavigation v-if="!isDesktop" v-bind="attrs" :lang>
+          <MobileNavigation v-show="!isDesktop" v-bind="attrs" :lang>
             <template #logo>
               <slot name="logo" />
             </template>

@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
 import type { LanguageKeys } from '@/i18n'
+import { computed } from 'vue'
 import { cn } from '@/lib/utils'
 
 type EventItem = CollectionEntry<'event'>
@@ -23,16 +24,26 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 import ChevronDown from '~icons/lucide/chevron-down'
-import TimeLocal from './TimeLocal.vue'
+import { useFormatDate } from '@/composables/useFormatDate'
 
 const props = withDefaults(defineProps<AccordionProps<T>>(), {
   type: 'single',
   collapsible: true,
-  unmountOnHide: true,
+  unmountOnHide: false,
 })
 const emits = defineEmits<AccordionRootEmits>()
 
 const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defaultValue', 'disabled', 'modelValue', 'unmountOnHide'), emits)
+
+const datesString = computed(() =>
+  props.items.map(({ data: { dates } }) =>
+    dates.map(date => useFormatDate(date, props.lang, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    }).formattedDate.value).join(' & '),
+  ),
+)
 </script>
 
 <template>
@@ -42,8 +53,8 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
   >
     <AccordionItem
       v-for="(item, index) in props.items"
-      :key="index"
-      :value="item.data.title || String(index)"
+      :key="item.data.title"
+      :value="item.data.title"
       class="border-b border-border-dark last:border-0"
     >
       <AccordionHeader as="div" class="flex">
@@ -63,10 +74,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
                 md:col-span-2
               "
             >
-              <template v-for="(date, dateIndex) in item.data.dates" :key="dateIndex">
-                <TimeLocal :lang="props.lang" :datetime="date" year="numeric" month="short" day="numeric" />
-                <span v-if="dateIndex < item.data.dates.length - 1"> & </span>
-              </template>
+              {{ datesString[index] }}
             </span>
             <div class="col-span-8 space-y-4 md:col-span-9">
               <h3 class="text-2xl md:text-3xl">
@@ -86,7 +94,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
       </AccordionHeader>
 
       <AccordionContent
-        v-if="item.data.description" class="
+        class="
           overflow-hidden
           focus:outline-none
           data-[state=closed]:animate-[accordion-up_200ms_ease-out]
