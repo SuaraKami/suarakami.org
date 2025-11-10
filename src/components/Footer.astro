@@ -19,14 +19,7 @@ const t = useTranslations(lang)
   <section id="contacts">
     <Container grid class="gap-y-12 py-32 md:py-48 lg:py-64">
       <div class="col-span-12">
-        <h2
-          class={`
-            text-5xl leading-tight font-semibold tracking-tighter
-            md:text-6xl
-            lg:text-7xl
-            xl:text-8xl
-          `}
-        >
+        <h2 class="text-5xl leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl">
           {t('nav.contacts')}
         </h2>
       </div>
@@ -38,12 +31,7 @@ const t = useTranslations(lang)
           </span>
           <a
             href={`mailto:${email}`}
-            class={`
-              mt-4 block text-2xl leading-normal transition-opacity
-              hover:opacity-50
-              md:text-3xl
-              lg:text-4xl
-            `}
+            class="mt-4 block text-2xl leading-normal transition-opacity hover:opacity-50 md:text-3xl lg:text-4xl"
           >
             {email}
           </a>
@@ -60,12 +48,7 @@ const t = useTranslations(lang)
                   href={social.to}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class={`
-                    text-2xl leading-normal transition-opacity
-                    hover:opacity-50
-                    md:text-3xl
-                    lg:text-4xl
-                  `}
+                  class="text-2xl leading-normal transition-opacity hover:opacity-50 md:text-3xl lg:text-4xl"
                 >
                   {social.label}
                 </a>

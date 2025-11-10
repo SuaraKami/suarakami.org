@@ -19,12 +19,7 @@ const t = useTranslations(lang)
   {
     siteConfig.navigation.map((link) => (
       <LinkLocal href={link.to} class="flex items-center" client:idle>
-        <span
-          class={`
-            text-sm font-bold tracking-wide uppercase transition-opacity
-            hover:opacity-50
-          `}
-        >
+        <span class="text-sm font-bold tracking-wide uppercase transition-opacity hover:opacity-50">
           {t(`nav.${link.code}`)}
         </span>
       </LinkLocal>

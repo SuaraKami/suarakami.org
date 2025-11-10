@@ -17,14 +17,7 @@ const paragraphs = page.data.about.split('\n').filter(Boolean)
 <section id="about" class="bg-background">
   <Container grid class="gap-y-12 py-32 md:py-48 lg:py-64">
     <div class="col-span-12 md:col-span-3">
-      <h2
-        class={`
-          text-5xl leading-tight font-semibold tracking-tighter
-          md:text-6xl
-          lg:text-7xl
-          xl:text-8xl
-        `}
-      >
+      <h2 class="text-5xl leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl">
         {t('landing.whoWeAre')}
       </h2>
     </div>
@@ -34,11 +27,7 @@ const paragraphs = page.data.about.split('\n').filter(Boolean)
           <p
             class={
               i === 0
-                ? `
-                  text-xl leading-relaxed tracking-tight
-                  md:text-2xl
-                  lg:text-3xl
-                `
+                ? `text-xl leading-relaxed tracking-tight md:text-2xl lg:text-3xl`
                 : 'text-lg leading-relaxed opacity-60 md:text-xl'
             }
           >

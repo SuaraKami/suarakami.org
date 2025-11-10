@@ -17,7 +17,6 @@
 
 @theme {
   --font-sans: var(--font-cabinet), sans-serif, system-ui;
-  --font-mono: var(--font-ibm-mono), monospace;
 
   --animate-circle-in: circle-in var(--duration-circle-in) cubic-bezier(0.4, 0, 0.2, 1);
   --animate-circle-out: circle-out var(--duration-circle-in) cubic-bezier(0.6, 0, 0.4, 1);

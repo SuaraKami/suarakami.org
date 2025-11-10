@@ -36,18 +36,6 @@ export default defineConfig({
           },
         ],
       },
-      {
-        provider: 'local',
-        name: 'IBM Plex Mono',
-        cssVariable: '--font-ibm-mono',
-        variants: [
-          {
-            weight: 400,
-            style: 'normal',
-            src: ['./src/assets/fonts/IBMPlexMono-Regular.woff2'],
-          },
-        ],
-      },
     ],
   },
 })

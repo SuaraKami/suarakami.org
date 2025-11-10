@@ -69,10 +69,7 @@ const datesString = computed(() =>
         >
           <div class="grid grid-cols-12 items-start gap-6">
             <span
-              class="
-                col-span-3 mt-0.5 font-mono text-xs tracking-wider opacity-40
-                md:col-span-2
-              "
+              class="col-span-3 mt-0.5 font-mono text-xs tracking-wider opacity-40 md:col-span-2"
             >
               {{ datesString[index] }}
             </span>
@@ -83,10 +80,7 @@ const datesString = computed(() =>
             </div>
             <div class="col-span-1 flex justify-end">
               <ChevronDown
-                class="
-                  ms-auto size-5 shrink-0 transition-transform duration-200
-                  group-data-[state=open]:rotate-180
-                "
+                class="ms-auto size-5 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180"
               />
             </div>
           </div>

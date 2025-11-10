@@ -32,8 +32,8 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 <template>
   <header
     class="
-      sticky top-0 z-50 border-b border-border-dark bg-background
-      transition-[translate,background-color] duration-300 ease-out
+      sticky top-0 z-50 border-b border-border-dark bg-background transition-[translate,background-color] duration-300
+      ease-out
       md:relative md:translate-y-0
     "
     :class="{
@@ -47,10 +47,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
         <nav class="hidden items-center gap-12 md:flex lg:gap-16">
           <slot />
           <LanguagePicker
-            class="
-              flex items-center gap-2 border-l border-border-dark pl-6 font-mono
-              text-xs font-bold tracking-wider uppercase
-            "
+            class="flex items-center gap-2 border-l border-border-dark pl-6 text-xs font-bold tracking-wider uppercase"
             lang-class="opacity-40 transition-opacity hover:opacity-60"
             active-lang-class="opacity-100"
           >

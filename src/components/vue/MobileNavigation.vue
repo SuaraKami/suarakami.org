@@ -36,12 +36,10 @@ const t = useTranslations(lang)
       <DialogOverlay
         class="
           fixed inset-0 z-50 bg-black/80
-          data-[state=closed]:animate-out
-          data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)]
+          data-[state=closed]:animate-out data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)]
           data-[state=closed]:fade-out
-          data-[state=open]:animate-in
-          data-[state=open]:duration-(--duration-circle-in)
-          data-[state=open]:ease-in-out data-[state=open]:fade-in
+          data-[state=open]:animate-in data-[state=open]:duration-(--duration-circle-in) data-[state=open]:ease-in-out
+          data-[state=open]:fade-in
         "
       />
       <DialogContent
@@ -63,24 +61,17 @@ const t = useTranslations(lang)
             group-data-[state=closed]:animate-out
             group-data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)]
             group-data-[state=closed]:fade-out
-            group-data-[state=open]:animate-in
-            group-data-[state=open]:duration-(--duration-circle-in)
+            group-data-[state=open]:animate-in group-data-[state=open]:duration-(--duration-circle-in)
             group-data-[state=open]:fade-in
           "
         >
           <div
-            class="
-              flex items-center justify-between border-b border-border-dark px-6
-              py-8
-            "
+            class="flex items-center justify-between border-b border-border-dark px-6 py-8"
           >
             <slot name="logo" />
             <DialogClose as-child>
               <button
-                aria-label="Close menu" class="
-                  transition-opacity
-                  hover:opacity-50
-                "
+                aria-label="Close menu" class="transition-opacity hover:opacity-50"
               >
                 <X class="size-6" :stroke-width="1.5" />
               </button>
@@ -92,8 +83,7 @@ const t = useTranslations(lang)
                 <LinkLocal
                   :href="navigation[0]!.to"
                   class="
-                    group col-span-12 flex flex-col justify-between border-b
-                    border-border-dark p-6 transition-colors
+                    group col-span-12 flex flex-col justify-between border-b border-border-dark p-6 transition-colors
                     hover:bg-foreground/5
                   "
                 >
@@ -102,11 +92,7 @@ const t = useTranslations(lang)
                   >01</span>
                   <div>
                     <h2
-                      class="
-                        text-5xl font-semibold tracking-tight
-                        transition-transform
-                        group-hover:translate-x-2
-                      "
+                      class="text-5xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
                     >
                       {{ t(`nav.${navigation[0]!.code}`) }}
                     </h2>
@@ -117,15 +103,13 @@ const t = useTranslations(lang)
                 <LinkLocal
                   :href="navigation[1]!.to"
                   class="
-                    group relative col-span-7 flex flex-col justify-between
-                    overflow-hidden p-6 transition-colors
+                    group relative col-span-7 flex flex-col justify-between overflow-hidden p-6 transition-colors
                     hover:bg-foreground/5
                   "
                 >
                   <div
                     class="
-                      absolute top-0 right-0 h-16 w-16 translate-x-8
-                      -translate-y-8 rotate-45 bg-accent-foreground/10
+                      absolute top-0 right-0 h-16 w-16 translate-x-8 -translate-y-8 rotate-45 bg-accent-foreground/10
                     "
                   />
                   <span
@@ -133,11 +117,7 @@ const t = useTranslations(lang)
                   >02</span>
                   <div>
                     <h2
-                      class="
-                        text-4xl font-semibold tracking-tight
-                        transition-transform
-                        group-hover:translate-x-2
-                      "
+                      class="text-4xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
                     >
                       {{ t(`nav.${navigation[1]!.code}`) }}
                     </h2>
@@ -145,19 +125,12 @@ const t = useTranslations(lang)
                 </LinkLocal>
               </DialogClose>
               <div
-                class="
-                  col-span-5 flex flex-col justify-between border-l
-                  border-border-dark p-6
-                "
+                class="col-span-5 flex flex-col justify-between border-l border-border-dark p-6"
               >
                 <Languages class="size-4 opacity-20" />
                 <LanguagePicker
                   class="space-y-3"
-                  lang-class="
-                    block text-2xl tracking-tight uppercase opacity-30
-                    transition-opacity
-                    hover:opacity-60
-                  "
+                  lang-class="block text-2xl tracking-tight uppercase opacity-30 transition-opacity hover:opacity-60"
                   active-lang-class="opacity-100"
                 />
               </div>
@@ -166,8 +139,7 @@ const t = useTranslations(lang)
                 <LinkLocal
                   :href="navigation[2]!.to"
                   class="
-                    group col-span-7 flex flex-col justify-between border-t
-                    border-border-dark p-6 transition-colors
+                    group col-span-7 flex flex-col justify-between border-t border-border-dark p-6 transition-colors
                     hover:bg-foreground/5
                   "
                 >
@@ -176,11 +148,7 @@ const t = useTranslations(lang)
                   >03</span>
                   <div>
                     <h2
-                      class="
-                        text-4xl font-semibold tracking-tight
-                        transition-transform
-                        group-hover:translate-x-2
-                      "
+                      class="text-4xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
                     >
                       {{ t(`nav.${navigation[2]!.code}`) }}
                     </h2>
@@ -189,14 +157,12 @@ const t = useTranslations(lang)
               </DialogClose>
               <div
                 class="
-                  relative col-span-5 flex flex-col justify-between border-t
-                  border-l border-border-dark bg-accent-foreground/5 p-6
+                  relative col-span-5 flex flex-col justify-between border-t border-l border-border-dark
+                  bg-accent-foreground/5 p-6
                 "
               >
                 <div
-                  class="
-                    absolute top-6 bottom-6 left-0 w-0.5 bg-accent-foreground
-                  "
+                  class="absolute top-6 bottom-6 left-0 w-0.5 bg-accent-foreground"
                 />
                 <Mail class="size-4 opacity-20" />
                 <div class="space-y-2">
@@ -210,10 +176,7 @@ const t = useTranslations(lang)
                       :href="`mailto:${email}`"
                       rel="noopener noreferrer"
                       target="_blank"
-                      class="
-                        block text-sm break-all transition-opacity
-                        hover:opacity-50
-                      "
+                      class="block text-sm break-all transition-opacity hover:opacity-50"
                     >
                       {{ email }}
                     </a>
@@ -232,8 +195,7 @@ const t = useTranslations(lang)
                       rel="noopener noreferrer"
                       target="_blank"
                       class="
-                        flex items-center gap-2 text-xs tracking-widest
-                        uppercase transition-opacity
+                        flex items-center gap-2 text-xs tracking-widest uppercase transition-opacity
                         hover:opacity-50
                       "
                     >
@@ -244,16 +206,10 @@ const t = useTranslations(lang)
                 </div>
               </div>
               <div
-                class="
-                  relative col-span-12 overflow-hidden bg-foreground p-6
-                  text-background
-                "
+                class="relative col-span-12 overflow-hidden bg-foreground p-6 text-background"
               >
                 <div
-                  class="
-                    absolute top-1/2 right-6 -translate-y-1/2 text-[120px]
-                    leading-none opacity-10
-                  "
+                  class="absolute top-1/2 right-6 -translate-y-1/2 text-[120px] leading-none opacity-10"
                 >
                   <TimeLocal :lang :datetime="Date.now()" year="2-digit" />
                 </div>

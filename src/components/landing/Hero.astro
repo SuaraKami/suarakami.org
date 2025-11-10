@@ -15,16 +15,11 @@ const t = useTranslations(lang)
 ---
 
 <section id="featured" class="bg-background">
-  <Container grid class={`
-    gap-y-12 pt-20 pb-36
-    md:pt-24 md:pb-48
-    lg:pt-32 lg:pb-64
-  `}>
+  <Container grid class="gap-y-12 pt-20 pb-36 md:pt-24 md:pb-48 lg:pt-32 lg:pb-64">
     <div class="col-span-12 flex flex-col justify-start lg:col-span-6">
       <h1
         class={`
-          mb-8 text-5xl leading-tight font-black tracking-tight text-balance
-          wrap-break-word
+          mb-8 text-5xl leading-tight font-black tracking-tight text-balance wrap-break-word
           sm:text-6xl
           md:mb-12 md:text-7xl
           lg:mb-16 lg:text-8xl
@@ -33,23 +28,11 @@ const t = useTranslations(lang)
       >
         {page.data.hero.title}
       </h1>
-      <p
-        class={`
-          mb-0 max-w-xl text-lg leading-relaxed opacity-70
-          md:text-xl
-          lg:text-2xl
-        `}
-      >
+      <p class="mb-0 max-w-xl text-lg leading-relaxed opacity-70 md:text-xl lg:text-2xl">
         {page.data.hero.description}
       </p>
     </div>
-    <div
-      class={`
-        col-span-12 flex flex-col space-y-12
-        md:space-y-16
-        lg:col-span-4 lg:col-start-8 lg:space-y-20
-      `}
-    >
+    <div class="col-span-12 flex flex-col space-y-12 md:space-y-16 lg:col-span-4 lg:col-start-8 lg:space-y-20">
       <div class="space-y-12 md:space-y-16">
         <div class="space-y-4">
           <div class="flex items-baseline">
@@ -88,9 +71,8 @@ const t = useTranslations(lang)
           target={page.data.hero.link.target}
           rel="noopener noreferrer"
           class={`
-            border border-border-dark bg-foreground px-8 py-4 text-sm
-            tracking-widest text-background uppercase transition-colors
-            duration-200
+            border border-border-dark bg-foreground px-8 py-4 text-sm tracking-widest text-background uppercase
+            transition-colors duration-200
             hover:opacity-80
             md:px-16 md:py-5 md:text-base
           `}
