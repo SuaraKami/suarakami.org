@@ -46,7 +46,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 <template>
   <header
     class="
-      sticky top-0 z-50 border-b border-border transition-all duration-300
+      sticky top-0 z-50 border-b border-border-dark transition-all duration-300
       ease-out
       md:relative md:translate-y-0
     "
@@ -64,7 +64,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
           <slot />
           <LanguagePicker
             class="
-              flex items-center gap-2 border-l border-border pl-6 font-mono
+              flex items-center gap-2 border-l border-border-dark pl-6 font-mono
               text-xs tracking-wider uppercase opacity-40
             "
             lang-class="opacity-40 transition-opacity hover:opacity-60"

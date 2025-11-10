@@ -14,7 +14,8 @@
   --primary: oklch(0.89 0.13 95.7);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --border: oklch(0.145 0 0 / 0.1);
+  --border: oklch(0.922 0 0);
+  --border-dark: oklch(0.145 0 0 / 0.1);
   --ring: oklch(0.708 0 0);
 }
 
@@ -61,12 +62,13 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
+  --color-border-dark: var(--border-dark);
   --color-ring: var(--ring);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border-dark outline-ring/50;
   }
 
   body {

@@ -44,7 +44,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
       v-for="(item, index) in props.items"
       :key="index"
       :value="item.data.title || String(index)"
-      class="border-b border-border last:border-0"
+      class="border-b border-border-dark last:border-0"
     >
       <AccordionHeader as="div" class="flex">
         <AccordionTrigger

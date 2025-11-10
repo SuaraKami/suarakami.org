@@ -60,7 +60,7 @@ const t = useTranslations(lang)
         <div class="flex h-full flex-col">
           <div
             class="
-              flex items-center justify-between border-b border-border px-6 py-8
+              flex items-center justify-between border-b border-border-dark px-6 py-8
             "
           >
             <slot name="logo" />
@@ -82,7 +82,7 @@ const t = useTranslations(lang)
                   :href="navigation[0]!.to"
                   class="
                     group col-span-12 flex flex-col justify-between border-b
-                    border-border p-6 transition-colors
+                    border-border-dark p-6 transition-colors
                     hover:bg-foreground/5
                   "
                 >
@@ -138,7 +138,7 @@ const t = useTranslations(lang)
               <div
                 class="
                   col-span-5 flex flex-col justify-between border-l
-                  border-border p-6
+                  border-border-dark p-6
                 "
               >
                 <Languages class="size-4 opacity-20" />
@@ -158,7 +158,7 @@ const t = useTranslations(lang)
                   :href="navigation[2]!.to"
                   class="
                     group col-span-7 flex flex-col justify-between border-t
-                    border-border p-6 transition-colors
+                    border-border-dark p-6 transition-colors
                     hover:bg-foreground/5
                   "
                 >
@@ -182,7 +182,7 @@ const t = useTranslations(lang)
               <div
                 class="
                   relative col-span-5 flex flex-col justify-between border-t
-                  border-l border-border bg-accent-foreground/5 p-6
+                  border-l border-border-dark bg-accent-foreground/5 p-6
                 "
               >
                 <div
@@ -214,7 +214,7 @@ const t = useTranslations(lang)
                   </DialogClose>
                 </div>
               </div>
-              <div class="col-span-12 border-t border-border p-6">
+              <div class="col-span-12 border-t border-border-dark p-6">
                 <div class="grid grid-cols-3 gap-6">
                   <DialogClose
                     v-for="social in socialMediaLinks"
