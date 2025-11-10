@@ -95,7 +95,7 @@ const t = useTranslations(lang)
                   <div>
                     <h2
                       class="
-                        text-5xl font-light tracking-tight transition-transform
+                        text-5xl tracking-tight transition-transform
                         group-hover:translate-x-2
                       "
                     >
@@ -127,7 +127,7 @@ const t = useTranslations(lang)
                   <div>
                     <h2
                       class="
-                        text-4xl font-light tracking-tight transition-transform
+                        text-4xl tracking-tight transition-transform
                         group-hover:translate-x-2
                       "
                     >
@@ -146,8 +146,8 @@ const t = useTranslations(lang)
                 <LanguagePicker
                   class="space-y-3"
                   lang-class="
-                    block text-2xl font-light tracking-tight uppercase
-                    opacity-30 transition-opacity
+                    block text-2xl tracking-tight uppercase opacity-30
+                    transition-opacity
                     hover:opacity-60
                   "
                   active-lang-class="opacity-100"
@@ -171,7 +171,7 @@ const t = useTranslations(lang)
                   <div>
                     <h2
                       class="
-                        text-4xl font-light tracking-tight transition-transform
+                        text-4xl tracking-tight transition-transform
                         group-hover:translate-x-2
                       "
                     >
@@ -206,7 +206,7 @@ const t = useTranslations(lang)
                       rel="noopener noreferrer"
                       target="_blank"
                       class="
-                        block text-sm font-light break-all transition-opacity
+                        block text-sm break-all transition-opacity
                         hover:opacity-50
                       "
                     >
@@ -247,7 +247,7 @@ const t = useTranslations(lang)
                 <div
                   class="
                     absolute top-1/2 right-6 -translate-y-1/2 text-[120px]
-                    leading-none font-light opacity-10
+                    leading-none opacity-10
                   "
                 >
                   <TimeLocal :lang :datetime="Date.now()" year="2-digit" />

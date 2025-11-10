@@ -69,7 +69,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
               </template>
             </span>
             <div class="col-span-8 space-y-4 md:col-span-9">
-              <h3 class="text-2xl font-light md:text-3xl">
+              <h3 class="text-2xl md:text-3xl">
                 {{ item.data.title }}
               </h3>
             </div>
@@ -97,7 +97,7 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
           <div
             className="col-span-12 md:col-span-9 md:col-start-3"
           >
-            <p className="font-light opacity-60">
+            <p className="opacity-60">
               {{ item.data.description }}
             </p>
           </div>

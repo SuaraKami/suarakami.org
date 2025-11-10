@@ -32,7 +32,7 @@ const t = useTranslations(lang)
         </h1>
         <p
           class={`
-            mb-0 max-w-xl text-lg leading-relaxed font-light opacity-70
+            mb-0 max-w-xl text-lg leading-relaxed opacity-70
             md:text-xl
             lg:text-2xl
           `}
@@ -55,7 +55,7 @@ const t = useTranslations(lang)
                 {t('landing.date')}
               </p>
             </div>
-            <p class="text-2xl leading-tight font-light md:text-3xl lg:text-4xl">
+            <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
               <TimeLocal datetime={page.data.hero.date} weekday="long" year="numeric" month="long" day="numeric" />
             </p>
           </div>
@@ -66,7 +66,7 @@ const t = useTranslations(lang)
                 {t('landing.time')}
               </p>
             </div>
-            <p class="text-2xl leading-tight font-light md:text-3xl lg:text-4xl">
+            <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
               {page.data.hero.time}
             </p>
           </div>
@@ -77,7 +77,7 @@ const t = useTranslations(lang)
                 {t('landing.location')}
               </p>
             </div>
-            <p class="text-2xl leading-tight font-light md:text-3xl lg:text-4xl">
+            <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
               {page.data.hero.location}
             </p>
           </div>
@@ -88,13 +88,13 @@ const t = useTranslations(lang)
             target={page.data.hero.link.target}
             rel="noopener noreferrer"
             class={`
-              border-2 border-border-dark px-8 py-4 text-sm font-light
-              tracking-widest uppercase transition-colors duration-200
+              border-2 border-border-dark px-8 py-4 text-sm tracking-widest
+              uppercase transition-colors duration-200
               hover:bg-foreground hover:text-background
               md:px-16 md:py-5 md:text-base
             `}
           >
-            <span class="text-sm font-light tracking-wide uppercase">
+            <span class="text-sm tracking-wide uppercase">
               {page.data.hero.link.label}
             </span>
           </a>

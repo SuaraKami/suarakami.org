@@ -30,11 +30,11 @@ const paragraphs = page.data.about.split('\n').filter(Boolean)
               class={
                 i === 0
                   ? `
-                    text-xl leading-relaxed font-light tracking-tight
+                    text-xl leading-relaxed tracking-tight
                     md:text-2xl
                     lg:text-3xl
                   `
-                  : 'text-lg leading-relaxed font-light opacity-60 md:text-xl'
+                  : 'text-lg leading-relaxed opacity-60 md:text-xl'
               }
             >
               {paragraph}
