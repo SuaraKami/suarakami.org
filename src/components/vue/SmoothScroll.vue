@@ -6,7 +6,7 @@ import { onMounted } from 'vue'
 
 const lenisOptions: LenisOptions = {
   autoRaf: true,
-  wheelMultiplier: 0.6,
+  wheelMultiplier: 0.8,
 }
 
 const lenis = useLenis()
