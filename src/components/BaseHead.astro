@@ -47,3 +47,14 @@ const { title, description } = Astro.props
 <meta property="twitter:description" content={description} />
 
 <ClientRouter />
+
+<script>
+  if (typeof window !== 'undefined') {
+    const hash = window.location.hash
+
+    if (hash) {
+      window.__SK_INITIAL_HASH__ = hash
+      history.replaceState(null, '', window.location.pathname + window.location.search)
+    }
+  }
+</script>
