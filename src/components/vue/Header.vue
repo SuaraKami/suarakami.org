@@ -15,7 +15,7 @@ const { lang } = defineProps<{
 const { directions, y } = useWindowScroll()
 const isDesktop = useIsDesktop()
 const isHeaderVisible = ref(true)
-const isAtTop = computed(() => y.value <= 150)
+const isAtTop = computed(() => y.value <= 100)
 
 const isPassedHero = computed(() => {
   if (typeof window === 'undefined') {
