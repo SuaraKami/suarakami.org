@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { LanguageKeys } from '@/i18n'
-import { useElementByPoint, useWindowScroll } from '@vueuse/core'
+import { useWindowScroll } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 import { useIsDesktop } from '@/composables/useIsDesktop'
 import ClientOnly from './ClientOnly.vue'
@@ -17,19 +17,13 @@ const isDesktop = useIsDesktop()
 const isHeaderVisible = ref(true)
 const isAtTop = computed(() => y.value === 0)
 
-const { element } = useElementByPoint({ x: 0, y: computed(() => y.value + 100) })
 const isPassedHero = computed(() => {
-  const el = element.value
-  if (!el) {
-    return false
-  }
-
   const heroSection = document.getElementById('featured')
   if (!heroSection) {
     return false
   }
-
-  return !heroSection.contains(el)
+  const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
+  return y.value > heroBottom
 })
 
 function updateVisibility() {
@@ -54,8 +48,8 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
     :class="{
       'translate-y-0': isHeaderVisible,
       '-translate-y-full': !isHeaderVisible,
-      'bg-primary': isPassedHero,
-      'bg-background': !isPassedHero,
+      'bg-background': isPassedHero,
+      'bg-primary': !isPassedHero,
     }"
   >
     <Container>
