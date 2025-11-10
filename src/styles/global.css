@@ -9,12 +9,12 @@
   --duration-circle-out: 0.6s;
   --duration-marquee: 30s;
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.98 0.01 60);
+  --foreground: oklch(0.12 0 0);
   --primary: oklch(0.89 0.13 95.7);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --border: oklch(0.922 0 0);
+  --border: oklch(0.145 0 0 / 0.1);
   --ring: oklch(0.708 0 0);
 }
 

@@ -13,7 +13,9 @@ const keywords = [
 ]
 ---
 
-<div class="overflow-hidden border-b border-foreground/10">
+<div class={`
+  overflow-hidden border-b border-border bg-foreground text-background
+`}>
   <div class="overflow-hidden py-2">
     <div class="flex animate-marquee">
       {
@@ -21,7 +23,7 @@ const keywords = [
           <span
             class={`
               px-8 font-mono text-[10px] tracking-[0.3em] whitespace-nowrap
-              uppercase opacity-40
+              uppercase
             `}
           >
             {keywords.map((k) => `${k}  •  `)}

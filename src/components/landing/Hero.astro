@@ -14,7 +14,7 @@ const { page, lang } = Astro.props
 const t = useTranslations(lang)
 ---
 
-<section id="featured">
+<section id="featured" class="bg-primary">
   <Container class="py-32 md:py-48 lg:py-64">
     <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12 flex flex-col justify-start lg:col-span-6">
@@ -44,7 +44,7 @@ const t = useTranslations(lang)
         class={`
           col-span-12 flex flex-col space-y-12
           md:space-y-16
-          lg:col-span-6 lg:space-y-20
+          lg:col-span-4 lg:col-start-8 lg:space-y-20
         `}
       >
         <div class="space-y-12 md:space-y-16">

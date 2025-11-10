@@ -32,7 +32,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 <template>
   <header
     class="
-      sticky top-0 z-50 border-b border-border bg-white transition-transform
+      sticky top-0 z-50 border-b border-border bg-primary transition-transform
       duration-300 ease-out
       md:relative md:translate-y-0
     "
