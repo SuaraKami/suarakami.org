@@ -10,7 +10,11 @@ import Icons from 'unplugin-icons/vite'
 // https://astro.build/config
 export default defineConfig({
   site: 'https://suarakami.org',
-  integrations: [sitemap(), vue(), playformCompress()],
+  integrations: [
+    sitemap(),
+    vue({ appEntrypoint: '/src/_app' }),
+    playformCompress(),
+  ],
   adapter: vercel(),
   vite: {
     plugins: [

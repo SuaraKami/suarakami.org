@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { LanguageKeys } from '@/i18n'
+import { useLenis } from 'lenis/vue'
 import { computed } from 'vue'
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
 import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
@@ -19,6 +20,7 @@ const {
 }>()
 
 const { currentUrl, currentLang } = useBrowserUrl()
+const lenis = useLenis()
 
 const linkData = computed(() => {
   const url = currentUrl.value
@@ -65,9 +67,23 @@ function normalizePath(pathname: string): string {
   return pathname.replace(/\/$/, '') || '/'
 }
 
-function handleClick() {
+function handleClick(event: MouseEvent) {
   if (locale) {
     setPreferredLangCookie(locale)
+  }
+
+  const url = currentUrl.value
+  if (!url) {
+    return
+  }
+
+  const parsedUrl = new URL(linkData.value.href, url.origin)
+  const isSamePage = normalizePath(parsedUrl.pathname) === normalizePath(url.pathname)
+
+  if (isSamePage && parsedUrl.hash && lenis.value) {
+    event.preventDefault()
+    lenis.value.scrollTo(parsedUrl.hash)
+    history.pushState(null, '', parsedUrl.href)
   }
 }
 </script>

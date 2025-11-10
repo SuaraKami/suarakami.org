@@ -5,8 +5,8 @@ import Footer from '@/components/Footer.astro'
 import Header from '@/components/Header.astro'
 import LanguageRedirect from '@/components/LanguageRedirect.astro'
 import RunningText from '@/components/RunningText.astro'
-import SmoothScroll from '@/components/SmoothScroll.astro'
 import CustomCursor from '@/components/vue/CustomCursor.vue'
+import SmoothScroll from '@/components/vue/SmoothScroll.vue'
 
 interface Props {
   title: string
@@ -25,7 +25,7 @@ const { title, description, lang = 'en', includeLanguageRedirect = false } = Ast
   </head>
   <body>
     {includeLanguageRedirect && <LanguageRedirect />}
-    <SmoothScroll />
+    <SmoothScroll client:load />
     <CustomCursor lang={lang} client:only="vue" />
     <RunningText />
     <Header lang={lang} />
