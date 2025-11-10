@@ -1,27 +1,35 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
-import About from '@/components/landing/About.astro'
-import Events from '@/components/landing/Events.astro'
-import Hero from '@/components/landing/Hero.astro'
-import Separator from '@/components/vue/Separator.vue'
-import { getLangFromUrl } from '@/i18n'
-import BaseLayout from '@/layouts/BaseLayout.astro'
+  import { getCollection, getEntry } from "astro:content";
+  import About from "@/components/landing/About.astro";
+  import Events from "@/components/landing/Events.astro";
+  import Hero from "@/components/landing/Hero.astro";
+  import Separator from "@/components/vue/Separator.vue";
+  import { getLangFromUrl } from "@/i18n";
+  import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const lang = getLangFromUrl(Astro.url)
-const page = await getEntry('index', lang)
-const events = (await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))).sort(
-  (a, b) => Math.max(...a.data.dates.map((d) => d.getTime())) - Math.max(...b.data.dates.map((d) => d.getTime())),
-)
+  const lang = getLangFromUrl(Astro.url);
+  const page = await getEntry("index", lang);
+  const events = (
+    await getCollection("event", (entry) => entry.id.startsWith(`${lang}`))
+  ).sort(
+    (a, b) =>
+      Math.max(...a.data.dates.map((d) => d.getTime())) -
+      Math.max(...b.data.dates.map((d) => d.getTime()))
+  );
 
-if (!page) {
-  throw new Error('Could not find page')
-}
+  if (!page) {
+    throw new Error("Could not find page");
+  }
 ---
-
-<BaseLayout title={page.data.title} description={page.data.description} lang={lang} includeLanguageRedirect>
-  <Hero page={page} lang={lang} />
-  <Separator />
-  <About page={page} lang={lang} />
-  <Separator />
-  <Events events={events} lang={lang} />
+<BaseLayout
+  title={page.data.title}
+  description={page.data.description}
+  lang={lang}
+  includeLanguageRedirect
+>
+  <Hero page={page} lang={lang}/>
+  <Separator/>
+  <About page={page} lang={lang}/>
+  <Separator/>
+  <Events events={events} lang={lang}/>
 </BaseLayout>

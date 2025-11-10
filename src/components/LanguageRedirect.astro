@@ -1,27 +1,29 @@
----
-/**
- * Client-side language detection and redirect for static sites
- * This component should be included on the root page (/) to detect
- * browser language and redirect to the appropriate language version
- */
----
+<!--
+  Client-side language detection and redirect for static sites
+  This component should be included on the root page (/) to detect
+  browser language and redirect to the appropriate language version
+-->
 
 <script>
-  import { detectBrowserLanguage, getPreferredLangFromCookie, setPreferredLangCookie } from '@/i18n'
-  import { siteConfig } from '@/site.config'
+  import {
+    detectBrowserLanguage,
+    getPreferredLangFromCookie,
+    setPreferredLangCookie,
+  } from "@/i18n";
+  import { siteConfig } from "@/site.config";
 
-  const { defaultLang, showDefaultLang } = siteConfig.i18n
+  const { defaultLang, showDefaultLang } = siteConfig.i18n;
 
   // Only run on the root page
-  if (window.location.pathname === '/' || window.location.pathname === '') {
-    const targetLang = getPreferredLangFromCookie() || detectBrowserLanguage()
+  if (window.location.pathname === "/" || window.location.pathname === "") {
+    const targetLang = getPreferredLangFromCookie() || detectBrowserLanguage();
     if (targetLang !== defaultLang || showDefaultLang) {
-      const hash = window.location.hash
-      const search = window.location.search
-      const newPath = `/${targetLang}${search}${hash}`
-      window.location.replace(newPath)
+      const hash = window.location.hash;
+      const search = window.location.search;
+      const newPath = `/${targetLang}${search}${hash}`;
+      window.location.replace(newPath);
     } else if (!getPreferredLangFromCookie()) {
-      setPreferredLangCookie(defaultLang)
+      setPreferredLangCookie(defaultLang);
     }
   }
 </script>

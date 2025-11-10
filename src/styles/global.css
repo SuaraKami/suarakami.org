@@ -1,6 +1,6 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'lenis/dist/lenis.css';
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "lenis/dist/lenis.css";
 
 :root {
   --duration-circle-in: 0.8s;
@@ -18,8 +18,10 @@
 @theme {
   --font-sans: var(--font-cabinet), sans-serif, system-ui;
 
-  --animate-circle-in: circle-in var(--duration-circle-in) cubic-bezier(0.4, 0, 0.2, 1);
-  --animate-circle-out: circle-out var(--duration-circle-in) cubic-bezier(0.6, 0, 0.4, 1);
+  --animate-circle-in: circle-in var(--duration-circle-in)
+    cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-circle-out: circle-out var(--duration-circle-in)
+    cubic-bezier(0.6, 0, 0.4, 1);
   --animate-marquee: marquee var(--duration-marquee) linear infinite;
 
   @keyframes circle-in {

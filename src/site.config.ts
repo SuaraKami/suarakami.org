@@ -2,48 +2,48 @@ export const siteConfig = {
   i18n: {
     languages: {
       en: {
-        name: 'English',
-        code: 'en-US',
+        name: "English",
+        code: "en-US",
       },
       id: {
-        name: 'Bahasa Indonesia',
-        code: 'id-ID',
+        name: "Bahasa Indonesia",
+        code: "id-ID",
       },
     },
-    defaultLang: 'en',
+    defaultLang: "en",
     showDefaultLang: false,
   },
   footer: {
-    copyright: `SuaraKami. All rights reserved.`,
-    tagline: 'Born in Aachen, made for Indonesians everywhere.',
+    copyright: "SuaraKami. All rights reserved.",
+    tagline: "Born in Aachen, made for Indonesians everywhere.",
   },
-  email: 'info@suarakami.org',
+  email: "info@suarakami.org",
   socialMediaLinks: [
     {
-      label: 'Instagram',
-      to: 'https://instagram.com/suarakami',
+      label: "Instagram",
+      to: "https://instagram.com/suarakami",
     },
     {
-      label: 'LinkedIn',
-      to: 'https://www.linkedin.com/company/suarakami',
+      label: "LinkedIn",
+      to: "https://www.linkedin.com/company/suarakami",
     },
     {
-      label: 'Twitter',
-      to: 'https://x.com/suarakamiapp',
+      label: "Twitter",
+      to: "https://x.com/suarakamiapp",
     },
   ],
   navigation: [
     {
-      code: 'about',
-      to: '#about',
+      code: "about",
+      to: "#about",
     },
     {
-      code: 'events',
-      to: '#events',
+      code: "events",
+      to: "#events",
     },
     {
-      code: 'contacts',
-      to: '#contacts',
+      code: "contacts",
+      to: "#contacts",
     },
   ],
-} as const
+} as const;

@@ -1,23 +1,24 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
-import Container from '../vue/Container.vue'
+  import type { CollectionEntry } from "astro:content";
+  import type { LanguageKeys } from "@/i18n";
+  import { useTranslations } from "@/i18n";
+  import Container from "../vue/Container.vue";
 
-interface Props {
-  page: CollectionEntry<'index'>
-  lang: LanguageKeys
-}
-const { page, lang } = Astro.props
+  interface Props {
+    page: CollectionEntry<"index">;
+    lang: LanguageKeys;
+  }
+  const { page, lang } = Astro.props;
 
-const t = useTranslations(lang)
-const paragraphs = page.data.about.split('\n').filter(Boolean)
+  const t = useTranslations(lang);
+  const paragraphs = page.data.about.split("\n").filter(Boolean);
 ---
-
 <section id="about" class="bg-background">
   <Container grid class="gap-y-12 py-32 md:py-48 lg:py-64">
     <div class="col-span-12 md:col-span-3">
-      <h2 class="text-5xl leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl">
+      <h2
+        class="text-5xl leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl"
+      >
         {t('landing.whoWeAre')}
       </h2>
     </div>

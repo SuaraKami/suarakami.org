@@ -1,5 +1,5 @@
-import { useMediaQuery } from '@vueuse/core'
+import { useMediaQuery } from "@vueuse/core";
 
 export function useIsDesktop() {
-  return useMediaQuery('(width >= 48rem)')
+  return useMediaQuery("(width >= 48rem)");
 }

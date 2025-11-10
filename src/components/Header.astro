@@ -1,21 +1,20 @@
 ---
-import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
-import { siteConfig } from '@/site.config'
-import Logo from './Logo.astro'
-import VHeader from './vue/Header.vue'
-import LinkLocal from './vue/LinkLocal.vue'
+  import type { LanguageKeys } from "@/i18n";
+  import { useTranslations } from "@/i18n";
+  import { siteConfig } from "@/site.config";
+  import Logo from "./Logo.astro";
+  import VHeader from "./vue/Header.vue";
+  import LinkLocal from "./vue/LinkLocal.vue";
 
-interface Props {
-  lang: LanguageKeys
-}
+  interface Props {
+    lang: LanguageKeys;
+  }
 
-const { lang } = Astro.props
-const t = useTranslations(lang)
+  const { lang } = Astro.props;
+  const t = useTranslations(lang);
 ---
-
 <VHeader lang={lang} client:idle>
-  <Logo slot="logo" />
+  <Logo slot="logo"/>
   {
     siteConfig.navigation.map((link) => (
       <LinkLocal href={link.to} class="flex items-center" client:idle>

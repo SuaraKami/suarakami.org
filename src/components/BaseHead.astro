@@ -1,59 +1,62 @@
 ---
-import { Font } from 'astro:assets'
-import { ClientRouter } from 'astro:transitions'
-import favicon from '@/assets/favicon.svg'
+  import { Font } from "astro:assets";
+  import { ClientRouter } from "astro:transitions";
+  import favicon from "@/assets/favicon.svg";
 
-import '../styles/global.css'
+  import "../styles/global.css";
 
-interface Props {
-  title: string
-  description: string
-}
+  interface Props {
+    title: string;
+    description: string;
+  }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+  const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description } = Astro.props
+  const { title, description } = Astro.props;
 ---
-
 <!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href={favicon.src} />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<meta name="generator" content={Astro.generator} />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href={favicon.src}>
+<link rel="sitemap" href="/sitemap-index.xml">
+<meta name="generator" content={Astro.generator}>
 
 <!-- Font preloads -->
-<Font cssVariable="--font-cabinet" preload />
+<Font cssVariable="--font-cabinet" preload/>
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={canonicalURL}>
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
+<meta name="title" content={title}>
+<meta name="description" content={description}>
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:type" content="website">
+<meta property="og:url" content={Astro.url}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content={Astro.url}>
+<meta property="twitter:title" content={title}>
+<meta property="twitter:description" content={description}>
 
-<ClientRouter />
+<ClientRouter/>
 
 <script>
-  if (typeof window !== 'undefined') {
-    const hash = window.location.hash
+  if (typeof window !== "undefined") {
+    const hash = window.location.hash;
 
     if (hash) {
-      window.__SK_INITIAL_HASH__ = hash
-      history.replaceState(null, '', window.location.pathname + window.location.search)
+      window.__SK_INITIAL_HASH__ = hash;
+      history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
     }
   }
 </script>

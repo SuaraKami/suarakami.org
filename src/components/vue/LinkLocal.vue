@@ -1,91 +1,95 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
-import { useLenis } from 'lenis/vue'
-import { computed } from 'vue'
-import { useBrowserUrl } from '@/composables/useBrowserUrl'
-import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
-import { cn } from '@/lib/utils'
-import ClientOnly from './ClientOnly.vue'
+  import { useLenis } from "lenis/vue";
+  import { computed } from "vue";
+  import { useBrowserUrl } from "@/composables/useBrowserUrl";
+  import type { LanguageKeys } from "@/i18n";
+  import { setPreferredLangCookie, useTranslatedPath } from "@/i18n";
+  import { cn } from "@/lib/utils";
+  import ClientOnly from "./ClientOnly.vue";
 
-const {
-  href,
-  locale,
-  class: className,
-  activeClass,
-} = defineProps<{
-  href: string
-  locale?: LanguageKeys
-  class?: string
-  activeClass?: string
-}>()
+  const {
+    href,
+    locale,
+    class: className,
+    activeClass,
+  } = defineProps<{
+    href: string;
+    locale?: LanguageKeys;
+    class?: string;
+    activeClass?: string;
+  }>();
 
-const { currentUrl, currentLang } = useBrowserUrl()
-const lenis = useLenis()
+  const { currentUrl, currentLang } = useBrowserUrl();
+  const lenis = useLenis();
 
-const linkData = computed(() => {
-  const url = currentUrl.value
-  if (!url)
-    return { href, isActive: false, isExternal: false }
+  const linkData = computed(() => {
+    const url = currentUrl.value;
+    if (!url) {
+      return { href, isActive: false, isExternal: false };
+    }
 
-  const baseOrigin = url.origin
-  const parsedUrl = new URL(href, baseOrigin)
-  const isExternal = parsedUrl.origin !== baseOrigin
+    const baseOrigin = url.origin;
+    const parsedUrl = new URL(href, baseOrigin);
+    const isExternal = parsedUrl.origin !== baseOrigin;
 
-  if (isExternal) {
+    if (isExternal) {
+      return {
+        href,
+        isActive: false,
+        isExternal: true,
+      };
+    }
+
+    const lang = locale ?? currentLang.value;
+    const translatePath = useTranslatedPath(lang);
+    const translatedPath = translatePath(parsedUrl.pathname);
+    const finalHref = `${translatedPath}${parsedUrl.search}${parsedUrl.hash}`;
+
+    const pathsMatch =
+      normalizePath(translatedPath) === normalizePath(url.pathname);
+    const hashesMatch = parsedUrl.hash ? parsedUrl.hash === url.hash : true;
+    const isActive = pathsMatch && hashesMatch;
+
     return {
-      href,
-      isActive: false,
-      isExternal: true,
+      href: finalHref,
+      isActive,
+      isExternal: false,
+    };
+  });
+
+  const linkClass = computed(() =>
+    activeClass
+      ? cn(className, {
+          [activeClass]: linkData.value.isActive,
+        })
+      : className
+  );
+
+  function normalizePath(pathname: string): string {
+    // biome-ignore lint/performance/useTopLevelRegex: this is in top-level scope
+    return pathname.replace(/\/$/, "") || "/";
+  }
+
+  function handleClick(event: MouseEvent) {
+    if (locale) {
+      setPreferredLangCookie(locale);
+    }
+
+    const url = currentUrl.value;
+    if (!url) {
+      return;
+    }
+
+    const parsedUrl = new URL(linkData.value.href, url.origin);
+    const isSamePage =
+      normalizePath(parsedUrl.pathname) === normalizePath(url.pathname);
+
+    if (isSamePage && parsedUrl.hash && lenis.value) {
+      event.preventDefault();
+      lenis.value.scrollTo(parsedUrl.hash);
+      history.pushState(null, "", parsedUrl.href);
     }
   }
-
-  const lang = locale ?? currentLang.value
-  const translatePath = useTranslatedPath(lang)
-  const translatedPath = translatePath(parsedUrl.pathname)
-  const finalHref = `${translatedPath}${parsedUrl.search}${parsedUrl.hash}`
-
-  const pathsMatch = normalizePath(translatedPath) === normalizePath(url.pathname)
-  const hashesMatch = parsedUrl.hash ? parsedUrl.hash === url.hash : true
-  const isActive = pathsMatch && hashesMatch
-
-  return {
-    href: finalHref,
-    isActive,
-    isExternal: false,
-  }
-})
-
-const linkClass = computed(() => {
-  return activeClass
-    ? cn(className, {
-        [activeClass]: linkData.value.isActive,
-      })
-    : className
-})
-
-function normalizePath(pathname: string): string {
-  return pathname.replace(/\/$/, '') || '/'
-}
-
-function handleClick(event: MouseEvent) {
-  if (locale) {
-    setPreferredLangCookie(locale)
-  }
-
-  const url = currentUrl.value
-  if (!url) {
-    return
-  }
-
-  const parsedUrl = new URL(linkData.value.href, url.origin)
-  const isSamePage = normalizePath(parsedUrl.pathname) === normalizePath(url.pathname)
-
-  if (isSamePage && parsedUrl.hash && lenis.value) {
-    event.preventDefault()
-    lenis.value.scrollTo(parsedUrl.hash)
-    history.pushState(null, '', parsedUrl.href)
-  }
-}
 </script>
 
 <template>
@@ -97,15 +101,17 @@ function handleClick(event: MouseEvent) {
         :class="linkClass"
         @click="handleClick"
       >
-        <slot />
+        <slot/>
       </a>
     </template>
     <template #fallback>
       <a
-        v-bind="$attrs" :href="href" :class="className"
+        v-bind="$attrs"
+        :href="href"
+        :class="className"
         data-allow-mismatch="attribute"
       >
-        <slot />
+        <slot/>
       </a>
     </template>
   </ClientOnly>

@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
-import { useBrowserUrl } from '@/composables/useBrowserUrl'
-import { siteConfig } from '@/site.config'
-import ClientOnly from './ClientOnly.vue'
-import LinkLocal from './LinkLocal.vue'
+  import { useBrowserUrl } from "@/composables/useBrowserUrl";
+  import type { LanguageKeys } from "@/i18n";
+  import { siteConfig } from "@/site.config";
+  import ClientOnly from "./ClientOnly.vue";
+  import LinkLocal from "./LinkLocal.vue";
 
-const {
-  class: className = '',
-  activeLangClass = '',
-  langClass = '',
-} = defineProps<{
-  class?: string
-  langClass?: string
-  activeLangClass?: string
-}>()
+  const {
+    class: className = "",
+    activeLangClass = "",
+    langClass = "",
+  } = defineProps<{
+    class?: string;
+    langClass?: string;
+    activeLangClass?: string;
+  }>();
 
-const { languages } = siteConfig.i18n
-const languageKeys = Object.keys(languages) as LanguageKeys[]
+  const { languages } = siteConfig.i18n;
+  const languageKeys = Object.keys(languages) as LanguageKeys[];
 
-const { currentHref } = useBrowserUrl()
+  const { currentHref } = useBrowserUrl();
 </script>
 
 <template>
@@ -33,7 +33,7 @@ const { currentHref } = useBrowserUrl()
         >
           {{ lang }}
         </LinkLocal>
-        <slot v-if="i < languageKeys.length - 1" name="separator" />
+        <slot v-if="i < languageKeys.length - 1" name="separator"/>
       </template>
     </div>
   </ClientOnly>

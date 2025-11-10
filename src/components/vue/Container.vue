@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
+  import { cn } from "@/lib/utils";
 
-interface ContainerProps {
-  class?: string
-  grid?: boolean
-  strategy?: 'margin' | 'padding'
-}
+  interface ContainerProps {
+    class?: string;
+    grid?: boolean;
+    strategy?: "margin" | "padding";
+  }
 
-const props = withDefaults(defineProps<ContainerProps>(), {
-  class: '',
-  grid: false,
-  strategy: 'padding',
-})
+  const props = withDefaults(defineProps<ContainerProps>(), {
+    class: "",
+    grid: false,
+    strategy: "padding",
+  });
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<ContainerProps>(), {
         props.class,
       )"
     >
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>

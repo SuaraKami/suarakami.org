@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+  import { onMounted, ref } from "vue";
 
-defineOptions({
-  inheritAttrs: false,
-})
+  defineOptions({
+    inheritAttrs: false,
+  });
 
-const show = ref(false)
+  const show = ref(false);
 
-onMounted(() => {
-  show.value = true
-})
+  onMounted(() => {
+    show.value = true;
+  });
 </script>
 
 <template>
-  <slot v-if="show" :attrs="$attrs" />
-  <slot v-else name="fallback" />
+  <slot v-if="show" :attrs="$attrs"/>
+  <slot v-else name="fallback"/>
 </template>

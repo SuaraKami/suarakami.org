@@ -1,21 +1,23 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
-import Container from '../vue/Container.vue'
-import TimeLocal from '../vue/TimeLocal.vue'
+  import type { CollectionEntry } from "astro:content";
+  import type { LanguageKeys } from "@/i18n";
+  import { useTranslations } from "@/i18n";
+  import Container from "../vue/Container.vue";
+  import TimeLocal from "../vue/TimeLocal.vue";
 
-interface Props {
-  page: CollectionEntry<'index'>
-  lang: LanguageKeys
-}
-const { page, lang } = Astro.props
+  interface Props {
+    page: CollectionEntry<"index">;
+    lang: LanguageKeys;
+  }
+  const { page, lang } = Astro.props;
 
-const t = useTranslations(lang)
+  const t = useTranslations(lang);
 ---
-
 <section id="featured" class="bg-background">
-  <Container grid class="gap-y-12 pt-20 pb-36 md:pt-24 md:pb-48 lg:pt-32 lg:pb-64">
+  <Container
+    grid
+    class="gap-y-12 pt-20 pb-36 md:pt-24 md:pb-48 lg:pt-32 lg:pb-64"
+  >
     <div class="col-span-12 flex flex-col justify-start lg:col-span-6">
       <h1
         class={`
@@ -28,11 +30,15 @@ const t = useTranslations(lang)
       >
         {page.data.hero.title}
       </h1>
-      <p class="mb-0 max-w-xl text-lg leading-relaxed opacity-70 md:text-xl lg:text-2xl">
+      <p
+        class="mb-0 max-w-xl text-lg leading-relaxed opacity-70 md:text-xl lg:text-2xl"
+      >
         {page.data.hero.description}
       </p>
     </div>
-    <div class="col-span-12 flex flex-col space-y-12 md:space-y-16 lg:col-span-4 lg:col-start-8 lg:space-y-20">
+    <div
+      class="col-span-12 flex flex-col space-y-12 md:space-y-16 lg:col-span-4 lg:col-start-8 lg:space-y-20"
+    >
       <div class="space-y-12 md:space-y-16">
         <div class="space-y-4">
           <div class="flex items-baseline">
@@ -41,7 +47,13 @@ const t = useTranslations(lang)
             </p>
           </div>
           <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-            <TimeLocal datetime={page.data.hero.date} weekday="long" year="numeric" month="long" day="numeric" />
+            <TimeLocal
+              datetime={page.data.hero.date}
+              weekday="long"
+              year="numeric"
+              month="long"
+              day="numeric"
+            />
           </p>
         </div>
         <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">

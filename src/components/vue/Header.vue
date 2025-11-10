@@ -1,32 +1,31 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
-import { useWindowScroll } from '@vueuse/core'
-import { computed, ref, watch } from 'vue'
-import { useIsDesktop } from '@/composables/useIsDesktop'
-import ClientOnly from './ClientOnly.vue'
-import Container from './Container.vue'
-import LanguagePicker from './LanguagePicker.vue'
-import MobileNavigation from './MobileNavigation.vue'
+  import { useWindowScroll } from "@vueuse/core";
+  import { computed, ref, watch } from "vue";
+  import { useIsDesktop } from "@/composables/useIsDesktop";
+  import type { LanguageKeys } from "@/i18n";
+  import ClientOnly from "./ClientOnly.vue";
+  import Container from "./Container.vue";
+  import LanguagePicker from "./LanguagePicker.vue";
+  import MobileNavigation from "./MobileNavigation.vue";
 
-const { lang } = defineProps<{
-  lang: LanguageKeys
-}>()
+  const { lang } = defineProps<{
+    lang: LanguageKeys;
+  }>();
 
-const { directions, y } = useWindowScroll()
-const isDesktop = useIsDesktop()
-const isHeaderVisible = ref(true)
-const isAtTop = computed(() => y.value <= 100)
+  const { directions, y } = useWindowScroll();
+  const isDesktop = useIsDesktop();
+  const isHeaderVisible = ref(true);
+  const isAtTop = computed(() => y.value <= 100);
 
-function updateVisibility() {
-  if (isDesktop.value || directions.top || isAtTop.value) {
-    isHeaderVisible.value = true
+  function updateVisibility() {
+    if (isDesktop.value || directions.top || isAtTop.value) {
+      isHeaderVisible.value = true;
+    } else if (directions.bottom) {
+      isHeaderVisible.value = false;
+    }
   }
-  else if (directions.bottom) {
-    isHeaderVisible.value = false
-  }
-}
 
-watch([directions, isAtTop, isDesktop], updateVisibility)
+  watch([directions, isAtTop, isDesktop], updateVisibility);
 </script>
 
 <template>
@@ -43,9 +42,9 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
   >
     <Container>
       <div class="flex items-center justify-between py-8 md:py-12">
-        <slot name="logo" />
+        <slot name="logo"/>
         <nav class="hidden items-center gap-12 md:flex lg:gap-16">
-          <slot />
+          <slot/>
           <LanguagePicker
             class="flex items-center gap-2 border-l border-border-dark pl-6 text-xs font-bold tracking-wider uppercase"
             lang-class="opacity-40 transition-opacity hover:opacity-60"
@@ -59,7 +58,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
         <ClientOnly v-slot="{ attrs }">
           <MobileNavigation v-if="!isDesktop" v-bind="attrs" :lang>
             <template #logo>
-              <slot name="logo" />
+              <slot name="logo"/>
             </template>
           </MobileNavigation>
         </ClientOnly>

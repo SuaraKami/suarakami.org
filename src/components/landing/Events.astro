@@ -1,29 +1,30 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import type { LanguageKeys } from '@/i18n'
-import AccordionEvents from '@/components/vue/AccordionEvents.vue'
-import { useTranslations } from '@/i18n'
-import Container from '../vue/Container.vue'
+  import type { CollectionEntry } from "astro:content";
+  import AccordionEvents from "@/components/vue/AccordionEvents.vue";
+  import type { LanguageKeys } from "@/i18n";
+  import { useTranslations } from "@/i18n";
+  import Container from "../vue/Container.vue";
 
-interface Props {
-  events: CollectionEntry<'event'>[]
-  lang: LanguageKeys
-}
-const { events, lang } = Astro.props
+  interface Props {
+    events: CollectionEntry<"event">[];
+    lang: LanguageKeys;
+  }
+  const { events, lang } = Astro.props;
 
-const t = useTranslations(lang)
+  const t = useTranslations(lang);
 ---
-
 <section id="events" class="bg-background">
   <Container grid class="gap-y-12 py-32 md:py-48 lg:py-64">
     <div class="col-span-12 md:col-span-3">
-      <h2 class="text-5xl leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl">
+      <h2
+        class="text-5xl leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl"
+      >
         {t('landing.whatWeDo')}
       </h2>
     </div>
     <div class="col-span-12 md:col-span-8 md:col-start-5">
       <div class="space-y-0">
-        <AccordionEvents items={events} lang={lang} client:visible />
+        <AccordionEvents items={events} lang={lang} client:visible/>
       </div>
     </div>
   </Container>

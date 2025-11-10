@@ -1,0 +1,34 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/core", "ultracite/vue", "ultracite/astro"],
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "off"
+      },
+      "nursery": {
+        "useVueMultiWordComponentNames": {
+          "level": "warn",
+          "options": {
+            "ignores": ["Separator", "Header", "Container"]
+          }
+        }
+      },
+      "style": {
+        "noExportedImports": "off",
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["PascalCase", "camelCase"]
+          }
+        },
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": {
+            "style": "interface"
+          }
+        }
+      }
+    }
+  }
+}
