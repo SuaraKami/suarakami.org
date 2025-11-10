@@ -1,7 +1,7 @@
 ---
 title: "Temu Dua Benua"
 description: "Temu Dua Benua was a two-part online discussion series by SuaraKami, Generasi Melek Politik, and Energy Academy Indonesia. The series discussed the economic and social impacts of COVID-19, focusing on employment, policy response, and collective resilience, while promoting data-driven dialogue across regions."
-date: "3 May 2020 & 7 June 2020"
+dates: [2020-05-03, 2020-06-07]
 photos: []
 ---
 

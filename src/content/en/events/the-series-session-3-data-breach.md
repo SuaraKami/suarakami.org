@@ -1,7 +1,7 @@
 ---
 title: "The Series: Session 3 - Sofa Talk - Data Breach"
 description: "This episode focuses on the importance of data privacy and cybersecurity awareness in Indonesia, stressing that protecting personal information is a matter of human rights, not convenience."
-date: "August 2022"
+dates: [2022-08-15]
 photos: []
 ---
 

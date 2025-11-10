@@ -1,7 +1,7 @@
 ---
 title: "Climate Checkmate"
 description: "Menjadi kembalinya SuaraKami ke forum tatap muka setelah dua tahun. Diskusi ini menyoroti perubahan iklim, transisi energi, dan tanggung jawab masyarakat, dengan penekanan terhadap kolaborasi antara sains, kebijakan, dan aktivisme untuk mencapai progres keberlanjutan."
-date: "6 Agustus 2022"
+dates: [2022-08-06]
 photos: []
 ---
 

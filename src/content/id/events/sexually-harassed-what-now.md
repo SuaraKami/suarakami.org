@@ -1,7 +1,7 @@
 ---
 title: "Sexually Harassed, What Now?"
 description: "Webinar dua sesi hasil kolaborasi antara PPI Aachen, PPI Jerman, PPI Franken, PPI Kaiserslautern, KBRI Berlin, dan SuaraKami. Acara ini membahas aspek hukum dan psikologis dari kekerasan seksual, dengan tujuan membangun kesadaran, empati, dan pemberdayaan bagi para penyintas melalui dialog terbuka dan edukatif."
-date: "12 & 19 Juni 2022"
+dates: [2022-06-12, 2022-06-19]
 photos: []
 ---
 

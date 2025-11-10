@@ -1,12 +1,14 @@
 <script lang="ts">
 import type { CollectionEntry } from 'astro:content'
 import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
+import type { LanguageKeys } from '@/i18n'
 import { cn } from '@/lib/utils'
 
 type EventItem = CollectionEntry<'event'>
 
 export interface AccordionProps<T extends EventItem = EventItem> extends Pick<AccordionRootProps, 'collapsible' | 'defaultValue' | 'modelValue' | 'type' | 'disabled' | 'unmountOnHide'> {
   items: T[]
+  lang: LanguageKeys
 }
 </script>
 
@@ -21,6 +23,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 import ChevronDown from '~icons/lucide/chevron-down'
+import TimeLocal from './TimeLocal.vue'
 
 const props = withDefaults(defineProps<AccordionProps<T>>(), {
   type: 'single',
@@ -60,7 +63,10 @@ const rootProps = useForwardPropsEmits(reactivePick(props, 'collapsible', 'defau
                 md:col-span-2
               "
             >
-              {{ item.data.date }}
+              <template v-for="(date, dateIndex) in item.data.dates" :key="dateIndex">
+                <TimeLocal :lang="props.lang" :datetime="date" year="numeric" month="short" day="numeric" />
+                <span v-if="dateIndex < item.data.dates.length - 1"> & </span>
+              </template>
             </span>
             <div class="col-span-8 space-y-4 md:col-span-9">
               <h3 class="text-2xl font-light md:text-3xl">

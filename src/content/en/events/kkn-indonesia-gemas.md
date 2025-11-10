@@ -1,7 +1,7 @@
 ---
 title: "The Series: KKN – Indonesia (G)Emas"
 description: "The event questioned Indonesia's readiness to realize the '2045 Golden Vision,' highlighting the gap between ambition and systemic reality, and inviting the youth to redefine national progress through collective awareness and participation."
-date: "31 May 2025"
+dates: [2025-05-31]
 photos: []
 ---
 

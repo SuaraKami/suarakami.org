@@ -18,7 +18,9 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params
 const page = await getEntry('index', lang)
-const events = await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))
+const events = (await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))).sort(
+  (a, b) => Math.max(...a.data.dates.map((d) => d.getTime())) - Math.max(...b.data.dates.map((d) => d.getTime())),
+)
 
 if (!page) {
   throw new Error('Could not find page')

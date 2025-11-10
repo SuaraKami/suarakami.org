@@ -1,7 +1,7 @@
 ---
 title: "The Series: Session 4 - Recap 2022"
 description: "Segmen ini menyoroti dinamika politik Indonesia sepanjang 2022, menekankan pentingnya kesadaran, akuntabilitas, dan peran generasi muda dalam menjaga demokrasi."
-date: "Desember 2022"
+dates: [2022-12-15]
 photos: []
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "The Series: Session 1 - COVID 19"
 description: "Sesi ini berfokus pada pengalaman awal masyarakat Indonesia selama pandemi COVID-19, dengan menekankan kesadaran, pemahaman bersama, dan solidaritas lintas batas."
-date: "April 2020"
+dates: [2020-04-01]
 photos: []
 ---
 

@@ -23,7 +23,7 @@ const t = useTranslations(lang)
       </div>
       <div class="col-span-12 md:col-span-8 md:col-start-5">
         <div class="space-y-0">
-          <AccordionEvents items={events} client:visible />
+          <AccordionEvents items={events} lang={lang} client:visible />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 ---
 title: "Saatnya Pemuda Turun Tangan"
 description: "Acara ini membahas isu-isu penting seperti rasisme di Papua, kriminalisasi aktivis, serta revisi undang-undang kontroversial terkait KPK, RKUHP, dan RUU pertanahan, juga masalah lingkungan seperti kebakaran hutan. Forum ini bertujuan untuk memberikan pemahaman kepada diaspora Indonesia mengenai perkembangan politik dan sosial terkini di Indonesia."
-date: "19 Oktober 2019"
+dates: [2019-10-19]
 photos: []
 ---
 

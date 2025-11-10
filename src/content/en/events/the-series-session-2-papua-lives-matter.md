@@ -1,7 +1,7 @@
 ---
 title: "The Series: Session 2 - Sofa Talk - Papua Lives Matter"
 description: "The session reflected on racial injustice and discrimination toward Papuans, drawing parallels with global movements and encouraging Indonesian youth to foster empathy, equality, and critical awareness."
-date: "June 2020"
+dates: [2020-06-01]
 photos: []
 ---
 

@@ -1,7 +1,7 @@
 ---
-title: "Salah paHAM — Menengok ke Belakang, Merajut Masa Depan"
+title: "The Series: Salah paHAM — Menengok ke Belakang, Merajut Masa Depan"
 description: "Acara ini menyoroti perjuangan Indonesia menegakkan kebenaran dan keadilan 25 tahun pasca-Reformasi, dengan menekankan pentingnya ingatan kolektif, akuntabilitas, serta peran generasi muda dalam membangun demokrasi yang berlandaskan HAM."
-date: "11 November 2023"
+dates: [2023-11-11]
 photos: []
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Saatnya Pemuda Turun Tangan"
 description: "The event addressed key issues such as racism in Papua, criminalization of activists, and controversial law revisions on the KPK, penal code, and land reform, along with environmental concerns like forest fires. The forum aimed to inform young Indonesians abroad about current political and social developments in Indonesia."
-date: "19 October 2019"
+dates: [2019-10-19]
 photos: []
 ---
 

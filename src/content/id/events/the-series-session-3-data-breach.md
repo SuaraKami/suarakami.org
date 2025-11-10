@@ -1,7 +1,7 @@
 ---
 title: "The Series: Session 3 - Sofa Talk - Data Breach"
 description: "Sesi ini menyoroti pentingnya kesadaran terhadap privasi data dan keamanan siber di Indonesia, menegaskan bahwa perlindungan data pribadi adalah hak asasi manusia, bukan sekadar urusan teknis."
-date: "Agustus 2022"
+dates: [2022-08-15]
 photos: []
 ---
 

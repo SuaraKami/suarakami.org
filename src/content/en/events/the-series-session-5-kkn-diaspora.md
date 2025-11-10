@@ -1,7 +1,7 @@
 ---
 title: "The Series: Session 5 - KKN - Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya"
 description: "Participants reflected on their experiences as Indonesians abroad, sharing thoughts about identity, belonging, and whether to return home or continue their journeys overseas. With coffee, snacks, and open conversation, KKN became a warm and honest space for reflection—showing how young Indonesians abroad continue to find unique ways to contribute to their homeland from afar."
-date: "17 June 2023"
+dates: [2023-06-17]
 photos: []
 ---
 
