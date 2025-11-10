@@ -30,19 +30,9 @@ export default defineConfig({
         cssVariable: '--font-cabinet',
         variants: [
           {
-            weight: 300,
+            weight: '300 900',
             style: 'normal',
-            src: ['./src/assets/fonts/CabinetGrotesk-Light.woff2'],
-          },
-          {
-            weight: 400,
-            style: 'normal',
-            src: ['./src/assets/fonts/CabinetGrotesk-Regular.woff2'],
-          },
-          {
-            weight: 500,
-            style: 'normal',
-            src: ['./src/assets/fonts/CabinetGrotesk-Medium.woff2'],
+            src: ['./src/assets/fonts/CabinetGrotesk-Variable.woff2'],
           },
         ],
       },
