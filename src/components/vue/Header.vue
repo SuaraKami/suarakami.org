@@ -17,20 +17,6 @@ const isDesktop = useIsDesktop()
 const isHeaderVisible = ref(true)
 const isAtTop = computed(() => y.value <= 100)
 
-const isPassedHero = computed(() => {
-  if (typeof window === 'undefined') {
-    return false
-  }
-
-  const heroSection = document.getElementById('featured')
-  if (!heroSection) {
-    return false
-  }
-
-  const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
-  return y.value > heroBottom
-})
-
 function updateVisibility() {
   if (isDesktop.value || directions.top || isAtTop.value) {
     isHeaderVisible.value = true
@@ -46,15 +32,13 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 <template>
   <header
     class="
-      sticky top-0 z-50 border-b border-border-dark
+      sticky top-0 z-50 border-b border-border-dark bg-background
       transition-[translate,background-color] duration-300 ease-out
       md:relative md:translate-y-0
     "
     :class="{
       'translate-y-0': isHeaderVisible,
       '-translate-y-full': !isHeaderVisible,
-      'bg-background': isPassedHero,
-      'bg-primary': !isPassedHero,
     }"
   >
     <Container>

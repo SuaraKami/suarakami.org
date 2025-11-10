@@ -8,7 +8,6 @@
 
   --background: oklch(0.98 0.01 60);
   --foreground: oklch(0.12 0 0);
-  --primary: oklch(90.95% 0.162 97.41);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --border: oklch(0.922 0 0);
@@ -60,7 +59,7 @@
   }
 
   body {
-    @apply bg-primary text-foreground antialiased cursor-none! select-none! overflow-x-hidden;
+    @apply text-foreground antialiased cursor-none! select-none! overflow-x-hidden;
   }
 
   ::selection {
