@@ -70,7 +70,7 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased cursor-none select-none overflow-x-hidden;
+    @apply bg-primary text-foreground antialiased cursor-none select-none overflow-x-hidden;
   }
 
   ::selection {
