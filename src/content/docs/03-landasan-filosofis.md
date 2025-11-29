@@ -6,7 +6,7 @@ tags:
   - "ethics"
   - "collective"
 created: 2025-11-23 22:23:00
-updated: 2025-11-28 18:06:00
+updated: 2025-11-29 22:21:00
 history:
   - author: "SuaraKami"
     date: 2025-07-22

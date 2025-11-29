@@ -26,7 +26,7 @@ Terinspirasi oleh **Wahl-O-Mat** di Jerman, kami bermimpi membuat aplikasi digit
 
 ## Benturan Realitas
 
-Namun, kami gagal mewujudkannya, karena **sistem politik Indonesia menolak untuk dipetakan.** Partai-partai politik Indonesia seringkali tidak memiliki ideologi yang jelas, data pemerintah tertutup, dan visi misi hanyalah slogan.
+Namun, kami gagal mewujudkannya, karena sistem politik Indonesia menolak untuk dipetakan. Partai-partai politik Indonesia seringkali tidak memiliki ideologi yang jelas, data pemerintah tertutup, dan visi misi hanyalah slogan.
 
 Kami menyadari sebuah realitas yang kiranya tidak terelakkan. Teknologi tidak dapat memperbaiki apa yang dirusak oleh budaya politik. Solusi semacam ini akan sulit berfungsi optimal dalam ekosistem di mana partai politik sendiri seringkali tidak memiliki pendirian yang konsisten.
 
