@@ -1,0 +1,41 @@
+---
+import { Icon } from 'astro-icon/components'
+
+type Props = {
+  title: string
+  slug: string
+  viewMode?: 'read' | 'history'
+}
+
+const { title, slug, viewMode = 'read' } = Astro.props
+---
+
+<div
+  class="flex h-10 items-center gap-2 overflow-x-auto border-b border-border bg-panel px-4 text-xs whitespace-nowrap text-foreground-muted select-none md:px-6"
+>
+  <a href="/" class="text-foreground-muted transition-colors hover:text-foreground">Dokumen Internal</a>
+  <span>/</span>
+  <span class="text-foreground">{title}</span>
+  <div class="ml-auto flex items-center gap-3 pl-4 text-foreground-muted">
+    <a
+      href={`/${slug}`}
+      class:list={[
+        'flex items-center gap-1 transition-colors',
+        { 'text-foreground': viewMode === 'read', 'hover:text-foreground': viewMode === 'history' },
+      ]}
+    >
+      <Icon name="hugeicons:book-open-01" class="size-4" />
+      <span class="hidden sm:inline">Read</span>
+    </a>
+    <a
+      href={`/${slug}/history`}
+      class:list={[
+        'flex items-center gap-1 transition-colors',
+        { 'text-foreground': viewMode === 'history', 'hover:text-foreground': viewMode === 'read' },
+      ]}
+    >
+      <Icon name="hugeicons:clock-04" class="size-4" />
+      <span class="hidden sm:inline">History</span>
+    </a>
+  </div>
+</div>

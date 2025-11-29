@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { render } from 'astro:content'
+
+type Props = {
+  entry: CollectionEntry<'docs'>
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('id-ID', {
+    dateStyle: 'full',
+    timeStyle: 'short',
+    timeZone: 'Europe/Berlin',
+  }).format(date)
+}
+
+const metadataRows = [
+  { label: 'tags', tags: entry.data.tags },
+  { label: 'created', text: formatDate(entry.data.created) },
+  { label: 'updated', text: formatDate(entry.data.updated) },
+]
+---
+
+<div class="space-y-8 select-text">
+  <div class="border-b border-border pb-6 text-sm">
+    {
+      metadataRows.map((row) => (
+        <div class="flex flex-col gap-2 py-1.5 sm:flex-row sm:items-center">
+          <span class="w-24 text-sm text-foreground-muted">{row.label}</span>
+          <div class="flex flex-wrap gap-2 text-sm text-foreground">
+            {row.tags ? (
+              row.tags.map((tag) => (
+                <span class="rounded-md bg-primary/15 px-2.5 py-0.5 font-medium text-link">{tag}</span>
+              ))
+            ) : (
+              <span class="font-mono text-sm text-foreground">{row.text}</span>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <article class="prose prose-sm max-w-none prose-invert prose-custom md:prose-base">
+    <h1>{entry.data.title}</h1>
+    <Content />
+  </article>
+</div>
