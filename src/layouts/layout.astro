@@ -30,7 +30,7 @@ const { title, description, slug } = Astro.props as Props
     <Font cssVariable="--font-jetbrains-mono" preload />
     <ClientRouter />
   </head>
-  <body class="min-h-screen bg-background font-sans text-foreground antialiased">
+  <body>
     <div class="flex h-dvh text-sm select-none md:text-base">
       <Ribbon />
       <Sidebar activeSlug={slug} />
