@@ -1,12 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
+import GlossaryOverlay from '@/components/glossary/glossary-overlay.svelte'
 
 type Props = {
   entry: CollectionEntry<'docs'>
+  glossary: CollectionEntry<'glossary'>[]
 }
 
-const { entry } = Astro.props
+const { entry, glossary } = Astro.props
 const { Content } = await render(entry)
 
 function formatDate(date: Date): string {
@@ -43,8 +45,13 @@ const metadataRows = [
       ))
     }
   </div>
-  <article class="prose prose-sm max-w-none prose-invert prose-custom md:prose-base">
+  <article
+    class="prose prose-sm max-w-none prose-invert prose-custom md:prose-base"
+    data-glossary-article
+    id={`doc-${entry.slug}`}
+  >
     <h1>{entry.data.title}</h1>
     <Content />
   </article>
+  <GlossaryOverlay client:load entries={glossary} articleSelector={`#doc-${entry.slug}`} />
 </div>
