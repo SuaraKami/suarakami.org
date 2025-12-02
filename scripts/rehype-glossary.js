@@ -155,8 +155,6 @@ function createGlossaryButton(text, token) {
     properties: {
       'className': ['glossary-term'],
       'slug': token.slug,
-      'term': token.canonical,
-      'alias': text,
       'aria-label': `Lihat glosarium untuk ${text}`,
     },
     children: [{ type: 'text', value: text }],

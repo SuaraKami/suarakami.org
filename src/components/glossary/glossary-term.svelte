@@ -2,48 +2,23 @@
 
 <script lang='ts'>
   import { useEventListener } from 'runed'
+  import { glossaryStates as states } from './glossary-state.svelte'
 
-  const {
-    slug = '',
-    term = '',
-    alias = '',
-  } = $props<{
-    slug?: string
-    term?: string
-    alias?: string
-  }>()
+  const { slug = '' } = $props()
 
-  function emitOpen(event?: Event) {
-    event?.preventDefault()
-    if (!slug || !$host())
-      return
-
-    const detail = {
-      slug,
-      term: term || alias || '',
-      alias,
-      anchor: $host(),
-    }
-
-    $host().dispatchEvent(
-      new CustomEvent('glossary-open', {
-        bubbles: true,
-        composed: true,
-        detail,
-      }),
-    )
+  function openGlossary() {
+    states.trigger = $host()
+    states.slug = slug
+    states.isOpen = true
   }
 
-  const handleClick = (event: Event) => emitOpen(event)
-  const handleKeydown = (event: KeyboardEvent) => {
+  useEventListener($host(), 'click', openGlossary)
+  useEventListener($host(), 'keydown', (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      emitOpen(event)
+      openGlossary()
     }
-  }
-
-  useEventListener($host(), 'click', handleClick)
-  useEventListener($host(), 'keydown', handleKeydown)
+  })
 </script>
 
 <slot />

@@ -91,8 +91,7 @@ body {
 }
 
 .glossary-term:hover,
-.glossary-term:focus-visible,
-.glossary-term[data-glossary-active="true"] {
+.glossary-term:focus-visible {
   @apply text-primary bg-primary/20 border-primary;
 }
 

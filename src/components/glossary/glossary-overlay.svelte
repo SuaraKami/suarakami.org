@@ -4,15 +4,11 @@
   import { Dialog, Popover } from 'bits-ui'
   import { useEventListener } from 'runed'
   import ForceGraph from '@/components/force-graph/graph.svelte'
+  import { glossaryStates, useOnOpenGlossary } from './glossary-state.svelte'
   import '@/components/glossary/glossary-term.svelte'
 
   type GlossaryEntry = CollectionEntry<'glossary'>
   type GlossaryRelation = GlossaryEntry['data']['relations'][number]
-
-  type GlossaryOpenDetail = {
-    slug?: string
-    anchor?: HTMLElement | null
-  }
 
   const { entries = [] }: { entries: GlossaryEntry[] } = $props()
 
@@ -23,13 +19,6 @@
   let isMobile = $state(mediaQuery.matches)
   let activeSlug = $state<string | null>(null)
   let detailSlug = $state<string | null>(null)
-  let lastSelection = $state<GraphSelectionPayload | null>(null)
-
-  const syncMobile = () => {
-    isMobile = mediaQuery.matches
-  }
-  useEventListener(() => mediaQuery, 'change', syncMobile)
-
   const graphData = $derived<ForceGraphData | null>(activeSlug ? buildGraphData(activeSlug) : null)
   const relations = $derived(activeSlug ? getRelations(activeSlug) : [])
   const rootEntry = $derived(activeSlug ? entryMap.get(activeSlug) ?? null : null)
@@ -39,29 +28,17 @@
     const slug = detailSlug ?? activeSlug
     return entryMap.get(slug) ?? null
   })
-  const activeNodeId = $derived(detailEntry?.id ?? rootEntry?.id ?? null)
-  const hasActiveNode = $derived(Boolean(activeSlug))
-  const popoverOpen = $derived(hasActiveNode && !isMobile)
-  const sheetOpen = $derived(hasActiveNode && isMobile)
+  const detailHeading = $derived(detailEntry?.data.term ?? '')
+  const detailSense = $derived(detailEntry?.data.senseId ?? '')
+  const detailPos = $derived(detailEntry?.data.pos ?? '')
+  const detailDefinition = $derived(detailEntry?.data.definition ?? null)
 
-  const handleOpen = (event: Event) => {
-    const detail = (event as CustomEvent<GlossaryOpenDetail>).detail
-    const slug = detail?.slug
-    if (!slug || !entryMap.has(slug))
-      return
-    const target = detail?.anchor ?? ((event.target instanceof HTMLElement && event.target) || null)
-    openFor(target, slug)
-  }
+  useOnOpenGlossary((el, slug) => {
+    openFor(el, slug)
+  })
 
-  useEventListener(() => window, 'glossary-open', handleOpen)
-
-  $effect(() => {
-    if (!anchorEl)
-      return
-    anchorEl.setAttribute('data-glossary-active', 'true')
-    return () => {
-      anchorEl?.removeAttribute('data-glossary-active')
-    }
+  useEventListener(() => mediaQuery, 'change', () => {
+    isMobile = mediaQuery.matches
   })
 
   function openFor(target: HTMLElement | null, slug: string) {
@@ -70,18 +47,13 @@
     anchorEl = target
     activeSlug = slug
     detailSlug = slug
-    const entry = entryMap.get(slug)
-    if (entry) {
-      lastSelection = { id: slug, label: entry.data.term, tags: [entry.data.pos], slug }
-    }
   }
 
   function resetActive() {
-    anchorEl?.removeAttribute('data-glossary-active')
+    glossaryStates.isOpen = false
     anchorEl = null
     activeSlug = null
     detailSlug = null
-    lastSelection = null
   }
 
   function closeAll() {
@@ -151,28 +123,21 @@
     if (!slug)
       return
     detailSlug = slug
-    const entry = entryMap.get(slug)
-    if (entry) {
-      lastSelection = { id: slug, label: entry.data.term, tags: [entry.data.pos], slug }
-    }
   }
 
   function handleGraphSelect(payload: GraphSelectionPayload) {
     if (!payload?.id)
       return
-    lastSelection = payload
     detailSlug = payload.id
   }
-
-  const detailHeading = $derived(detailEntry?.data?.term ?? lastSelection?.label ?? rootEntry?.data?.term ?? '')
-  const detailSense = $derived(detailEntry?.data?.senseId ?? rootEntry?.data?.senseId ?? '')
-  const detailPos = $derived(detailEntry?.data?.pos ?? (lastSelection?.tags?.[0] ?? rootEntry?.data?.pos) ?? '')
-  const detailDefinition = $derived(detailEntry?.data?.definition ?? null)
 </script>
 
 {#if entries.length}
   <div class='glossary-overlay'>
-    <Popover.Root open={popoverOpen} onOpenChange={handleVisibilityChange}>
+    <Popover.Root
+      open={glossaryStates.isOpen && !isMobile}
+      onOpenChange={handleVisibilityChange}
+    >
       <Popover.Content
         customAnchor={anchorEl}
         collisionPadding={24}
@@ -198,7 +163,10 @@
       </Popover.Content>
     </Popover.Root>
 
-    <Dialog.Root open={sheetOpen} onOpenChange={handleVisibilityChange}>
+    <Dialog.Root
+      open={glossaryStates.isOpen && isMobile}
+      onOpenChange={handleVisibilityChange}
+    >
       <Dialog.Portal>
         <Dialog.Overlay class='fixed inset-0 z-60 bg-black/70 backdrop-blur-sm' />
         <Dialog.Content>
@@ -270,8 +238,7 @@
           {#if graphData}
             <ForceGraph
               graphData={graphData}
-              activeNodeId={activeNodeId}
-              config={{ linkDistance: 120, scale: 2.1, collisionPadding: 8, focusOnHover: false, repelForce: 0.8 }}
+              activeNodeId={detailSlug}
               onSelect={handleGraphSelect}
             />
           {/if}
