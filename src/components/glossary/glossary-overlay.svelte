@@ -1,10 +1,11 @@
 <script lang='ts'>
   import type { CollectionEntry } from 'astro:content'
   import type { ForceGraphData, GraphSelectionPayload } from '@/components/force-graph/types'
-  import { Dialog, Popover } from 'bits-ui'
-  import { useEventListener } from 'runed'
+  import { Dialog, Popover, ScrollArea } from 'bits-ui'
   import ForceGraph from '@/components/force-graph/graph.svelte'
-  import { glossaryStates, useOnOpenGlossary } from './glossary-state.svelte'
+  import { useGlossaryEvents } from '@/lib/hooks/use-glossary-events.svelte'
+  import { useIsMobile } from '@/lib/hooks/use-is-mobile.svelte'
+  import { glossaryStates } from './glossary-state.svelte'
   import '@/components/glossary/glossary-term.svelte'
 
   type GlossaryEntry = CollectionEntry<'glossary'>
@@ -13,10 +14,8 @@
   const { entries = [] }: { entries: GlossaryEntry[] } = $props()
 
   const entryMap = new Map(entries.map(entry => [entry.id, entry]))
-  const mediaQuery = window.matchMedia('(max-width: 767px)')
 
   let anchorEl = $state<HTMLElement | null>(null)
-  let isMobile = $state(mediaQuery.matches)
   let activeSlug = $state<string | null>(null)
   let detailSlug = $state<string | null>(null)
   const graphData = $derived<ForceGraphData | null>(activeSlug ? buildGraphData(activeSlug) : null)
@@ -33,12 +32,10 @@
   const detailPos = $derived(detailEntry?.data.pos ?? '')
   const detailDefinition = $derived(detailEntry?.data.definition ?? null)
 
-  useOnOpenGlossary((el, slug) => {
+  const isMobile = useIsMobile()
+  const { onOpen: onOpenGlossary } = useGlossaryEvents()
+  onOpenGlossary((el, slug) => {
     openFor(el, slug)
-  })
-
-  useEventListener(() => mediaQuery, 'change', () => {
-    isMobile = mediaQuery.matches
   })
 
   function openFor(target: HTMLElement | null, slug: string) {
@@ -140,23 +137,30 @@
     >
       <Popover.Content
         customAnchor={anchorEl}
-        collisionPadding={24}
         sideOffset={12}
-        align='center'
-        onCloseAutoFocus={event => event?.preventDefault?.()}
-        preventScroll={false}
       >
         {#snippet child({ props, wrapperProps })}
-          <div {...wrapperProps} class='z-60'>
+          <div {...wrapperProps} class='z-60!'>
             <div
               {...props}
-              class='glossary-surface hidden w-[min(28rem,calc(100vw-2rem))] rounded-2xl border border-border/60 bg-panel/95 p-4 text-foreground shadow-2xl outline-none backdrop-blur-xl lg:block'
+              class='glossary-surface w-[min(30rem,calc(100vw-2rem))] rounded-2xl border border-border/60 bg-panel/95 text-foreground shadow-2xl outline-none backdrop-blur-xl'
             >
-              {#if graphData && rootEntry}
-                {@render panel()}
-              {:else}
-                {@render emptyState()}
-              {/if}
+              <ScrollArea.Root class='max-h-144 w-full pr-1'>
+                <ScrollArea.Viewport class='max-h-144 rounded-2xl p-4 pr-3'>
+                  {#if graphData && rootEntry}
+                    {@render panel()}
+                  {:else}
+                    {@render emptyState()}
+                  {/if}
+                </ScrollArea.Viewport>
+                <ScrollArea.Scrollbar
+                  orientation='vertical'
+                  class='bg-[#18181b] flex touch-none select-none rounded-full border-l border-l-transparent my-2 w-1.5 hover:w-2'
+                >
+                  <ScrollArea.Thumb class='bg-white/20 flex-1 rounded-full' />
+                </ScrollArea.Scrollbar>
+                <ScrollArea.Corner class='hidden' />
+              </ScrollArea.Root>
             </div>
           </div>
         {/snippet}
@@ -173,28 +177,40 @@
           {#snippet child({ props })}
             <div
               {...props}
-              class='fixed inset-x-0 bottom-0 z-70 rounded-t-3xl border border-border/80 bg-panel/95 p-4 pb-6 text-foreground shadow-2xl'
+              class='fixed inset-x-0 bottom-0 z-70 rounded-t-3xl border border-border/80 bg-panel/95 text-foreground shadow-2xl'
             >
-              <div class='mx-auto max-w-xl space-y-4'>
-                <div class='flex items-start justify-between gap-4'>
-                  <div>
-                    <p class='text-xs uppercase tracking-widest text-foreground-muted'>Glosarium</p>
-                    <h3 class='text-lg font-semibold text-foreground'>{detailHeading || 'Tidak ada entri'}</h3>
+              <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-gray-100/20'></div>
+              <ScrollArea.Root type='auto' class='max-h-[90vh] pr-1'>
+                <ScrollArea.Viewport class='max-h-[90vh] rounded-t-3xl p-4 pb-6 pr-3'>
+                  <div class='mx-auto max-w-xl space-y-4 pb-4'>
+                    <div class='flex items-start justify-between gap-4'>
+                      <div>
+                        <p class='text-xs uppercase tracking-widest text-foreground-muted'>Glosarium</p>
+                        <h3 class='text-lg font-semibold text-foreground'>{detailHeading || 'Tidak ada entri'}</h3>
+                      </div>
+                      <button
+                        class='rounded-full border border-border/70 px-3 py-1 text-xs font-medium text-foreground-muted hover:border-primary/60 hover:text-foreground'
+                        type='button'
+                        onclick={closeAll}
+                      >
+                        Tutup
+                      </button>
+                    </div>
+                    {#if graphData && rootEntry}
+                      {@render panel({ dense: true })}
+                    {:else}
+                      {@render emptyState()}
+                    {/if}
                   </div>
-                  <button
-                    class='rounded-full border border-border/70 px-3 py-1 text-xs font-medium text-foreground-muted hover:border-primary/60 hover:text-foreground'
-                    type='button'
-                    onclick={closeAll}
-                  >
-                    Tutup
-                  </button>
-                </div>
-                {#if graphData && rootEntry}
-                  {@render panel({ dense: true })}
-                {:else}
-                  {@render emptyState()}
-                {/if}
-              </div>
+                </ScrollArea.Viewport>
+                <ScrollArea.Scrollbar
+                  orientation='vertical'
+                  class='bg-[#18181b] flex touch-none select-none rounded-full border-l border-l-transparent p-px w-1.5 hover:w-2'
+                >
+                  <ScrollArea.Thumb class='bg-white/20 flex-1 rounded-full' />
+                </ScrollArea.Scrollbar>
+                <ScrollArea.Corner class='hidden' />
+              </ScrollArea.Root>
             </div>
           {/snippet}
         </Dialog.Content>
@@ -204,27 +220,16 @@
 {/if}
 
 {#snippet panel({ dense = false } = {})}
+  {@const graphHeight = dense ? 'h-60' : 'h-64 md:h-72'}
   <div class={`space-y-4 ${dense ? 'text-sm' : 'text-xs'}`}>
-    <div class='flex items-start justify-between gap-4'>
-      <div>
-        {#if detailPos}
-          <p class='text-[0.65rem] uppercase tracking-[0.25em] text-primary'>{detailPos}</p>
-        {/if}
-        <div class='mt-1 space-y-0.5'>
-          <h3 class='text-base font-semibold text-foreground'>{detailHeading || 'Tidak ada entri'}</h3>
-          {#if detailSense}
-            <p class='font-mono text-[0.6rem] text-foreground-muted'>{detailSense}</p>
-          {/if}
-        </div>
-      </div>
-      <div class='text-right text-[0.65rem] text-foreground-muted'>
-        {#if rootEntry?.data.term}
-          <p>
-            Induk: <span class='text-foreground'>{rootEntry.data.term}</span>
-          </p>
-        {/if}
-        {#if rootEntry?.data.pos}
-          <p class='uppercase tracking-[0.25em] text-primary/80'>{rootEntry.data.pos}</p>
+    <div>
+      {#if detailPos}
+        <p class='text-[0.65rem] uppercase tracking-[0.25em] text-primary'>{detailPos}</p>
+      {/if}
+      <div class='mt-1 space-y-0.5'>
+        <h3 class='text-base font-semibold text-foreground'>{detailHeading || 'Tidak ada entri'}</h3>
+        {#if detailSense}
+          <p class='font-mono text-[0.6rem] text-foreground-muted'>{detailSense}</p>
         {/if}
       </div>
     </div>
@@ -234,7 +239,7 @@
           <span>Peta Relasi</span>
           <span>{graphData?.nodes.length ?? 0} node</span>
         </div>
-        <div class='mt-2 size-full rounded-lg border border-border/50 bg-panel/80 p-1'>
+        <div class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
           {#if graphData}
             <ForceGraph
               graphData={graphData}
@@ -270,21 +275,15 @@
       {#if relations.length}
         <div class='mt-3 flex flex-wrap gap-2'>
           {#each relations as { relation, entry }}
-            {@const isActive = Boolean(detailEntry && entry?.id === detailEntry.id)}
             <button
-              class={`flex min-w-32 flex-col rounded-xl border px-3 py-2 text-left text-[0.75rem] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 ${
-                isActive ? 'border-primary bg-primary/10 text-foreground' : 'border-border/70 text-foreground-muted'
-              } ${
-                entry
-                  ? 'hover:border-primary/60 hover:bg-primary/5 hover:text-foreground'
-                  : 'cursor-not-allowed opacity-50'
-              }`}
+              class='glossary-chip'
+              data-active={entry && detailEntry && entry.id === detailEntry.id}
               type='button'
               disabled={!entry}
               onclick={() => entry && focusRelation(entry.id)}
             >
-              <span class='font-medium'>{entry?.data.term ?? resolveRelationId(relation) ?? relation.type}</span>
-              <span class='text-[0.6rem] text-primary/80'>{relation.label ?? relation.type}</span>
+              <span class='glossary-chip__label'>{entry?.data.term ?? resolveRelationId(relation) ?? relation.type}</span>
+              <span class='glossary-chip__meta'>{relation.label ?? relation.type}</span>
             </button>
           {/each}
         </div>

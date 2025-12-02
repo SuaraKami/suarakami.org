@@ -87,21 +87,48 @@ body {
 
 
 .glossary-term {
-  @apply inline-flex items-center gap-1 font-medium px-1 py-0 -mx-1 border-0 rounded-md bg-transparent text-link border-b border-dashed border-primary/70 cursor-pointer transition-colors duration-150 ease-out;
+  @apply inline-flex items-center gap-1 font-medium leading-tight px-1 py-0 -mx-1 border-0 rounded-md bg-transparent text-link border-b border-dashed border-primary/70 cursor-pointer transition-colors duration-150 ease-out;
 }
 
 .glossary-term:hover,
 .glossary-term:focus-visible {
-  @apply text-primary bg-primary/20 border-primary;
+  @apply text-primary bg-primary/15 border-primary;
 }
 
 .glossary-term:focus-visible {
-  @apply outline-2 outline-offset-2 outline-primary/80;
+  @apply outline-2 outline-offset-2 outline-primary/70;
 }
 
 .glossary-term::after {
   content: '✦';
-  font-size: 0.6em;
-  opacity: 0.8;
+  font-size: 0.55em;
+  opacity: 0.6;
   color: currentColor;
+}
+
+@layer components {
+  .glossary-chip {
+    @apply flex min-w-32 flex-col gap-1 rounded-xl border border-border/70 bg-panel/70 px-3 py-2 text-left text-[0.8rem] text-foreground-muted transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60;
+  }
+
+  .glossary-chip:hover:not(:disabled),
+  .glossary-chip:focus-visible {
+    @apply border-primary/70 text-foreground;
+  }
+
+  .glossary-chip[data-active='true'] {
+    @apply border-primary bg-primary/10 text-foreground;
+  }
+
+  .glossary-chip:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  .glossary-chip__label {
+    @apply font-semibold text-foreground;
+  }
+
+  .glossary-chip__meta {
+    @apply text-[0.65rem] uppercase tracking-[0.2em] text-primary/80;
+  }
 }
