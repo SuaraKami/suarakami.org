@@ -131,52 +131,46 @@
 {#if entries.length}
   <div class='glossary-overlay'>
     <Popover.Root
-      open={glossaryStates.isOpen && !isMobile}
+      open={glossaryStates.isOpen && !isMobile.current}
       onOpenChange={handleVisibilityChange}
     >
-      <Popover.Content
-        customAnchor={anchorEl}
-        sideOffset={12}
-      >
-        {#snippet child({ props, wrapperProps })}
-          <div {...wrapperProps} class='z-60!'>
-            <div
-              {...props}
-              class='glossary-surface w-[min(30rem,calc(100vw-2rem))] rounded-2xl border border-border/60 bg-panel/95 text-foreground shadow-2xl outline-none backdrop-blur-xl'
-            >
-              <ScrollArea.Root class='max-h-144 w-full pr-1'>
-                <ScrollArea.Viewport class='max-h-144 rounded-2xl p-4 pr-3'>
-                  {#if graphData && rootEntry}
-                    {@render panel()}
-                  {:else}
-                    {@render emptyState()}
-                  {/if}
-                </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar
-                  orientation='vertical'
-                  class='bg-[#18181b] flex touch-none select-none rounded-full border-l border-l-transparent my-2 w-1.5 hover:w-2'
-                >
-                  <ScrollArea.Thumb class='bg-white/20 flex-1 rounded-full' />
-                </ScrollArea.Scrollbar>
-                <ScrollArea.Corner class='hidden' />
-              </ScrollArea.Root>
-            </div>
+      <Popover.Portal>
+        <Popover.Content customAnchor={anchorEl} sideOffset={12} class='z-50'>
+          <div
+            class='glossary-surface w-[min(30rem,calc(100vw-2rem))] rounded-2xl border border-border/60 bg-panel/95 text-foreground shadow-2xl outline-none backdrop-blur-xl'
+          >
+            <ScrollArea.Root class='max-h-144 w-full pr-1'>
+              <ScrollArea.Viewport class='max-h-144 rounded-2xl p-4 pr-3'>
+                {#if graphData && rootEntry}
+                  {@render panel()}
+                {:else}
+                  {@render emptyState()}
+                {/if}
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar
+                orientation='vertical'
+                class='bg-[#18181b] flex touch-none select-none rounded-full border-l border-l-transparent my-2 w-1.5 hover:w-2'
+              >
+                <ScrollArea.Thumb class='bg-white/20 flex-1 rounded-full' />
+              </ScrollArea.Scrollbar>
+              <ScrollArea.Corner class='hidden' />
+            </ScrollArea.Root>
           </div>
-        {/snippet}
-      </Popover.Content>
+        </Popover.Content>
+      </Popover.Portal>
     </Popover.Root>
 
     <Dialog.Root
-      open={glossaryStates.isOpen && isMobile}
+      open={glossaryStates.isOpen && isMobile.current}
       onOpenChange={handleVisibilityChange}
     >
       <Dialog.Portal>
-        <Dialog.Overlay class='fixed inset-0 z-60 bg-black/70 backdrop-blur-sm' />
+        <Dialog.Overlay class='fixed inset-0 z-50 bg-black/70 backdrop-blur-sm' />
         <Dialog.Content>
           {#snippet child({ props })}
             <div
               {...props}
-              class='fixed inset-x-0 bottom-0 z-70 rounded-t-3xl border border-border/80 bg-panel/95 text-foreground shadow-2xl'
+              class='fixed inset-x-0 bottom-0 z-60 rounded-t-3xl border border-border/80 bg-panel/95 text-foreground shadow-2xl'
             >
               <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-gray-100/20'></div>
               <ScrollArea.Root type='auto' class='max-h-[90vh] pr-1'>

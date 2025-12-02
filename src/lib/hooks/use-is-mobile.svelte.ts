@@ -13,7 +13,6 @@ export const TAILWIND_BREAKPOINTS: Breakpoints<'sm' | 'md' | 'lg' | 'xl' | '2xl'
   '2xl': '96rem',
 }
 
-export function useIsMobile(): boolean {
-  const query = new MediaQuery(`max-width: ${TAILWIND_BREAKPOINTS.md}`)
-  return query.current
+export function useIsMobile(): MediaQuery {
+  return new MediaQuery(`(max-width: ${TAILWIND_BREAKPOINTS.md})`)
 }
