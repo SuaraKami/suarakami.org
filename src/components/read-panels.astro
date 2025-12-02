@@ -53,5 +53,5 @@ const metadataRows = [
     <h1>{entry.data.title}</h1>
     <Content />
   </article>
-  <GlossaryOverlay client:load entries={glossary} articleSelector={`#doc-${entry.slug}`} />
+  <GlossaryOverlay client:load entries={glossary} client:only="svelte" />
 </div>

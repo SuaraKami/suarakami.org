@@ -1,4 +1,20 @@
-<script lang="ts">
+<script lang='ts'>
+  import type { Simulation } from 'd3'
+  import type {
+    ForceGraphConfig,
+    ForceGraphData,
+    GraphLink,
+    GraphPalette,
+    GraphSelectionPayload,
+    LinkRenderData,
+    NodeRenderData,
+    NormalizedGraph,
+    NormalizedLink,
+    NormalizedNode,
+    RenderOptions,
+    TweenHandle,
+  } from './types'
+  import { Tween as Tweened, Group as TweenGroup } from '@tweenjs/tween.js'
   import {
     drag,
     forceCenter,
@@ -11,23 +27,7 @@
     zoom,
     zoomIdentity,
   } from 'd3'
-  import type { Simulation } from 'd3'
-  import { Group as TweenGroup, Tween as Tweened } from '@tweenjs/tween.js'
   import { Application, Circle, Container, Graphics, Text } from 'pixi.js'
-  import type {
-    ForceGraphConfig,
-    ForceGraphData,
-    GraphLink,
-    GraphSelectionPayload,
-    GraphPalette,
-  LinkRenderData,
-  NodeRenderData,
-  NormalizedGraph,
-  NormalizedLink,
-  NormalizedNode,
-  RenderOptions,
-  TweenHandle,
-} from './types'
 
   const defaultGraphConfig: Required<ForceGraphConfig> = {
     drag: true,
@@ -92,7 +92,8 @@
   let hasRenderableGraph = $state(Boolean(graphData?.nodes?.length))
 
   $effect(() => {
-    if (!stageEl || typeof window === 'undefined') return
+    if (!stageEl || typeof window === 'undefined')
+      return
 
     const normalized = getNormalizedGraph(graphData)
     const mergedConfig = { ...defaultGraphConfig, ...config }
@@ -351,8 +352,9 @@
         drag<HTMLCanvasElement, DragDatum>()
           .container(() => app.canvas)
           .subject(() => hoveredNode ?? undefined)
-          .on('start', event => {
-            if (!event.active) simulation.alphaTarget(1).restart()
+          .on('start', (event) => {
+            if (!event.active)
+              simulation.alphaTarget(1).restart()
             event.subject.fx = event.subject.x ?? 0
             event.subject.fy = event.subject.y ?? 0
             event.subject.__initialDragPos = {
@@ -364,14 +366,16 @@
             dragStartTime = Date.now()
             dragging = true
           })
-          .on('drag', event => {
+          .on('drag', (event) => {
             const initPos = event.subject.__initialDragPos
-            if (!initPos) return
+            if (!initPos)
+              return
             event.subject.fx = initPos.x + (event.x - initPos.x) / currentTransform.k
             event.subject.fy = initPos.y + (event.y - initPos.y) / currentTransform.k
           })
-          .on('end', event => {
-            if (!event.active) simulation.alphaTarget(0)
+          .on('end', (event) => {
+            if (!event.active)
+              simulation.alphaTarget(0)
             event.subject.fx = null
             event.subject.fy = null
             dragging = false
@@ -399,27 +403,29 @@
             [width, height],
           ])
           .scaleExtent([0.25, 4])
-          .on('zoom', event => {
+          .on('zoom', (event) => {
             currentTransform = event.transform
             stage.scale.set(event.transform.k, event.transform.k)
             stage.position.set(event.transform.x, event.transform.y)
 
-          const scale = event.transform.k * config.opacityScale
-          labelBaseOpacity = Math.max((scale - 1) / 3.75, 0)
-          renderInteraction()
-        }),
-    )
-  }
+            const scale = event.transform.k * config.opacityScale
+            labelBaseOpacity = Math.max((scale - 1) / 3.75, 0)
+            renderInteraction()
+          }),
+      )
+    }
 
     let stopAnimation = false
     let frameRef: number | null = null
 
     function animate(time: number) {
-      if (stopAnimation) return
+      if (stopAnimation)
+        return
 
       for (const node of nodeRenderData) {
         const { x, y } = node.simulationData
-        if (x == null || y == null) continue
+        if (x == null || y == null)
+          continue
         const posX = x + width / 2
         const posY = y + height / 2
         node.gfx.position.set(posX, posY)
@@ -429,7 +435,8 @@
       for (const link of linkRenderData) {
         const source = link.simulationData.source as NormalizedNode
         const target = link.simulationData.target as NormalizedNode
-        if (!source || !target) continue
+        if (!source || !target)
+          continue
         link.gfx.clear()
         link.gfx.moveTo((source.x ?? 0) + width / 2, (source.y ?? 0) + height / 2)
         link.gfx
@@ -446,7 +453,8 @@
 
     return () => {
       stopAnimation = true
-      if (frameRef) cancelAnimationFrame(frameRef)
+      if (frameRef)
+        cancelAnimationFrame(frameRef)
       tweens.forEach(tween => tween.stop())
       tweens.clear()
       simulation.stop()
@@ -494,8 +502,10 @@
     palette: GraphPalette,
     activeNodeId: string | null,
   ) {
-    if (node.id === activeNodeId) return palette.current
-    if (node.kind === 'tag') return palette.tagFill
+    if (node.id === activeNodeId)
+      return palette.current
+    if (node.kind === 'tag')
+      return palette.tagFill
     return palette.neutral
   }
 
@@ -524,10 +534,10 @@
   }
 </script>
 
-<div class="relative size-full overflow-hidden">
-  <div class="pointer-events-none absolute inset-0" aria-hidden="true"></div>
-  <div class="absolute inset-0" bind:this={stageEl}></div>
+<div class='relative size-full overflow-hidden'>
+  <div class='pointer-events-none absolute inset-0' aria-hidden='true'></div>
+  <div class='absolute inset-0' bind:this={stageEl}></div>
   {#if !hasRenderableGraph}
-    <div class="absolute inset-0 grid place-items-center text-sm text-foreground-muted">No graph data.</div>
+    <div class='absolute inset-0 grid place-items-center text-sm text-foreground-muted'>No graph data.</div>
   {/if}
 </div>

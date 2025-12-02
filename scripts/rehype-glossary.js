@@ -5,7 +5,7 @@ import { visitParents } from 'unist-util-visit-parents'
 
 const DEFAULT_GLOSSARY_DIR = path.resolve(process.cwd(), 'src', 'content', 'glossary')
 const WORD_CHAR_REGEX = /[\p{L}\p{N}_-]/u
-const BANNED_TAGS = new Set(['code', 'pre', 'kbd', 'samp', 'var', 'script', 'style'])
+const BANNED_TAGS = new Set(['code', 'pre', 'kbd', 'samp', 'var', 'script', 'style', 'glossary-term'])
 const BANNED_ANCESTORS = new Set(['a', 'button'])
 
 /**
@@ -151,13 +151,12 @@ function hasOverlap(matches, start, end) {
 function createGlossaryButton(text, token) {
   return {
     type: 'element',
-    tagName: 'button',
+    tagName: 'glossary-term',
     properties: {
-      'type': 'button',
       'className': ['glossary-term'],
-      'data-glossary-term': token.canonical,
-      'data-glossary-slug': token.slug,
-      'data-glossary-alias': text,
+      'slug': token.slug,
+      'term': token.canonical,
+      'alias': text,
       'aria-label': `Lihat glosarium untuk ${text}`,
     },
     children: [{ type: 'text', value: text }],
