@@ -1,4 +1,13 @@
-import type { GlossaryManifestEntry } from './src/types/glossary'
+export interface GlossaryManifestEntry {
+  id?: string
+  lemma?: string
+  lang?: string
+  pos?: string[]
+  preferredSources?: string[]
+  manualPick?: string
+  maxCandidates?: number
+  targetLangs?: string[]
+}
 
 export const glossaryManifest: GlossaryManifestEntry[] = [
   {

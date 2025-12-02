@@ -27,10 +27,9 @@
     const slug = detailSlug ?? activeSlug
     return entryMap.get(slug) ?? null
   })
-  const detailHeading = $derived(detailEntry?.data.term ?? '')
-  const detailSense = $derived(detailEntry?.data.senseId ?? '')
-  const detailPos = $derived(detailEntry?.data.pos ?? '')
-  const detailDefinition = $derived(detailEntry?.data.definition ?? null)
+  const detailHeading = $derived(detailEntry?.data.term)
+  const detailPos = $derived(detailEntry?.data.pos)
+  const detailDefinition = $derived(detailEntry?.data.definition)
 
   const isMobile = useIsMobile()
   const { onOpen: onOpenGlossary } = useGlossaryEvents()
@@ -186,7 +185,7 @@
                     <div class='flex items-start justify-between gap-4'>
                       <div>
                         <p class='text-xs uppercase tracking-widest text-foreground-muted'>Glosarium</p>
-                        <h3 class='text-lg font-semibold text-foreground'>{detailHeading || 'Tidak ada entri'}</h3>
+                        <h3 class='text-lg font-semibold text-foreground'>{detailHeading}</h3>
                       </div>
                       <button
                         class='rounded-full border border-border/70 px-3 py-1 text-xs font-medium text-foreground-muted hover:border-primary/60 hover:text-foreground'
@@ -227,10 +226,7 @@
         <p class='text-[0.65rem] uppercase tracking-[0.25em] text-primary'>{detailPos}</p>
       {/if}
       <div class='mt-1 space-y-0.5'>
-        <h3 class='text-base font-semibold text-foreground'>{detailHeading || 'Tidak ada entri'}</h3>
-        {#if detailSense}
-          <p class='font-mono text-[0.6rem] text-foreground-muted'>{detailSense}</p>
-        {/if}
+        <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
       </div>
     </div>
     <div class={`grid gap-3 ${dense ? '' : 'md:grid-cols-[minmax(220px,320px)_minmax(180px,1fr)]'}`}>
@@ -258,13 +254,6 @@
             Definisi belum tersedia untuk entri ini, namun Anda masih dapat menjelajah relasinya.
           {/if}
         </p>
-        {#if detailEntry?.data.aliases?.length}
-          <div class='mt-3 flex flex-wrap gap-2 text-[0.65rem] text-foreground-muted'>
-            {#each detailEntry.data.aliases.slice(0, 8) as alias}
-              <span class='rounded-full border border-border/70 px-2 py-0.5'>{alias}</span>
-            {/each}
-          </div>
-        {/if}
       </div>
     </div>
     <div class='rounded-xl border border-border/60 bg-panel/70 p-3'>

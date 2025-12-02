@@ -1,3 +1,4 @@
+import type { Element, Root, Text } from 'hast'
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
@@ -8,22 +9,27 @@ const WORD_CHAR_REGEX = /[\p{L}\p{N}_-]/u
 const BANNED_TAGS = new Set(['code', 'pre', 'kbd', 'samp', 'var', 'script', 'style', 'glossary-term'])
 const BANNED_ANCESTORS = new Set(['a', 'button'])
 
-/**
- * Rehype plugin to wrap glossary terms found in markdown output with
- * interactive buttons that will be hydrated on the client.
- *
- * @param {{ directory?: string }} [options]
- */
-export function rehypeGlossaryHighlight(options = {}) {
+interface GlossaryPluginOptions {
+  directory?: string
+}
+
+interface GlossaryToken {
+  slug: string
+  canonical: string
+  display: string
+  lower: string
+}
+
+export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
   const glossaryDir = options.directory ?? DEFAULT_GLOSSARY_DIR
   const tokens = loadGlossaryTokens(glossaryDir)
 
   if (!tokens.length) {
-    return () => {}
+    return () => { }
   }
 
-  return (tree) => {
-    visitParents(tree, 'text', (node, ancestors) => {
+  return (tree: Root) => {
+    visitParents(tree, 'text', (node: Text, ancestors) => {
       if (!node.value || typeof node.value !== 'string')
         return
       if (!ancestors.length)
@@ -32,14 +38,14 @@ export function rehypeGlossaryHighlight(options = {}) {
       const parent = ancestors[ancestors.length - 1]
       if (!parent || parent.type !== 'element')
         return
-      if (shouldSkipNode(parent, ancestors))
+      if (shouldSkipNode(parent as Element, ancestors))
         return
 
       const matches = findMatches(node.value, tokens)
       if (!matches.length)
         return
 
-      const fragments = []
+      const fragments: (Text | Element)[] = []
       let cursor = 0
       for (const match of matches) {
         if (match.start > cursor) {
@@ -52,16 +58,18 @@ export function rehypeGlossaryHighlight(options = {}) {
         fragments.push({ type: 'text', value: node.value.slice(cursor) })
       }
 
-      const index = parent.children.indexOf(node)
-      if (index === -1)
+      const index = (parent as Element).children.indexOf(node)
+      if (index === -1) {
         return
-      parent.children.splice(index, 1, ...fragments)
+      }
+
+      (parent as Element).children.splice(index, 1, ...fragments)
     })
   }
 }
 
-function loadGlossaryTokens(directory) {
-  let files = []
+function loadGlossaryTokens(directory: string): GlossaryToken[] {
+  let files: string[] = []
   try {
     files = fs.readdirSync(directory)
   }
@@ -70,9 +78,8 @@ function loadGlossaryTokens(directory) {
     return []
   }
 
-  /** @type {GlossaryToken[]} */
-  const tokens = []
-  const seen = new Set()
+  const tokens: GlossaryToken[] = []
+  const seen = new Set<string>()
 
   for (const file of files) {
     if (!file.endsWith('.json'))
@@ -106,20 +113,22 @@ function loadGlossaryTokens(directory) {
   return tokens.sort((a, b) => b.lower.length - a.lower.length)
 }
 
-function shouldSkipNode(parent, ancestors) {
+function shouldSkipNode(parent: Element, ancestors: (Element | Root | Text)[]): boolean {
   if (parent.type !== 'element')
     return true
   if (BANNED_TAGS.has(parent.tagName))
     return true
-  if (ancestors.some(node => node.type === 'element' && (BANNED_TAGS.has(node.tagName) || BANNED_ANCESTORS.has(node.tagName)))) {
+  if (ancestors.some(node => node.type === 'element'
+    && (BANNED_TAGS.has((node as Element).tagName)
+      || BANNED_ANCESTORS.has((node as Element).tagName)))) {
     return true
   }
   return false
 }
 
-function findMatches(value, tokens) {
+function findMatches(value: string, tokens: GlossaryToken[]) {
   const lower = value.toLowerCase()
-  const matches = []
+  const matches: { start: number, end: number, token: GlossaryToken }[] = []
 
   for (const token of tokens) {
     let startIndex = 0
@@ -138,17 +147,17 @@ function findMatches(value, tokens) {
   return matches.sort((a, b) => a.start - b.start)
 }
 
-function isWordBoundary(text, start, end) {
+function isWordBoundary(text: string, start: number, end: number) {
   const prev = text[start - 1]
   const next = text[end]
   return (!prev || !WORD_CHAR_REGEX.test(prev)) && (!next || !WORD_CHAR_REGEX.test(next))
 }
 
-function hasOverlap(matches, start, end) {
+function hasOverlap(matches: { start: number, end: number }[], start: number, end: number) {
   return matches.some(match => !(end <= match.start || start >= match.end))
 }
 
-function createGlossaryButton(text, token) {
+function createGlossaryButton(text: string, token: GlossaryToken): Element {
   return {
     type: 'element',
     tagName: 'glossary-term',

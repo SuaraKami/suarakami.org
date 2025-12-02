@@ -13,7 +13,8 @@
  */
 
 import type { CollectionEntry } from 'astro:content'
-import type { GlossaryManifestEntry, Relation } from '@/types/glossary'
+import type { GlossaryManifestEntry } from '../glossary-manifest'
+
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
@@ -33,22 +34,21 @@ if (!key) {
   process.exit(1)
 }
 
-const MAX_QPS = Number(process.env.MAX_QPS ?? 1)
-const FAIL_ON_MISSING
-  = (process.env.FETCH_GLOSSARY_FAIL_ON_MISSING) === '1'
+const allowedRelationShortNames = new Set([
+  'has-kind',
+  'deriv',
+  'is-a',
+  'said_to_be_the_same_as',
+  'has_part',
+  'subclass_of',
+  'part_of',
+])
 
-const REQUEST_INTERVAL_MS = Math.max(1, Math.floor(1000 / Math.max(MAX_QPS, 1)))
-let lastRequestAt = 0
+const generated = new Map<string, string | null>()
+const failures: { senseId: string, reason: string }[] = []
+const slugCounts = new Map<string, number>()
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
-async function throttledFetch<T>(url: string): Promise<T> {
-  const now = Date.now()
-  const wait = lastRequestAt + REQUEST_INTERVAL_MS - now
-  if (wait > 0)
-    await sleep(wait)
-  lastRequestAt = Date.now()
-
+async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url)
   if (!res.ok) {
     const body = await res.text()
@@ -105,48 +105,23 @@ interface SynsetResponse {
   mainSenseGloss?: string
 }
 
-interface FetchJob {
+type AstroGlossaryEntry = CollectionEntry<'glossary'>['data']
+type AstroGlossaryRelation = AstroGlossaryEntry['relations'][number]
+interface GlossaryEntry extends Omit<AstroGlossaryEntry, 'relations'> {
+  relations: GlossaryRelation[]
+}
+interface GlossaryRelation extends Omit<AstroGlossaryRelation, 'to'> {
+  to: string
+}
+
+interface DefinitionContext { lang?: string, targetLangs?: string[] }
+
+interface SenseRequest {
   senseId: string
-  lang?: string
-  targetLangs?: string[]
-  manifestEntry?: ManifestEntry
-}
-
-const ALLOWED_RELATION_SHORTNAMES = [
-  'has-kind',
-  'deriv',
-  'is-a',
-  'said_to_be_the_same_as',
-  'has_part',
-  'subclass_of',
-  'part_of',
-]
-
-const processed = new Set<string>()
-const enqueued = new Set<string>()
-const queue: FetchJob[] = []
-const failures: { senseId: string, error: unknown }[] = []
-
-function equivalentLangs(entry?: { lang?: string, targetLangs?: string[] }) {
-  const langs = entry?.targetLangs?.length
-    ? entry.targetLangs
-    : entry?.lang
-      ? [entry.lang]
-      : ['EN']
-  return [...new Set(langs.map(lang => lang.toUpperCase()))]
-}
-
-function slugify(term: string) {
-  return term
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
-
-function makeSlug(term: string, senseId: string) {
-  const safeSense = senseId.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-  const base = slugify(term)
-  return base ? `${base}-${safeSense}` : safeSense
+  lemma?: string
+  entryLang?: string
+  definitionLangs: string[]
+  relations?: GlossaryRelation[]
 }
 
 async function resolveSynset(entry: ManifestEntry): Promise<string> {
@@ -191,7 +166,20 @@ async function fetchOutgoingEdges(senseId: string) {
   return throttledFetch<BabelEdge[]>(url)
 }
 
-function pickDefinition(glosses: BabelGloss[] = [], allowedLangs: string[], synsetData: SynsetResponse) {
+function makeSlug(term: string) {
+  const base = slugify(term) || 'entry'
+  const count = slugCounts.get(base) ?? 0
+  slugCounts.set(base, count + 1)
+  return count === 0 ? base : `${base}-${count + 1}`
+}
+
+interface DefinitionSelection { text: string, lang: string }
+
+function pickDefinition(
+  glosses: BabelGloss[] = [],
+  allowedLangs: string[],
+  synset: SynsetResponse,
+): DefinitionSelection | null {
   for (const lang of allowedLangs) {
     const match = glosses.find(gloss => gloss.language?.toUpperCase() === lang && gloss.gloss)
     if (match?.gloss)
@@ -204,41 +192,19 @@ function pickDefinition(glosses: BabelGloss[] = [], allowedLangs: string[], syns
 
   const mainGloss = synsetData.mainGloss ?? synsetData.mainSenseGloss
   if (typeof mainGloss === 'string' && mainGloss.length)
-    return mainGloss
+    return { text: mainGloss, lang: allowedLangs[0] ?? 'EN' }
 
-  return 'Definition not available'
+  return null
 }
 
-function buildRelations(edges: BabelEdge[], allowedLangs: string[]): Relation[] {
-  const seen = new Set<string>()
-  return edges
-    .filter((edge) => {
-      if (!edge.target)
-        return false
-      const lang = edge.language?.toUpperCase()
-      if (!lang)
-        return false
-      return allowedLangs.includes(lang) || lang === 'MUL'
-    })
-    .filter((edge) => {
-      const shortName = edge.pointer?.shortName
-      return Boolean(shortName && ALLOWED_RELATION_SHORTNAMES.includes(shortName))
-    })
-    .map(edge => ({
-      to: String(edge.target),
-      type: String(edge.pointer?.shortName ?? ''),
-      label: edge.pointer?.name ?? edge.pointer?.shortName ?? edge.pointer?.relationGroup,
-      weight: typeof edge.normalizedWeight === 'number' ? edge.normalizedWeight : edge.weight,
-    }))
-    .filter((relation) => {
-      if (!relation.type.length)
-        return false
-      const key = `${relation.type}:${relation.to}`
-      if (seen.has(key))
-        return false
-      seen.add(key)
-      return true
-    })
+function formatAlias(raw?: string | null) {
+  if (!raw)
+    return ''
+  const cleaned = raw.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
+  if (!cleaned)
+    return cleaned
+  const lower = cleaned.toLowerCase()
+  return lower.charAt(0).toUpperCase() + lower.slice(1)
 }
 
 function normalizeEntry(
@@ -250,21 +216,31 @@ function normalizeEntry(
 ): GlossaryEntry {
   console.log(`Processing ${senseId}`, synset.senses)
   const senses = synset.senses ?? []
-  const aliases = Array.from(
-    new Set(
-      senses
-        .map(sense => sense.properties?.simpleLemma || sense.lemma)
-        .filter((value): value is string => Boolean(value)),
-    ),
-  )
-  const definition = pickDefinition(synset.glosses, allowedLangs, synset)
+  const aliasSet = new Set<string>()
+  const aliases: string[] = []
+  for (const sense of senses) {
+    const raw = sense.properties?.simpleLemma || sense.lemma
+    if (raw) {
+      const formatted = formatAlias(raw)
+      if (formatted && !aliasSet.has(formatted)) {
+        aliasSet.add(formatted)
+        aliases.push(formatted)
+      }
+    }
+  }
+
+  const definition = pickDefinition(synset.glosses, request.definitionLangs, synset)
+  if (!definition)
+    return null
+
+  const rawTerm = request.lemma ?? aliases[0] ?? request.senseId
+  const term = formatAlias(rawTerm) || rawTerm
   const pos = senses[0]?.properties?.pos ?? 'UNKNOWN'
   const entryLang = context.lang ?? allowedLangs[0] ?? 'EN'
 
   return {
-    term: context.lemma ?? aliases[0] ?? senseId,
-    senseId,
-    definition,
+    term,
+    definition: definition.text,
     lang: entryLang,
     pos,
     confidence: 1,
@@ -278,53 +254,94 @@ function normalizeEntry(
   }
 }
 
-async function writeEntryFile(entry: GlossaryEntry) {
+async function writeEntry(entry: GlossaryEntry, senseId: string) {
   await fs.mkdir(OUTPUT_DIR, { recursive: true })
-  const slug = makeSlug(entry.term, entry.senseId)
+  const slug = makeSlug(entry.term)
   const filePath = path.join(OUTPUT_DIR, `${slug}.json`)
   await fs.writeFile(filePath, JSON.stringify(entry, null, 2), 'utf8')
+  generated.set(senseId, slug)
   console.log(`✔ wrote ${filePath}`)
 }
 
-function enqueue(job: FetchJob) {
-  if (enqueued.has(job.senseId))
-    return
-  enqueued.add(job.senseId)
-  queue.push(job)
+async function upsertSense(request: SenseRequest, fetchLangs?: string[]) {
+  if (generated.has(request.senseId))
+    return generated.get(request.senseId)
+
+  const synset = await fetchSynset(request.senseId, fetchLangs?.length ? { targetLangs: fetchLangs } : undefined)
+  const entry = normalizeEntry(synset, request)
+  if (!entry) {
+    failures.push({ senseId: request.senseId, reason: 'Missing definition' })
+    generated.set(request.senseId, null)
+    return null
+  }
+  return writeEntry(entry, request.senseId)
 }
 
-async function handleJob(job: FetchJob) {
-  if (processed.has(job.senseId))
-    return
+async function collectRelations(
+  parentSenseId: string,
+  relationLangs: string[],
+  childDefinitionLangs: string[],
+) {
+  const edges = await fetchOutgoingEdges(parentSenseId)
+  const seen = new Set<string>()
+  const kept: GlossaryRelation[] = []
 
-  const context = job.manifestEntry ?? { lang: job.lang, targetLangs: job.targetLangs }
-  const allowedLangs = equivalentLangs(context)
-  const synset = await fetchSynset(job.senseId, context)
-  const edges = await fetchOutgoingEdges(job.senseId)
-  const relations = buildRelations(edges, allowedLangs)
+  for (const edge of edges) {
+    const lang = edge.language?.toUpperCase()
+    if (!edge.target)
+      continue
+    if (lang && lang !== 'MUL' && !relationLangs.includes(lang))
+      continue
+    const shortName = edge.pointer?.shortName
+    if (!shortName || !allowedRelationShortNames.has(shortName))
+      continue
 
-  const entry = normalizeEntry(
-    job.senseId,
-    synset,
-    { lang: context.lang, lemma: job.manifestEntry?.lemma },
-    allowedLangs,
-    relations,
-  )
-  await writeEntryFile(entry)
-  processed.add(job.senseId)
+    const childRequest: SenseRequest = {
+      senseId: edge.target,
+      definitionLangs: childDefinitionLangs,
+      relations: [],
+    }
 
-  if (job.manifestEntry) {
-    // Seed entries should materialize their direct relation targets as standalone entries.
-    relations.forEach((relation) => {
-      if (!processed.has(relation.to)) {
-        enqueue({
-          senseId: relation.to,
-          lang: context.lang,
-          targetLangs: job.manifestEntry?.targetLangs,
-        })
-      }
+    const childSlug = await upsertSense(childRequest)
+    if (!childSlug)
+      continue
+
+    const relationKey = `${shortName}:${edge.target}`
+    if (seen.has(relationKey))
+      continue
+    seen.add(relationKey)
+
+    kept.push({
+      to: childSlug,
+      type: shortName,
+      label: edge.pointer?.name ?? shortName,
     })
   }
+
+  return kept
+}
+
+async function processManifestEntry(entry: GlossaryManifestEntry) {
+  const senseId = await resolveSynset(entry)
+  const definitionLangs = getDefinitionLangs(entry)
+  const relationLangs = entry.lang ? [entry.lang.toUpperCase()] : definitionLangs
+  const relationDefinitionLangs = [...new Set([...definitionLangs, 'EN'])]
+
+  const relations = await collectRelations(
+    senseId,
+    relationLangs,
+    relationDefinitionLangs,
+  )
+
+  const request: SenseRequest = {
+    senseId,
+    lemma: entry.lemma,
+    entryLang: entry.lang,
+    definitionLangs,
+    relations,
+  }
+
+  await upsertSense(request, definitionLangs)
 }
 
 async function main() {
