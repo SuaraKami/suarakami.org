@@ -23,9 +23,6 @@
         class='rounded-md border border-border bg-panel p-1 text-sm text-foreground'
       >
         <button
-          type='button'
-          role='menuitemcheckbox'
-          aria-checked={enabled}
           class='flex w-full items-center justify-between gap-3 px-4 py-1 rounded-sm transition-colors hover:bg-white/5'
           onclick={toggleGlossary}
         >

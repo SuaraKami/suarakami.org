@@ -11,6 +11,10 @@
 
   type GlossaryEntry = CollectionEntry<'glossary'>
   type GlossaryRelation = GlossaryEntry['data']['relations'][number]
+  type GroupedRelations = {
+    label: string
+    items: { id: string | null, term: string, entry: GlossaryEntry | null }[]
+  }
 
   const { entries = [] }: { entries: GlossaryEntry[] } = $props()
 
@@ -21,6 +25,26 @@
   let detailSlug = $state<string | null>(null)
   const graphData = $derived<ForceGraphData | null>(activeSlug ? buildGraphData(activeSlug) : null)
   const relations = $derived(activeSlug ? getRelations(activeSlug) : [])
+  const groupedRelations = $derived.by(() => {
+    if (!relations || relations.length === 0)
+      return []
+    const groups: Record<string, GroupedRelations> = {}
+    for (const relation of relations) {
+      const targetId = resolveRelationId(relation)
+      const targetEntry = targetId ? entryMap.get(targetId) ?? null : null
+      const item = {
+        id: targetId,
+        term: targetEntry ? targetEntry.data.term : (relation.label ?? 'Tidak Diketahui'),
+        entry: targetEntry,
+      }
+      const groupLabel = relation.label ?? relation.type
+      if (!groups[groupLabel]) {
+        groups[groupLabel] = { label: groupLabel, items: [] }
+      }
+      groups[groupLabel].items.push(item)
+    }
+    return Object.values(groups)
+  })
   const rootEntry = $derived(activeSlug ? entryMap.get(activeSlug) ?? null : null)
   const detailEntry = $derived.by(() => {
     if (!activeSlug)
@@ -103,13 +127,7 @@
     const root = entryMap.get(rootSlug)
     if (!root)
       return []
-    return root.data.relations.map((relation) => {
-      const targetId = resolveRelationId(relation)
-      return {
-        relation,
-        entry: targetId ? entryMap.get(targetId) ?? null : null,
-      }
-    })
+    return root.data.relations
   }
 
   function resolveRelationId(relation: GlossaryRelation): string | null {
@@ -137,18 +155,18 @@
 </script>
 
 {#if entries.length && isGlossaryEnabled}
-  <div class='glossary-overlay'>
+  {#if !isMobile.current}
     <Popover.Root
-      open={glossaryStates.isOpen && !isMobile.current}
+      open={glossaryStates.isOpen}
       onOpenChange={handleVisibilityChange}
     >
       <Popover.Portal>
         <Popover.Content customAnchor={anchorEl} sideOffset={12} class='z-50'>
           <div
-            class='glossary-surface w-[min(30rem,calc(100vw-2rem))] rounded-2xl border border-border/60 bg-panel/95 text-foreground shadow-2xl outline-none backdrop-blur-xl'
+            class='rounded-2xl border border-border/60 bg-panel'
           >
-            <ScrollArea.Root class='max-h-144 w-full pr-1'>
-              <ScrollArea.Viewport class='max-h-144 rounded-2xl p-4 pr-3'>
+            <ScrollArea.Root class='w-full pr-1'>
+              <ScrollArea.Viewport class='max-h-144 w-lg rounded-2xl p-6 pr-5'>
                 {#if graphData && rootEntry}
                   {@render panel()}
                 {:else}
@@ -157,19 +175,18 @@
               </ScrollArea.Viewport>
               <ScrollArea.Scrollbar
                 orientation='vertical'
-                class='bg-[#18181b] flex touch-none select-none rounded-full border-l border-l-transparent my-2 w-1.5 hover:w-2'
+                class='bg-panel flex touch-none select-none rounded-full border-l border-l-transparent my-4 w-1.5 hover:w-2'
               >
-                <ScrollArea.Thumb class='bg-white/20 flex-1 rounded-full' />
+                <ScrollArea.Thumb class='bg-foreground/20 flex-1 rounded-full' />
               </ScrollArea.Scrollbar>
-              <ScrollArea.Corner class='hidden' />
             </ScrollArea.Root>
           </div>
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
-
+  {:else}
     <Dialog.Root
-      open={glossaryStates.isOpen && isMobile.current}
+      open={glossaryStates.isOpen}
       onOpenChange={handleVisibilityChange}
     >
       <Dialog.Portal>
@@ -180,18 +197,17 @@
               {...props}
               class='fixed inset-x-0 bottom-0 z-60 rounded-t-3xl border border-border/80 bg-panel/95 text-foreground shadow-2xl'
             >
-              <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-gray-100/20'></div>
-              <ScrollArea.Root type='auto' class='max-h-[90vh] pr-1'>
+              <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-border/40'></div>
+              <ScrollArea.Root class='pr-1'>
                 <ScrollArea.Viewport class='max-h-[90vh] rounded-t-3xl p-4 pb-6 pr-3'>
                   <div class='mx-auto max-w-xl space-y-4 pb-4'>
                     <div class='flex items-start justify-between gap-4'>
                       <div>
-                        <p class='text-xs uppercase tracking-widest text-foreground-muted'>Glosarium</p>
+                        <p class='text-xs font-semibold uppercase text-foreground-muted'>Glosarium</p>
                         <h3 class='text-lg font-semibold text-foreground'>{detailHeading}</h3>
                       </div>
                       <button
                         class='rounded-full border border-border/70 px-3 py-1 text-xs font-medium text-foreground-muted hover:border-primary/60 hover:text-foreground'
-                        type='button'
                         onclick={closeAll}
                       >
                         Tutup
@@ -206,36 +222,34 @@
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar
                   orientation='vertical'
-                  class='bg-[#18181b] flex touch-none select-none rounded-full border-l border-l-transparent p-px w-1.5 hover:w-2'
+                  class='bg-panel flex touch-none select-none rounded-full border-l border-l-transparent p-px w-1.5 hover:w-2'
                 >
-                  <ScrollArea.Thumb class='bg-white/20 flex-1 rounded-full' />
+                  <ScrollArea.Thumb class='bg-foreground/20 flex-1 rounded-full' />
                 </ScrollArea.Scrollbar>
-                <ScrollArea.Corner class='hidden' />
               </ScrollArea.Root>
             </div>
           {/snippet}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  </div>
+  {/if}
 {/if}
 
 {#snippet panel({ dense = false } = {})}
   {@const graphHeight = dense ? 'h-60' : 'h-64 md:h-72'}
-  <div class={`space-y-4 ${dense ? 'text-sm' : 'text-xs'}`}>
+  <div class='space-y-4 text-sm'>
     <div>
       {#if detailPos}
-        <p class='text-[0.65rem] uppercase tracking-[0.25em] text-primary'>{detailPos}</p>
+        <p class='text-xs font-semibold uppercase text-primary'>{detailPos}</p>
       {/if}
       <div class='mt-1 space-y-0.5'>
         <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
       </div>
     </div>
-    <div class={`grid gap-3 ${dense ? '' : 'md:grid-cols-[minmax(220px,320px)_minmax(180px,1fr)]'}`}>
-      <div class='rounded-xl border border-border/70 bg-surface/80 p-3 shadow-inner'>
-        <div class='flex items-center justify-between text-[0.65rem] uppercase tracking-[0.3em] text-foreground-muted'>
+    <div class={['grid gap-3', { 'md:grid-cols-2': !dense }]}>
+      <div class='rounded-xl border border-border/70 bg-surface/80 p-3 shadow-inner md:max-w-sm'>
+        <div class='flex items-center text-xs font-semibold uppercase text-foreground-muted'>
           <span>Peta Relasi</span>
-          <span>{graphData?.nodes.length ?? 0} node</span>
         </div>
         <div class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
           {#if graphData}
@@ -248,8 +262,8 @@
         </div>
       </div>
       <div class='rounded-xl border border-border/70 bg-surface/80 p-4'>
-        <p class='text-[0.7rem] uppercase tracking-[0.3em] text-primary/80'>Definisi</p>
-        <p class='mt-2 text-sm text-foreground-muted'>
+        <p class='text-xs font-semibold uppercase text-primary/80'>Definisi</p>
+        <p class='mt-2 text-sm text-foreground-muted leading-relaxed'>
           {#if detailDefinition}
             {detailDefinition}
           {:else}
@@ -259,27 +273,35 @@
       </div>
     </div>
     <div class='rounded-xl border border-border/60 bg-panel/70 p-3'>
-      <div class='flex items-center justify-between text-[0.65rem] uppercase tracking-[0.3em] text-foreground-muted'>
-        <span>Koneksi</span>
-        <span>{relations.length} relasi</span>
-      </div>
-      {#if relations.length}
-        <div class='mt-3 flex flex-wrap gap-2'>
-          {#each relations as { relation, entry }}
-            <button
-              class='glossary-chip'
-              data-active={entry && detailEntry && entry.id === detailEntry.id}
-              type='button'
-              disabled={!entry}
-              onclick={() => entry && focusRelation(entry.id)}
-            >
-              <span class='glossary-chip__label'>{entry?.data.term ?? resolveRelationId(relation) ?? relation.type}</span>
-              <span class='glossary-chip__meta'>{relation.label ?? relation.type}</span>
-            </button>
+      <span class='flex items-center text-xs font-semibold uppercase text-foreground-muted'>
+        Koneksi
+      </span>
+      {#if groupedRelations.length}
+        <div class='mt-3 space-y-3 text-sm'>
+          {#each groupedRelations as group}
+            <div class='grid grid-cols-2 gap-3 rounded-lg border border-border/60 bg-surface/80 p-3'>
+              <p class='text-xs font-semibold uppercase text-foreground-muted'>{group.label}</p>
+              <div class='flex flex-wrap gap-2'>
+                {#each group.items as item}
+                  {@const active = item.entry && detailEntry && item.entry.id === detailEntry.id}
+                  <button
+                    class={[
+                      'rounded-full border border-border/60 px-3 py-1 text-xs text-ellipsis transition-colors hover:border-primary/60 hover:text-foreground',
+                      { 'border-primary/60 text-foreground': active },
+                      { 'text-foreground-muted': !active },
+                    ]}
+                    disabled={!item.entry || !item.id}
+                    onclick={() => item.entry && focusRelation(item.entry.id)}
+                  >
+                    {item.term}
+                  </button>
+                {/each}
+              </div>
+            </div>
           {/each}
         </div>
       {:else}
-        <p class='mt-3 text-[0.75rem] text-foreground-muted'>Belum ada relasi tambahan untuk entri ini.</p>
+        <p class='mt-3 text-sm text-foreground-muted'>Belum ada relasi tambahan untuk entri ini.</p>
       {/if}
     </div>
   </div>
@@ -288,6 +310,5 @@
 {#snippet emptyState()}
   <div class='space-y-3 text-sm text-foreground-muted'>
     <p>Belum ada entri glosarium yang terkait dengan konten ini.</p>
-    <p class='text-xs'>Tambahkan data di <code class='rounded border border-border/70 bg-surface/80 px-1'>src/content/glossary</code> untuk mengaktifkan fitur ini.</p>
   </div>
 {/snippet}
