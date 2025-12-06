@@ -28,15 +28,13 @@ const glossary = defineCollection({
     z.object({
       term: z.string(),
       definition: z.string(),
-      lang: z.string().default('EN'),
-      pos: z.string(),
+      lang: z.string().default('ID'),
       aliases: z.array(z.string()).default([]),
       relations: z
         .array(
           z.object({
             to: reference('glossary'),
-            type: z.string(),
-            label: z.string().optional(),
+            type: z.enum(['sinonim', 'antonim', 'turunan', 'bagian_dari', 'mencakup', 'contoh', 'konsep_terkait']),
           }),
         )
         .default([]),

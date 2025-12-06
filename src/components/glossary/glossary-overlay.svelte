@@ -34,10 +34,10 @@
       const targetEntry = targetId ? entryMap.get(targetId) ?? null : null
       const item = {
         id: targetId,
-        term: targetEntry ? targetEntry.data.term : (relation.label ?? 'Tidak Diketahui'),
+        term: targetEntry ? targetEntry.data.term : (relation.type ?? 'Tidak Diketahui'),
         entry: targetEntry,
       }
-      const groupLabel = relation.label ?? relation.type
+      const groupLabel = relation.type
       if (!groups[groupLabel]) {
         groups[groupLabel] = { label: groupLabel, items: [] }
       }
@@ -53,7 +53,6 @@
     return entryMap.get(slug) ?? null
   })
   const detailHeading = $derived(detailEntry?.data.term)
-  const detailPos = $derived(detailEntry?.data.pos)
   const detailDefinition = $derived(detailEntry?.data.definition)
 
   const isMobile = useIsMobile()
@@ -98,7 +97,7 @@
     if (!root)
       return { nodes: [], links: [] }
     const nodes: ForceGraphData['nodes'] = [
-      { id: root.id, label: root.data.term, tags: [root.data.pos], kind: 'page' },
+      { id: root.id, label: root.data.term, tags: [], kind: 'page' },
     ]
     const links: ForceGraphData['links'] = []
     const seen = new Set([root.id])
@@ -111,8 +110,8 @@
         const targetEntry = entryMap.get(targetSlug)
         nodes.push({
           id: targetSlug,
-          label: targetEntry?.data.term ?? relation.label ?? targetSlug,
-          tags: [relation.label ?? relation.type],
+          label: targetEntry?.data.term ?? relation.type ?? targetSlug,
+          tags: [relation.type],
           kind: 'tag',
         })
         seen.add(targetSlug)
@@ -238,13 +237,8 @@
 {#snippet panel({ dense = false } = {})}
   {@const graphHeight = dense ? 'h-60' : 'h-64 md:h-72'}
   <div class='space-y-4 text-sm'>
-    <div>
-      {#if detailPos}
-        <p class='text-xs font-semibold uppercase text-primary'>{detailPos}</p>
-      {/if}
-      <div class='mt-1 space-y-0.5'>
-        <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
-      </div>
+    <div class='mt-1 space-y-0.5'>
+      <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
     </div>
     <div class={['grid gap-3', { 'md:grid-cols-2': !dense }]}>
       <div class='rounded-xl border border-border/70 bg-surface/80 p-3 shadow-inner md:max-w-sm'>

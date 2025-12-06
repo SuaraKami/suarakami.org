@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Dialektika",
+  "definition": "Metode penalaran yang menelaah kontradiksi antara gagasan atau kenyataan untuk menghasilkan sintesis atau pemahaman baru.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}
