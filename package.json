@@ -6,8 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "fetch:glossary": "bun run scripts/fetch-babelnet.ts"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.2",
