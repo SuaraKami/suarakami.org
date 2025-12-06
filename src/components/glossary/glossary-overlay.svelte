@@ -5,6 +5,7 @@
   import ForceGraph from '@/components/force-graph/graph.svelte'
   import { useGlossaryEvents } from '@/lib/hooks/use-glossary-events.svelte'
   import { useIsMobile } from '@/lib/hooks/use-is-mobile.svelte'
+  import { glossaryPreference } from '@/lib/stores/glossary-preferences.svelte'
   import { glossaryStates } from './glossary-state.svelte'
   import '@/components/glossary/glossary-term.svelte'
 
@@ -32,9 +33,16 @@
   const detailDefinition = $derived(detailEntry?.data.definition)
 
   const isMobile = useIsMobile()
+  const isGlossaryEnabled = $derived(glossaryPreference.current)
   const { onOpen: onOpenGlossary } = useGlossaryEvents()
   onOpenGlossary((el, slug) => {
     openFor(el, slug)
+  })
+
+  $effect(() => {
+    if (!isGlossaryEnabled) {
+      resetActive()
+    }
   })
 
   function openFor(target: HTMLElement | null, slug: string) {
@@ -128,7 +136,7 @@
   }
 </script>
 
-{#if entries.length}
+{#if entries.length && isGlossaryEnabled}
   <div class='glossary-overlay'>
     <Popover.Root
       open={glossaryStates.isOpen && !isMobile.current}
