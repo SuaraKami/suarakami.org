@@ -9,13 +9,8 @@ created: 2025-11-23 22:23:00
 updated: 2025-11-29 22:21:00
 history:
   - author: "SuaraKami"
-    date: 2025-07-22
-    message: "Draft etika publik digabung dengan hasil lokakarya."
-    hash: "7f1d4c9"
-  - author: "SuaraKami"
-    date: 2025-09-30
-    message: "Bagian otokritik disatukan dalam kerangka filosofis."
-    hash: "c28e61d"
+    date: 2025-11-23 22:23:00
+    message: "Terbit perdana untuk arsip ini."
 ---
 
 ## Transformasi Kultural

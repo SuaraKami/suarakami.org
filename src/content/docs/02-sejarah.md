@@ -9,13 +9,8 @@ created: 2025-11-23 22:15:00
 updated: 2025-11-25 19:39:00
 history:
   - author: "SuaraKami"
-    date: 2025-08-18
-    message: "Menggabungkan testimoni pendiri dan relawan awal ke dalam kronologi."
-    hash: "9d72e4c"
-  - author: "SuaraKami"
-    date: 2025-10-04
-    message: "Pencocokan fakta lapangan dan revisi kronologi."
-    hash: "3ac5f9b"
+    date: 2025-11-23 22:15:00
+    message: "Terbit perdana untuk arsip ini."
 ---
 
 ## Aspirasi Awal

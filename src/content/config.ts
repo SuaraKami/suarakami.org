@@ -16,7 +16,6 @@ const docs = defineCollection({
             author: z.string(),
             date: z.date(),
             message: z.string(),
-            hash: z.string(),
           }),
         )
         .default([]),

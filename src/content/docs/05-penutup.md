@@ -9,13 +9,8 @@ created: 2025-11-23 22:25:00
 updated: 2025-11-29 17:57:00
 history:
   - author: "SuaraKami"
-    date: 2025-11-18
-    message: "Penyesuaian ajakan kontribusi dan mekanisme feedback."
-    hash: "a57c2f9"
-  - author: "SuaraKami"
-    date: 2025-11-26
-    message: "Penyelarasan akhir sebelum halaman Astro diluncurkan."
-    hash: "d1398af"
+    date: 2025-11-23 22:25:00
+    message: "Terbit perdana untuk arsip ini."
 ---
 
 SuaraKami bukan tempat bagi mereka yang mencari panggung instan atau loncatan karir.

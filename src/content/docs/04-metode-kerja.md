@@ -9,13 +9,8 @@ created: 2025-11-23 22:23:00
 updated: 2025-11-26 18:15:00
 history:
   - author: "SuaraKami"
-    date: 2025-06-12
-    message: "Sinkronisasi workflow lintas kota dan penyetaraan langkah standar."
-    hash: "4be31ac"
-  - author: "SuaraKami"
-    date: 2025-11-05
-    message: "Perapihan SOP dan penambahan checklist aksesibilitas."
-    hash: "e91d0f2"
+    date: 2025-11-23 22:23:00
+    message: "Terbit perdana untuk arsip ini."
 ---
 
 Di tengah dunia yang serba cepat dan hierarkis, SuaraKami memilih jalan aktivisme yang berkelanjutan dengan struktur yang sepenuhnya horizontal.
