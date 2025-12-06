@@ -162,7 +162,6 @@ function createGlossaryButton(text: string, token: GlossaryToken): Element {
     type: 'element',
     tagName: 'glossary-term',
     properties: {
-      'className': ['glossary-term'],
       'slug': token.slug,
       'aria-label': `Lihat glosarium untuk ${text}`,
     },
