@@ -76,17 +76,19 @@
   let lastGraphData: ForceGraphData | null = null
   let lastNormalized: NormalizedGraph | null = null
 
+  type Props = {
+    graphData?: ForceGraphData
+    config?: ForceGraphConfig
+    activeNodeId?: string | null
+    onSelect?: (payload: GraphSelectionPayload) => void
+  }
+
   const {
     graphData = sampleGraph,
     config = {},
     activeNodeId = null,
     onSelect = (() => {}) as (payload: GraphSelectionPayload) => void,
-  } = $props<{
-    graphData?: ForceGraphData
-    config?: ForceGraphConfig
-    activeNodeId?: string | null
-    onSelect?: (payload: GraphSelectionPayload) => void
-  }>()
+  }: Props = $props()
 
   let stageEl = $state<HTMLDivElement | null>(null)
   let hasRenderableGraph = $state(Boolean(graphData?.nodes?.length))
