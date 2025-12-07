@@ -26,7 +26,7 @@
           class='flex w-full items-center justify-between gap-3 px-4 py-1 rounded-sm transition-colors hover:bg-white/5'
           onclick={toggleGlossary}
         >
-          Enable Glossary Helper
+          Aktifkan Glosarium
           <span
             class={{
               'flex size-4 items-center justify-center': true,
