@@ -1,25 +1,25 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     // Environment setup & latest features
     "lib": ["ESNext"],
-    "target": "ESNext",
-    "module": "Preserve",
     "moduleDetection": "force",
+    "rootDir": "./src",
+    "module": "Preserve",
 
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-    "rootDir": "./src",
-    "outDir": "./dist",
 
     // Best practices
     "strict": true,
-    "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
     "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true
+    "noEmit": true,
+    "outDir": "./dist",
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist"]

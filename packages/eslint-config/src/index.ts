@@ -1,4 +1,13 @@
-import type { Linter } from "eslint";
+import {
+  formatters as antfuFormatters,
+  ignores as antfuIgnores,
+  jsonc as antfuJsonc,
+  markdown as antfuMarkdown,
+  yaml as antfuYaml,
+  sortPackageJson,
+  sortTsconfig,
+} from "@antfu/eslint-config";
+import { FlatConfigComposer } from "eslint-flat-config-utils";
 import { type AstroConfigOptions, astroRules } from "./configs/astro.ts";
 import { type SvelteConfigOptions, svelteRules } from "./configs/svelte.ts";
 import {
@@ -6,16 +15,7 @@ import {
   tailwindRules,
 } from "./configs/tailwind.ts";
 import { type VueConfigOptions, vueRules } from "./configs/vue.ts";
-import { type MaybeArray, normalizeOptions, toArray } from "./utils.ts";
-
-const defaultIgnores = [
-  "**/node_modules/**",
-  "**/.astro/**",
-  "**/.svelte-kit/**",
-  "**/.vercel/**",
-  "**/.output/**",
-  "**/dist/**",
-] as const;
+import { normalizeOptions } from "./utils.ts";
 
 export interface TailwindFeatureOptions extends TailwindConfigOptions {
   astro?: boolean | AstroConfigOptions;
@@ -24,19 +24,15 @@ export interface TailwindFeatureOptions extends TailwindConfigOptions {
 }
 
 export interface DefineConfigOptions {
-  ignores?: MaybeArray<string> | false;
   tailwind?: boolean | TailwindFeatureOptions;
 }
 
 export default function defineConfig(
   options: DefineConfigOptions = {}
-): Linter.Config[] {
-  const configs: Linter.Config[] = [];
-  const ignores = options.ignores ?? defaultIgnores;
+): FlatConfigComposer {
+  const composer = new FlatConfigComposer();
 
-  if (ignores) {
-    configs.push({ ignores: toArray(ignores) });
-  }
+  composer.append(...getAntfuConfigs());
 
   const tailwindOptions = normalizeOptions<TailwindFeatureOptions>(
     options.tailwind,
@@ -44,7 +40,7 @@ export default function defineConfig(
   );
 
   if (!tailwindOptions) {
-    return configs;
+    return composer;
   }
 
   const {
@@ -54,14 +50,14 @@ export default function defineConfig(
     ...tailwindConfig
   } = tailwindOptions;
 
-  const astroConfig = normalizeOptions<AstroConfigOptions>(astroOption, true);
+  const astroConfig = normalizeOptions<AstroConfigOptions>(astroOption, false);
   if (astroConfig) {
-    configs.push(astroRules(astroConfig));
+    composer.append(astroRules(astroConfig));
   }
 
   const vueConfig = normalizeOptions<VueConfigOptions>(vueOption, false);
   if (vueConfig) {
-    configs.push(vueRules(vueConfig));
+    composer.append(vueRules(vueConfig));
   }
 
   const svelteConfig = normalizeOptions<SvelteConfigOptions>(
@@ -69,10 +65,24 @@ export default function defineConfig(
     false
   );
   if (svelteConfig) {
-    configs.push(svelteRules(svelteConfig));
+    composer.append(svelteRules(svelteConfig));
   }
 
-  configs.push(tailwindRules(tailwindConfig));
+  composer.append(tailwindRules(tailwindConfig));
 
-  return configs;
+  return composer;
+}
+
+function getAntfuConfigs() {
+  return [
+    antfuFormatters({
+      markdown: true,
+    }),
+    antfuIgnores(),
+    antfuJsonc(),
+    antfuYaml(),
+    antfuMarkdown(),
+    sortPackageJson(),
+    sortTsconfig(),
+  ];
 }
