@@ -2,6 +2,7 @@
   "name": "suarakami.org",
   "private": true,
   "workspaces": [
+    "bio/",
     "web/"
   ],
   "scripts": {
