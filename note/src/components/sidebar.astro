@@ -1,24 +1,22 @@
 ---
-import { Icon } from 'astro-icon/components'
-import { getCollection } from 'astro:content'
+  import { getCollection } from "astro:content";
+  import { Icon } from "astro-icon/components";
 
-type Props = {
-  activeSlug?: string
-}
+  interface Props {
+    activeSlug?: string;
+  }
 
-const { activeSlug } = Astro.props
+  const { activeSlug } = Astro.props;
 
-const entries = await getCollection('docs')
+  const entries = await getCollection("docs");
 ---
-
 <Fragment>
   <div
     id="sidebar-overlay"
     class="pointer-events-none fixed inset-0 z-40 bg-black/50 opacity-0 transition-opacity md:hidden"
     data-sidebar-toggle="close"
     aria-hidden="true"
-  >
-  </div>
+  ></div>
   <aside
     id="sidebar"
     class="fixed inset-y-0 left-0 z-50 w-64 shrink-0 -translate-x-full transform flex-col border-r border-border bg-sidebar transition-transform duration-300 md:relative md:flex md:translate-x-0"
@@ -27,13 +25,19 @@ const entries = await getCollection('docs')
       class="flex h-9 items-center border-b border-border px-4 text-xs font-bold tracking-widest text-foreground-muted uppercase"
     >
       <span>Explorer</span>
-      <button class="ml-auto text-foreground md:hidden" data-sidebar-toggle="close" aria-label="Tutup navigasi">
-        <Icon name="hugeicons:cancel-01" />
+      <button
+        class="ml-auto text-foreground md:hidden"
+        data-sidebar-toggle="close"
+        aria-label="Tutup navigasi"
+      >
+        <Icon name="hugeicons:cancel-01"/>
       </button>
     </div>
     <div class="flex-1 overflow-y-auto py-2 text-sm text-foreground-muted">
-      <div class="flex cursor-pointer items-center gap-1 px-4 py-1 text-foreground-muted hover:text-foreground">
-        <Icon name="hugeicons:arrow-down-01" class="size-4" />
+      <div
+        class="flex cursor-pointer items-center gap-1 px-4 py-1 text-foreground-muted hover:text-foreground"
+      >
+        <Icon name="hugeicons:arrow-down-01" class="size-4"/>
         <span class="font-semibold text-foreground">Dokumen Internal</span>
       </div>
       <div class="ml-3 border-l border-border">

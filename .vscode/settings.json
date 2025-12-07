@@ -89,5 +89,5 @@
   "yaml.schemas": {
     "bio/.astro/collections/links.schema.json": "src/content/links.yml",
     "web/.astro/collections/index.schema.json": "/src/content/**/index.yml"
-  },
+  }
 }

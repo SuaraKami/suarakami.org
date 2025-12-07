@@ -1,7 +1,7 @@
-import type { Linter } from "eslint";
 import tsParser from "@typescript-eslint/parser";
+import type { Linter } from "eslint";
 import vueParser from "vue-eslint-parser";
-import { toArray, type MaybeArray } from "../utils.ts";
+import { type MaybeArray, toArray } from "../utils.ts";
 
 const defaultFiles = ["**/*.vue"] as const;
 

@@ -1,15 +1,25 @@
 import type { Linter } from "eslint";
 import tailwindPlugin from "eslint-plugin-better-tailwindcss";
 import { getDefaultAttributes } from "eslint-plugin-better-tailwindcss/api/defaults";
-import { toArray, type MaybeArray } from "../utils.ts";
+import { type MaybeArray, toArray } from "../utils.ts";
 
 const defaultFiles = ["**/*.{astro,vue,svelte,js,jsx,ts,tsx}"] as const;
-const defaultAttributes = [...getDefaultAttributes(), ".*Class", ".*-class"] as const;
+const defaultAttributes = [
+  ...getDefaultAttributes(),
+  ".*Class",
+  ".*-class",
+] as const;
 
 const defaultRules: Linter.RulesRecord = {
   "better-tailwindcss/enforce-consistent-line-wrapping": "off",
-  "better-tailwindcss/enforce-consistent-class-order": ["error", { order: "improved" }],
-  "better-tailwindcss/enforce-consistent-variable-syntax": ["error", { syntax: "shorthand" }],
+  "better-tailwindcss/enforce-consistent-class-order": [
+    "error",
+    { order: "improved" },
+  ],
+  "better-tailwindcss/enforce-consistent-variable-syntax": [
+    "error",
+    { syntax: "shorthand" },
+  ],
   "better-tailwindcss/enforce-consistent-important-position": [
     "error",
     { position: "recommended" },
@@ -33,7 +43,9 @@ export interface TailwindConfigOptions {
   settings?: Record<string, unknown>;
 }
 
-export function tailwindRules(options: TailwindConfigOptions = {}): Linter.FlatConfig {
+export function tailwindRules(
+  options: TailwindConfigOptions = {}
+): Linter.FlatConfig {
   const files = toArray(options.files ?? defaultFiles);
   const attributes = options.attributes ?? defaultAttributes;
   const entry = options.entry ?? "src/styles/global.css";

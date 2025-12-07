@@ -1,21 +1,22 @@
 ---
-import { Icon } from 'astro-icon/components'
+  import { Icon } from "astro-icon/components";
 
-type Props = {
-  title?: string
-}
+  interface Props {
+    title?: string;
+  }
 
-const { title } = Astro.props
+  const { title } = Astro.props;
 ---
-
-<div class="flex h-9 items-end overflow-x-auto border-b border-border bg-panel px-2">
+<div
+  class="flex h-9 items-end overflow-x-auto border-b border-border bg-panel px-2"
+>
   <button
     class="mr-2 h-full p-2 text-foreground-muted transition-colors hover:text-foreground md:hidden"
     data-sidebar-toggle="open"
     aria-controls="mobile-sidebar"
     aria-expanded="false"
   >
-    <Icon name="hugeicons:menu-01" class="size-4" />
+    <Icon name="hugeicons:menu-01" class="size-4"/>
     <span class="sr-only">Toggle sidebar</span>
   </button>
   <div class="mr-4 flex h-full items-center gap-1 text-foreground-muted">
@@ -24,14 +25,14 @@ const { title } = Astro.props
       aria-label="Kembali"
       class="rounded-sm p-1 transition-colors hover:bg-surface hover:text-foreground"
     >
-      <Icon name="hugeicons:arrow-left-01" class="size-4" />
+      <Icon name="hugeicons:arrow-left-01" class="size-4"/>
     </button>
     <button
       data-nav="forward"
       aria-label="Berikutnya"
       class="rounded-sm p-1 transition-colors hover:bg-surface hover:text-foreground"
     >
-      <Icon name="hugeicons:arrow-right-01" class="size-4" />
+      <Icon name="hugeicons:arrow-right-01" class="size-4"/>
     </button>
   </div>
   {

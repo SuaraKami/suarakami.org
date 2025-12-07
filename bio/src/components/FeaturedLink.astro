@@ -1,17 +1,18 @@
 ---
-import { Icon } from 'astro-icon/components'
+  import { Icon } from "astro-icon/components";
 
-interface Props {
-  title: string
-  description?: string
-  href: string
-}
+  interface Props {
+    title: string;
+    description?: string;
+    href: string;
+  }
 
-const { title, description, href } = Astro.props
+  const { title, description, href } = Astro.props;
 ---
-
 <div class="relative">
-  <div class="absolute top-0 -left-16 h-full w-56 bg-accent opacity-5 sm:w-72 md:w-96 lg:w-108"></div>
+  <div
+    class="absolute top-0 -left-16 h-full w-56 bg-accent opacity-5 sm:w-72 md:w-96 lg:w-108"
+  ></div>
   <a
     href={href}
     target="_blank"
@@ -25,7 +26,11 @@ const { title, description, href } = Astro.props
   >
     <div class="mb-6 flex items-center gap-4 md:mb-8">
       <div class="h-2 w-2 bg-accent"></div>
-      <p class="font-mono text-xs tracking-widest uppercase opacity-60 md:text-sm">Featured</p>
+      <p
+        class="font-mono text-xs tracking-widest uppercase opacity-60 md:text-sm"
+      >
+        Featured
+      </p>
     </div>
 
     <h2
@@ -39,16 +44,20 @@ const { title, description, href } = Astro.props
       `}
     >
       {title}
-      <br />
+      <br>
     </h2>
 
     <div class="max-w-lg md:ml-[8vw]">
-      <p class="mb-6 text-base leading-relaxed font-light opacity-80 md:mb-8 md:text-lg">
+      <p
+        class="mb-6 text-base leading-relaxed font-light opacity-80 md:mb-8 md:text-lg"
+      >
         {description ?? 'No description provided.'}
       </p>
 
       <div class="flex items-center gap-3 text-accent">
-        <span class="font-mono text-sm tracking-wider uppercase md:text-base">Open Link</span>
+        <span class="font-mono text-sm tracking-wider uppercase md:text-base"
+          >Open Link</span
+        >
         <Icon
           name="lucide:arrow-right"
           class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-2"

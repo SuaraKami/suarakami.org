@@ -1,6 +1,11 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite/core", "ultracite/vue", "ultracite/astro"],
+  "extends": [
+    "ultracite/core",
+    "ultracite/vue",
+    "ultracite/svelte",
+    "ultracite/astro"
+  ],
   "linter": {
     "rules": {
       "complexity": {
@@ -19,7 +24,7 @@
         "useFilenamingConvention": {
           "level": "error",
           "options": {
-            "filenameCases": ["PascalCase", "camelCase"]
+            "filenameCases": ["PascalCase", "camelCase", "kebab-case"]
           }
         },
         "useConsistentTypeDefinitions": {

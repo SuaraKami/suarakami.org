@@ -1,35 +1,40 @@
 ---
-import Layout from '@/layouts/layout.astro'
-import { Icon } from 'astro-icon/components'
-import { getCollection } from 'astro:content'
+  import { getCollection } from "astro:content";
+  import { Icon } from "astro-icon/components";
+  import Layout from "@/layouts/layout.astro";
 
-const docs = (await getCollection('docs')).sort((a, b) => a.slug.localeCompare(b.slug))
-const dateFormatter = new Intl.DateTimeFormat('id-ID', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-  timeZone: 'Europe/Berlin',
-})
+  const docs = (await getCollection("docs")).sort((a, b) =>
+    a.slug.localeCompare(b.slug)
+  );
+  const dateFormatter = new Intl.DateTimeFormat("id-ID", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Europe/Berlin",
+  });
 ---
-
 <Layout title="Dokumen Internal SuaraKami">
   <div class="flex-1 overflow-y-auto px-4 md:px-20 py-6 md:py-10">
     <div class="space-y-8">
       <header class="space-y-3">
         <div class="flex items-center gap-3 text-foreground">
-          <Icon name="hugeicons:folder-01" class="size-6 text-primary" />
+          <Icon name="hugeicons:folder-01" class="size-6 text-primary"/>
           <h1 class="text-2xl font-semibold">Dokumen Internal SuaraKami</h1>
         </div>
         <p class="text-sm text-foreground-muted md:text-base">
-          Dokumen ini adalah kompas moral dan intelektual SuaraKami. Berangkat dari kegelisahan sederhana di Aachen,
-          naskah ini merangkum perjalanan transformasi kami, dari ambisi teknis menjadi gerakan kultural. Di dalamnya,
-          kami menuangkan sejarah, landasan filosofis, hingga metode kerja horizontal yang kami hidupi sehari-hari.
+          Dokumen ini adalah kompas moral dan intelektual SuaraKami. Berangkat
+          dari kegelisahan sederhana di Aachen, naskah ini merangkum perjalanan
+          transformasi kami, dari ambisi teknis menjadi gerakan kultural. Di
+          dalamnya, kami menuangkan sejarah, landasan filosofis, hingga metode
+          kerja horizontal yang kami hidupi sehari-hari.
         </p>
       </header>
 
       <section class="space-y-4">
-        <div class="flex items-center text-xs uppercase tracking-widest text-foreground-subtle">
+        <div
+          class="flex items-center text-xs uppercase tracking-widest text-foreground-subtle"
+        >
           <span>Daftar Dokumen</span>
-          <span class="ml-auto text-xs tracking-widest">{docs.length} FILE</span>
+          <span class="ml-auto text-xs tracking-widest">{docs.length}FILE</span>
         </div>
         <div class="grid gap-4">
           {

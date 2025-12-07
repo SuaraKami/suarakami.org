@@ -10,7 +10,7 @@ export function toArray<T>(value: MaybeArray<T>): T[] {
 
 export function normalizeOptions<T extends object>(
   value: boolean | T | undefined,
-  defaultEnabled: boolean,
+  defaultEnabled: boolean
 ): T | null {
   if (value === false) {
     return null;

@@ -1,9 +1,12 @@
 import type { Linter } from "eslint";
-import { astroRules, type AstroConfigOptions } from "./configs/astro.ts";
-import { svelteRules, type SvelteConfigOptions } from "./configs/svelte.ts";
-import { tailwindRules, type TailwindConfigOptions } from "./configs/tailwind.ts";
-import { vueRules, type VueConfigOptions } from "./configs/vue.ts";
-import { normalizeOptions, toArray, type MaybeArray } from "./utils.ts";
+import { type AstroConfigOptions, astroRules } from "./configs/astro.ts";
+import { type SvelteConfigOptions, svelteRules } from "./configs/svelte.ts";
+import {
+  type TailwindConfigOptions,
+  tailwindRules,
+} from "./configs/tailwind.ts";
+import { type VueConfigOptions, vueRules } from "./configs/vue.ts";
+import { type MaybeArray, normalizeOptions, toArray } from "./utils.ts";
 
 const defaultIgnores = [
   "**/node_modules/**",
@@ -22,7 +25,9 @@ export interface DefineConfigOptions {
   tailwind?: boolean | TailwindConfigOptions;
 }
 
-export default function baseConfig(options: DefineConfigOptions = {}): Linter.Config[] {
+export default function baseConfig(
+  options: DefineConfigOptions = {}
+): Linter.Config[] {
   const configs: Linter.Config[] = [];
   const ignores = options.ignores ?? defaultIgnores;
 
@@ -30,7 +35,10 @@ export default function baseConfig(options: DefineConfigOptions = {}): Linter.Co
     configs.push({ ignores: toArray(ignores) });
   }
 
-  const astroOptions = normalizeOptions<AstroConfigOptions>(options.astro, true);
+  const astroOptions = normalizeOptions<AstroConfigOptions>(
+    options.astro,
+    true
+  );
   if (astroOptions) {
     configs.push(astroRules(astroOptions));
   }
@@ -40,20 +48,21 @@ export default function baseConfig(options: DefineConfigOptions = {}): Linter.Co
     configs.push(vueRules(vueOptions));
   }
 
-  const svelteOptions = normalizeOptions<SvelteConfigOptions>(options.svelte, false);
+  const svelteOptions = normalizeOptions<SvelteConfigOptions>(
+    options.svelte,
+    false
+  );
   if (svelteOptions) {
     configs.push(svelteRules(svelteOptions));
   }
 
-  const tailwindOptions = normalizeOptions<TailwindConfigOptions>(options.tailwind, false);
+  const tailwindOptions = normalizeOptions<TailwindConfigOptions>(
+    options.tailwind,
+    false
+  );
   if (tailwindOptions) {
     configs.push(tailwindRules(tailwindOptions));
   }
 
   return configs;
 }
-
-export { astroRules } from "./configs/astro.ts";
-export { svelteRules } from "./configs/svelte.ts";
-export { tailwindRules } from "./configs/tailwind.ts";
-export { vueRules } from "./configs/vue.ts";

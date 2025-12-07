@@ -1,7 +1,7 @@
-import { defineCollection, reference, z } from 'astro:content'
+import { defineCollection, reference, z } from "astro:content";
 
 const docs = defineCollection({
-  type: 'content',
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -15,29 +15,37 @@ const docs = defineCollection({
             author: z.string(),
             date: z.date(),
             message: z.string(),
-          }),
+          })
         )
         .default([]),
     }),
-})
+});
 
 const glossary = defineCollection({
-  type: 'data',
+  type: "data",
   schema: () =>
     z.object({
       term: z.string(),
       definition: z.string(),
-      lang: z.string().default('ID'),
+      lang: z.string().default("ID"),
       aliases: z.array(z.string()).default([]),
       relations: z
         .array(
           z.object({
-            to: reference('glossary'),
-            type: z.enum(['sinonim', 'antonim', 'turunan', 'bagian_dari', 'mencakup', 'contoh', 'konsep_terkait']),
-          }),
+            to: reference("glossary"),
+            type: z.enum([
+              "sinonim",
+              "antonim",
+              "turunan",
+              "bagian_dari",
+              "mencakup",
+              "contoh",
+              "konsep_terkait",
+            ]),
+          })
         )
         .default([]),
     }),
-})
+});
 
-export const collections = { docs, glossary }
+export const collections = { docs, glossary };

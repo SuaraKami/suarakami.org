@@ -6,6 +6,7 @@
       "name": "suarakami.org",
       "devDependencies": {
         "@biomejs/biome": "2.3.4",
+        "@suarakami/eslint-config": "workspace:*",
         "eslint": "^9.39.1",
         "ultracite": "6.3.2",
       },

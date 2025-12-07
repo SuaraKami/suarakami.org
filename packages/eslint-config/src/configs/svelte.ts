@@ -1,7 +1,7 @@
-import type { Linter } from "eslint";
 import tsParser from "@typescript-eslint/parser";
+import type { Linter } from "eslint";
 import svelteParser from "svelte-eslint-parser";
-import { toArray, type MaybeArray } from "../utils.ts";
+import { type MaybeArray, toArray } from "../utils.ts";
 
 const defaultFiles = ["**/*.svelte"] as const;
 
@@ -10,7 +10,9 @@ export interface SvelteConfigOptions {
   parserOptions?: Record<string, unknown>;
 }
 
-export function svelteRules(options: SvelteConfigOptions = {}): Linter.FlatConfig {
+export function svelteRules(
+  options: SvelteConfigOptions = {}
+): Linter.FlatConfig {
   const files = toArray(options.files ?? defaultFiles);
   const parserOptions = {
     extraFileExtensions: [".svelte"],

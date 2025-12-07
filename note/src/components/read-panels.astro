@@ -1,30 +1,29 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import { render } from 'astro:content'
-import GlossaryOverlay from '@/components/glossary/glossary-overlay.svelte'
+  import type { CollectionEntry } from "astro:content";
+  import { render } from "astro:content";
+  import GlossaryOverlay from "@/components/glossary/glossary-overlay.svelte";
 
-type Props = {
-  entry: CollectionEntry<'docs'>
-  glossary: CollectionEntry<'glossary'>[]
-}
+  interface Props {
+    entry: CollectionEntry<"docs">;
+    glossary: CollectionEntry<"glossary">[];
+  }
 
-const { entry, glossary } = Astro.props
-const { Content } = await render(entry)
+  const { entry, glossary } = Astro.props;
+  const { Content } = await render(entry);
 
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('id-ID', {
-    dateStyle: 'full',
-    timeStyle: 'short',
-    timeZone: 'Europe/Berlin',
-  }).format(date)
-}
+  function formatDate(date: Date): string {
+    return new Intl.DateTimeFormat("id-ID", {
+      dateStyle: "full",
+      timeStyle: "short",
+      timeZone: "Europe/Berlin",
+    }).format(date);
+  }
 
-const metadataRows = [
-  { label: 'created', text: formatDate(entry.data.created) },
-  { label: 'updated', text: formatDate(entry.data.updated) },
-]
+  const metadataRows = [
+    { label: "created", text: formatDate(entry.data.created) },
+    { label: "updated", text: formatDate(entry.data.updated) },
+  ];
 ---
-
 <div class="space-y-8 select-text">
   <div class="border-b border-border pb-6 text-sm">
     {
@@ -44,7 +43,7 @@ const metadataRows = [
     id={`doc-${entry.slug}`}
   >
     <h1>{entry.data.title}</h1>
-    <Content />
+    <Content/>
   </article>
-  <GlossaryOverlay entries={glossary} client:only="svelte" />
+  <GlossaryOverlay entries={glossary} client:only="svelte"/>
 </div>

@@ -1,6 +1,6 @@
-import { defineConfig } from "./packages/eslint-config/dist/index.js";
+import baseConfig from "@suarakami/eslint-config";
 
-export default defineConfig({
+export default baseConfig({
   astro: false,
   vue: false,
   svelte: false,
