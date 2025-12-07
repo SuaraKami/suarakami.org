@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Gugus Tugas",
+  "definition": "Tim ad hoc yang dibentuk untuk menangani tugas tertentu dalam jangka waktu terbatas.",
+  "lang": "ID",
+  "aliases": ["Task force"],
+  "relations": []
+}

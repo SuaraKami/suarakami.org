@@ -1,0 +1,30 @@
+---
+  import { getCollection, getEntry } from "astro:content";
+  import BreadcrumbToolbar from "@/components/breadcrumb-toolbar.astro";
+  import ReadPanels from "@/components/read-panels.astro";
+  import Layout from "@/layouts/layout.astro";
+
+  export function getStaticPaths() {
+    return getCollection("docs").then((entries) =>
+      entries.map((entry) => ({
+        params: { slug: entry.slug },
+      }))
+    );
+  }
+
+  const { slug } = Astro.params;
+  const entry = await getEntry("docs", slug);
+  const glossary = await getCollection("glossary");
+
+  if (!entry) {
+    throw new Error(`Entry with slug "${slug}" not found.`);
+  }
+---
+<Layout title={entry.data.title} slug={slug}>
+  <BreadcrumbToolbar title={entry.data.title} slug={slug}/>
+  <div class="flex-1 overflow-y-auto px-4 py-6 md:px-20 md:py-10">
+    <div class="max-w-4xl space-y-6 pb-20">
+      <ReadPanels entry={entry} glossary={glossary}/>
+    </div>
+  </div>
+</Layout>

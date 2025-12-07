@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Komodifikasi",
+  "definition": "Proses menjadikan sesuatu—barang, jasa, bahkan relasi sosial—sebagai komoditas yang dinilai sesuai harga pasar.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

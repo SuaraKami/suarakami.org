@@ -1,4 +1,3 @@
-// @ts-check
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 import vue from "@astrojs/vue";

@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kesadaran Reflektif",
+  "definition": "Kemampuan untuk meninjau pikiran, pengalaman, dan tindakan sendiri secara sadar agar dapat menilai kembali asumsi yang dipegang.",
+  "lang": "ID",
+  "aliases": ["Reflektif"],
+  "relations": []
+}

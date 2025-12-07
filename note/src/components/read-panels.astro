@@ -1,0 +1,49 @@
+---
+  import type { CollectionEntry } from "astro:content";
+  import { render } from "astro:content";
+  import GlossaryOverlay from "@/components/glossary/glossary-overlay.svelte";
+
+  interface Props {
+    entry: CollectionEntry<"docs">;
+    glossary: CollectionEntry<"glossary">[];
+  }
+
+  const { entry, glossary } = Astro.props;
+  const { Content } = await render(entry);
+
+  function formatDate(date: Date): string {
+    return new Intl.DateTimeFormat("id-ID", {
+      dateStyle: "full",
+      timeStyle: "short",
+      timeZone: "Europe/Berlin",
+    }).format(date);
+  }
+
+  const metadataRows = [
+    { label: "created", text: formatDate(entry.data.created) },
+    { label: "updated", text: formatDate(entry.data.updated) },
+  ];
+---
+<div class="space-y-8 select-text">
+  <div class="border-b border-border pb-6 text-sm">
+    {
+      metadataRows.map((row) => (
+        <div class="flex flex-col gap-2 py-1.5 sm:flex-row sm:items-center">
+          <span class="w-24 text-sm text-foreground-muted">{row.label}</span>
+          <div class="text-sm text-foreground">
+            <span class="font-mono text-sm text-foreground">{row.text}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <article
+    class="prose prose-sm max-w-none prose-invert prose-custom md:prose-base"
+    data-glossary-article
+    id={`doc-${entry.slug}`}
+  >
+    <h1>{entry.data.title}</h1>
+    <Content/>
+  </article>
+  <GlossaryOverlay entries={glossary} client:only="svelte"/>
+</div>

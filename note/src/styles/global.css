@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --bg-app: #1e1e1e;
+  --bg-sidebar: #202020;
+  --bg-panel: #111111;
+  --bg-surface: #161616;
+  --border: #2a2a2a;
+  --text-main: #dcddde;
+  --text-muted: #7b7b7b;
+  --accent-primary: #7e62d6;
+  --accent-link: #bfa5ff;
+  --selection: #483699;
+  --scroll-thumb: #484848;
+  --scroll-thumb-hover: #5a5a5a;
+}
+
+@theme {
+  --color-background: var(--bg-app);
+  --color-sidebar: var(--bg-sidebar);
+  --color-panel: var(--bg-panel);
+  --color-surface: var(--bg-surface);
+  --color-border: var(--border);
+  --color-foreground: var(--text-main);
+  --color-foreground-muted: var(--text-muted);
+  --color-primary: var(--accent-primary);
+  --color-link: var(--accent-link);
+  --color-selection: var(--selection);
+
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility prose-custom {
+  --tw-prose-invert-body: var(--color-foreground);
+  --tw-prose-invert-headings: var(--color-foreground);
+  --tw-prose-invert-links: var(--color-link);
+  --tw-prose-invert-bold: var(--color-foreground);
+  --tw-prose-invert-bullets: var(--color-foreground-muted);
+  --tw-prose-invert-quotes: var(--color-zinc-400);
+  --tw-prose-invert-quote-borders: var(--color-primary);
+}
+
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.select-text,
+.select-text * {
+  -webkit-user-drag: auto;
+  user-select: text;
+}
+
+::selection {
+  background-color: var(--selection);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 999px;
+  border: 2px solid var(--bg-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scroll-thumb-hover);
+}

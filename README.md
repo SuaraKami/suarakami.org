@@ -1,31 +1,13 @@
-# SuaraKami
+# suarakami
 
-## Setup
-
-Make sure to install the dependencies:
+To install dependencies:
 
 ```bash
 bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:4321`:
+To run:
 
 ```bash
-bun dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-bun build
-```
-
-Locally preview production build:
-
-```bash
-bun preview
+bun run 
 ```

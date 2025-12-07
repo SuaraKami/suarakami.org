@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Wahl-O-Mat",
+  "definition": "Alat digital dari Komisi Pemilihan Federal Jerman yang membantu pemilih mencocokkan pandangan politiknya dengan program partai menjelang pemilu.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}
