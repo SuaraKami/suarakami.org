@@ -1,34 +1,8 @@
-import antfu from '@antfu/eslint-config'
-import eslintParserAstro from 'astro-eslint-parser'
-import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
+import baseConfig from "@suarakami/eslint-config";
 
-export default antfu(
-  {
-    astro: true,
-    formatters: {
-      astro: true,
-    },
-    typescript: true,
+export default baseConfig({
+  astro: true,
+  tailwind: {
+    entry: "src/styles/global.css",
   },
-  {
-    files: ['**/*.astro'],
-    languageOptions: {
-      parser: eslintParserAstro,
-    },
-    plugins: {
-      'better-tailwindcss': eslintPluginBetterTailwindcss,
-    },
-    rules: {
-      ...eslintPluginBetterTailwindcss.configs.recommended.rules,
-      'better-tailwindcss/enforce-consistent-line-wrapping': ['warn', {
-        preferSingleLine: true,
-        printWidth: 100,
-      }],
-    },
-    settings: {
-      'better-tailwindcss': {
-        entryPoint: 'src/styles/global.css',
-      },
-    },
-  },
-)
+});

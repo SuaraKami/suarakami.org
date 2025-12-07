@@ -4,7 +4,8 @@
   "workspaces": [
     "bio/",
     "note/",
-    "web/"
+    "web/",
+    "packages/*"
   ],
   "scripts": {
     "lint": "ultracite check && eslint .",
@@ -12,15 +13,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.4",
-    "@types/bun": "latest",
-    "@typescript-eslint/parser": "^8.46.4",
-    "astro-eslint-parser": "^1.2.2",
     "eslint": "^9.39.1",
-    "eslint-plugin-better-tailwindcss": "^3.7.10",
-    "ultracite": "6.3.2",
-    "vue-eslint-parser": "^10.2.0"
+    "ultracite": "6.3.2"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }
