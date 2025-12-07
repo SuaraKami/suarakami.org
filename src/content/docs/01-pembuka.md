@@ -1,10 +1,6 @@
 ---
 title: "Pembuka"
 summary: "Latar belakang kelahiran SuaraKami."
-tags:
-  - "manifesto"
-  - "aachen"
-  - "start"
 created: 2025-11-23 21:51:00
 updated: 2025-12-03 14:46:00
 history:

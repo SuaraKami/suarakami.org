@@ -1,10 +1,6 @@
 ---
 title: "Landasan Filosofis"
 summary: "Nilai fundamental yang menjadi kompas moral dan intelektual SuaraKami."
-tags:
-  - "principles"
-  - "ethics"
-  - "collective"
 created: 2025-11-23 22:23:00
 updated: 2025-12-05 18:21:00
 history:

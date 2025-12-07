@@ -6,7 +6,6 @@ const docs = defineCollection({
     z.object({
       title: z.string(),
       summary: z.string().optional(),
-      tags: z.array(z.string()),
       created: z.date(),
       updated: z.date(),
       hero: image().optional(),

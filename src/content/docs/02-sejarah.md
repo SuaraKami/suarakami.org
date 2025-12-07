@@ -1,10 +1,6 @@
 ---
 title: "Sejarah"
 summary: "Linimasa singkat perjalanan SuaraKami dari 2018 sampai sekarang."
-tags:
-  - "chronicle"
-  - "timeline"
-  - "arsip"
 created: 2025-11-23 22:15:00
 updated: 2025-11-25 19:39:00
 history:
