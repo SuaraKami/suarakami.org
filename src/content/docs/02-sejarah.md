@@ -9,8 +9,8 @@ created: 2025-11-23 22:15:00
 updated: 2025-11-25 19:39:00
 history:
   - author: "SuaraKami"
-    date: 2025-11-23 22:15:00
-    message: "Terbit perdana untuk arsip ini."
+    date: 2025-12-08 00:00:00
+    message: "Terbit perdana."
 ---
 
 ## Aspirasi Awal

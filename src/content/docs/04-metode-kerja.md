@@ -9,8 +9,8 @@ created: 2025-11-23 22:23:00
 updated: 2025-11-26 18:15:00
 history:
   - author: "SuaraKami"
-    date: 2025-11-23 22:23:00
-    message: "Terbit perdana untuk arsip ini."
+    date: 2025-12-08 00:00:00
+    message: "Terbit perdana."
 ---
 
 Di tengah dunia yang serba cepat dan hierarkis, SuaraKami memilih jalan aktivisme yang berkelanjutan dengan struktur yang sepenuhnya horizontal.
