@@ -4,14 +4,14 @@ Shared ESLint helpers for every workspace in the monorepo.
 
 ```js
 // eslint.config.mjs inside any workspace
-import { defineConfig } from "../packages/eslint-config/dist/index.js";
+import baseConfig from "@suarakami/eslint-config";
 
-export default defineConfig({
-  astro: true,
-  vue: true,
-  svelte: false,
+export default baseConfig({
   tailwind: {
     entry: "src/styles/global.css",
+    astro: true,
+    vue: true,
+    svelte: false,
   },
 });
 ```

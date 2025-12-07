@@ -3,7 +3,7 @@ import tailwindPlugin from "eslint-plugin-better-tailwindcss";
 import { getDefaultAttributes } from "eslint-plugin-better-tailwindcss/api/defaults";
 import { type MaybeArray, toArray } from "../utils.ts";
 
-const defaultFiles = ["**/*.{astro,vue,svelte,js,jsx,ts,tsx}"] as const;
+const defaultFiles = ["**/*.{astro,vue,svelte}"] as const;
 const defaultAttributes = [
   ...getDefaultAttributes(),
   ".*Class",

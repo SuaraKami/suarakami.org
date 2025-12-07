@@ -1,10 +1,9 @@
 import baseConfig from "@suarakami/eslint-config";
 
 export default baseConfig({
-  astro: true,
-  vue: true,
-  svelte: false,
   tailwind: {
     entry: "src/styles/global.css",
+    astro: true,
+    vue: true,
   },
 });

@@ -17,15 +17,18 @@ const defaultIgnores = [
   "**/dist/**",
 ] as const;
 
-export interface DefineConfigOptions {
-  ignores?: MaybeArray<string> | false;
+export interface TailwindFeatureOptions extends TailwindConfigOptions {
   astro?: boolean | AstroConfigOptions;
   vue?: boolean | VueConfigOptions;
   svelte?: boolean | SvelteConfigOptions;
-  tailwind?: boolean | TailwindConfigOptions;
 }
 
-export default function baseConfig(
+export interface DefineConfigOptions {
+  ignores?: MaybeArray<string> | false;
+  tailwind?: boolean | TailwindFeatureOptions;
+}
+
+export default function defineConfig(
   options: DefineConfigOptions = {}
 ): Linter.Config[] {
   const configs: Linter.Config[] = [];
@@ -35,34 +38,41 @@ export default function baseConfig(
     configs.push({ ignores: toArray(ignores) });
   }
 
-  const astroOptions = normalizeOptions<AstroConfigOptions>(
-    options.astro,
-    true
-  );
-  if (astroOptions) {
-    configs.push(astroRules(astroOptions));
-  }
-
-  const vueOptions = normalizeOptions<VueConfigOptions>(options.vue, false);
-  if (vueOptions) {
-    configs.push(vueRules(vueOptions));
-  }
-
-  const svelteOptions = normalizeOptions<SvelteConfigOptions>(
-    options.svelte,
-    false
-  );
-  if (svelteOptions) {
-    configs.push(svelteRules(svelteOptions));
-  }
-
-  const tailwindOptions = normalizeOptions<TailwindConfigOptions>(
+  const tailwindOptions = normalizeOptions<TailwindFeatureOptions>(
     options.tailwind,
     false
   );
-  if (tailwindOptions) {
-    configs.push(tailwindRules(tailwindOptions));
+
+  if (!tailwindOptions) {
+    return configs;
   }
+
+  const {
+    astro: astroOption,
+    vue: vueOption,
+    svelte: svelteOption,
+    ...tailwindConfig
+  } = tailwindOptions;
+
+  const astroConfig = normalizeOptions<AstroConfigOptions>(astroOption, true);
+  if (astroConfig) {
+    configs.push(astroRules(astroConfig));
+  }
+
+  const vueConfig = normalizeOptions<VueConfigOptions>(vueOption, false);
+  if (vueConfig) {
+    configs.push(vueRules(vueConfig));
+  }
+
+  const svelteConfig = normalizeOptions<SvelteConfigOptions>(
+    svelteOption,
+    false
+  );
+  if (svelteConfig) {
+    configs.push(svelteRules(svelteConfig));
+  }
+
+  configs.push(tailwindRules(tailwindConfig));
 
   return configs;
 }
