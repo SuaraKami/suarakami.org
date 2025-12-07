@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Apatisme",
+  "definition": "Sikap tidak peduli atau kehilangan minat dan emosi terhadap situasi sekitar, sehingga seseorang enggan merespons rangsangan apa pun.",
+  "lang": "ID",
+  "aliases": [
+    "Apati"
+  ],
+  "relations": []
+}

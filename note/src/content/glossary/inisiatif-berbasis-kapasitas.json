@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Inisiatif Berbasis Kapasitas",
+  "definition": "Cara kerja yang menugaskan seseorang berdasarkan ketersediaan waktu dan kemampuan aktual, bukan posisi struktural.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { Icon } from 'astro-icon/components'
+
+type Props = {
+  history: CollectionEntry<'docs'>['data']['history']
+}
+
+const { history } = Astro.props
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
+}
+
+const dateFormatter = new Intl.DateTimeFormat('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+
+const historyItems = history
+  .map((item) => ({
+    ...item,
+    initials: getInitials(item.author),
+    formattedDate: dateFormatter.format(item.date),
+  }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+---
+
+<div class="space-y-4">
+  <h2 class="flex items-center gap-2 text-xl font-semibold text-foreground">
+    <Icon name="hugeicons:clock-04" class="size-5 text-foreground-muted" />
+    Riwayat Perubahan
+  </h2>
+  {
+    historyItems.length > 0 ? (
+      <div class="divide-y divide-border rounded-md border border-border bg-panel">
+        {historyItems.map((item) => (
+          <div class="flex gap-3 p-4">
+            <div class="flex size-10 items-center justify-center rounded-full bg-surface text-sm font-semibold text-primary">
+              {item.initials}
+            </div>
+            <div class="flex-1 space-y-2">
+              <p class="text-sm font-semibold text-foreground">{item.message}</p>
+              <div class="flex flex-wrap items-center gap-3 text-xs text-foreground-muted">
+                <span>{item.author}</span>
+                <span>{item.formattedDate}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="rounded-md border border-dashed border-border bg-panel p-4 text-sm text-foreground-muted">
+        Belum ada catatan perubahan untuk dokumen ini.
+      </div>
+    )
+  }
+</div>
