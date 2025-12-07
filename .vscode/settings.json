@@ -1,7 +1,4 @@
 {
-  "yaml.schemas": {
-    "./.astro/collections/index.schema.json": ["/src/content/**/index.yml"]
-  },
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
   "editor.tabSize": 4,
