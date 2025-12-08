@@ -1,19 +1,5 @@
 <script lang="ts">
-  import { Tween as Tweened, Group as TweenGroup } from "@tweenjs/tween.js";
   import type { Simulation } from "d3";
-  import {
-    drag,
-    forceCenter,
-    forceCollide,
-    forceLink,
-    forceManyBody,
-    forceRadial,
-    forceSimulation,
-    select,
-    zoom,
-    zoomIdentity,
-  } from "d3";
-  import { Application, Circle, Container, Graphics, Text } from "pixi.js";
   import type {
     ForceGraphConfig,
     ForceGraphData,
@@ -28,6 +14,20 @@
     RenderOptions,
     TweenHandle,
   } from "./types";
+  import { Tween as Tweened, Group as TweenGroup } from "@tweenjs/tween.js";
+  import {
+    drag,
+    forceCenter,
+    forceCollide,
+    forceLink,
+    forceManyBody,
+    forceRadial,
+    forceSimulation,
+    select,
+    zoom,
+    zoomIdentity,
+  } from "d3";
+  import { Application, Circle, Container, Graphics, Text } from "pixi.js";
 
   const defaultGraphConfig: Required<ForceGraphConfig> = {
     drag: true,
@@ -76,12 +76,12 @@
   let lastGraphData: ForceGraphData | null = null;
   let lastNormalized: NormalizedGraph | null = null;
 
-  interface Props {
+  type Props = {
     graphData?: ForceGraphData;
     config?: ForceGraphConfig;
     activeNodeId?: string | null;
     onSelect?: (payload: GraphSelectionPayload) => void;
-  }
+  };
 
   const {
     graphData = sampleGraph,
@@ -90,13 +90,11 @@
     onSelect = (() => {}) as (payload: GraphSelectionPayload) => void,
   }: Props = $props();
 
-  const stageEl = $state<HTMLDivElement | null>(null);
+  let stageEl = $state<HTMLDivElement | null>(null);
   let hasRenderableGraph = $state(Boolean(graphData?.nodes?.length));
 
   $effect(() => {
-    if (!stageEl || typeof window === "undefined") {
-      return;
-    }
+    if (!stageEl || typeof window === "undefined") return;
 
     const normalized = getNormalizedGraph(graphData);
     const mergedConfig = { ...defaultGraphConfig, ...config };
@@ -215,21 +213,21 @@
           "link",
           forceLink<NormalizedNode, NormalizedLink>(links)
             .id((d) => d.id)
-            .distance(config.linkDistance)
+            .distance(config.linkDistance),
         )
         .force(
           "collide",
           forceCollide<NormalizedNode>(
-            (node) => nodeRadius(node, degreeMap) + config.collisionPadding
-          ).iterations(3)
+            (node) => nodeRadius(node, degreeMap) + config.collisionPadding,
+          ).iterations(3),
         );
 
     if (config.radial) {
       simulation.force(
         "radial",
         forceRadial(Math.min(width, height) * 0.4).strength(
-          config.radialStrength
-        )
+          config.radialStrength,
+        ),
       );
     }
 
@@ -293,9 +291,7 @@
       if (!hoveredNode) {
         nodeRenderData.forEach((node) => (node.active = false));
         linkRenderData.forEach((link) => (link.active = false));
-        if (reRender && !dragging) {
-          renderInteraction();
-        }
+        if (reRender && !dragging) renderInteraction();
         return;
       }
 
@@ -325,7 +321,7 @@
         const shouldDim = Boolean(hoveredNode && config.focusOnHover);
         const targetAlpha = shouldDim ? (node.active ? 1 : 0.25) : 1;
         tweenGroup.add(
-          new Tweened(node.gfx, tweenGroup).to({ alpha: targetAlpha }, 160)
+          new Tweened(node.gfx, tweenGroup).to({ alpha: targetAlpha }, 160),
         );
       }
     }
@@ -353,8 +349,8 @@
                 y: isHovered ? activeScale : defaultScale,
               },
             },
-            120
-          )
+            120,
+          ),
         );
       }
     }
@@ -385,9 +381,7 @@
           .container(() => app.canvas)
           .subject(() => hoveredNode ?? undefined)
           .on("start", (event) => {
-            if (!event.active) {
-              simulation.alphaTarget(1).restart();
-            }
+            if (!event.active) simulation.alphaTarget(1).restart();
             event.subject.fx = event.subject.x ?? 0;
             event.subject.fy = event.subject.y ?? 0;
             event.subject.__initialDragPos = {
@@ -401,18 +395,14 @@
           })
           .on("drag", (event) => {
             const initPos = event.subject.__initialDragPos;
-            if (!initPos) {
-              return;
-            }
+            if (!initPos) return;
             event.subject.fx =
               initPos.x + (event.x - initPos.x) / currentTransform.k;
             event.subject.fy =
               initPos.y + (event.y - initPos.y) / currentTransform.k;
           })
           .on("end", (event) => {
-            if (!event.active) {
-              simulation.alphaTarget(0);
-            }
+            if (!event.active) simulation.alphaTarget(0);
             event.subject.fx = null;
             event.subject.fy = null;
             dragging = false;
@@ -421,7 +411,7 @@
               onNodeSelect(extractSelection(event.subject));
             }
             updateHover(null, true);
-          })
+          }),
       );
     } else {
       for (const node of nodeRenderData) {
@@ -447,7 +437,7 @@
             const scale = event.transform.k * config.opacityScale;
             labelBaseOpacity = Math.max((scale - 1) / 3.75, 0);
             renderInteraction();
-          })
+          }),
       );
     }
 
@@ -455,15 +445,11 @@
     let frameRef: number | null = null;
 
     function animate(time: number) {
-      if (stopAnimation) {
-        return;
-      }
+      if (stopAnimation) return;
 
       for (const node of nodeRenderData) {
         const { x, y } = node.simulationData;
-        if (x == null || y == null) {
-          continue;
-        }
+        if (x == null || y == null) continue;
         const posX = x + width / 2;
         const posY = y + height / 2;
         node.gfx.position.set(posX, posY);
@@ -473,13 +459,11 @@
       for (const link of linkRenderData) {
         const source = link.simulationData.source as NormalizedNode;
         const target = link.simulationData.target as NormalizedNode;
-        if (!(source && target)) {
-          continue;
-        }
+        if (!source || !target) continue;
         link.gfx.clear();
         link.gfx.moveTo(
           (source.x ?? 0) + width / 2,
-          (source.y ?? 0) + height / 2
+          (source.y ?? 0) + height / 2,
         );
         link.gfx
           .lineTo((target.x ?? 0) + width / 2, (target.y ?? 0) + height / 2)
@@ -495,9 +479,7 @@
 
     return () => {
       stopAnimation = true;
-      if (frameRef) {
-        cancelAnimationFrame(frameRef);
-      }
+      if (frameRef) cancelAnimationFrame(frameRef);
       tweens.forEach((tween) => tween.stop());
       tweens.clear();
       simulation.stop();
@@ -528,7 +510,7 @@
     radius: number,
     palette: GraphPalette,
     node: NormalizedNode,
-    activeNodeId: string | null
+    activeNodeId: string | null,
   ) {
     gfx.clear();
     const fill = getNodeColor(node, palette, activeNodeId);
@@ -543,14 +525,10 @@
   function getNodeColor(
     node: NormalizedNode,
     palette: GraphPalette,
-    activeNodeId: string | null
+    activeNodeId: string | null,
   ) {
-    if (node.id === activeNodeId) {
-      return palette.current;
-    }
-    if (node.kind === "tag") {
-      return palette.tagFill;
-    }
+    if (node.id === activeNodeId) return palette.current;
+    if (node.kind === "tag") return palette.tagFill;
     return palette.neutral;
   }
 
@@ -584,10 +562,10 @@
   <div class="pointer-events-none absolute inset-0" aria-hidden="true"></div>
   <div class="absolute inset-0" bind:this={stageEl}></div>
   {#if !hasRenderableGraph}
-  <div
-    class="absolute inset-0 grid place-items-center text-sm text-foreground-muted"
-  >
-    No graph data.
-  </div>
+    <div
+      class="absolute inset-0 grid place-items-center text-sm text-foreground-muted"
+    >
+      No graph data.
+    </div>
   {/if}
 </div>
