@@ -174,9 +174,9 @@
               </ScrollArea.Viewport>
               <ScrollArea.Scrollbar
                 orientation='vertical'
-                class='bg-panel flex touch-none select-none rounded-full border-l border-l-transparent my-4 w-1.5 hover:w-2'
+                class='my-4 flex w-1.5 touch-none rounded-full border-l border-l-transparent bg-panel select-none hover:w-2'
               >
-                <ScrollArea.Thumb class='bg-foreground/20 flex-1 rounded-full' />
+                <ScrollArea.Thumb class='flex-1 rounded-full bg-foreground/20' />
               </ScrollArea.Scrollbar>
             </ScrollArea.Root>
           </div>
@@ -198,11 +198,11 @@
             >
               <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-border/40'></div>
               <ScrollArea.Root class='pr-1'>
-                <ScrollArea.Viewport class='max-h-[90vh] rounded-t-3xl p-4 pb-6 pr-3'>
+                <ScrollArea.Viewport class='max-h-[90vh] rounded-t-3xl p-4 pr-3 pb-6'>
                   <div class='mx-auto max-w-xl space-y-4 pb-4'>
                     <div class='flex items-start justify-between gap-4'>
                       <div>
-                        <p class='text-xs font-semibold uppercase text-foreground-muted'>Glosarium</p>
+                        <p class='text-xs font-semibold text-foreground-muted uppercase'>Glosarium</p>
                         <h3 class='text-lg font-semibold text-foreground'>{detailHeading}</h3>
                       </div>
                       <button
@@ -221,9 +221,9 @@
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar
                   orientation='vertical'
-                  class='bg-panel flex touch-none select-none rounded-full border-l border-l-transparent p-px w-1.5 hover:w-2'
+                  class='flex w-1.5 touch-none rounded-full border-l border-l-transparent bg-panel p-px select-none hover:w-2'
                 >
-                  <ScrollArea.Thumb class='bg-foreground/20 flex-1 rounded-full' />
+                  <ScrollArea.Thumb class='flex-1 rounded-full bg-foreground/20' />
                 </ScrollArea.Scrollbar>
               </ScrollArea.Root>
             </div>
@@ -242,7 +242,7 @@
     </div>
     <div class={['grid gap-3', { 'md:grid-cols-2': !dense }]}>
       <div class='rounded-xl border border-border/70 bg-surface/80 p-3 shadow-inner md:max-w-sm'>
-        <div class='flex items-center text-xs font-semibold uppercase text-foreground-muted'>
+        <div class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
           <span>Peta Relasi</span>
         </div>
         <div class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
@@ -256,8 +256,8 @@
         </div>
       </div>
       <div class='rounded-xl border border-border/70 bg-surface/80 p-4'>
-        <p class='text-xs font-semibold uppercase text-primary/80'>Definisi</p>
-        <p class='mt-2 text-sm text-foreground-muted leading-relaxed'>
+        <p class='text-xs font-semibold text-primary/80 uppercase'>Definisi</p>
+        <p class='mt-2 text-sm leading-relaxed text-foreground-muted'>
           {#if detailDefinition}
             {detailDefinition}
           {:else}
@@ -267,14 +267,14 @@
       </div>
     </div>
     <div class='rounded-xl border border-border/60 bg-panel/70 p-3'>
-      <span class='flex items-center text-xs font-semibold uppercase text-foreground-muted'>
+      <span class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
         Koneksi
       </span>
       {#if groupedRelations.length}
         <div class='mt-3 space-y-3 text-sm'>
           {#each groupedRelations as group}
             <div class='grid grid-cols-2 gap-3 rounded-lg border border-border/60 bg-surface/80 p-3'>
-              <p class='text-xs font-semibold uppercase text-foreground-muted'>{group.label}</p>
+              <p class='text-xs font-semibold text-foreground-muted uppercase'>{group.label}</p>
               <div class='flex flex-wrap gap-2'>
                 {#each group.items as item}
                   {@const active = item.entry && detailEntry && item.entry.id === detailEntry.id}

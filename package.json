@@ -11,13 +11,13 @@
     "lint": "ultracite check && eslint .",
     "lint:fix": "ultracite fix && eslint . --fix"
   },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.3.4",
     "@suarakami/eslint-config": "workspace:*",
     "eslint": "^9.39.1",
     "ultracite": "6.3.2"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.3"
   }
 }

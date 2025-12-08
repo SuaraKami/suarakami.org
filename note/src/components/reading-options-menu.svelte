@@ -23,7 +23,7 @@
         class='rounded-md border border-border bg-panel p-1 text-sm text-foreground'
       >
         <button
-          class='flex w-full items-center justify-between gap-3 px-4 py-1 rounded-sm transition-colors hover:bg-white/5'
+          class='flex w-full items-center justify-between gap-3 rounded-sm px-4 py-1 transition-colors hover:bg-white/5'
           onclick={toggleGlossary}
         >
           Aktifkan Glosarium
