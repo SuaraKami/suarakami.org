@@ -12,7 +12,18 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [rehypeGlossaryHighlight],
   },
-  integrations: [svelte(), icon(), playformCompress()],
+  integrations: [
+    svelte(),
+    icon(),
+    playformCompress({
+      HTML: {
+        "html-minifier-terser": {
+          collapseWhitespace: false,
+          collapseInlineTagWhitespace: false,
+        },
+      },
+    }),
+  ],
   experimental: {
     fonts: [
       {
