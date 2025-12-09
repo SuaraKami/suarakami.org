@@ -200,11 +200,8 @@
               <ScrollArea.Root class='pr-1'>
                 <ScrollArea.Viewport class='max-h-[90vh] rounded-t-3xl p-4 pr-3 pb-6'>
                   <div class='mx-auto max-w-xl space-y-4 pb-4'>
-                    <div class='flex items-start justify-between gap-4'>
-                      <div>
-                        <p class='text-xs font-semibold text-foreground-muted uppercase'>Glosarium</p>
-                        <h3 class='text-lg font-semibold text-foreground'>{detailHeading}</h3>
-                      </div>
+                    <div class='flex items-center justify-between gap-4'>
+                      <p class='text-xs font-semibold text-foreground-muted uppercase'>Glosarium</p>
                       <button
                         class='rounded-full border border-border/70 px-3 py-1 text-xs font-medium text-foreground-muted hover:border-primary/60 hover:text-foreground'
                         onclick={closeAll}
