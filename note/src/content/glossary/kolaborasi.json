@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kolaborasi",
+  "definition": "Kerjasama antara berbagai pihak untuk mencapai tujuan bersama, prinsip kerja gugus tugas.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

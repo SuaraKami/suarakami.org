@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Epidemiologi",
+  "definition": "Ilmu yang mempelajari penyebaran penyakit, dasar teori imunitas kolektif.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

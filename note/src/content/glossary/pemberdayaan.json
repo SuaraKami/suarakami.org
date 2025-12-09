@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Pemberdayaan",
+  "definition": "Proses meningkatkan kemampuan dan kemandirian individu atau kelompok.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

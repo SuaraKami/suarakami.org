@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Egalitarianisme",
+  "definition": "Pandangan bahwa semua orang memiliki derajat yang sama.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

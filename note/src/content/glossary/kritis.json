@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kritis",
+  "definition": "Sikap menganalisis dan mengevaluasi informasi secara mendalam, lawan dari sikap dogmatis.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

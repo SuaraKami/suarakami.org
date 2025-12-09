@@ -4,5 +4,14 @@
   "definition": "Kemampuan untuk meninjau pikiran, pengalaman, dan tindakan sendiri secara sadar agar dapat menilai kembali asumsi yang dipegang.",
   "lang": "ID",
   "aliases": ["Reflektif"],
-  "relations": []
+  "relations": [
+    {
+      "to": "introspeksi",
+      "type": "sinonim"
+    },
+    {
+      "to": "bias-kognitif",
+      "type": "konsep_terkait"
+    }
+  ]
 }

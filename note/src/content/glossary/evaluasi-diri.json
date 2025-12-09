@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Evaluasi Diri",
+  "definition": "Penilaian terhadap kinerja atau tindakan sendiri.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

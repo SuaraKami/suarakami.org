@@ -4,5 +4,14 @@
   "definition": "Tindakan mengevaluasi diri sendiri secara jujur untuk menemukan kekeliruan dan memperbaiki perilaku atau keputusan.",
   "lang": "ID",
   "aliases": ["Autokritik", "Pemeriksaan batin"],
-  "relations": []
+  "relations": [
+    {
+      "to": "evaluasi-diri",
+      "type": "sinonim"
+    },
+    {
+      "to": "akuntabilitas",
+      "type": "konsep_terkait"
+    }
+  ]
 }

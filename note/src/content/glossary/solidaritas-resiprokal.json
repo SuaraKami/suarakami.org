@@ -1,8 +1,17 @@
 {
   "$schema": "../../../.astro/collections/glossary.schema.json",
   "term": "Solidaritas Resiprokal",
-  "definition": "Bentuk solidaritas yang bertumpu pada hubungan saling memberi dan menerima bantuan dalam derajat yang setara.",
+  "definition": "Bentuk ikatan sosial yang didasarkan pada hubungan timbal balik yang setara, di mana setiap pihak saling berkontribusi dan menerima manfaat, menciptakan ketergantungan yang positif.",
   "lang": "ID",
   "aliases": ["Solidaritas timbal balik"],
-  "relations": []
+  "relations": [
+    {
+      "to": "gotong-royong",
+      "type": "sinonim"
+    },
+    {
+      "to": "timbal-balik",
+      "type": "sinonim"
+    }
+  ]
 }

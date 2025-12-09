@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Sintesis",
+  "definition": "Tahap penyelesaian yang mendamaikan ketegangan antara tesis dan antitesis, menghasilkan pemahaman baru yang lebih utuh.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

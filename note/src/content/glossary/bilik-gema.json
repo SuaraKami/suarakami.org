@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Bilik Gema",
+  "definition": "Situasi di mana keyakinan seseorang diperkuat oleh komunikasi yang berulang di dalam sistem yang tertutup.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "introspeksi",
+      "type": "sinonim"
+    },
+    {
+      "to": "kesadaran-reflektif",
+      "type": "konsep_terkait"
+    }
+  ]
+}

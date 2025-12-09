@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Tesis",
+  "definition": "Pernyataan atau proposisi awal yang diajukan sebagai dasar argumen atau titik tolak dalam proses dialektika.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

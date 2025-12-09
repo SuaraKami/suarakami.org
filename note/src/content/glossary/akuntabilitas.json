@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Akuntabilitas",
+  "definition": "Kewajiban untuk mempertanggungjawabkan tindakan, seringkali memerlukan otokritik.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

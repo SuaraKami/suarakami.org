@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Pluralisme",
+  "definition": "Paham yang menghargai keberagaman dan melindungi hak-hak kelompok berbeda.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

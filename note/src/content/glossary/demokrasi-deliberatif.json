@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Demokrasi Deliberatif",
+  "definition": "Model demokrasi yang menempatkan diskusi publik yang rasional, inklusif, dan mendalam sebagai pusat legitimasi pengambilan keputusan politik, bukan sekadar pemungutan suara.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

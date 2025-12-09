@@ -1,8 +1,21 @@
 {
   "$schema": "../../../.astro/collections/glossary.schema.json",
   "term": "Dialektika",
-  "definition": "Metode penalaran yang menelaah kontradiksi antara gagasan atau kenyataan untuk menghasilkan sintesis atau pemahaman baru.",
+  "definition": "Kerangka berpikir yang memandang perubahan sebagai hasil dari ketegangan atau konflik antara dua kekuatan yang berlawanan (tesis dan antitesis) yang kemudian melahirkan pemahaman baru (sintesis).",
   "lang": "ID",
   "aliases": [],
-  "relations": []
+  "relations": [
+    {
+      "to": "tesis",
+      "type": "bagian_dari"
+    },
+    {
+      "to": "antitesis",
+      "type": "bagian_dari"
+    },
+    {
+      "to": "sintesis",
+      "type": "bagian_dari"
+    }
+  ]
 }

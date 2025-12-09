@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kapitalisme",
+  "definition": "Sistem ekonomi di mana alat-alat produksi dimiliki oleh swasta dan dioperasikan untuk mencari keuntungan, seringkali dicirikan oleh akumulasi modal, pasar kompetitif, dan kerja upahan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Preferensi Politik",
+  "definition": "Kecenderungan pilihan seseorang dalam politik.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

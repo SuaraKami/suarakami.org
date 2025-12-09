@@ -4,5 +4,14 @@
   "definition": "Sikap yang berpegang teguh pada ajaran atau keyakinan tertentu tanpa memberi ruang bagi kritik maupun interpretasi baru.",
   "lang": "ID",
   "aliases": ["Dogma", "Dogmatik", "Dogmatisme"],
-  "relations": []
+  "relations": [
+    {
+      "to": "kritis",
+      "type": "antonim"
+    },
+    {
+      "to": "fanatisme",
+      "type": "konsep_terkait"
+    }
+  ]
 }

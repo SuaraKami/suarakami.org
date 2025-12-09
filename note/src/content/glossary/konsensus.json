@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Konsensus",
+  "definition": "Kesepakatan bersama yang dicapai melalui persetujuan semua pihak.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

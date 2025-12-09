@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Pemilu",
+  "definition": "Proses pemilihan umum, konteks dimana Wahl-o-mat digunakan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

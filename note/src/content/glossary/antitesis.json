@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Antitesis",
+  "definition": "Pernyataan atau kondisi yang secara langsung menentang, menyangkal, atau menjadi lawan dari tesis awal.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

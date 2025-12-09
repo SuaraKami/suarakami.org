@@ -4,5 +4,14 @@
   "definition": "Bentang organisasi tanpa jenjang hierarki permanen, di mana kewenangan dibagi secara setara antaranggota.",
   "lang": "ID",
   "aliases": ["Organisasi horisontal"],
-  "relations": []
+  "relations": [
+    {
+      "to": "egalitarianisme",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "hierarki",
+      "type": "antonim"
+    }
+  ]
 }

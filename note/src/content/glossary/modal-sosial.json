@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Modal Sosial",
+  "definition": "Sumber daya kolektif yang terbentuk dari jaringan, norma, dan kepercayaan sosial yang memfasilitasi koordinasi dan kerja sama untuk keuntungan bersama.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

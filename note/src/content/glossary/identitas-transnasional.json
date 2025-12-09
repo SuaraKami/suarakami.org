@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Identitas Transnasional",
+  "definition": "Rasa memiliki identitas yang melampaui batas-batas negara, umum dialami oleh komunitas diaspora.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

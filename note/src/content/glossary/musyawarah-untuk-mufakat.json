@@ -3,6 +3,15 @@
   "term": "Musyawarah untuk Mufakat",
   "definition": "Proses bermusyawarah untuk mencapai keputusan bersama tanpa pemungutan suara, melainkan dengan kesepakatan bulat.",
   "lang": "ID",
-  "aliases": ["Konsensus"],
-  "relations": []
+  "aliases": [],
+  "relations": [
+    {
+      "to": "demokrasi-deliberatif",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "konsensus",
+      "type": "sinonim"
+    }
+  ]
 }

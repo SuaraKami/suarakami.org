@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Bias Kognitif",
+  "definition": "Kesalahan sistematis dalam berpikir yang dapat diatasi dengan kesadaran reflektif.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

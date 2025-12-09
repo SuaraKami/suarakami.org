@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Partisipasi Politik",
+  "definition": "Keterlibatan aktif warga negara dalam proses politik, yang merupakan kebalikan dari sikap apatis.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

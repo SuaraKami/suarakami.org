@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Nilai Tukar",
+  "definition": "Nilai suatu barang saat diperdagangkan, yang menjadi fokus dalam proses komodifikasi.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

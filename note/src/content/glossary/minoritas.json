@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Minoritas",
+  "definition": "Kelompok dengan jumlah anggota lebih sedikit yang rentan terhadap tirani mayoritas.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

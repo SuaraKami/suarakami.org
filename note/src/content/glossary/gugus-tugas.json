@@ -4,5 +4,14 @@
   "definition": "Tim ad hoc yang dibentuk untuk menangani tugas tertentu dalam jangka waktu terbatas.",
   "lang": "ID",
   "aliases": ["Task force"],
-  "relations": []
+  "relations": [
+    {
+      "to": "kolaborasi",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "ad-hoc",
+      "type": "konsep_terkait"
+    }
+  ]
 }

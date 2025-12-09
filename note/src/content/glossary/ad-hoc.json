@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Ad-hoc",
+  "definition": "Dibentuk untuk tujuan khusus dan bersifat sementara, ciri khas struktur gugus tugas.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

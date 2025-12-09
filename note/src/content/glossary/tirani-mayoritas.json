@@ -4,5 +4,14 @@
   "definition": "Kondisi ketika keputusan mayoritas digunakan untuk menekan atau mengabaikan hak kelompok minoritas.",
   "lang": "ID",
   "aliases": [],
-  "relations": []
+  "relations": [
+    {
+      "to": "minoritas",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "pluralisme",
+      "type": "konsep_terkait"
+    }
+  ]
 }

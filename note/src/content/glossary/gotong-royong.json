@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Gotong Royong",
+  "definition": "Tradisi luhur dalam budaya Indonesia yang menjunjung tinggi semangat kerja sama sukarela dan saling membantu demi kepentingan bersama atau kebaikan komunitas.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Hierarki",
+  "definition": "Susunan bertingkat berdasarkan wewenang, lawan dari struktur horizontal.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

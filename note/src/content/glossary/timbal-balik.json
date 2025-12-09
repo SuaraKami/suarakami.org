@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Timbal Balik",
+  "definition": "Saling memberi dan menerima, prinsip dasar solidaritas resiprokal.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

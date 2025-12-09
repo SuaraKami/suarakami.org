@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Alienasi",
+  "definition": "Kondisi keterasingan seseorang dari aspek penting identitas manusiawinya, seperti hasil kerja, lingkungan sosial, atau diri sendiri, seringkali akibat struktur sosial yang menindas.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

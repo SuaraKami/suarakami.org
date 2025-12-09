@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Fanatisme",
+  "definition": "Keyakinan yang berlebihan dan tidak rasional terhadap suatu paham, seringkali menyertai sikap dogmatis.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

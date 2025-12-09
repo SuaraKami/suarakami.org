@@ -4,5 +4,14 @@
   "definition": "Proses menjadikan sesuatu—barang, jasa, bahkan relasi sosial—sebagai komoditas yang dinilai sesuai harga pasar.",
   "lang": "ID",
   "aliases": [],
-  "relations": []
+  "relations": [
+    {
+      "to": "kapitalisme",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "nilai-tukar",
+      "type": "konsep_terkait"
+    }
+  ]
 }

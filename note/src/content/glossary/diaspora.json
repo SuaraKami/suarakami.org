@@ -4,5 +4,14 @@
   "definition": "Persebaran suatu kelompok etnis atau kebangsaan dari tanah asalnya ke berbagai wilayah lain sambil mempertahankan identitas budaya bersama.",
   "lang": "ID",
   "aliases": ["Komunitas perantau"],
-  "relations": []
+  "relations": [
+    {
+      "to": "migrasi",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "identitas-transnasional",
+      "type": "konsep_terkait"
+    }
+  ]
 }
