@@ -271,7 +271,7 @@
         <div class='mt-3 space-y-3 text-sm'>
           {#each groupedRelations as group}
             <div class='grid grid-cols-2 gap-3 rounded-lg border border-border/60 bg-surface/80 p-3'>
-              <p class='text-xs font-semibold text-foreground-muted uppercase'>{group.label}</p>
+              <p class='text-xs font-semibold text-foreground-muted uppercase'>{group.label.replace('_', ' ')}</p>
               <div class='flex flex-wrap gap-2'>
                 {#each group.items as item}
                   {@const active = item.entry && detailEntry && item.entry.id === detailEntry.id}
