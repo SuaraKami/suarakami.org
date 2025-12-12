@@ -12,7 +12,7 @@ export interface AstroConfigOptions {
 
 export function astroRules(
   options: AstroConfigOptions = {}
-): Linter.FlatConfig {
+): Linter.Config {
   const files = toArray(options.files ?? defaultFiles);
   const parserOptions = {
     parser: tsParser,

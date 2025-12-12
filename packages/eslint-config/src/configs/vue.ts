@@ -10,7 +10,7 @@ export interface VueConfigOptions {
   parserOptions?: Record<string, unknown>;
 }
 
-export function vueRules(options: VueConfigOptions = {}): Linter.FlatConfig {
+export function vueRules(options: VueConfigOptions = {}): Linter.Config {
   const files = toArray(options.files ?? defaultFiles);
   const parserOptions = {
     parser: tsParser,

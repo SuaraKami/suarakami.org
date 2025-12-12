@@ -12,7 +12,7 @@ export interface SvelteConfigOptions {
 
 export function svelteRules(
   options: SvelteConfigOptions = {}
-): Linter.FlatConfig {
+): Linter.Config {
   const files = toArray(options.files ?? defaultFiles);
   const parserOptions = {
     extraFileExtensions: [".svelte"],
