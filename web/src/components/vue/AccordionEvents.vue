@@ -90,16 +90,20 @@
         >
           <div class="grid grid-cols-12 items-start gap-6">
             <span
-              class="col-span-3 mt-0.5 font-mono text-xs tracking-wider opacity-40 md:col-span-2"
+              class="col-span-3 mt-1.5 font-mono text-xs font-semibold tracking-widest uppercase opacity-50 md:col-span-3"
             >
               {{ datesString[index] }}
             </span>
-            <div class="col-span-8 space-y-4 md:col-span-9">
-              <h3 class="text-2xl md:text-3xl">{{ item.data.title }}</h3>
+            <div class="col-span-8 md:col-span-8">
+              <h3
+                class="text-3xl font-medium tracking-tight md:text-4xl lg:text-5xl text-balance"
+              >
+                {{ item.data.title }}
+              </h3>
             </div>
             <div class="col-span-1 flex justify-end">
               <ChevronDown
-                class="ms-auto size-5 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180"
+                class="ms-auto size-6 shrink-0 transition-transform duration-300 ease-out-expo group-data-[state=open]:rotate-180"
               />
             </div>
           </div>
@@ -110,13 +114,15 @@
         class="
           overflow-hidden
           focus:outline-none
-          data-[state=closed]:animate-[accordion-up_200ms_ease-out]
-          data-[state=open]:animate-[accordion-down_200ms_ease-out]
+          data-[state=closed]:animate-[accordion-up_300ms_ease-out-expo]
+          data-[state=open]:animate-[accordion-down_300ms_ease-out-expo]
         "
       >
         <div class="grid grid-cols-12 gap-6 pb-12">
-          <div class="col-span-12 md:col-span-9 md:col-start-3">
-            <p class="opacity-60">{{ item.data.description }}</p>
+          <div class="col-span-12 md:col-span-8 md:col-start-4">
+            <p class="text-xl leading-relaxed opacity-70">
+              {{ item.data.description }}
+            </p>
           </div>
         </div>
       </AccordionContent>

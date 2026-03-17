@@ -9,9 +9,9 @@ const indexCollection = defineCollection({
     hero: z.object({
       title: z.string(),
       description: z.string(),
-      date: z.coerce.date(),
-      time: z.string(),
-      location: z.string(),
+      date: z.coerce.date().optional(),
+      time: z.string().optional(),
+      location: z.string().optional(),
       link: z.object({
         label: z.string(),
         to: z.string(),

@@ -1,99 +1,68 @@
 ---
   import type { CollectionEntry } from "astro:content";
   import type { LanguageKeys } from "@/i18n";
-  import { useTranslations } from "@/i18n";
   import Container from "../vue/Container.vue";
-  import TimeLocal from "../vue/TimeLocal.vue";
 
   interface Props {
     page: CollectionEntry<"index">;
     lang: LanguageKeys;
   }
-  const { page, lang } = Astro.props;
-
-  const t = useTranslations(lang);
+  const { page } = Astro.props;
 ---
-<section id="featured" class="bg-background">
+<section id="hero" class="bg-background relative overflow-hidden">
   <Container
     grid
-    class="gap-y-12 pt-20 pb-36 md:pt-24 md:pb-48 lg:pt-32 lg:pb-64"
+    class="gap-y-16 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64"
   >
-    <div class="col-span-12 flex flex-col justify-start lg:col-span-6">
+    <div class="col-span-12 lg:col-span-10 xl:col-span-9 z-10">
       <h1
         class={`
-          mb-8 text-5xl leading-tight font-black tracking-tight text-balance wrap-break-word
-          sm:text-6xl
-          md:mb-12 md:text-7xl
-          lg:mb-16 lg:text-8xl
-          xl:text-9xl
+          text-[3.5rem] leading-[0.95] font-black tracking-tighter text-balance
+          sm:text-7xl
+          md:text-[6rem]
+          lg:text-[7.5rem]
+          xl:text-[9rem]
+          animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out-expo
         `}
       >
         {page.data.hero.title}
       </h1>
+    </div>
+    <div
+      class="col-span-12 lg:col-span-5 lg:col-start-8 flex flex-col items-start z-10
+             animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 ease-out-expo fill-mode-both"
+    >
       <p
-        class="mb-0 max-w-xl text-lg leading-relaxed opacity-70 md:text-xl lg:text-2xl"
+        class="mb-10 text-xl leading-relaxed opacity-80 md:text-2xl font-medium tracking-tight text-balance"
       >
         {page.data.hero.description}
       </p>
-    </div>
-    <div
-      class="col-span-12 flex flex-col space-y-12 md:space-y-16 lg:col-span-4 lg:col-start-8 lg:space-y-20"
-    >
-      <div class="space-y-12 md:space-y-16">
-        <div class="space-y-4">
-          <div class="flex items-baseline">
-            <p class="font-mono text-xs tracking-wider uppercase opacity-60">
-              {t('landing.date')}
-            </p>
-          </div>
-          <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-            <TimeLocal
-              datetime={page.data.hero.date}
-              weekday="long"
-              year="numeric"
-              month="long"
-              day="numeric"
-            />
-          </p>
-        </div>
-        <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">
-          <div class="flex items-baseline">
-            <p class="font-mono text-xs tracking-wider uppercase opacity-60">
-              {t('landing.time')}
-            </p>
-          </div>
-          <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-            {page.data.hero.time}
-          </p>
-        </div>
-        <div class="space-y-4 border-t border-border-dark pt-8 md:pt-12">
-          <div class="flex items-baseline">
-            <p class="font-mono text-xs tracking-wider uppercase opacity-60">
-              {t('landing.location')}
-            </p>
-          </div>
-          <p class="text-2xl leading-tight md:text-3xl lg:text-4xl">
-            {page.data.hero.location}
-          </p>
-        </div>
-      </div>
-      <div class="pt-8 md:pt-12">
-        <a
-          href={page.data.hero.link.to}
-          target={page.data.hero.link.target}
-          rel="noopener noreferrer"
-          class={`
-            border border-border-dark bg-foreground px-8 py-4 text-sm tracking-widest text-background uppercase
-            transition-colors duration-200
-            hover:opacity-80
-            md:px-16 md:py-5 md:text-base
-          `}
-        >
-          <span class="text-sm tracking-wide uppercase">
-            {page.data.hero.link.label}
-          </span>
-        </a>
-      </div>
+
+      <a
+        href={page.data.hero.link.to}
+        target={page.data.hero.link.target}
+        rel="noopener noreferrer"
+        class={`
+          inline-flex items-center justify-center
+          border border-foreground bg-foreground px-8 py-5
+          text-sm font-semibold tracking-widest text-background uppercase
+          transition-all duration-300 ease-out
+          hover:bg-background hover:text-foreground
+        `}
+      >
+        {page.data.hero.link.label}
+      </a>
     </div>
   </Container>
+  <div class="absolute inset-0 pointer-events-none opacity-5">
+    <div
+      class="w-px h-full bg-foreground absolute left-6 md:left-12 lg:left-20 xl:left-32"
+    ></div>
+    <div
+      class="w-px h-full bg-foreground absolute left-1/2 -translate-x-1/2"
+    ></div>
+    <div
+      class="w-px h-full bg-foreground absolute right-6 md:right-12 lg:right-20 xl:right-32"
+    ></div>
+  </div>
 </section>

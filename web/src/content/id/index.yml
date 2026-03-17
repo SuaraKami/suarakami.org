@@ -1,15 +1,12 @@
 title: SuaraKami - Made for Indonesia
 description: 'SuaraKami adalah sebuah inisiatif non-profit diaspora muda Indonesia yang berpusat di Aachen, Jerman. Kami bergerak dalam lingkup demokrasi dan berdedikasi di bidang pendidikan kebijakan publik.'
 hero:
-  title: 'KKN The Series: tax.talk'
-  description: 'Yuk ngopi bareng di tax.talk (KKN The Series): diskusi ringan tentang kenapa pajak penting dan bagaimana itu membentuk hidup yang kita jalani bersama.'
-  date: 2025-11-14
-  time: '19:00 - 21:00 CET'
-  location: 'Humboldt-Haus RWTH Aachen, 2. OG'
+  title: 'Lahir di Aachen, untuk Indonesia di mana saja.'
+  description: 'SuaraKami adalah ruang aman dan terbuka, tempat di mana gagasan dibagikan secara bebas, rasa ingin tahu dihargai, dan perbedaan pandangan bertemu lewat diskusi yang sehat.'
   link:
-    label: Registrasi
-    to: 'https://tally.so/r/EkzdAr'
-    target: _blank
+    label: Kenali Misi Kami
+    to: '#about'
+    target: _self
 
 about: |
   SuaraKami adalah sebuah komunitas yang dibentuk oleh diaspora Indonesia di Jerman. Kami lahir dari kebutuhan bersama untuk membuat ruang yang aman dan terbuka, tempat dimana gagasan bisa dibagikan secara bebas, rasa ingin tahu dihargai, dan perbedaan pandangan bisa bertemu lewat diskusi yang sehat dan saling menghargai.

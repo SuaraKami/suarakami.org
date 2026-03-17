@@ -3,7 +3,6 @@
   import About from "@/components/landing/About.astro";
   import Events from "@/components/landing/Events.astro";
   import Hero from "@/components/landing/Hero.astro";
-  import Separator from "@/components/vue/Separator.vue";
   import { getLangFromUrl } from "@/i18n";
   import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -28,8 +27,6 @@
   includeLanguageRedirect
 >
   <Hero page={page} lang={lang}/>
-  <Separator/>
   <About page={page} lang={lang}/>
-  <Separator/>
   <Events events={events} lang={lang}/>
 </BaseLayout>
