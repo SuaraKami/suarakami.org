@@ -39,8 +39,8 @@ export interface AccordionProps<T extends EventItem = EventItem> extends Pick<
 
 
 const props = withDefaults(defineProps<AccordionProps<T>>(), {
-  type: 'single',
   collapsible: true,
+  type: 'single',
   unmountOnHide: false,
 })
 const emits = defineEmits<AccordionRootEmits>()
@@ -65,9 +65,9 @@ const datesString = computed(() =>
       .map(
         (date) =>
           useFormatDate(date, props.lang, {
-            year: 'numeric',
-            month: 'short',
             day: 'numeric',
+            month: 'short',
+            year: 'numeric',
           }).formattedDate.value
       )
       .join(' & ')

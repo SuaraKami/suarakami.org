@@ -38,10 +38,10 @@ export function useBrowserUrl() {
   })
 
   return {
-    location,
-    currentUrl,
+    currentHref,
     currentLang,
     currentPathWithoutLang,
-    currentHref,
+    currentUrl,
+    location,
   }
 }

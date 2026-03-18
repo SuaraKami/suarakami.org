@@ -6,28 +6,28 @@ import { defineConfig, fontProviders } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://bio.suarakami.org',
-  vite: {
-    plugins: [tailwindcss()],
-  },
   adapter: vercel(),
   experimental: {
     fonts: [
       {
-        provider: fontProviders.google(),
-        name: 'Geist',
         cssVariable: '--font-geist',
-        weights: ['300'],
+        name: 'Geist',
+        provider: fontProviders.google(),
         styles: ['normal'],
+        weights: ['300'],
       },
       {
-        provider: fontProviders.google(),
-        name: 'IBM Plex Mono',
         cssVariable: '--font-ibm-mono',
-        weights: ['300'],
+        name: 'IBM Plex Mono',
+        provider: fontProviders.google(),
         styles: ['normal'],
+        weights: ['300'],
       },
     ],
   },
   integrations: [playformCompress(), icon()],
+  site: 'https://bio.suarakami.org',
+  vite: {
+    plugins: [tailwindcss()],
+  },
 })

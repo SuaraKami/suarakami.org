@@ -30,33 +30,21 @@
   import { Application, Circle, Container, Graphics, Text } from 'pixi.js'
 
   const defaultGraphConfig: Required<ForceGraphConfig> = {
-    drag: true,
-    zoom: true,
-    linkDistance: 110,
-    repelForce: 1,
     centerForce: 0.2,
     collisionPadding: 6,
-    fontSize: 1,
-    opacityScale: 1.3,
+    drag: true,
     focusOnHover: true,
+    fontSize: 1,
+    linkDistance: 110,
+    opacityScale: 1.3,
     radial: false,
     radialStrength: 0.18,
+    repelForce: 1,
     scale: 2.6,
+    zoom: true,
   }
 
   const sampleGraph: ForceGraphData = {
-    nodes: [
-      { id: 'configuration', label: 'Configuration' },
-      { id: 'editor', label: 'Editor Setup' },
-      { id: 'synchronization', label: 'Sync' },
-      { id: 'deploy', label: 'Deployment' },
-      { id: 'design-system', label: 'Design System' },
-      { id: 'glossary', label: 'Glossary' },
-      { id: 'linting', label: 'Linting' },
-      { id: 'state', label: 'State Layer' },
-      { id: 'themes', label: 'Themes' },
-      { id: 'shortcuts', label: 'Shortcuts' },
-    ],
     links: [
       { source: 'configuration', target: 'editor' },
       { source: 'configuration', target: 'synchronization' },
@@ -71,12 +59,24 @@
       { source: 'state', target: 'design-system' },
       { source: 'themes', target: 'synchronization' },
     ],
+    nodes: [
+      { id: 'configuration', label: 'Configuration' },
+      { id: 'editor', label: 'Editor Setup' },
+      { id: 'synchronization', label: 'Sync' },
+      { id: 'deploy', label: 'Deployment' },
+      { id: 'design-system', label: 'Design System' },
+      { id: 'glossary', label: 'Glossary' },
+      { id: 'linting', label: 'Linting' },
+      { id: 'state', label: 'State Layer' },
+      { id: 'themes', label: 'Themes' },
+      { id: 'shortcuts', label: 'Shortcuts' },
+    ],
   }
 
   let lastGraphData: ForceGraphData | null = null
   let lastNormalized: NormalizedGraph | null = null
 
-  type Props = {
+  interface Props {
     graphData?: ForceGraphData
     config?: ForceGraphConfig
     activeNodeId?: string | null
@@ -95,7 +95,7 @@
 
   $effect(() => {
     if (!stageEl || typeof window === 'undefined')
-      return
+      {return}
 
     const normalized = getNormalizedGraph(graphData)
     const mergedConfig = { ...defaultGraphConfig, ...config }
@@ -110,9 +110,9 @@
 
     (async () => {
       localCleanup = await renderGraph(stageEl, {
-        data: normalized,
-        config: mergedConfig,
         activeNodeId,
+        config: mergedConfig,
+        data: normalized,
         onNodeSelect: onSelect,
       })
       if (disposed) {
@@ -139,10 +139,10 @@
   function normalizeGraphData(data: ForceGraphData): NormalizedGraph {
     const nodes: NormalizedNode[] = data.nodes.map(node => ({
       id: node.id,
-      label: node.label ?? node.id,
-      tags: node.tags ?? [],
-      slug: node.slug,
       kind: node.kind ?? (node.id.startsWith('tag:') ? 'tag' : 'page'),
+      label: node.label ?? node.id,
+      slug: node.slug,
+      tags: node.tags ?? [],
     }))
 
     const validIds = new Set(nodes.map(node => node.id))
@@ -150,7 +150,7 @@
       .filter(link => validIds.has(link.source) && validIds.has(link.target))
       .map(link => ({ source: link.source, target: link.target }))
 
-    return { nodes, links }
+    return { links, nodes }
   }
 
   async function renderGraph(host: HTMLElement, options: RenderOptions) {
@@ -163,17 +163,17 @@
 
     const app = new Application()
     await app.init({
-      width,
-      height,
       antialias: true,
       autoDensity: true,
       backgroundAlpha: 0,
-      resolution: window.devicePixelRatio || 1,
       eventMode: 'static',
+      height,
+      resolution: window.devicePixelRatio || 1,
+      width,
     })
-    host.appendChild(app.canvas)
+    host.append(app.canvas)
 
-    const stage = app.stage
+    const {stage} = app
     stage.interactive = false
     stage.sortableChildren = true
 
@@ -181,21 +181,21 @@
 
     const tweens = new Map<string, TweenHandle>()
     const linkContainer = new Container<Graphics>({
-      zIndex: 1,
       isRenderGroup: true,
+      zIndex: 1,
     })
     const nodeContainer = new Container<Graphics>({
-      zIndex: 2,
       isRenderGroup: true,
+      zIndex: 2,
     })
     const labelContainer = new Container<Text>({
-      zIndex: 3,
       isRenderGroup: true,
+      zIndex: 3,
     })
     stage.addChild(linkContainer, nodeContainer, labelContainer)
 
-    const nodes = data.nodes
-    const links = data.links
+    const {nodes} = data
+    const {links} = data
     const degreeMap = computeDegreeMap(links)
 
     const nodeRenderData: NodeRenderData[] = []
@@ -235,21 +235,21 @@
     for (const node of nodes) {
       const radius = nodeRadius(node, degreeMap)
       const label = new Text({
-        text: node.label,
         alpha: 0,
         anchor: { x: 0.5, y: 2 },
+        resolution: (window.devicePixelRatio || 1) * 3,
         style: {
-          fontSize: config.fontSize * 16,
           fill: palette.text,
           fontFamily: palette.fontFamily,
+          fontSize: config.fontSize * 16,
         },
-        resolution: (window.devicePixelRatio || 1) * 3,
+        text: node.label,
       })
       label.scale.set(1 / config.scale)
 
       const gfx = new Graphics({
-        eventMode: 'static',
         cursor: 'pointer',
+        eventMode: 'static',
         hitArea: new Circle(0, 0, radius + 8),
       })
 
@@ -267,10 +267,10 @@
       labelContainer.addChild(label)
 
       nodeRenderData.push({
-        simulationData: node,
+        active: false,
         gfx,
         label,
-        active: false,
+        simulationData: node,
       })
     }
 
@@ -278,11 +278,11 @@
       const gfx = new Graphics({ eventMode: 'none' })
       linkContainer.addChild(gfx)
       linkRenderData.push({
-        simulationData: link,
-        gfx,
-        color: palette.lines,
-        alpha: 1,
         active: false,
+        alpha: 1,
+        color: palette.lines,
+        gfx,
+        simulationData: link,
       })
     }
 
@@ -293,7 +293,7 @@
         nodeRenderData.forEach(node => (node.active = false))
         linkRenderData.forEach(link => (link.active = false))
         if (reRender && !dragging)
-          renderInteraction()
+          {renderInteraction()}
         return
       }
 
@@ -369,8 +369,8 @@
     function startTween(key: string, group: TweenGroup) {
       group.getAll().forEach(tween => tween.start())
       tweens.set(key, {
-        update: group.update.bind(group),
         stop: () => group.getAll().forEach(tween => tween.stop()),
+        update: group.update.bind(group),
       })
     }
 
@@ -384,14 +384,14 @@
           .subject(() => hoveredNode ?? undefined)
           .on('start', (event) => {
             if (!event.active)
-              simulation.alphaTarget(1).restart()
+              {simulation.alphaTarget(1).restart()}
             event.subject.fx = event.subject.x ?? 0
             event.subject.fy = event.subject.y ?? 0
             event.subject.__initialDragPos = {
-              x: event.subject.x ?? 0,
-              y: event.subject.y ?? 0,
               fx: event.subject.fx,
               fy: event.subject.fy,
+              x: event.subject.x ?? 0,
+              y: event.subject.y ?? 0,
             }
             dragStartTime = Date.now()
             dragging = true
@@ -399,7 +399,7 @@
           .on('drag', (event) => {
             const initPos = event.subject.__initialDragPos
             if (!initPos)
-              return
+              {return}
             event.subject.fx
               = initPos.x + (event.x - initPos.x) / currentTransform.k
             event.subject.fy
@@ -407,7 +407,7 @@
           })
           .on('end', (event) => {
             if (!event.active)
-              simulation.alphaTarget(0)
+              {simulation.alphaTarget(0)}
             event.subject.fx = null
             event.subject.fy = null
             dragging = false
@@ -452,12 +452,12 @@
 
     function animate(time: number) {
       if (stopAnimation)
-        return
+        {return}
 
       for (const node of nodeRenderData) {
         const { x, y } = node.simulationData
         if (x == null || y == null)
-          continue
+          {continue}
         const posX = x + width / 2
         const posY = y + height / 2
         node.gfx.position.set(posX, posY)
@@ -468,7 +468,7 @@
         const source = link.simulationData.source as NormalizedNode
         const target = link.simulationData.target as NormalizedNode
         if (!source || !target)
-          continue
+          {continue}
         link.gfx.clear()
         link.gfx.moveTo(
           (source.x ?? 0) + width / 2,
@@ -476,7 +476,7 @@
         )
         link.gfx
           .lineTo((target.x ?? 0) + width / 2, (target.y ?? 0) + height / 2)
-          .stroke({ width: 1, alpha: link.alpha, color: link.color })
+          .stroke({ alpha: link.alpha, color: link.color, width: 1 })
       }
 
       tweens.forEach(tween => tween.update(time))
@@ -489,7 +489,7 @@
     return () => {
       stopAnimation = true
       if (frameRef)
-        cancelAnimationFrame(frameRef)
+        {cancelAnimationFrame(frameRef)}
       tweens.forEach(tween => tween.stop())
       tweens.clear()
       simulation.stop()
@@ -527,7 +527,7 @@
     gfx.circle(0, 0, radius)
     gfx.fill({ color: fill })
     if (node.kind === 'tag') {
-      gfx.stroke({ width: 2, color: palette.tagBorder })
+      gfx.stroke({ color: palette.tagBorder, width: 2 })
     }
     gfx.hitArea = new Circle(0, 0, radius + 8)
   }
@@ -538,9 +538,9 @@
     activeNodeId: string | null,
   ) {
     if (node.id === activeNodeId)
-      return palette.current
+      {return palette.current}
     if (node.kind === 'tag')
-      return palette.tagFill
+      {return palette.tagFill}
     return palette.neutral
   }
 
@@ -550,13 +550,13 @@
       styles.getPropertyValue(key)?.trim() || value
     return {
       current: fallback('--accent-primary', '#9b87ff'),
-      tagFill: fallback('--accent-link', '#7dd3fc'),
-      neutral: fallback('--text-muted', '#697e93'),
+      fontFamily: fallback('--font-sans', 'Inter, sans-serif'),
       lines: 'rgba(255,255,255,0.15)',
       linesHighlight: fallback('--accent-link', '#b2f5ff'),
+      neutral: fallback('--text-muted', '#697e93'),
       tagBorder: fallback('--border', '#30363d'),
+      tagFill: fallback('--accent-link', '#7dd3fc'),
       text: fallback('--text-main', '#f1f5f9'),
-      fontFamily: fallback('--font-sans', 'Inter, sans-serif'),
     }
   }
 
@@ -564,8 +564,8 @@
     return {
       id: node.id,
       label: node.label,
-      tags: node.tags,
       slug: node.slug,
+      tags: node.tags,
     }
   }
 </script>

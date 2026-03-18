@@ -49,7 +49,7 @@ const { title, description } = Astro.props
 
 <script>
   if (typeof window !== 'undefined') {
-    const hash = window.location.hash
+    const {hash} = window.location
 
     if (hash) {
       window.__SK_INITIAL_HASH__ = hash

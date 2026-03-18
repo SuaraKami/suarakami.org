@@ -2,45 +2,45 @@ import { glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 
 const indexCollection = defineCollection({
-  loader: glob({ pattern: '**/index.yml', base: './src/content' }),
+  loader: glob({ base: './src/content', pattern: '**/index.yml' }),
   schema: z.object({
-    title: z.string(),
+    about: z.string(),
     description: z.string(),
     hero: z.object({
-      title: z.string(),
-      description: z.string(),
       date: z.coerce.date().optional(),
-      time: z.string().optional(),
-      location: z.string().optional(),
+      description: z.string(),
       link: z.object({
         label: z.string(),
         to: z.string(),
         target: z.string(),
       }),
+      location: z.string().optional(),
+      time: z.string().optional(),
+      title: z.string(),
     }),
-    about: z.string(),
+    title: z.string(),
   }),
 })
 
 const eventCollection = defineCollection({
-  loader: glob({ pattern: '*/events/*.md', base: './src/content' }),
+  loader: glob({ base: './src/content', pattern: '*/events/*.md' }),
   schema: ({ image }) =>
     z.object({
-      title: z.string(),
-      description: z.string(),
       dates: z.array(z.coerce.date()).min(1).max(2),
+      description: z.string(),
       photos: z
         .array(
           z.object({
-            img: image(),
             caption: z.string().optional(),
+            img: image(),
           })
         )
         .optional(),
+      title: z.string(),
     }),
 })
 
 export const collections = {
-  index: indexCollection,
   event: eventCollection,
+  index: indexCollection,
 }

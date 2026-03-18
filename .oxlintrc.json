@@ -3,9 +3,11 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "categories": {},
-  "rules": {},
+  "rules": {
+    "func-style": "off",
+  },
   "env": {
-    "builtin": true
+    "builtin": true,
   },
   "globals": {},
   "ignorePatterns": [],
@@ -13,6 +15,14 @@
     "./node_modules/ultracite/config/oxlint/core/.oxlintrc.json",
     "./node_modules/ultracite/config/oxlint/vue/.oxlintrc.json",
     "./node_modules/ultracite/config/oxlint/svelte/.oxlintrc.json",
-    "./node_modules/ultracite/config/oxlint/astro/.oxlintrc.json"
-  ]
+    "./node_modules/ultracite/config/oxlint/astro/.oxlintrc.json",
+  ],
+  "overrides": [
+    {
+      "files": ["*.svelte"],
+      "rules": {
+        "prefer-const": "off",
+      },
+    },
+  ],
 }

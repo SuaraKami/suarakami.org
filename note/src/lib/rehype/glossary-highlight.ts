@@ -114,7 +114,7 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
     }
     const filepath = path.join(directory, file)
     try {
-      const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
+      const raw = JSON.parse(fs.readFileSync(filepath, 'utf8'))
       const slug = file.replace(/\.json$/, '')
       const base = [raw.term, ...(raw.aliases ?? [])]
       for (const candidate of base) {
@@ -128,10 +128,10 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
         }
         seen.add(key)
         tokens.push({
-          slug,
           canonical: raw.term,
           display: normalized,
           lower: key,
+          slug,
         })
       }
     } catch (error) {
@@ -139,7 +139,7 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
     }
   }
 
-  return tokens.sort((a, b) => b.lower.length - a.lower.length)
+  return tokens.toSorted((a, b) => b.lower.length - a.lower.length)
 }
 
 function shouldSkipNode(
@@ -178,13 +178,13 @@ function findMatches(value: string, tokens: GlossaryToken[]) {
       }
       const end = idx + token.lower.length
       if (isWordBoundary(value, idx, end) && !hasOverlap(matches, idx, end)) {
-        matches.push({ start: idx, end, token })
+        matches.push({ end, start: idx, token })
       }
       startIndex = end
     }
   }
 
-  return matches.sort((a, b) => a.start - b.start)
+  return matches.toSorted((a, b) => a.start - b.start)
 }
 
 function isWordBoundary(text: string, start: number, end: number) {
@@ -206,12 +206,12 @@ function hasOverlap(
 
 function createGlossaryButton(text: string, token: GlossaryToken): Element {
   return {
-    type: 'element',
-    tagName: 'glossary-term',
-    properties: {
-      slug: token.slug,
-      'aria-label': `Lihat glosarium untuk ${text}`,
-    },
     children: [{ type: 'text', value: text }],
+    properties: {
+      'aria-label': `Lihat glosarium untuk ${text}`,
+      slug: token.slug,
+    },
+    tagName: 'glossary-term',
+    type: 'element',
   }
 }

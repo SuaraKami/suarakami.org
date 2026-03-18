@@ -5,7 +5,7 @@ interface GlossaryState {
 }
 
 export const glossaryStates = $state<GlossaryState>({
-  trigger: null,
   isOpen: false,
   slug: null,
+  trigger: null,
 })

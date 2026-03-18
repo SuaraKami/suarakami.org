@@ -1,13 +1,9 @@
 import { defineCollection, reference, z } from 'astro:content'
 
 const docs = defineCollection({
-  type: 'content',
   schema: ({ image }) =>
     z.object({
-      title: z.string(),
-      summary: z.string().optional(),
       created: z.date(),
-      updated: z.date(),
       hero: image().optional(),
       history: z
         .array(
@@ -18,17 +14,19 @@ const docs = defineCollection({
           })
         )
         .default([]),
+      summary: z.string().optional(),
+      title: z.string(),
+      updated: z.date(),
     }),
+  type: 'content',
 })
 
 const glossary = defineCollection({
-  type: 'data',
   schema: () =>
     z.object({
-      term: z.string(),
+      aliases: z.array(z.string()).default([]),
       definition: z.string(),
       lang: z.string().default('ID'),
-      aliases: z.array(z.string()).default([]),
       relations: z
         .array(
           z.object({
@@ -45,7 +43,9 @@ const glossary = defineCollection({
           })
         )
         .default([]),
+      term: z.string(),
     }),
+  type: 'data',
 })
 
 export const collections = { docs, glossary }

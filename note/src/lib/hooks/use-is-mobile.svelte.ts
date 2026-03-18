@@ -8,11 +8,11 @@ export type Breakpoints<K extends string> = Record<K, string>
 export const TAILWIND_BREAKPOINTS: Breakpoints<
   'sm' | 'md' | 'lg' | 'xl' | '2xl'
 > = {
-  sm: '40rem',
-  md: '48rem',
-  lg: '64rem',
-  xl: '80rem',
   '2xl': '96rem',
+  lg: '64rem',
+  md: '48rem',
+  sm: '40rem',
+  xl: '80rem',
 }
 
 export function useIsMobile(): MediaQuery {

@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 import { Icon } from 'astro-icon/components'
 import Layout from '@/layouts/layout.astro'
 
-const docs = (await getCollection('docs')).sort((a, b) => a.slug.localeCompare(b.slug))
+const docs = (await getCollection('docs')).toSorted((a, b) => a.slug.localeCompare(b.slug))
 const dateFormatter = new Intl.DateTimeFormat('id-ID', {
   dateStyle: 'medium',
   timeStyle: 'short',

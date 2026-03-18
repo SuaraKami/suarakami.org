@@ -11,7 +11,7 @@
 
   type GlossaryEntry = CollectionEntry<'glossary'>
   type GlossaryRelation = GlossaryEntry['data']['relations'][number]
-  type GroupedRelations = {
+  interface GroupedRelations {
     label: string
     items: { id: string | null, term: string, entry: GlossaryEntry | null }[]
   }
@@ -27,19 +27,19 @@
   const relations = $derived(activeSlug ? getRelations(activeSlug) : [])
   const groupedRelations = $derived.by(() => {
     if (!relations || relations.length === 0)
-      return []
+      {return []}
     const groups: Record<string, GroupedRelations> = {}
     for (const relation of relations) {
       const targetId = resolveRelationId(relation)
       const targetEntry = targetId ? entryMap.get(targetId) ?? null : null
       const item = {
+        entry: targetEntry,
         id: targetId,
         term: targetEntry ? targetEntry.data.term : (relation.type ?? 'Tidak Diketahui'),
-        entry: targetEntry,
       }
       const groupLabel = relation.type
       if (!groups[groupLabel]) {
-        groups[groupLabel] = { label: groupLabel, items: [] }
+        groups[groupLabel] = { items: [], label: groupLabel }
       }
       groups[groupLabel].items.push(item)
     }
@@ -48,7 +48,7 @@
   const rootEntry = $derived(activeSlug ? entryMap.get(activeSlug) ?? null : null)
   const detailEntry = $derived.by(() => {
     if (!activeSlug)
-      return null
+      {return null}
     const slug = detailSlug ?? activeSlug
     return entryMap.get(slug) ?? null
   })
@@ -70,7 +70,7 @@
 
   function openFor(target: HTMLElement | null, slug: string) {
     if (!entryMap.has(slug))
-      return
+      {return}
     anchorEl = target
     activeSlug = slug
     detailSlug = slug
@@ -89,15 +89,15 @@
 
   function handleVisibilityChange(next: boolean) {
     if (!next)
-      resetActive()
+      {resetActive()}
   }
 
   function buildGraphData(rootSlug: string): ForceGraphData {
     const root = entryMap.get(rootSlug)
     if (!root)
-      return { nodes: [], links: [] }
+      {return { links: [], nodes: [] }}
     const nodes: ForceGraphData['nodes'] = [
-      { id: root.id, label: root.data.term, tags: [], kind: 'page' },
+      { id: root.id, kind: 'page', label: root.data.term, tags: [] },
     ]
     const links: ForceGraphData['links'] = []
     const seen = new Set([root.id])
@@ -105,50 +105,50 @@
     for (const relation of root.data.relations) {
       const targetSlug = resolveRelationId(relation)
       if (!targetSlug)
-        continue
+        {continue}
       if (!seen.has(targetSlug)) {
         const targetEntry = entryMap.get(targetSlug)
         nodes.push({
           id: targetSlug,
+          kind: 'tag',
           label: targetEntry?.data.term ?? relation.type ?? targetSlug,
           tags: [relation.type],
-          kind: 'tag',
         })
         seen.add(targetSlug)
       }
       links.push({ source: root.id, target: targetSlug })
     }
 
-    return { nodes, links }
+    return { links, nodes }
   }
 
   function getRelations(rootSlug: string) {
     const root = entryMap.get(rootSlug)
     if (!root)
-      return []
+      {return []}
     return root.data.relations
   }
 
   function resolveRelationId(relation: GlossaryRelation): string | null {
     const target = relation.to
     if (!target)
-      return null
+      {return null}
     if (typeof target === 'string')
-      return target
+      {return target}
     if (typeof target === 'object' && 'id' in target)
-      return target.id as string
+      {return target.id as string}
     return null
   }
 
   function focusRelation(slug: string | null) {
     if (!slug)
-      return
+      {return}
     detailSlug = slug
   }
 
   function handleGraphSelect(payload: GraphSelectionPayload) {
     if (!payload?.id)
-      return
+      {return}
     detailSlug = payload.id
   }
 </script>

@@ -38,7 +38,7 @@ export function getPathWithoutLang(pathname: string) {
 export function useTranslatedPath(lang: LanguageKeys) {
   return function translatePath(path: string, l: string = lang) {
     let pathName = path.startsWith('/') ? path : `/${path}`
-    pathName = pathName.replace(/\/+/g, '/')
+    pathName = pathName.replaceAll(/\/+/g, '/')
 
     if (pathName === '/') {
       return !showDefaultLang && l === defaultLang ? '/' : `/${l}`
@@ -82,11 +82,11 @@ export function setPreferredLangCookie(lang: LanguageKeys): void {
   const maxAge = 60 * 60 * 24 * 365 * 1000 // 1 year
   cookieStore
     .set({
-      name: LANG_COOKIE,
-      value: lang,
-      path: '/',
       expires: Date.now() + maxAge,
+      name: LANG_COOKIE,
+      path: '/',
       sameSite: 'lax',
+      value: lang,
     })
     .catch((error: unknown) => {
       console.error('Failed to set language cookie:', error)

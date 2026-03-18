@@ -26,10 +26,10 @@ const dateFormatter = new Intl.DateTimeFormat('id-ID', {
 const historyItems = history
   .map((item) => ({
     ...item,
-    initials: getInitials(item.author),
     formattedDate: dateFormatter.format(item.date),
+    initials: getInitials(item.author),
   }))
-  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .toSorted((a, b) => b.date.getTime() - a.date.getTime())
 ---
 
 <div class="space-y-4">

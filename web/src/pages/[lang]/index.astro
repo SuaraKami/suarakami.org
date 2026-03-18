@@ -16,7 +16,7 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params
 const page = await getEntry('index', lang)
-const events = (await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))).sort(
+const events = (await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))).toSorted(
   (a, b) => Math.max(...a.data.dates.map((d) => d.getTime())) - Math.max(...b.data.dates.map((d) => d.getTime())),
 )
 

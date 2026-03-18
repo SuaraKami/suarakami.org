@@ -9,9 +9,20 @@ import { rehypeGlossaryHighlight } from './src/lib/rehype/glossary-highlight'
 
 // https://astro.build/config
 export default defineConfig({
-  vite: { plugins: [tailwindcss()] },
-  markdown: {
-    rehypePlugins: [rehypeGlossaryHighlight],
+  adapter: vercel(),
+  experimental: {
+    fonts: [
+      {
+        cssVariable: '--font-inter',
+        name: 'Inter',
+        provider: fontProviders.google(),
+      },
+      {
+        cssVariable: '--font-jetbrains-mono',
+        name: 'JetBrains Mono',
+        provider: fontProviders.google(),
+      },
+    ],
   },
   integrations: [
     svelte(),
@@ -19,25 +30,14 @@ export default defineConfig({
     playformCompress({
       HTML: {
         'html-minifier-terser': {
-          collapseWhitespace: false,
           collapseInlineTagWhitespace: false,
+          collapseWhitespace: false,
         },
       },
     }),
   ],
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: 'Inter',
-        cssVariable: '--font-inter',
-      },
-      {
-        provider: fontProviders.google(),
-        name: 'JetBrains Mono',
-        cssVariable: '--font-jetbrains-mono',
-      },
-    ],
+  markdown: {
+    rehypePlugins: [rehypeGlossaryHighlight],
   },
-  adapter: vercel(),
+  vite: { plugins: [tailwindcss()] },
 })

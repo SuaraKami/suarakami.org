@@ -9,7 +9,7 @@
 
   function openGlossary() {
     if (!isEnabled)
-      return
+      {return}
     states.trigger = $host()
     states.slug = slug
     states.isOpen = true
