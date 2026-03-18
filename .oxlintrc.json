@@ -1,0 +1,18 @@
+// Ultracite oxlint Configuration
+// https://oxc.rs/docs/guide/usage/linter/config-file-reference.html
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {},
+  "rules": {},
+  "env": {
+    "builtin": true,
+  },
+  "globals": {},
+  "ignorePatterns": [],
+  "extends": [
+    "./node_modules/ultracite/config/oxlint/core/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/vue/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/svelte/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/astro/.oxlintrc.json",
+  ],
+}
