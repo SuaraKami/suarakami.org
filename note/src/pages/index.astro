@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content'
 import { Icon } from 'astro-icon/components'
 import Layout from '@/layouts/layout.astro'
 
-const docs = (await getCollection('docs')).toSorted((a, b) => a.slug.localeCompare(b.slug))
+const rawDocs = await getCollection('docs')
+const docs = rawDocs.toSorted((a, b) => a.data.sortOrder - b.data.sortOrder)
 const dateFormatter = new Intl.DateTimeFormat('id-ID', {
   dateStyle: 'medium',
   timeStyle: 'short',
@@ -36,7 +37,7 @@ const dateFormatter = new Intl.DateTimeFormat('id-ID', {
             docs.map((doc) => (
               <a
                 class="group space-y-3 rounded-lg border border-border bg-panel/70 p-4 transition hover:border-primary/60 hover:bg-surface"
-                href={`/${doc.slug}`}
+                href={`/${doc.id}`}
               >
                 <div class="flex items-center gap-2 text-foreground">
                   <Icon name="hugeicons:file-02" class="size-4 text-primary" />

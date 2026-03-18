@@ -1,6 +1,12 @@
-import { defineCollection, reference, z } from 'astro:content'
+import { glob } from 'astro/loaders'
+import { z } from 'astro/zod'
+import { defineCollection, reference } from 'astro:content'
 
 const docs = defineCollection({
+  loader: glob({
+    base: './src/content/docs',
+    pattern: '**/*.md',
+  }),
   schema: ({ image }) =>
     z.object({
       created: z.date(),
@@ -14,14 +20,18 @@ const docs = defineCollection({
           })
         )
         .default([]),
+      sortOrder: z.number().default(0),
       summary: z.string().optional(),
       title: z.string(),
       updated: z.date(),
     }),
-  type: 'content',
 })
 
 const glossary = defineCollection({
+  loader: glob({
+    base: './src/content/glossary',
+    pattern: '**/*.json',
+  }),
   schema: () =>
     z.object({
       aliases: z.array(z.string()).default([]),
@@ -45,7 +55,6 @@ const glossary = defineCollection({
         .default([]),
       term: z.string(),
     }),
-  type: 'data',
 })
 
 export const collections = { docs, glossary }

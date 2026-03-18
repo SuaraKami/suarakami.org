@@ -1,5 +1,6 @@
 ---
 title: 'Penutup'
+sortOrder: 5
 summary: 'Refleksi akhir mengenai jalan aktivisme SuaraKami.'
 created: 2025-11-23 22:25:00
 updated: 2025-11-29 17:57:00

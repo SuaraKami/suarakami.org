@@ -1,5 +1,6 @@
 ---
 title: 'Metode Kerja'
+sortOrder: 4
 summary: 'Tata kelola operasional SuaraKami yang mengadopsi struktur horizontal dan egaliter.'
 created: 2025-11-23 22:23:00
 updated: 2025-11-26 18:15:00

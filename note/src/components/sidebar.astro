@@ -7,8 +7,8 @@ interface Props {
 }
 
 const { activeSlug } = Astro.props
-
-const entries = await getCollection('docs')
+const rawDocs = await getCollection('docs')
+const docs = rawDocs.toSorted((a, b) => a.data.sortOrder - b.data.sortOrder)
 ---
 
 <Fragment>
@@ -38,19 +38,19 @@ const entries = await getCollection('docs')
       </div>
       <div class="ml-3 border-l border-border">
         {
-          entries.map((entry) => (
+          docs.map((doc) => (
             <a
               class:list={[
                 'flex w-full items-center gap-2 border-l-2 border-transparent px-4 py-1.5 text-left transition-colors',
-                activeSlug === entry.slug
+                activeSlug === doc.id
                   ? 'border-primary bg-panel/70 text-foreground'
                   : 'text-foreground-muted hover:bg-surface hover:text-foreground',
               ]}
-              href={`/${entry.slug}`}
-              aria-current={activeSlug === entry.slug ? 'page' : undefined}
+              href={`/${doc.id}`}
+              aria-current={activeSlug === doc.id ? 'page' : undefined}
             >
               <span class="text-[10px] tracking-widest text-foreground-muted uppercase">md</span>
-              <span class="truncate text-sm">{entry.data.title}</span>{' '}
+              <span class="truncate text-sm">{doc.data.title}</span>{' '}
             </a>
           ))
         }

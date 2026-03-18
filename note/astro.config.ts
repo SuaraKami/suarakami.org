@@ -10,20 +10,18 @@ import { rehypeGlossaryHighlight } from './src/lib/rehype/glossary-highlight'
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
-  experimental: {
-    fonts: [
-      {
-        cssVariable: '--font-inter',
-        name: 'Inter',
-        provider: fontProviders.google(),
-      },
-      {
-        cssVariable: '--font-jetbrains-mono',
-        name: 'JetBrains Mono',
-        provider: fontProviders.google(),
-      },
-    ],
-  },
+  fonts: [
+    {
+      cssVariable: '--font-inter',
+      name: 'Inter',
+      provider: fontProviders.google(),
+    },
+    {
+      cssVariable: '--font-jetbrains-mono',
+      name: 'JetBrains Mono',
+      provider: fontProviders.google(),
+    },
+  ],
   integrations: [
     svelte(),
     icon(),
@@ -32,6 +30,7 @@ export default defineConfig({
         'html-minifier-terser': {
           collapseInlineTagWhitespace: false,
           collapseWhitespace: false,
+          removeComments: true,
         },
       },
     }),
