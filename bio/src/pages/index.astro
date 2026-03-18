@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content'
 import logo from '@/assets/logo.svg'
-import ExternalLink from '@/components/ExternalLink.astro'
-import FeaturedLink from '@/components/FeaturedLink.astro'
-import Layout from '@/layouts/Layout.astro'
+import ExternalLink from '@/components/external-link.astro'
+import FeaturedLink from '@/components/featured-link.astro'
+import Layout from '@/layouts/layout.astro'
 
 const links = await getCollection('links')
 const featuredIdx = links.findIndex((link) => link.data.featured)

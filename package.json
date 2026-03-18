@@ -4,8 +4,7 @@
   "workspaces": [
     "bio/",
     "note/",
-    "web/",
-    "packages/*"
+    "web/"
   ],
   "scripts": {
     "fmt": "oxfmt",

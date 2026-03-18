@@ -1,14 +1,14 @@
-gform:
-  title: KKN The Series "tax.talk"
-  description: 'Ngopi bareng di tax.talk: diskusi ringan soal kenapa pajak penting dan pengaruhnya buat kehidupan kita.'
-  url: https://tally.so/r/EkzdAr
+website:
+  title: Website
+  description: Visit our official website to learn more about our mission.
+  url: https://suarakami.org
+  icon: lucide:globe
   featured: true
 
 instagrarm:
   title: Instagram
   url: https://www.instagram.com/suarakami
   icon: simple-icons:instagram
-  featured: true
 
 x:
   title: X / Twitter
@@ -19,8 +19,3 @@ linkedin:
   title: LinkedIn
   url: https://www.linkedin.com/company/suarakami
   icon: simple-icons:linkedin
-
-website:
-  title: Website
-  url: https://suarakami.org
-  icon: lucide:globe
