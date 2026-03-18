@@ -5,9 +5,11 @@
   "categories": {},
   "rules": {
     "func-style": "off",
+    "prefer-destructuring": "off",
+    "unicorn/prefer-array-find": "off"
   },
   "env": {
-    "builtin": true,
+    "builtin": true
   },
   "globals": {},
   "ignorePatterns": [],
@@ -15,14 +17,20 @@
     "./node_modules/ultracite/config/oxlint/core/.oxlintrc.json",
     "./node_modules/ultracite/config/oxlint/vue/.oxlintrc.json",
     "./node_modules/ultracite/config/oxlint/svelte/.oxlintrc.json",
-    "./node_modules/ultracite/config/oxlint/astro/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/astro/.oxlintrc.json"
   ],
   "overrides": [
     {
       "files": ["*.svelte"],
       "rules": {
-        "prefer-const": "off",
-      },
+        "prefer-const": "off"
+      }
     },
-  ],
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "vue/max-props": "off"
+      }
+    }
+  ]
 }

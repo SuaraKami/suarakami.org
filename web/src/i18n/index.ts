@@ -79,18 +79,14 @@ export function setPreferredLangCookie(lang: LanguageKeys): void {
     return
   }
 
-  const maxAge = 60 * 60 * 24 * 365 * 1000 // 1 year
-  cookieStore
-    .set({
-      expires: Date.now() + maxAge,
-      name: LANG_COOKIE,
-      path: '/',
-      sameSite: 'lax',
-      value: lang,
-    })
-    .catch((error: unknown) => {
-      console.error('Failed to set language cookie:', error)
-    })
+  const maxAge = 60 * 60 * 24 * 365 * 1000
+  cookieStore.set({
+    expires: Date.now() + maxAge,
+    name: LANG_COOKIE,
+    path: '/',
+    sameSite: 'lax',
+    value: lang,
+  })
 }
 
 export function detectBrowserLanguage(): LanguageKeys {
@@ -102,7 +98,6 @@ export function detectBrowserLanguage(): LanguageKeys {
   const browserLangs = navigator.languages || [navigator.language]
 
   for (const browserLang of browserLangs) {
-    // Get just the language code (e.g., "en" from "en-US")
     const langCode = browserLang.split('-')[0] as LanguageKeys
     if (languages.includes(langCode)) {
       return langCode

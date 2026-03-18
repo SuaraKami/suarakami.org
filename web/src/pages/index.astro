@@ -1,14 +1,15 @@
 ---
 import { getCollection, getEntry } from 'astro:content'
-import About from '@/components/landing/About.astro'
-import Events from '@/components/landing/Events.astro'
-import Hero from '@/components/landing/Hero.astro'
+import About from '@/components/landing/about.astro'
+import Events from '@/components/landing/events.astro'
+import Hero from '@/components/landing/hero.astro'
 import { getLangFromUrl } from '@/i18n'
-import BaseLayout from '@/layouts/BaseLayout.astro'
+import BaseLayout from '@/layouts/base-layout.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const page = await getEntry('index', lang)
-const events = (await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))).toSorted(
+const rawEvents = await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))
+const events = rawEvents.toSorted(
   (a, b) => Math.max(...a.data.dates.map((d) => d.getTime())) - Math.max(...b.data.dates.map((d) => d.getTime())),
 )
 

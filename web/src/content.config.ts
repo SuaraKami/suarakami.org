@@ -11,8 +11,8 @@ const indexCollection = defineCollection({
       description: z.string(),
       link: z.object({
         label: z.string(),
-        to: z.string(),
         target: z.string(),
+        to: z.string(),
       }),
       location: z.string().optional(),
       time: z.string().optional(),

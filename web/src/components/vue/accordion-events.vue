@@ -4,22 +4,6 @@ import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
 
 import type { LanguageKeys } from '@/i18n'
 import { cn } from '@/lib/utils'
-</script>
-
-<script setup lang="ts" generic="T extends EventItem">
-import { reactivePick } from '@vueuse/core'
-import {
-  AccordionContent,
-  AccordionHeader,
-  AccordionItem,
-  AccordionRoot,
-  AccordionTrigger,
-  useForwardPropsEmits,
-} from 'reka-ui'
-import { computed } from 'vue'
-import ChevronDown from '~icons/lucide/chevron-down'
-
-import { useFormatDate } from '@/composables/useFormatDate'
 
 type EventItem = CollectionEntry<'event'>
 
@@ -36,8 +20,24 @@ export interface AccordionProps<T extends EventItem = EventItem> extends Pick<
   items: T[]
   lang: LanguageKeys
 }
+</script>
 
+<script setup lang="ts" generic="T extends EventItem">
+import { reactivePick } from '@vueuse/core'
+import {
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger,
+  useForwardPropsEmits,
+} from 'reka-ui'
+import { computed } from 'vue'
+import ChevronDown from '~icons/lucide/chevron-down'
 
+import { useFormatDate } from '@/composables/use-format-date'
+
+// oxlint-disable-next-line vue/define-props-destructuring
 const props = withDefaults(defineProps<AccordionProps<T>>(), {
   collapsible: true,
   type: 'single',

@@ -18,9 +18,9 @@ import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 
-import LanguagePicker from './LanguagePicker.vue'
-import LinkLocal from './LinkLocal.vue'
-import TimeLocal from './TimeLocal.vue'
+import LanguagePicker from './language-picker.vue'
+import LinkLocal from './link-local.vue'
+import TimeLocal from './time-local.vue'
 
 const { lang } = defineProps<{
   lang: LanguageKeys

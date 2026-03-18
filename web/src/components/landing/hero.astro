@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import type { LanguageKeys } from '@/i18n'
-import Container from '../vue/Container.vue'
+import Container from '@/components/vue/container.vue'
 
 interface Props {
   page: CollectionEntry<'index'>
@@ -11,7 +11,7 @@ const { page } = Astro.props
 ---
 
 <section id="hero" class="relative overflow-hidden bg-background">
-  <Container grid class="gap-y-16 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64">
+  <Container grid className="gap-y-16 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64">
     <div class="z-10 col-span-12 lg:col-span-10 xl:col-span-9">
       <h1
         class={`

@@ -2,7 +2,7 @@
 import { useEventListener, useMediaQuery, useMouse } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
-import ClientOnly from './ClientOnly.vue'
+import ClientOnly from './client-only.vue'
 
 const { x, y } = useMouse({ type: 'client' })
 const isHoveringLink = ref(false)

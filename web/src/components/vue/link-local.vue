@@ -2,12 +2,12 @@
 import { useLenis } from 'lenis/vue'
 import { computed } from 'vue'
 
-import { useBrowserUrl } from '@/composables/useBrowserUrl'
+import { useBrowserUrl } from '@/composables/use-browser-url'
 import type { LanguageKeys } from '@/i18n'
 import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
 import { cn } from '@/lib/utils'
 
-import ClientOnly from './ClientOnly.vue'
+import ClientOnly from './client-only.vue'
 
 const {
   href,
@@ -24,6 +24,11 @@ const {
 
 const { currentUrl, currentLang } = useBrowserUrl()
 const lenis = useLenis()
+
+
+function normalizePath(pathname: string): string {
+  return pathname.replace(/\/$/, '') || '/'
+}
 
 
 const linkData = computed(() => {
@@ -69,11 +74,6 @@ const linkClass = computed(() =>
       })
     : className
 )
-
-
-function normalizePath(pathname: string): string {
-  return pathname.replace(/\/$/, '') || '/'
-}
 
 
 function handleClick(event: MouseEvent) {

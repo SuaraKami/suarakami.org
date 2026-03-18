@@ -8,12 +8,12 @@ export const siteConfig = {
     defaultLang: 'en',
     languages: {
       en: {
-        name: 'English',
         code: 'en-US',
+        name: 'English',
       },
       id: {
-        name: 'Bahasa Indonesia',
         code: 'id-ID',
+        name: 'Bahasa Indonesia',
       },
     },
     showDefaultLang: false,

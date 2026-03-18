@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import AccordionEvents from '@/components/vue/AccordionEvents.vue'
+import AccordionEvents from '@/components/vue/accordion-events.vue'
+import Container from '@/components/vue/container.vue'
 import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
-import Container from '../vue/Container.vue'
 
 interface Props {
   events: CollectionEntry<'event'>[]
@@ -15,7 +15,7 @@ const t = useTranslations(lang)
 ---
 
 <section id="events" class="bg-background relative border-t border-foreground/10">
-  <Container grid class="gap-y-16 py-32 md:py-40 lg:py-56">
+  <Container grid className="gap-y-16 py-32 md:py-40 lg:py-56">
     <div class="col-span-12 md:col-span-4 lg:col-span-3">
       <h2 class="text-4xl leading-none font-bold tracking-tight uppercase md:text-5xl lg:text-6xl">
         {t('landing.whatWeDo')}

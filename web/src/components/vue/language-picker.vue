@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useBrowserUrl } from '@/composables/useBrowserUrl'
+import { useBrowserUrl } from '@/composables/use-browser-url'
 import type { LanguageKeys } from '@/i18n'
 import { siteConfig } from '@/site.config'
 
-import ClientOnly from './ClientOnly.vue'
-import LinkLocal from './LinkLocal.vue'
+import ClientOnly from './client-only.vue'
+import LinkLocal from './link-local.vue'
 
 const {
   class: className = '',

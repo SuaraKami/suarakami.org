@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-import type { FormatDateOptions } from '@/composables/useFormatDate'
-import { useFormatDate } from '@/composables/useFormatDate'
+import type { FormatDateOptions } from '@/composables/use-format-date'
+import { useFormatDate } from '@/composables/use-format-date'
 import type { LanguageKeys } from '@/i18n'
 
 interface Props extends FormatDateOptions {

@@ -2,13 +2,13 @@
 import { useWindowScroll } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 
-import { useIsDesktop } from '@/composables/useIsDesktop'
+import { useIsDesktop } from '@/composables/use-is-desktop'
 import type { LanguageKeys } from '@/i18n'
 
-import ClientOnly from './ClientOnly.vue'
-import Container from './Container.vue'
-import LanguagePicker from './LanguagePicker.vue'
-import MobileNavigation from './MobileNavigation.vue'
+import ClientOnly from './client-only.vue'
+import Container from './container.vue'
+import LanguagePicker from './language-picker.vue'
+import MobileNavigation from './mobile-navigation.vue'
 
 const { lang } = defineProps<{
   lang: LanguageKeys
