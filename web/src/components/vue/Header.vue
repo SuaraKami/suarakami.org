@@ -2,9 +2,8 @@
 import { useWindowScroll } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
 
-import type { LanguageKeys } from '@/i18n'
-
 import { useIsDesktop } from '@/composables/useIsDesktop'
+import type { LanguageKeys } from '@/i18n'
 
 import ClientOnly from './ClientOnly.vue'
 import Container from './Container.vue'
@@ -15,10 +14,12 @@ const { lang } = defineProps<{
   lang: LanguageKeys
 }>()
 
+
 const { directions, y } = useWindowScroll()
 const isDesktop = useIsDesktop()
 const isHeaderVisible = ref(true)
 const isAtTop = computed(() => y.value <= 100)
+
 
 function updateVisibility() {
   if (isDesktop.value || directions.top || isAtTop.value) {
@@ -27,6 +28,7 @@ function updateVisibility() {
     isHeaderVisible.value = false
   }
 }
+
 
 watch([directions, isAtTop, isDesktop], updateVisibility)
 </script>

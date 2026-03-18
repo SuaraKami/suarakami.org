@@ -1,7 +1,6 @@
 import { siteConfig } from '@/site.config'
 
 import type { LanguageKeys } from './ui'
-
 import { ui } from './ui'
 
 const { defaultLang, showDefaultLang } = siteConfig.i18n
@@ -48,7 +47,9 @@ export function useTranslatedPath(lang: LanguageKeys) {
     const hasTrailingSlash = pathName.endsWith('/') && pathName.length > 1
     const pathWithoutLang = getPathWithoutLang(pathName)
     const normalizedPath =
-      hasTrailingSlash && pathWithoutLang !== '/' ? `${pathWithoutLang}/` : pathWithoutLang
+      hasTrailingSlash && pathWithoutLang !== '/'
+        ? `${pathWithoutLang}/`
+        : pathWithoutLang
 
     if (!showDefaultLang && l === defaultLang) {
       return normalizedPath

@@ -19,12 +19,14 @@ function setupSidebarControls() {
       overlay.classList.remove('opacity-100')
     }
 
-    document.querySelectorAll<HTMLButtonElement>('[data-sidebar-toggle]').forEach((btn) => {
-      if (btn.dataset.sidebarToggle === 'close') {
-        return
-      }
-      btn.setAttribute('aria-expanded', String(isOpen))
-    })
+    document
+      .querySelectorAll<HTMLButtonElement>('[data-sidebar-toggle]')
+      .forEach((btn) => {
+        if (btn.dataset.sidebarToggle === 'close') {
+          return
+        }
+        btn.setAttribute('aria-expanded', String(isOpen))
+      })
   }
 
   const setOpen = (open: boolean) => {
@@ -35,22 +37,24 @@ function setupSidebarControls() {
     applyState()
   }
 
-  document.querySelectorAll<HTMLButtonElement>('[data-sidebar-toggle]').forEach((btn) => {
-    if (btn.dataset.sidebarBound === 'true') {
-      return
-    }
-    const action = btn.dataset.sidebarToggle ?? 'toggle'
-    btn.addEventListener('click', () => {
-      if (action === 'open') {
-        setOpen(true)
-      } else if (action === 'close') {
-        setOpen(false)
-      } else {
-        setOpen(!isOpen)
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-sidebar-toggle]')
+    .forEach((btn) => {
+      if (btn.dataset.sidebarBound === 'true') {
+        return
       }
+      const action = btn.dataset.sidebarToggle ?? 'toggle'
+      btn.addEventListener('click', () => {
+        if (action === 'open') {
+          setOpen(true)
+        } else if (action === 'close') {
+          setOpen(false)
+        } else {
+          setOpen(!isOpen)
+        }
+      })
+      btn.dataset.sidebarBound = 'true'
     })
-    btn.dataset.sidebarBound = 'true'
-  })
 
   applyState()
 }

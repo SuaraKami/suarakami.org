@@ -2,7 +2,9 @@ import type { siteConfig } from '@/site.config'
 
 export type LanguageKeys = keyof typeof siteConfig.i18n.languages
 
-function defineUI<T extends string>(t: Record<LanguageKeys, Record<T, string>>) {
+function defineUI<T extends string>(
+  t: Record<LanguageKeys, Record<T, string>>
+) {
   return t
 }
 

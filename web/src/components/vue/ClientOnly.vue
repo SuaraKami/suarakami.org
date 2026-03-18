@@ -5,7 +5,9 @@ defineOptions({
   inheritAttrs: false,
 })
 
+
 const show = ref(false)
+
 
 onMounted(() => {
   show.value = true

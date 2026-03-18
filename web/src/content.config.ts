@@ -34,7 +34,7 @@ const eventCollection = defineCollection({
           z.object({
             img: image(),
             caption: z.string().optional(),
-          }),
+          })
         )
         .optional(),
     }),

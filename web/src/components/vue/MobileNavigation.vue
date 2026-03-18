@@ -15,7 +15,6 @@ import Mail from '~icons/lucide/mail'
 import X from '~icons/lucide/x'
 
 import type { LanguageKeys } from '@/i18n'
-
 import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 
@@ -27,15 +26,23 @@ const { lang } = defineProps<{
   lang: LanguageKeys
 }>()
 
+
 const { navigation, socialMediaLinks, email, footer } = siteConfig
 const t = useTranslations(lang)
 </script>
 
 <template>
   <DialogRoot>
-    <DialogTrigger aria-label="Open menu" class="transition-opacity hover:opacity-50 md:hidden">
+    <DialogTrigger
+      aria-label="Open menu"
+      class="transition-opacity hover:opacity-50 md:hidden"
+    >
       <svg viewBox="0 0 24 24" class="size-6" stroke-width="1.5">
-        <path stroke="currentColor" stroke-linecap="round" d="M0 5h24M0 12h24M0 19h24" />
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          d="M0 5h24M0 12h24M0 19h24"
+        />
       </svg>
     </DialogTrigger>
     <DialogPortal>
@@ -47,15 +54,22 @@ const t = useTranslations(lang)
       >
         <VisuallyHidden>
           <DialogTitle>Mobile navigation menu</DialogTitle>
-          <DialogDescription> Navigate to different sections of the website </DialogDescription>
+          <DialogDescription>
+            Navigate to different sections of the website
+          </DialogDescription>
         </VisuallyHidden>
         <div
           class="flex h-full flex-col group-data-[state=closed]:animate-out group-data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)] group-data-[state=closed]:fade-out group-data-[state=open]:animate-in group-data-[state=open]:duration-(--duration-circle-in) group-data-[state=open]:fade-in"
         >
-          <div class="flex items-center justify-between border-b border-border-dark px-6 py-8">
+          <div
+            class="flex items-center justify-between border-b border-border-dark px-6 py-8"
+          >
             <slot name="logo" />
             <DialogClose as-child>
-              <button aria-label="Close menu" class="transition-opacity hover:opacity-50">
+              <button
+                aria-label="Close menu"
+                class="transition-opacity hover:opacity-50"
+              >
                 <X class="size-6" :stroke-width="1.5" />
               </button>
             </DialogClose>
@@ -67,7 +81,9 @@ const t = useTranslations(lang)
                   :href="navigation[0]!.to"
                   class="group col-span-12 flex flex-col justify-between border-b border-border-dark p-6 transition-colors hover:bg-foreground/5"
                 >
-                  <span class="text-xs tracking-widest uppercase opacity-20">01</span>
+                  <span class="text-xs tracking-widest uppercase opacity-20"
+                    >01</span
+                  >
                   <div>
                     <h2
                       class="text-5xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
@@ -85,7 +101,9 @@ const t = useTranslations(lang)
                   <div
                     class="absolute top-0 right-0 size-16 translate-x-8 -translate-y-8 rotate-45 bg-accent-foreground/10"
                   />
-                  <span class="text-xs tracking-widest uppercase opacity-20">02</span>
+                  <span class="text-xs tracking-widest uppercase opacity-20"
+                    >02</span
+                  >
                   <div>
                     <h2
                       class="text-4xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
@@ -95,7 +113,9 @@ const t = useTranslations(lang)
                   </div>
                 </LinkLocal>
               </DialogClose>
-              <div class="col-span-5 flex flex-col justify-between border-l border-border-dark p-6">
+              <div
+                class="col-span-5 flex flex-col justify-between border-l border-border-dark p-6"
+              >
                 <Languages class="size-4 opacity-20" />
                 <LanguagePicker
                   class="space-y-3"
@@ -109,7 +129,9 @@ const t = useTranslations(lang)
                   :href="navigation[2]!.to"
                   class="group col-span-7 flex flex-col justify-between border-t border-border-dark p-6 transition-colors hover:bg-foreground/5"
                 >
-                  <span class="text-xs tracking-widest uppercase opacity-20">03</span>
+                  <span class="text-xs tracking-widest uppercase opacity-20"
+                    >03</span
+                  >
                   <div>
                     <h2
                       class="text-4xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
@@ -122,7 +144,9 @@ const t = useTranslations(lang)
               <div
                 class="relative col-span-5 flex flex-col justify-between border-t border-l border-border-dark bg-accent-foreground/5 p-6"
               >
-                <div class="absolute top-6 bottom-6 left-0 w-0.5 bg-accent-foreground" />
+                <div
+                  class="absolute top-6 bottom-6 left-0 w-0.5 bg-accent-foreground"
+                />
                 <Mail class="size-4 opacity-20" />
                 <div class="space-y-2">
                   <p class="text-xs tracking-widest uppercase opacity-40">
@@ -142,7 +166,11 @@ const t = useTranslations(lang)
               </div>
               <div class="col-span-12 border-t border-border-dark p-6">
                 <div class="grid grid-cols-3 gap-6">
-                  <DialogClose v-for="social in socialMediaLinks" :key="social.label" as-child>
+                  <DialogClose
+                    v-for="social in socialMediaLinks"
+                    :key="social.label"
+                    as-child
+                  >
                     <a
                       :href="social.to"
                       rel="noopener noreferrer"
@@ -155,7 +183,9 @@ const t = useTranslations(lang)
                   </DialogClose>
                 </div>
               </div>
-              <div class="relative col-span-12 overflow-hidden bg-foreground p-6 text-background">
+              <div
+                class="relative col-span-12 overflow-hidden bg-foreground p-6 text-background"
+              >
                 <div
                   class="absolute top-1/2 right-6 -translate-y-1/2 text-[120px] leading-none opacity-10"
                 >

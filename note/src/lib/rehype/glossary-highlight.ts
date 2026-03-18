@@ -1,10 +1,16 @@
-import type { Element, Root, Text } from 'hast'
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
+
+import type { Element, Root, Text } from 'hast'
 import { visitParents } from 'unist-util-visit-parents'
 
-const DEFAULT_GLOSSARY_DIR = path.resolve(process.cwd(), 'src', 'content', 'glossary')
+const DEFAULT_GLOSSARY_DIR = path.resolve(
+  process.cwd(),
+  'src',
+  'content',
+  'glossary'
+)
 const WORD_CHAR_REGEX = /[\p{L}\p{N}_-]/u
 const BANNED_TAGS = new Set([
   'code',
@@ -68,7 +74,12 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
             value: node.value.slice(cursor, match.start),
           })
         }
-        fragments.push(createGlossaryButton(node.value.slice(match.start, match.end), match.token))
+        fragments.push(
+          createGlossaryButton(
+            node.value.slice(match.start, match.end),
+            match.token
+          )
+        )
         cursor = match.end
       }
       if (cursor < node.value.length) {
@@ -131,7 +142,10 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
   return tokens.sort((a, b) => b.lower.length - a.lower.length)
 }
 
-function shouldSkipNode(parent: Element, ancestors: (Element | Root | Text)[]): boolean {
+function shouldSkipNode(
+  parent: Element,
+  ancestors: (Element | Root | Text)[]
+): boolean {
   if (parent.type !== 'element') {
     return true
   }
@@ -143,7 +157,7 @@ function shouldSkipNode(parent: Element, ancestors: (Element | Root | Text)[]): 
       (node) =>
         node.type === 'element' &&
         (BANNED_TAGS.has((node as Element).tagName) ||
-          BANNED_ANCESTORS.has((node as Element).tagName)),
+          BANNED_ANCESTORS.has((node as Element).tagName))
     )
   ) {
     return true
@@ -176,10 +190,17 @@ function findMatches(value: string, tokens: GlossaryToken[]) {
 function isWordBoundary(text: string, start: number, end: number) {
   const prev = text[start - 1]
   const next = text[end]
-  return !((prev && WORD_CHAR_REGEX.test(prev)) || (next && WORD_CHAR_REGEX.test(next)))
+  return !(
+    (prev && WORD_CHAR_REGEX.test(prev)) ||
+    (next && WORD_CHAR_REGEX.test(next))
+  )
 }
 
-function hasOverlap(matches: { start: number; end: number }[], start: number, end: number) {
+function hasOverlap(
+  matches: { start: number; end: number }[],
+  start: number,
+  end: number
+) {
   return matches.some((match) => !(end <= match.start || start >= match.end))
 }
 

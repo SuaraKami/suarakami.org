@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
-
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
+import type { LanguageKeys } from '@/i18n'
 import { siteConfig } from '@/site.config'
 
 import ClientOnly from './ClientOnly.vue'
@@ -17,8 +16,10 @@ const {
   activeLangClass?: string
 }>()
 
+
 const { languages } = siteConfig.i18n
 const languageKeys = Object.keys(languages) as LanguageKeys[]
+
 
 const { currentHref } = useBrowserUrl()
 </script>

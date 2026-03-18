@@ -15,7 +15,7 @@ const docs = defineCollection({
             author: z.string(),
             date: z.date(),
             message: z.string(),
-          }),
+          })
         )
         .default([]),
     }),
@@ -42,7 +42,7 @@ const glossary = defineCollection({
               'contoh',
               'konsep_terkait',
             ]),
-          }),
+          })
         )
         .default([]),
     }),

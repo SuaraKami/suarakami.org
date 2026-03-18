@@ -7,6 +7,7 @@ interface ContainerProps {
   strategy?: 'margin' | 'padding'
 }
 
+
 const props = withDefaults(defineProps<ContainerProps>(), {
   class: '',
   grid: false,
@@ -24,7 +25,7 @@ const props = withDefaults(defineProps<ContainerProps>(), {
             'px-6 md:px-12 lg:px-20 xl:px-32': props.strategy === 'padding',
             'mx-6 md:mx-12 lg:mx-20 xl:mx-32': props.strategy === 'margin',
           },
-          props.class,
+          props.class
         )
       "
     >

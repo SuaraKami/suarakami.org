@@ -2,8 +2,9 @@ import svelte from '@astrojs/svelte'
 import vercel from '@astrojs/vercel'
 import playformCompress from '@playform/compress'
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig, fontProviders } from 'astro/config'
 import icon from 'astro-icon'
+import { defineConfig, fontProviders } from 'astro/config'
+
 import { rehypeGlossaryHighlight } from './src/lib/rehype/glossary-highlight'
 
 // https://astro.build/config

@@ -2,9 +2,8 @@
 import { useLenis } from 'lenis/vue'
 import { computed } from 'vue'
 
-import type { LanguageKeys } from '@/i18n'
-
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
+import type { LanguageKeys } from '@/i18n'
 import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
 import { cn } from '@/lib/utils'
 
@@ -22,8 +21,10 @@ const {
   activeClass?: string
 }>()
 
+
 const { currentUrl, currentLang } = useBrowserUrl()
 const lenis = useLenis()
+
 
 const linkData = computed(() => {
   const url = currentUrl.value
@@ -48,7 +49,8 @@ const linkData = computed(() => {
   const translatedPath = translatePath(parsedUrl.pathname)
   const finalHref = `${translatedPath}${parsedUrl.search}${parsedUrl.hash}`
 
-  const pathsMatch = normalizePath(translatedPath) === normalizePath(url.pathname)
+  const pathsMatch =
+    normalizePath(translatedPath) === normalizePath(url.pathname)
   const hashesMatch = parsedUrl.hash ? parsedUrl.hash === url.hash : true
   const isActive = pathsMatch && hashesMatch
 
@@ -59,30 +61,37 @@ const linkData = computed(() => {
   }
 })
 
+
 const linkClass = computed(() =>
   activeClass
     ? cn(className, {
         [activeClass]: linkData.value.isActive,
       })
-    : className,
+    : className
 )
+
 
 function normalizePath(pathname: string): string {
   return pathname.replace(/\/$/, '') || '/'
 }
+
 
 function handleClick(event: MouseEvent) {
   if (locale) {
     setPreferredLangCookie(locale)
   }
 
+
   const url = currentUrl.value
   if (!url) {
     return
   }
 
+
   const parsedUrl = new URL(linkData.value.href, url.origin)
-  const isSamePage = normalizePath(parsedUrl.pathname) === normalizePath(url.pathname)
+  const isSamePage =
+    normalizePath(parsedUrl.pathname) === normalizePath(url.pathname)
+
 
   if (isSamePage && parsedUrl.hash && lenis.value) {
     event.preventDefault()
@@ -95,12 +104,22 @@ function handleClick(event: MouseEvent) {
 <template>
   <ClientOnly>
     <template #default="{ attrs }">
-      <a v-bind="attrs" :href="linkData.href" :class="linkClass" @click="handleClick">
+      <a
+        v-bind="attrs"
+        :href="linkData.href"
+        :class="linkClass"
+        @click="handleClick"
+      >
         <slot />
       </a>
     </template>
     <template #fallback>
-      <a v-bind="$attrs" :href="href" :class="className" data-allow-mismatch="attribute">
+      <a
+        v-bind="$attrs"
+        :href="href"
+        :class="className"
+        data-allow-mismatch="attribute"
+      >
         <slot />
       </a>
     </template>

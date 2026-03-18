@@ -18,8 +18,10 @@
 @theme {
   --font-sans: var(--font-cabinet), sans-serif, system-ui;
 
-  --animate-circle-in: circle-in var(--duration-circle-in) cubic-bezier(0.4, 0, 0.2, 1);
-  --animate-circle-out: circle-out var(--duration-circle-in) cubic-bezier(0.6, 0, 0.4, 1);
+  --animate-circle-in: circle-in var(--duration-circle-in)
+    cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-circle-out: circle-out var(--duration-circle-in)
+    cubic-bezier(0.6, 0, 0.4, 1);
 
   @keyframes circle-in {
     from {

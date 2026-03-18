@@ -3,7 +3,6 @@ import type { CollectionEntry } from 'astro:content'
 import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
 
 import type { LanguageKeys } from '@/i18n'
-
 import { cn } from '@/lib/utils'
 </script>
 
@@ -24,13 +23,20 @@ import { useFormatDate } from '@/composables/useFormatDate'
 
 type EventItem = CollectionEntry<'event'>
 
+
 export interface AccordionProps<T extends EventItem = EventItem> extends Pick<
   AccordionRootProps,
-  'collapsible' | 'defaultValue' | 'modelValue' | 'type' | 'disabled' | 'unmountOnHide'
+  | 'collapsible'
+  | 'defaultValue'
+  | 'modelValue'
+  | 'type'
+  | 'disabled'
+  | 'unmountOnHide'
 > {
   items: T[]
   lang: LanguageKeys
 }
+
 
 const props = withDefaults(defineProps<AccordionProps<T>>(), {
   type: 'single',
@@ -39,10 +45,19 @@ const props = withDefaults(defineProps<AccordionProps<T>>(), {
 })
 const emits = defineEmits<AccordionRootEmits>()
 
+
 const rootProps = useForwardPropsEmits(
-  reactivePick(props, 'collapsible', 'defaultValue', 'disabled', 'modelValue', 'unmountOnHide'),
-  emits,
+  reactivePick(
+    props,
+    'collapsible',
+    'defaultValue',
+    'disabled',
+    'modelValue',
+    'unmountOnHide'
+  ),
+  emits
 )
+
 
 const datesString = computed(() =>
   props.items.map(({ data: { dates } }) =>
@@ -53,10 +68,10 @@ const datesString = computed(() =>
             year: 'numeric',
             month: 'short',
             day: 'numeric',
-          }).formattedDate.value,
+          }).formattedDate.value
       )
-      .join(' & '),
-  ),
+      .join(' & ')
+  )
 )
 </script>
 
@@ -71,10 +86,13 @@ const datesString = computed(() =>
       <AccordionHeader as="div" class="flex">
         <AccordionTrigger
           :class="
-            cn(`group w-full py-8 text-left transition-opacity hover:opacity-50`, {
-              'md:pb-12': index === 0,
-              'md:py-12': index > 0,
-            })
+            cn(
+              `group w-full py-8 text-left transition-opacity hover:opacity-50`,
+              {
+                'md:pb-12': index === 0,
+                'md:py-12': index > 0,
+              }
+            )
           "
         >
           <div class="grid grid-cols-12 items-start gap-6">
@@ -84,7 +102,9 @@ const datesString = computed(() =>
               {{ datesString[index] }}
             </span>
             <div class="col-span-8 md:col-span-8">
-              <h3 class="text-3xl font-medium tracking-tight text-balance md:text-4xl lg:text-5xl">
+              <h3
+                class="text-3xl font-medium tracking-tight text-balance md:text-4xl lg:text-5xl"
+              >
                 {{ item.data.title }}
               </h3>
             </div>
