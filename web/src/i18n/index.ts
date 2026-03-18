@@ -1,5 +1,7 @@
-import type { LanguageKeys } from './ui'
 import { siteConfig } from '@/site.config'
+
+import type { LanguageKeys } from './ui'
+
 import { ui } from './ui'
 
 const { defaultLang, showDefaultLang } = siteConfig.i18n
@@ -45,10 +47,8 @@ export function useTranslatedPath(lang: LanguageKeys) {
 
     const hasTrailingSlash = pathName.endsWith('/') && pathName.length > 1
     const pathWithoutLang = getPathWithoutLang(pathName)
-    const normalizedPath
-      = hasTrailingSlash && pathWithoutLang !== '/'
-        ? `${pathWithoutLang}/`
-        : pathWithoutLang
+    const normalizedPath =
+      hasTrailingSlash && pathWithoutLang !== '/' ? `${pathWithoutLang}/` : pathWithoutLang
 
     if (!showDefaultLang && l === defaultLang) {
       return normalizedPath
@@ -63,9 +63,7 @@ export function getPreferredLangFromCookie(): LanguageKeys | null {
   }
 
   const cookies = document.cookie.split(';')
-  const langCookie = cookies.find(c =>
-    c.trim().startsWith(`${LANG_COOKIE}=`),
-  )
+  const langCookie = cookies.find((c) => c.trim().startsWith(`${LANG_COOKIE}=`))
 
   if (!langCookie) {
     return null

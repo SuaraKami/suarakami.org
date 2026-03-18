@@ -1,12 +1,12 @@
 ---
-title: "Sejarah"
-summary: "Linimasa singkat perjalanan SuaraKami dari 2018 sampai sekarang."
+title: 'Sejarah'
+summary: 'Linimasa singkat perjalanan SuaraKami dari 2018 sampai sekarang.'
 created: 2025-11-23 22:15:00
 updated: 2025-11-25 19:39:00
 history:
-  - author: "SuaraKami"
+  - author: 'SuaraKami'
     date: 2025-12-08 00:00:00
-    message: "Terbit perdana."
+    message: 'Terbit perdana.'
 ---
 
 ## Aspirasi Awal

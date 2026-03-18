@@ -1,6 +1,6 @@
 ---
-title: "Sexually Harassed, What Now?"
-description: "A two-part online webinar co-organized by PPI Aachen, PPI Jerman, PPI Franken, PPI Kaiserslautern, KBRI Berlin, and SuaraKami. The event explored legal and psychological dimensions of sexual harassment, aiming to build awareness, empathy, and empowerment for survivors through open and educational dialogue."
+title: 'Sexually Harassed, What Now?'
+description: 'A two-part online webinar co-organized by PPI Aachen, PPI Jerman, PPI Franken, PPI Kaiserslautern, KBRI Berlin, and SuaraKami. The event explored legal and psychological dimensions of sexual harassment, aiming to build awareness, empathy, and empowerment for survivors through open and educational dialogue.'
 dates: [2022-06-12, 2022-06-19]
 photos: []
 ---

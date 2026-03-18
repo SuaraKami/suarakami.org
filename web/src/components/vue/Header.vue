@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
 import { useWindowScroll } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
+
+import type { LanguageKeys } from '@/i18n'
+
 import { useIsDesktop } from '@/composables/useIsDesktop'
+
 import ClientOnly from './ClientOnly.vue'
 import Container from './Container.vue'
 import LanguagePicker from './LanguagePicker.vue'
@@ -20,8 +23,7 @@ const isAtTop = computed(() => y.value <= 100)
 function updateVisibility() {
   if (isDesktop.value || directions.top || isAtTop.value) {
     isHeaderVisible.value = true
-  }
-  else if (directions.bottom) {
+  } else if (directions.bottom) {
     isHeaderVisible.value = false
   }
 }
@@ -31,11 +33,7 @@ watch([directions, isAtTop, isDesktop], updateVisibility)
 
 <template>
   <header
-    class="
-      sticky top-0 z-50 border-b border-border-dark bg-background transition-[translate,background-color] duration-300
-      ease-out
-      md:relative md:translate-y-0
-    "
+    class="sticky top-0 z-50 border-b border-border-dark bg-background transition-[translate,background-color] duration-300 ease-out md:relative md:translate-y-0"
     :class="{
       'translate-y-0': isHeaderVisible,
       '-translate-y-full': !isHeaderVisible,

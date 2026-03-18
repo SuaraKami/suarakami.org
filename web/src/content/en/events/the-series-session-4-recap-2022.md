@@ -1,6 +1,6 @@
 ---
-title: "The Series: Session 4 - Recap 2022"
-description: "The segment examined political progress and setbacks in 2022, emphasizing awareness, accountability, and youth engagement as key elements of democracy."
+title: 'The Series: Session 4 - Recap 2022'
+description: 'The segment examined political progress and setbacks in 2022, emphasizing awareness, accountability, and youth engagement as key elements of democracy.'
 dates: [2022-12-15]
 photos: []
 ---

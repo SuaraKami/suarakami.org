@@ -66,9 +66,7 @@ export interface NormalizedNode extends ForceGraphNode, SimulationNodeDatum {
   }
 }
 
-export interface NormalizedLink
-  extends ForceGraphLink,
-  SimulationLinkDatum<NormalizedNode> {
+export interface NormalizedLink extends ForceGraphLink, SimulationLinkDatum<NormalizedNode> {
   source: string
   target: string
 }

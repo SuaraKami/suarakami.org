@@ -1,5 +1,5 @@
 ---
-title: "Climate Checkmate"
+title: 'Climate Checkmate'
 description: "Marked SuaraKami's return to in-person discussions after two years. The discussion focused on climate change, energy transition, and civic responsibility, highlighting collaboration between science, policy, and activism to achieve sustainable progress."
 dates: [2022-08-06]
 photos: []

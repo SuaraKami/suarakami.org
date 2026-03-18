@@ -1,6 +1,6 @@
 ---
-title: "The Series: Session 2 - Sofa Talk - Papua Lives Matter"
-description: "Sesi ini merefleksikan ketidakadilan rasial terhadap masyarakat Papua, mengaitkannya dengan gerakan global, dan mengajak generasi muda Indonesia untuk menumbuhkan empati, kesetaraan, dan kesadaran kritis."
+title: 'The Series: Session 2 - Sofa Talk - Papua Lives Matter'
+description: 'Sesi ini merefleksikan ketidakadilan rasial terhadap masyarakat Papua, mengaitkannya dengan gerakan global, dan mengajak generasi muda Indonesia untuk menumbuhkan empati, kesetaraan, dan kesadaran kritis.'
 dates: [2020-06-01]
 photos: []
 ---

@@ -57,7 +57,7 @@
   }
 
   body {
-    @apply text-foreground antialiased cursor-none! select-none! overflow-x-hidden;
+    @apply cursor-none! overflow-x-hidden text-foreground antialiased select-none!;
   }
 
   ::selection {

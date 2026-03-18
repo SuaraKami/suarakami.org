@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import type { LanguageKeys } from '@/i18n'
 import { useLenis } from 'lenis/vue'
 import { computed } from 'vue'
+
+import type { LanguageKeys } from '@/i18n'
+
 import { useBrowserUrl } from '@/composables/useBrowserUrl'
 import { setPreferredLangCookie, useTranslatedPath } from '@/i18n'
 import { cn } from '@/lib/utils'
+
 import ClientOnly from './ClientOnly.vue'
 
 const {
@@ -45,8 +48,7 @@ const linkData = computed(() => {
   const translatedPath = translatePath(parsedUrl.pathname)
   const finalHref = `${translatedPath}${parsedUrl.search}${parsedUrl.hash}`
 
-  const pathsMatch
-    = normalizePath(translatedPath) === normalizePath(url.pathname)
+  const pathsMatch = normalizePath(translatedPath) === normalizePath(url.pathname)
   const hashesMatch = parsedUrl.hash ? parsedUrl.hash === url.hash : true
   const isActive = pathsMatch && hashesMatch
 
@@ -80,8 +82,7 @@ function handleClick(event: MouseEvent) {
   }
 
   const parsedUrl = new URL(linkData.value.href, url.origin)
-  const isSamePage
-    = normalizePath(parsedUrl.pathname) === normalizePath(url.pathname)
+  const isSamePage = normalizePath(parsedUrl.pathname) === normalizePath(url.pathname)
 
   if (isSamePage && parsedUrl.hash && lenis.value) {
     event.preventDefault()
@@ -94,22 +95,12 @@ function handleClick(event: MouseEvent) {
 <template>
   <ClientOnly>
     <template #default="{ attrs }">
-      <a
-        v-bind="attrs"
-        :href="linkData.href"
-        :class="linkClass"
-        @click="handleClick"
-      >
+      <a v-bind="attrs" :href="linkData.href" :class="linkClass" @click="handleClick">
         <slot />
       </a>
     </template>
     <template #fallback>
-      <a
-        v-bind="$attrs"
-        :href="href"
-        :class="className"
-        data-allow-mismatch="attribute"
-      >
+      <a v-bind="$attrs" :href="href" :class="className" data-allow-mismatch="attribute">
         <slot />
       </a>
     </template>

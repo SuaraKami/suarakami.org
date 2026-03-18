@@ -1,12 +1,12 @@
 ---
-title: "Pembuka"
-summary: "Latar belakang kelahiran SuaraKami."
+title: 'Pembuka'
+summary: 'Latar belakang kelahiran SuaraKami.'
 created: 2025-11-23 21:51:00
 updated: 2025-12-03 14:46:00
 history:
-  - author: "SuaraKami"
+  - author: 'SuaraKami'
     date: 2025-12-08 00:00:00
-    message: "Terbit perdana."
+    message: 'Terbit perdana.'
 ---
 
 SuaraKami bukanlah komunitas yang lahir dari keinginan untuk menjadi pahlawan kesiangan. Kami lahir dari percakapan larut malam di antara para perantau yang sedang menuntut ilmu, namun pikirannya tak pernah benar-benar lepas dari rumah. Ada satu pertanyaan yang kala itu selalu mengganjal.

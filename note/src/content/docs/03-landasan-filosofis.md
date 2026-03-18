@@ -1,12 +1,12 @@
 ---
-title: "Landasan Filosofis"
-summary: "Nilai fundamental yang menjadi kompas moral dan intelektual SuaraKami."
+title: 'Landasan Filosofis'
+summary: 'Nilai fundamental yang menjadi kompas moral dan intelektual SuaraKami.'
 created: 2025-11-23 22:23:00
 updated: 2025-12-05 18:21:00
 history:
-  - author: "SuaraKami"
+  - author: 'SuaraKami'
     date: 2025-12-08 00:00:00
-    message: "Terbit perdana."
+    message: 'Terbit perdana.'
 ---
 
 ## Transformasi Kultural

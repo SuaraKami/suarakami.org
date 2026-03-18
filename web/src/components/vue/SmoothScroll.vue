@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { LenisOptions } from 'lenis'
+
 import { until, useBrowserLocation } from '@vueuse/core'
 import { useLenis, VueLenis } from 'lenis/vue'
 import { onMounted } from 'vue'

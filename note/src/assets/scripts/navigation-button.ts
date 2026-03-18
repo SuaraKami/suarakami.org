@@ -1,9 +1,6 @@
 function initHistoryButtons() {
-  const backBtn
-    = document.querySelector<HTMLButtonElement>('[data-nav="back"]')
-  const forwardBtn = document.querySelector<HTMLButtonElement>(
-    '[data-nav="forward"]',
-  )
+  const backBtn = document.querySelector<HTMLButtonElement>('[data-nav="back"]')
+  const forwardBtn = document.querySelector<HTMLButtonElement>('[data-nav="forward"]')
 
   if (backBtn && backBtn.dataset.historyBound !== 'true') {
     backBtn.addEventListener('click', () => window.history.back())

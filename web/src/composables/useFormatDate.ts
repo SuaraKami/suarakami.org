@@ -1,6 +1,9 @@
 import type { MaybeRefOrGetter } from 'vue'
-import type { LanguageKeys } from '@/i18n'
+
 import { computed, toValue } from 'vue'
+
+import type { LanguageKeys } from '@/i18n'
+
 import { siteConfig } from '@/site.config'
 
 export interface FormatDateOptions {
@@ -13,13 +16,7 @@ export interface FormatDateOptions {
   hour?: 'numeric' | '2-digit'
   minute?: 'numeric' | '2-digit'
   second?: 'numeric' | '2-digit'
-  timeZoneName?:
-    | 'short'
-    | 'long'
-    | 'shortOffset'
-    | 'longOffset'
-    | 'shortGeneric'
-    | 'longGeneric'
+  timeZoneName?: 'short' | 'long' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'
   formatMatcher?: 'best fit' | 'basic'
   hour12?: boolean
   timeZone?: string

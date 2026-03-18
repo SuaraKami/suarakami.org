@@ -1,10 +1,10 @@
-import svelte from "@astrojs/svelte";
-import vercel from "@astrojs/vercel";
-import playformCompress from "@playform/compress";
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, fontProviders } from "astro/config";
-import icon from "astro-icon";
-import { rehypeGlossaryHighlight } from "./src/lib/rehype/glossary-highlight";
+import svelte from '@astrojs/svelte'
+import vercel from '@astrojs/vercel'
+import playformCompress from '@playform/compress'
+import tailwindcss from '@tailwindcss/vite'
+import { defineConfig, fontProviders } from 'astro/config'
+import icon from 'astro-icon'
+import { rehypeGlossaryHighlight } from './src/lib/rehype/glossary-highlight'
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +17,7 @@ export default defineConfig({
     icon(),
     playformCompress({
       HTML: {
-        "html-minifier-terser": {
+        'html-minifier-terser': {
           collapseWhitespace: false,
           collapseInlineTagWhitespace: false,
         },
@@ -28,15 +28,15 @@ export default defineConfig({
     fonts: [
       {
         provider: fontProviders.google(),
-        name: "Inter",
-        cssVariable: "--font-inter",
+        name: 'Inter',
+        cssVariable: '--font-inter',
       },
       {
         provider: fontProviders.google(),
-        name: "JetBrains Mono",
-        cssVariable: "--font-jetbrains-mono",
+        name: 'JetBrains Mono',
+        cssVariable: '--font-jetbrains-mono',
       },
     ],
   },
   adapter: vercel(),
-});
+})

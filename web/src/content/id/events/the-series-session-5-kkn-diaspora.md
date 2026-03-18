@@ -1,6 +1,6 @@
 ---
-title: "The Series: Session 5 - KKN - Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya"
-description: "Peserta berbagi cerita tentang pengalaman hidup di luar negeri, rasa rindu tanah air, serta dilema antara kembali ke Indonesia atau tetap berkarier di luar. Dengan secangkir kopi dan obrolan hangat, KKN menjadi ruang refleksi yang ringan namun bermakna—menunjukkan bahwa kontribusi untuk Indonesia bisa dilakukan dari mana saja di dunia."
+title: 'The Series: Session 5 - KKN - Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya'
+description: 'Peserta berbagi cerita tentang pengalaman hidup di luar negeri, rasa rindu tanah air, serta dilema antara kembali ke Indonesia atau tetap berkarier di luar. Dengan secangkir kopi dan obrolan hangat, KKN menjadi ruang refleksi yang ringan namun bermakna—menunjukkan bahwa kontribusi untuk Indonesia bisa dilakukan dari mana saja di dunia.'
 dates: [2023-06-17]
 photos: []
 ---

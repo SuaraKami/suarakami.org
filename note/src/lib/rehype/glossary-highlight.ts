@@ -4,12 +4,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { visitParents } from 'unist-util-visit-parents'
 
-const DEFAULT_GLOSSARY_DIR = path.resolve(
-  process.cwd(),
-  'src',
-  'content',
-  'glossary',
-)
+const DEFAULT_GLOSSARY_DIR = path.resolve(process.cwd(), 'src', 'content', 'glossary')
 const WORD_CHAR_REGEX = /[\p{L}\p{N}_-]/u
 const BANNED_TAGS = new Set([
   'code',
@@ -73,12 +68,7 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
             value: node.value.slice(cursor, match.start),
           })
         }
-        fragments.push(
-          createGlossaryButton(
-            node.value.slice(match.start, match.end),
-            match.token,
-          ),
-        )
+        fragments.push(createGlossaryButton(node.value.slice(match.start, match.end), match.token))
         cursor = match.end
       }
       if (cursor < node.value.length) {
@@ -90,7 +80,7 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
         return
       }
 
-      (parent as Element).children.splice(index, 1, ...fragments)
+      ;(parent as Element).children.splice(index, 1, ...fragments)
     })
   }
 }
@@ -99,8 +89,7 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
   let files: string[] = []
   try {
     files = fs.readdirSync(directory)
-  }
-  catch (error) {
+  } catch (error) {
     console.warn('[glossary] failed to read directory', directory, error)
     return []
   }
@@ -118,8 +107,7 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
       const slug = file.replace(/\.json$/, '')
       const base = [raw.term, ...(raw.aliases ?? [])]
       for (const candidate of base) {
-        const normalized
-          = typeof candidate === 'string' ? candidate.trim() : ''
+        const normalized = typeof candidate === 'string' ? candidate.trim() : ''
         if (!normalized) {
           continue
         }
@@ -135,8 +123,7 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
           lower: key,
         })
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.warn('[glossary] failed to parse', filepath, error)
     }
   }
@@ -144,10 +131,7 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
   return tokens.sort((a, b) => b.lower.length - a.lower.length)
 }
 
-function shouldSkipNode(
-  parent: Element,
-  ancestors: (Element | Root | Text)[],
-): boolean {
+function shouldSkipNode(parent: Element, ancestors: (Element | Root | Text)[]): boolean {
   if (parent.type !== 'element') {
     return true
   }
@@ -156,10 +140,10 @@ function shouldSkipNode(
   }
   if (
     ancestors.some(
-      node =>
-        node.type === 'element'
-        && (BANNED_TAGS.has((node as Element).tagName)
-          || BANNED_ANCESTORS.has((node as Element).tagName)),
+      (node) =>
+        node.type === 'element' &&
+        (BANNED_TAGS.has((node as Element).tagName) ||
+          BANNED_ANCESTORS.has((node as Element).tagName)),
     )
   ) {
     return true
@@ -169,7 +153,7 @@ function shouldSkipNode(
 
 function findMatches(value: string, tokens: GlossaryToken[]) {
   const lower = value.toLowerCase()
-  const matches: { start: number, end: number, token: GlossaryToken }[] = []
+  const matches: { start: number; end: number; token: GlossaryToken }[] = []
 
   for (const token of tokens) {
     let startIndex = 0
@@ -192,18 +176,11 @@ function findMatches(value: string, tokens: GlossaryToken[]) {
 function isWordBoundary(text: string, start: number, end: number) {
   const prev = text[start - 1]
   const next = text[end]
-  return !(
-    (prev && WORD_CHAR_REGEX.test(prev))
-    || (next && WORD_CHAR_REGEX.test(next))
-  )
+  return !((prev && WORD_CHAR_REGEX.test(prev)) || (next && WORD_CHAR_REGEX.test(next)))
 }
 
-function hasOverlap(
-  matches: { start: number, end: number }[],
-  start: number,
-  end: number,
-) {
-  return matches.some(match => !(end <= match.start || start >= match.end))
+function hasOverlap(matches: { start: number; end: number }[], start: number, end: number) {
+  return matches.some((match) => !(end <= match.start || start >= match.end))
 }
 
 function createGlossaryButton(text: string, token: GlossaryToken): Element {
@@ -211,7 +188,7 @@ function createGlossaryButton(text: string, token: GlossaryToken): Element {
     type: 'element',
     tagName: 'glossary-term',
     properties: {
-      'slug': token.slug,
+      slug: token.slug,
       'aria-label': `Lihat glosarium untuk ${text}`,
     },
     children: [{ type: 'text', value: text }],

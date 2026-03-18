@@ -1,12 +1,12 @@
 ---
-title: "Penutup"
-summary: "Refleksi akhir mengenai jalan aktivisme SuaraKami."
+title: 'Penutup'
+summary: 'Refleksi akhir mengenai jalan aktivisme SuaraKami.'
 created: 2025-11-23 22:25:00
 updated: 2025-11-29 17:57:00
 history:
-  - author: "SuaraKami"
+  - author: 'SuaraKami'
     date: 2025-12-08 00:00:00
-    message: "Terbit perdana."
+    message: 'Terbit perdana.'
 ---
 
 SuaraKami bukan tempat bagi mereka yang mencari panggung instan atau loncatan karir. Ini adalah rumah bagi mereka yang bersedia menempuh jalan panjang dan sunyi dalam merawat kewarasan dan kemanusiaan.

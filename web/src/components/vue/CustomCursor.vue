@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEventListener, useMediaQuery, useMouse } from '@vueuse/core'
 import { computed, ref } from 'vue'
+
 import ClientOnly from './ClientOnly.vue'
 
 const { x, y } = useMouse({ type: 'client' })
@@ -20,10 +21,8 @@ function checkHoverTarget(event: MouseEvent, isEntering: boolean) {
   }
 }
 
-useEventListener(document, 'mouseover', event =>
-  checkHoverTarget(event, true))
-useEventListener(document, 'mouseout', event =>
-  checkHoverTarget(event, false))
+useEventListener(document, 'mouseover', (event) => checkHoverTarget(event, true))
+useEventListener(document, 'mouseout', (event) => checkHoverTarget(event, false))
 </script>
 
 <template>
@@ -31,10 +30,7 @@ useEventListener(document, 'mouseout', event =>
     <div
       v-if="hasHover"
       v-bind="attrs"
-      class="
-        pointer-events-none fixed z-9999 flex -translate-1/2 items-center justify-center rounded-full
-        bg-sky-600 mix-blend-difference transition-[width,height,background-color] duration-300 ease-in-out
-      "
+      class="pointer-events-none fixed z-9999 flex -translate-1/2 items-center justify-center rounded-full bg-sky-600 mix-blend-difference transition-[width,height,background-color] duration-300 ease-in-out"
       :class="isHoveringLink ? 'size-12' : 'size-5'"
       :style="cursorStyle"
     />

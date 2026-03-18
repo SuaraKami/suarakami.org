@@ -1,6 +1,8 @@
-import type { LanguageKeys } from '@/i18n'
 import { useBrowserLocation } from '@vueuse/core'
 import { computed } from 'vue'
+
+import type { LanguageKeys } from '@/i18n'
+
 import { getLangFromUrl, getPathWithoutLang } from '@/i18n'
 import { siteConfig } from '@/site.config'
 

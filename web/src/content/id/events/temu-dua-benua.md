@@ -1,6 +1,6 @@
 ---
-title: "Temu Dua Benua"
-description: "Temu Dua Benua merupakan rangkaian diskusi daring dua sesi yang diselenggarakan oleh SuaraKami, Generasi Melek Politik, dan Energy Academy Indonesia. Seri ini membahas dampak sosial-ekonomi pandemi COVID-19 dengan fokus pada ketenagakerjaan, kebijakan publik, dan ketahanan kolektif, serta mendorong dialog berbasis data lintas wilayah."
+title: 'Temu Dua Benua'
+description: 'Temu Dua Benua merupakan rangkaian diskusi daring dua sesi yang diselenggarakan oleh SuaraKami, Generasi Melek Politik, dan Energy Academy Indonesia. Seri ini membahas dampak sosial-ekonomi pandemi COVID-19 dengan fokus pada ketenagakerjaan, kebijakan publik, dan ketahanan kolektif, serta mendorong dialog berbasis data lintas wilayah.'
 dates: [2020-05-03, 2020-06-07]
 photos: []
 ---
