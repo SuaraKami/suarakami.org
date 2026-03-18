@@ -23,8 +23,6 @@
   --animate-circle-out: circle-out var(--duration-circle-in)
     cubic-bezier(0.6, 0, 0.4, 1);
 
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-
   @keyframes circle-in {
     from {
       clip-path: circle(0% at 50% 50%);
