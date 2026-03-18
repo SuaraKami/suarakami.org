@@ -3,18 +3,17 @@ import vercel from '@astrojs/vercel'
 import vue from '@astrojs/vue'
 import playformCompress from '@playform/compress'
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'astro/config'
+import { defineConfig, fontProviders } from 'astro/config'
 import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
-  experimental: {
-    fonts: [
-      {
-        cssVariable: '--font-cabinet',
-        name: 'Cabinet Grotesk',
-        provider: 'local',
+  fonts: [
+    {
+      cssVariable: '--font-cabinet',
+      name: 'Cabinet Grotesk',
+      options: {
         variants: [
           {
             src: ['./src/assets/fonts/CabinetGrotesk-Variable.woff2'],
@@ -23,12 +22,21 @@ export default defineConfig({
           },
         ],
       },
-    ],
-  },
+      provider: fontProviders.local(),
+    },
+  ],
   integrations: [
     sitemap(),
     vue({ appEntrypoint: '/src/_app' }),
-    playformCompress(),
+    playformCompress({
+      HTML: {
+        'html-minifier-terser': {
+          collapseInlineTagWhitespace: false,
+          collapseWhitespace: false,
+          removeComments: true,
+        },
+      },
+    }),
   ],
   site: 'https://suarakami.org',
   vite: {
