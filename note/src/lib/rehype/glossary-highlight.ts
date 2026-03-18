@@ -35,67 +35,6 @@ interface GlossaryToken {
   lower: string
 }
 
-export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
-  const glossaryDir = options.directory ?? DEFAULT_GLOSSARY_DIR
-  const tokens = loadGlossaryTokens(glossaryDir)
-
-  if (!tokens.length) {
-    return () => {}
-  }
-
-  return (tree: Root) => {
-    visitParents(tree, 'text', (node: Text, ancestors) => {
-      if (!node.value || typeof node.value !== 'string') {
-        return
-      }
-      if (!ancestors.length) {
-        return
-      }
-
-      const parent = ancestors.at(-1)
-      if (!parent || parent.type !== 'element') {
-        return
-      }
-      if (shouldSkipNode(parent as Element, ancestors)) {
-        return
-      }
-
-      const matches = findMatches(node.value, tokens)
-      if (!matches.length) {
-        return
-      }
-
-      const fragments: (Text | Element)[] = []
-      let cursor = 0
-      for (const match of matches) {
-        if (match.start > cursor) {
-          fragments.push({
-            type: 'text',
-            value: node.value.slice(cursor, match.start),
-          })
-        }
-        fragments.push(
-          createGlossaryButton(
-            node.value.slice(match.start, match.end),
-            match.token
-          )
-        )
-        cursor = match.end
-      }
-      if (cursor < node.value.length) {
-        fragments.push({ type: 'text', value: node.value.slice(cursor) })
-      }
-
-      const index = (parent as Element).children.indexOf(node)
-      if (index === -1) {
-        return
-      }
-
-      ;(parent as Element).children.splice(index, 1, ...fragments)
-    })
-  }
-}
-
 function loadGlossaryTokens(directory: string): GlossaryToken[] {
   let files: string[] = []
   try {
@@ -165,6 +104,23 @@ function shouldSkipNode(
   return false
 }
 
+function isWordBoundary(text: string, start: number, end: number) {
+  const prev = text[start - 1]
+  const next = text[end]
+  return !(
+    (prev && WORD_CHAR_REGEX.test(prev)) ||
+    (next && WORD_CHAR_REGEX.test(next))
+  )
+}
+
+function hasOverlap(
+  matches: { start: number; end: number }[],
+  start: number,
+  end: number
+) {
+  return matches.some((match) => !(end <= match.start || start >= match.end))
+}
+
 function findMatches(value: string, tokens: GlossaryToken[]) {
   const lower = value.toLowerCase()
   const matches: { start: number; end: number; token: GlossaryToken }[] = []
@@ -187,23 +143,6 @@ function findMatches(value: string, tokens: GlossaryToken[]) {
   return matches.toSorted((a, b) => a.start - b.start)
 }
 
-function isWordBoundary(text: string, start: number, end: number) {
-  const prev = text[start - 1]
-  const next = text[end]
-  return !(
-    (prev && WORD_CHAR_REGEX.test(prev)) ||
-    (next && WORD_CHAR_REGEX.test(next))
-  )
-}
-
-function hasOverlap(
-  matches: { start: number; end: number }[],
-  start: number,
-  end: number
-) {
-  return matches.some((match) => !(end <= match.start || start >= match.end))
-}
-
 function createGlossaryButton(text: string, token: GlossaryToken): Element {
   return {
     children: [{ type: 'text', value: text }],
@@ -213,5 +152,68 @@ function createGlossaryButton(text: string, token: GlossaryToken): Element {
     },
     tagName: 'glossary-term',
     type: 'element',
+  }
+}
+
+export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
+  const glossaryDir = options.directory ?? DEFAULT_GLOSSARY_DIR
+  const tokens = loadGlossaryTokens(glossaryDir)
+
+  if (!tokens.length) {
+    return () => {
+      // no-op
+    }
+  }
+
+  return (tree: Root) => {
+    visitParents(tree, 'text', (node: Text, ancestors) => {
+      if (!node.value || typeof node.value !== 'string') {
+        return
+      }
+      if (!ancestors.length) {
+        return
+      }
+
+      const parent = ancestors.at(-1)
+      if (!parent || parent.type !== 'element') {
+        return
+      }
+      if (shouldSkipNode(parent as Element, ancestors)) {
+        return
+      }
+
+      const matches = findMatches(node.value, tokens)
+      if (!matches.length) {
+        return
+      }
+
+      const fragments: (Text | Element)[] = []
+      let cursor = 0
+      for (const match of matches) {
+        if (match.start > cursor) {
+          fragments.push({
+            type: 'text',
+            value: node.value.slice(cursor, match.start),
+          })
+        }
+        fragments.push(
+          createGlossaryButton(
+            node.value.slice(match.start, match.end),
+            match.token
+          )
+        )
+        cursor = match.end
+      }
+      if (cursor < node.value.length) {
+        fragments.push({ type: 'text', value: node.value.slice(cursor) })
+      }
+
+      const index = (parent as Element).children.indexOf(node)
+      if (index === -1) {
+        return
+      }
+
+      ;(parent as Element).children.splice(index, 1, ...fragments)
+    })
   }
 }

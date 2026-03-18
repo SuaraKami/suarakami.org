@@ -23,6 +23,55 @@
   let anchorEl = $state<HTMLElement | null>(null)
   let activeSlug = $state<string | null>(null)
   let detailSlug = $state<string | null>(null)
+
+  function resolveRelationId(relation: GlossaryRelation): string | null {
+    const target = relation.to
+    if (!target)
+      {return null}
+    if (typeof target === 'string')
+      {return target}
+    if (typeof target === 'object' && 'id' in target)
+      {return target.id as string}
+    return null
+  }
+
+  function getRelations(rootSlug: string) {
+    const root = entryMap.get(rootSlug)
+    if (!root)
+      {return []}
+    return root.data.relations
+  }
+
+  function buildGraphData(rootSlug: string): ForceGraphData {
+    const root = entryMap.get(rootSlug)
+    if (!root)
+      {return { links: [], nodes: [] }}
+    const nodes: ForceGraphData['nodes'] = [
+      { id: root.id, kind: 'page', label: root.data.term, tags: [] },
+    ]
+    const links: ForceGraphData['links'] = []
+    const seen = new Set([root.id])
+
+    for (const relation of root.data.relations) {
+      const targetSlug = resolveRelationId(relation)
+      if (!targetSlug)
+        {continue}
+      if (!seen.has(targetSlug)) {
+        const targetEntry = entryMap.get(targetSlug)
+        nodes.push({
+          id: targetSlug,
+          kind: 'tag',
+          label: targetEntry?.data.term ?? relation.type ?? targetSlug,
+          tags: [relation.type],
+        })
+        seen.add(targetSlug)
+      }
+      links.push({ source: root.id, target: targetSlug })
+    }
+
+    return { links, nodes }
+  }
+
   const graphData = $derived<ForceGraphData | null>(activeSlug ? buildGraphData(activeSlug) : null)
   const relations = $derived(activeSlug ? getRelations(activeSlug) : [])
   const groupedRelations = $derived.by(() => {
@@ -57,16 +106,13 @@
 
   const isMobile = useIsMobile()
   const isGlossaryEnabled = $derived(glossaryPreference.current)
-  const { onOpen: onOpenGlossary } = useGlossaryEvents()
-  onOpenGlossary((el, slug) => {
-    openFor(el, slug)
-  })
 
-  $effect(() => {
-    if (!isGlossaryEnabled) {
-      resetActive()
-    }
-  })
+  function resetActive() {
+    glossaryStates.isOpen = false
+    anchorEl = null
+    activeSlug = null
+    detailSlug = null
+  }
 
   function openFor(target: HTMLElement | null, slug: string) {
     if (!entryMap.has(slug))
@@ -76,13 +122,6 @@
     detailSlug = slug
   }
 
-  function resetActive() {
-    glossaryStates.isOpen = false
-    anchorEl = null
-    activeSlug = null
-    detailSlug = null
-  }
-
   function closeAll() {
     resetActive()
   }
@@ -90,54 +129,6 @@
   function handleVisibilityChange(next: boolean) {
     if (!next)
       {resetActive()}
-  }
-
-  function buildGraphData(rootSlug: string): ForceGraphData {
-    const root = entryMap.get(rootSlug)
-    if (!root)
-      {return { links: [], nodes: [] }}
-    const nodes: ForceGraphData['nodes'] = [
-      { id: root.id, kind: 'page', label: root.data.term, tags: [] },
-    ]
-    const links: ForceGraphData['links'] = []
-    const seen = new Set([root.id])
-
-    for (const relation of root.data.relations) {
-      const targetSlug = resolveRelationId(relation)
-      if (!targetSlug)
-        {continue}
-      if (!seen.has(targetSlug)) {
-        const targetEntry = entryMap.get(targetSlug)
-        nodes.push({
-          id: targetSlug,
-          kind: 'tag',
-          label: targetEntry?.data.term ?? relation.type ?? targetSlug,
-          tags: [relation.type],
-        })
-        seen.add(targetSlug)
-      }
-      links.push({ source: root.id, target: targetSlug })
-    }
-
-    return { links, nodes }
-  }
-
-  function getRelations(rootSlug: string) {
-    const root = entryMap.get(rootSlug)
-    if (!root)
-      {return []}
-    return root.data.relations
-  }
-
-  function resolveRelationId(relation: GlossaryRelation): string | null {
-    const target = relation.to
-    if (!target)
-      {return null}
-    if (typeof target === 'string')
-      {return target}
-    if (typeof target === 'object' && 'id' in target)
-      {return target.id as string}
-    return null
   }
 
   function focusRelation(slug: string | null) {
@@ -151,6 +142,17 @@
       {return}
     detailSlug = payload.id
   }
+
+  const { onOpen: onOpenGlossary } = useGlossaryEvents()
+  onOpenGlossary((el, slug) => {
+    openFor(el, slug)
+  })
+
+  $effect(() => {
+    if (!isGlossaryEnabled) {
+      resetActive()
+    }
+  })
 </script>
 
 {#if entries.length && isGlossaryEnabled}
