@@ -24,7 +24,18 @@ export default defineConfig({
     },
   ],
 
-  integrations: [playformCompress(), icon()],
+  integrations: [
+    icon(),
+    playformCompress({
+      HTML: {
+        'html-minifier-terser': {
+          collapseInlineTagWhitespace: false,
+          collapseWhitespace: false,
+          removeComments: true,
+        },
+      },
+    }),
+  ],
   site: 'https://bio.suarakami.org',
   vite: {
     plugins: [tailwindcss()],
