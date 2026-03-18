@@ -93,6 +93,7 @@
   }: Props = $props()
 
   let stageEl = $state<HTMLDivElement | null>(null)
+  // svelte-ignore state_referenced_locally
   let hasRenderableGraph = $state(Boolean(graphData?.nodes?.length))
 
   function normalizeGraphData(data: ForceGraphData): NormalizedGraph {

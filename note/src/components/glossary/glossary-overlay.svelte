@@ -18,6 +18,7 @@
 
   const { entries = [] }: { entries: GlossaryEntry[] } = $props()
 
+  // svelte-ignore state_referenced_locally
   const entryMap = new Map(entries.map(entry => [entry.id, entry]))
 
   let anchorEl = $state<HTMLElement | null>(null)

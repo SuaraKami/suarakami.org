@@ -26,7 +26,7 @@ Kami melihat bahwa konstruksi sebuah argumen bergantung pada kerangka berpikir y
 
 ## Solidaritas Resiprokal
 
-Di tengah hegemoni kompetisi yang saling menjatuhkan, penegasan kembali akan adanya budaya kooperatif yang saling membangun satu sama lain menjadi krusial. Kami menolak terseret dalam arus komodifikasi yang mereduksi kompleksitas pengalaman manusia hanya ke dalam perhitungan untung rugi dalam logika pasar kuantitatif sematamendegradasi martabat manusia sekadar menjadi angka dalam kalkulasi laba semata. Sebagai gantinya, kami menghidupkan kegiatan berlandaskan solidaritas sukarela yang otonom, bebas dari manipulasi maupun eksploitasi.
+Di tengah hegemoni kompetisi yang saling menjatuhkan, penegasan kembali akan adanya budaya kooperatif yang saling membangun satu sama lain menjadi krusial. Kami menolak terseret dalam praktik komodifikasi yang mereduksi manusia menjadi semata objek perhitungan dan instrumen laba. Sebagai gantinya, kami menghidupkan kegiatan berlandaskan solidaritas sukarela yang otonom, bebas dari manipulasi maupun eksploitasi.
 
 Bagi kami, metode perjuangan haruslah mencerminkan tujuan yang ingin dicapai. Oleh karena itu, dimulai dari lingkup terkecil komunitas sendiri, kami membuktikan bagaimana individu-individu merdeka dapat berkolaborasi secara sadar. Ini adalah upaya kami membangun purwarupa masyarakat masa depan yang egaliter dan berdaya, di mana manusia hadir untuk saling mendukung, bukan saling mengalahkan.
 
