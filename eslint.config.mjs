@@ -1,3 +1,5 @@
-import baseConfig from "@suarakami/eslint-config";
+import antfu from '@antfu/eslint-config'
 
-export default baseConfig();
+export default antfu({
+  formatters: true,
+})

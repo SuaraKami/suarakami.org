@@ -1,9 +1,7 @@
-import baseConfig from "@suarakami/eslint-config";
+import antfu from '@antfu/eslint-config'
 
-export default baseConfig({
-  tailwind: {
-    entry: "src/styles/global.css",
-    astro: true,
-    svelte: true,
-  },
-});
+export default antfu({
+  formatters: true,
+  svelte: true,
+  astro: true,
+})

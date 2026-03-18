@@ -22,8 +22,6 @@
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.79",
     "@iconify-json/simple-icons": "^1.2.61",
-    "@suarakami/eslint-config": "workspace:*",
-    "astro-icon": "^1.1.5",
-    "eslint": "^9.39.1"
+    "astro-icon": "^1.1.5"
   }
 }
