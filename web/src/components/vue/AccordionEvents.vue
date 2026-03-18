@@ -1,28 +1,12 @@
 <script lang="ts">
-import type { CollectionEntry } from "astro:content";
-import type { AccordionRootEmits, AccordionRootProps } from "reka-ui";
-import type { LanguageKeys } from "@/i18n";
-import { cn } from "@/lib/utils";
-
-type EventItem = CollectionEntry<"event">;
-
-export interface AccordionProps<T extends EventItem = EventItem>
-  extends Pick<
-    AccordionRootProps,
-    | "collapsible"
-    | "defaultValue"
-    | "modelValue"
-    | "type"
-    | "disabled"
-    | "unmountOnHide"
-  > {
-  items: T[];
-  lang: LanguageKeys;
-}
+import type { CollectionEntry } from 'astro:content'
+import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
+import type { LanguageKeys } from '@/i18n'
+import { cn } from '@/lib/utils'
 </script>
 
 <script setup lang="ts" generic="T extends EventItem">
-import { reactivePick } from "@vueuse/core";
+import { reactivePick } from '@vueuse/core'
 import {
   AccordionContent,
   AccordionHeader,
@@ -30,61 +14,82 @@ import {
   AccordionRoot,
   AccordionTrigger,
   useForwardPropsEmits,
-} from "reka-ui";
-import { computed } from "vue";
-import { useFormatDate } from "@/composables/useFormatDate";
-import ChevronDown from "~icons/lucide/chevron-down";
+} from 'reka-ui'
+import { computed } from 'vue'
+import ChevronDown from '~icons/lucide/chevron-down'
+import { useFormatDate } from '@/composables/useFormatDate'
+
+type EventItem = CollectionEntry<'event'>
+
+export interface AccordionProps<T extends EventItem = EventItem>
+  extends Pick<
+    AccordionRootProps,
+    | 'collapsible'
+    | 'defaultValue'
+    | 'modelValue'
+    | 'type'
+    | 'disabled'
+    | 'unmountOnHide'
+  > {
+  items: T[]
+  lang: LanguageKeys
+}
 
 const props = withDefaults(defineProps<AccordionProps<T>>(), {
-  type: "single",
+  type: 'single',
   collapsible: true,
   unmountOnHide: false,
-});
-const emits = defineEmits<AccordionRootEmits>();
+})
+const emits = defineEmits<AccordionRootEmits>()
 
 const rootProps = useForwardPropsEmits(
   reactivePick(
     props,
-    "collapsible",
-    "defaultValue",
-    "disabled",
-    "modelValue",
-    "unmountOnHide"
+    'collapsible',
+    'defaultValue',
+    'disabled',
+    'modelValue',
+    'unmountOnHide',
   ),
-  emits
-);
+  emits,
+)
 
 const datesString = computed(() =>
   props.items.map(({ data: { dates } }) =>
     dates
       .map(
-        (date) =>
+        date =>
           useFormatDate(date, props.lang, {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          }).formattedDate.value
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          }).formattedDate.value,
       )
-      .join(" & ")
-  )
-);
+      .join(' & '),
+  ),
+)
 </script>
 
 <template>
   <AccordionRoot v-bind="rootProps" :type="type" class="w-full">
-    <AccordionItem v-for="(item, index) in props.items" :key="item.data.title" :value="item.data.title"
-      class="border-b border-border-dark last:border-0">
+    <AccordionItem
+      v-for="(item, index) in props.items" :key="item.data.title" :value="item.data.title"
+      class="border-b border-border-dark last:border-0"
+    >
       <AccordionHeader as="div" class="flex">
-        <AccordionTrigger :class="cn(
-          `group w-full py-8 text-left transition-opacity hover:opacity-50`,
-          {
-            'md:pb-12': index === 0,
-            'md:py-12': index > 0,
-          },
-        )">
+        <AccordionTrigger
+          :class="cn(
+            `group w-full py-8 text-left transition-opacity hover:opacity-50`,
+            {
+              'md:pb-12': index === 0,
+              'md:py-12': index > 0,
+            },
+          )"
+        >
           <div class="grid grid-cols-12 items-start gap-6">
             <span
-              class="col-span-3 mt-1.5 font-mono text-xs font-semibold tracking-widest uppercase opacity-50 md:col-span-3">
+              class="col-span-3 mt-1.5 font-mono text-xs font-semibold tracking-widest uppercase opacity-50 md:col-span-3"
+            >
               {{ datesString[index] }}
             </span>
             <div class="col-span-8 md:col-span-8">
@@ -94,18 +99,21 @@ const datesString = computed(() =>
             </div>
             <div class="col-span-1 flex justify-end">
               <ChevronDown
-                class="ms-auto size-6 shrink-0 transition-transform duration-300 ease-out group-data-[state=open]:rotate-180" />
+                class="ms-auto size-6 shrink-0 transition-transform duration-300 ease-out group-data-[state=open]:rotate-180"
+              />
             </div>
           </div>
         </AccordionTrigger>
       </AccordionHeader>
 
-      <AccordionContent class="
+      <AccordionContent
+        class="
           overflow-hidden
           focus:outline-none
           data-[state=closed]:animate-[accordion-up_200ms_ease-out]
           data-[state=open]:animate-[accordion-down_200ms_ease-out]
-        ">
+        "
+      >
         <div class="grid grid-cols-12 gap-6 pb-12">
           <div class="col-span-12 md:col-span-8 md:col-start-4">
             <p class="text-xl leading-relaxed opacity-70">

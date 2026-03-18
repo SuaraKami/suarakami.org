@@ -1,8 +1,8 @@
-import { defineCollection, z } from "astro:content";
-import { file } from "astro/loaders";
+import { file } from 'astro/loaders'
+import { defineCollection, z } from 'astro:content'
 
 const links = defineCollection({
-  loader: file("src/content/links.yml"),
+  loader: file('src/content/links.yml'),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -10,6 +10,6 @@ const links = defineCollection({
     icon: z.string().optional(),
     featured: z.boolean().default(false),
   }),
-});
+})
 
-export const collections = { links };
+export const collections = { links }

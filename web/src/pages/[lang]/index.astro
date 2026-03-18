@@ -1,39 +1,32 @@
 ---
-  import { getCollection, getEntry } from "astro:content";
-  import About from "@/components/landing/About.astro";
-  import Events from "@/components/landing/Events.astro";
-  import Hero from "@/components/landing/Hero.astro";
-  import type { LanguageKeys } from "@/i18n";
-  import BaseLayout from "@/layouts/BaseLayout.astro";
-  import { siteConfig } from "@/site.config";
+import { getCollection, getEntry } from 'astro:content'
+import About from '@/components/landing/About.astro'
+import Events from '@/components/landing/Events.astro'
+import Hero from '@/components/landing/Hero.astro'
+import type { LanguageKeys } from '@/i18n'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { siteConfig } from '@/site.config'
 
-  export function getStaticPaths() {
-    const { languages } = siteConfig.i18n;
-    return Object.keys(languages).map((l) => ({
-      params: { lang: l as LanguageKeys },
-    }));
-  }
+export function getStaticPaths() {
+  const { languages } = siteConfig.i18n
+  return Object.keys(languages).map((l) => ({
+    params: { lang: l as LanguageKeys },
+  }))
+}
 
-  const { lang } = Astro.params;
-  const page = await getEntry("index", lang);
-  const events = (
-    await getCollection("event", (entry) => entry.id.startsWith(`${lang}`))
-  ).sort(
-    (a, b) =>
-      Math.max(...a.data.dates.map((d) => d.getTime())) -
-      Math.max(...b.data.dates.map((d) => d.getTime()))
-  );
+const { lang } = Astro.params
+const page = await getEntry('index', lang)
+const events = (await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))).sort(
+  (a, b) => Math.max(...a.data.dates.map((d) => d.getTime())) - Math.max(...b.data.dates.map((d) => d.getTime())),
+)
 
-  if (!page) {
-    throw new Error("Could not find page");
-  }
+if (!page) {
+  throw new Error('Could not find page')
+}
 ---
-<BaseLayout
-  title={page.data.title}
-  description={page.data.description}
-  lang={lang}
->
-  <Hero page={page} lang={lang}/>
-  <About page={page} lang={lang}/>
-  <Events events={events} lang={lang}/>
+
+<BaseLayout title={page.data.title} description={page.data.description} lang={lang}>
+  <Hero page={page} lang={lang} />
+  <About page={page} lang={lang} />
+  <Events events={events} lang={lang} />
 </BaseLayout>

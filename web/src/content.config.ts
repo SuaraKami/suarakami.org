@@ -1,8 +1,8 @@
-import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { glob } from 'astro/loaders'
+import { defineCollection, z } from 'astro:content'
 
 const indexCollection = defineCollection({
-  loader: glob({ pattern: "**/index.yml", base: "./src/content" }),
+  loader: glob({ pattern: '**/index.yml', base: './src/content' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -20,10 +20,10 @@ const indexCollection = defineCollection({
     }),
     about: z.string(),
   }),
-});
+})
 
 const eventCollection = defineCollection({
-  loader: glob({ pattern: "*/events/*.md", base: "./src/content" }),
+  loader: glob({ pattern: '*/events/*.md', base: './src/content' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -34,13 +34,13 @@ const eventCollection = defineCollection({
           z.object({
             img: image(),
             caption: z.string().optional(),
-          })
+          }),
         )
         .optional(),
     }),
-});
+})
 
 export const collections = {
   index: indexCollection,
   event: eventCollection,
-};
+}

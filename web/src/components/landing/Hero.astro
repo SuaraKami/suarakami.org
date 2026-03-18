@@ -1,19 +1,17 @@
 ---
-  import type { CollectionEntry } from "astro:content";
-  import type { LanguageKeys } from "@/i18n";
-  import Container from "../vue/Container.vue";
+import type { CollectionEntry } from 'astro:content'
+import type { LanguageKeys } from '@/i18n'
+import Container from '../vue/Container.vue'
 
-  interface Props {
-    page: CollectionEntry<"index">;
-    lang: LanguageKeys;
-  }
-  const { page } = Astro.props;
+interface Props {
+  page: CollectionEntry<'index'>
+  lang: LanguageKeys
+}
+const { page } = Astro.props
 ---
+
 <section id="hero" class="relative overflow-hidden bg-background">
-  <Container
-    grid
-    class="gap-y-16 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64"
-  >
+  <Container grid class="gap-y-16 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64">
     <div class="z-10 col-span-12 lg:col-span-10 xl:col-span-9">
       <h1
         class={`
@@ -32,9 +30,7 @@
       class="z-10 col-span-12 flex animate-in flex-col items-start delay-300
              duration-1000 ease-out fill-mode-both fade-in slide-in-from-bottom-4 lg:col-span-5 lg:col-start-8"
     >
-      <p
-        class="mb-10 text-xl leading-relaxed font-medium tracking-tight text-balance opacity-80 md:text-2xl"
-      >
+      <p class="mb-10 text-xl leading-relaxed font-medium tracking-tight text-balance opacity-80 md:text-2xl">
         {page.data.hero.description}
       </p>
 
@@ -55,14 +51,8 @@
     </div>
   </Container>
   <div class="pointer-events-none absolute inset-0 opacity-5">
-    <div
-      class="absolute left-6 h-full w-px bg-foreground md:left-12 lg:left-20 xl:left-32"
-    ></div>
-    <div
-      class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-foreground"
-    ></div>
-    <div
-      class="absolute right-6 h-full w-px bg-foreground md:right-12 lg:right-20 xl:right-32"
-    ></div>
+    <div class="absolute left-6 h-full w-px bg-foreground md:left-12 lg:left-20 xl:left-32"></div>
+    <div class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-foreground"></div>
+    <div class="absolute right-6 h-full w-px bg-foreground md:right-12 lg:right-20 xl:right-32"></div>
   </div>
 </section>
