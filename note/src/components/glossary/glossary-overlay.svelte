@@ -75,6 +75,7 @@
 
   const graphData = $derived<ForceGraphData | null>(activeSlug ? buildGraphData(activeSlug) : null)
   const relations = $derived(activeSlug ? getRelations(activeSlug) : [])
+  const hasRelations = $derived(relations.length > 0)
   const groupedRelations = $derived.by(() => {
     if (!relations || relations.length === 0)
       {return []}
@@ -240,21 +241,25 @@
     <div class='mt-1 space-y-0.5'>
       <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
     </div>
-    <div class={['grid gap-3', { 'md:grid-cols-2': !dense }]}>
-      <div class='rounded-xl border border-border/70 bg-surface/80 p-3 shadow-inner md:max-w-sm'>
-        <div class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
-          <span>Peta Relasi</span>
+    <div
+      class={['grid gap-3', { 'md:grid-cols-2': !dense && hasRelations }]}
+    >
+      {#if hasRelations}
+        <div class='rounded-xl border border-border/70 bg-surface/80 p-3 shadow-inner md:max-w-sm'>
+          <div class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
+            <span>Peta Relasi</span>
+          </div>
+          <div class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
+            {#if graphData}
+              <ForceGraph
+                graphData={graphData}
+                activeNodeId={detailSlug}
+                onSelect={handleGraphSelect}
+              />
+            {/if}
+          </div>
         </div>
-        <div class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
-          {#if graphData}
-            <ForceGraph
-              graphData={graphData}
-              activeNodeId={detailSlug}
-              onSelect={handleGraphSelect}
-            />
-          {/if}
-        </div>
-      </div>
+      {/if}
       <div class='rounded-xl border border-border/70 bg-surface/80 p-4'>
         <p class='text-xs font-semibold text-primary/80 uppercase'>Definisi</p>
         <p class='mt-2 text-sm leading-relaxed text-foreground-muted'>
@@ -266,11 +271,11 @@
         </p>
       </div>
     </div>
-    <div class='rounded-xl border border-border/60 bg-panel/70 p-3'>
-      <span class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
-        Koneksi
-      </span>
-      {#if groupedRelations.length}
+    {#if hasRelations}
+      <div class='rounded-xl border border-border/60 bg-panel/70 p-3'>
+        <span class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
+          Koneksi
+        </span>
         <div class='mt-3 space-y-3 text-sm'>
           {#each groupedRelations as group}
             <div class='grid grid-cols-2 gap-3 rounded-lg border border-border/60 bg-surface/80 p-3'>
@@ -294,10 +299,8 @@
             </div>
           {/each}
         </div>
-      {:else}
-        <p class='mt-3 text-sm text-foreground-muted'>Belum ada relasi tambahan untuk entri ini.</p>
-      {/if}
-    </div>
+      </div>
+    {/if}
   </div>
 {/snippet}
 
