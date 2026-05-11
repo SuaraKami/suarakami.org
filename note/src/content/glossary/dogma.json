@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Dogma",
+  "definition": "Ajaran atau pandangan yang dianggap sebagai kebenaran tetap dan jarang dipertanyakan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "dogmatis",
+      "type": "konsep_terkait"
+    }
+  ]
+}

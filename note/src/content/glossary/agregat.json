@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Agregat",
+  "definition": "Hasil gabungan dari banyak data, kasus, atau unsur individual.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

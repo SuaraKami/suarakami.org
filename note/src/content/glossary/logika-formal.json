@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Logika Formal",
+  "definition": "Cara penalaran yang mengikuti aturan hubungan argumen secara tertib dan konsisten.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "validitas",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "premis",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "inferensi",
+      "type": "konsep_terkait"
+    }
+  ]
+}

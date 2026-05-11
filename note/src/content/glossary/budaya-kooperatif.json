@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Budaya Kooperatif",
+  "definition": "Pola nilai dan kebiasaan yang menekankan kerja sama, saling bantu, dan tujuan bersama.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

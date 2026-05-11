@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Dominasi",
+  "definition": "Keadaan ketika satu pihak memiliki pengaruh atau kendali lebih besar atas pihak lain.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

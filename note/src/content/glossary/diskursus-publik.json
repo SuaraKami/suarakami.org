@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Diskursus Publik",
+  "definition": "Percakapan, perdebatan, dan arus gagasan yang beredar di ruang masyarakat luas.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "ruang-publik",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "opini-publik",
+      "type": "konsep_terkait"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Sesat Pikir",
+  "definition": "Kekeliruan dalam penalaran yang membuat kesimpulan menjadi tidak sahih.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "bias-kognitif",
+      "type": "konsep_terkait"
+    }
+  ]
+}

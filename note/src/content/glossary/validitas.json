@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Validitas",
+  "definition": "Kualitas argumen atau kesimpulan yang sah menurut aturan penalaran yang dipakai.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

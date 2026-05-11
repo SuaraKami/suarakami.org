@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Hegemoni",
+  "definition": "Dominasi yang bekerja lewat penerimaan sosial, budaya, atau wacana, bukan paksaan langsung saja.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "dominasi",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "kekuasaan",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "wacana",
+      "type": "konsep_terkait"
+    }
+  ]
+}

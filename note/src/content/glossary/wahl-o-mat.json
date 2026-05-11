@@ -4,14 +4,5 @@
   "definition": "Alat digital dari Komisi Pemilihan Federal Jerman yang membantu pemilih mencocokkan pandangan politiknya dengan program partai menjelang pemilu.",
   "lang": "ID",
   "aliases": [],
-  "relations": [
-    {
-      "to": "preferensi-politik",
-      "type": "konsep_terkait"
-    },
-    {
-      "to": "pemilu",
-      "type": "konsep_terkait"
-    }
-  ]
+  "relations": []
 }

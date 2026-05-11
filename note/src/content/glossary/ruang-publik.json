@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Ruang Publik",
+  "definition": "Ranah sosial tempat warga bertemu, berdiskusi, dan membentuk perhatian bersama.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "diskursus-publik",
+      "type": "konsep_terkait"
+    }
+  ]
+}

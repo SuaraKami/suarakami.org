@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Keadilan Substantif",
+  "definition": "Prinsip penilaian adil yang menekankan hasil dan isi keadilan, bukan sekadar kepatuhan prosedural.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "keadilan-prosedural",
+      "type": "konsep_terkait"
+    }
+  ]
+}

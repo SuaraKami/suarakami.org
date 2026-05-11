@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Monopoli Elit",
+  "definition": "Kendali akses, keputusan, atau sumber daya oleh kelompok kecil yang berkuasa.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "kekuasaan",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "dominasi",
+      "type": "konsep_terkait"
+    }
+  ]
+}

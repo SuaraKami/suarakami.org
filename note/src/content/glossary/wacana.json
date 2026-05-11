@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Wacana",
+  "definition": "Cara suatu topik dibicarakan, dibingkai, dan diberi makna dalam ruang sosial.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "diskursus-publik",
+      "type": "konsep_terkait"
+    },
+    {
+      "to": "hegemoni",
+      "type": "konsep_terkait"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kerangka Berpikir",
+  "definition": "Susunan konsep atau perspektif yang dipakai untuk memahami suatu persoalan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

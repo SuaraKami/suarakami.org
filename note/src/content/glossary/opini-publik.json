@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Opini Publik",
+  "definition": "Kecenderungan pendapat yang berkembang di tengah masyarakat mengenai isu tertentu.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "diskursus-publik",
+      "type": "konsep_terkait"
+    }
+  ]
+}

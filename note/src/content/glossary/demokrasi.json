@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Demokrasi",
+  "definition": "Sistem atau praktik pemerintahan di mana rakyat ikut menentukan keputusan publik secara langsung atau lewat wakil.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

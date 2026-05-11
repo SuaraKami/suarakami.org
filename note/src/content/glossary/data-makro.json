@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Data Makro",
+  "definition": "Data pada tingkat luas atau agregat, misalnya nasional, provinsi, atau populasi besar.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "agregat",
+      "type": "konsep_terkait"
+    }
+  ]
+}

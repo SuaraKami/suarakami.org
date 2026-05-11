@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Ideologi",
+  "definition": "Kumpulan gagasan dan nilai yang tersusun dan menjadi pedoman tindakan politik atau sosial.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

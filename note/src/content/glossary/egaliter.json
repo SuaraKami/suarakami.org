@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Egaliter",
+  "definition": "Menekankan kesetaraan derajat dan perlakuan antarmanusia.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "egalitarianisme",
+      "type": "konsep_terkait"
+    }
+  ]
+}

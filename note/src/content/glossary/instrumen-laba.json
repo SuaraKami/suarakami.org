@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Instrumen Laba",
+  "definition": "Sarana, kebijakan, atau praktik yang dipakai terutama untuk mengejar keuntungan finansial.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "komodifikasi",
+      "type": "konsep_terkait"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Pengalaman Mikro",
+  "definition": "Pengalaman langsung pada level individu, sehari-hari, dan sangat kontekstual.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "realitas-keseharian",
+      "type": "konsep_terkait"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Defisit Informasi",
+  "definition": "Kondisi ketika informasi yang tersedia kurang, tidak lengkap, atau tidak seimbang untuk mengambil keputusan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

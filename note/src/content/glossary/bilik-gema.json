@@ -6,8 +6,8 @@
   "aliases": [],
   "relations": [
     {
-      "to": "introspeksi",
-      "type": "sinonim"
+      "to": "bias-kognitif",
+      "type": "konsep_terkait"
     },
     {
       "to": "kesadaran-reflektif",

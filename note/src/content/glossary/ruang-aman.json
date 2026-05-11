@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Ruang Aman",
+  "definition": "Lingkungan yang memungkinkan orang berpartisipasi tanpa intimidasi, penghinaan, atau ancaman.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

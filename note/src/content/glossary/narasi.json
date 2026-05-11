@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Narasi",
+  "definition": "Susunan cerita atau bingkai makna yang dipakai untuk menjelaskan peristiwa atau isu.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

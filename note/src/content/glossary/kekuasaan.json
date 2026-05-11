@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kekuasaan",
+  "definition": "Kemampuan untuk memengaruhi keputusan, tindakan, atau arah sosial pihak lain.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

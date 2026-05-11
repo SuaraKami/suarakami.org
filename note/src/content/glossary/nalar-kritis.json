@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Nalar Kritis",
+  "definition": "Kemampuan menilai gagasan secara cermat, membandingkan bukti, dan menguji asumsi.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "kritis",
+      "type": "konsep_terkait"
+    }
+  ]
+}

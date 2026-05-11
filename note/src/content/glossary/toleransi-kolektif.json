@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Toleransi Kolektif",
+  "definition": "Batas penerimaan bersama dalam suatu kelompok terhadap perbedaan atau keputusan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "pluralisme",
+      "type": "konsep_terkait"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Kebijakan Sistemik",
+  "definition": "Kebijakan yang dirancang untuk memengaruhi struktur, bukan hanya gejala; menyasar akar dan relasi antarfaktor.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "regulasi",
+      "type": "konsep_terkait"
+    }
+  ]
+}

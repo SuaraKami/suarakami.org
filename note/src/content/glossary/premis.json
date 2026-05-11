@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Premis",
+  "definition": "Pernyataan dasar yang menjadi landasan dalam suatu argumen.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

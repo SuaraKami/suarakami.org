@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Budaya Politik",
+  "definition": "Pola nilai, sikap, dan kebiasaan masyarakat dalam memandang serta menjalankan politik.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "lanskap-demokrasi",
+      "type": "konsep_terkait"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Regulasi",
+  "definition": "Peraturan atau ketentuan yang mengatur perilaku, proses, atau pelaksanaan.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "kebijakan-sistemik",
+      "type": "konsep_terkait"
+    }
+  ]
+}

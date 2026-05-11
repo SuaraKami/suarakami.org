@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Data Elektoral",
+  "definition": "Data yang berkaitan dengan pemilu, perilaku pemilih, atau hasil elektoral.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": []
+}

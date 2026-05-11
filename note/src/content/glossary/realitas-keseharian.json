@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../.astro/collections/glossary.schema.json",
+  "term": "Realitas Keseharian",
+  "definition": "Keadaan hidup sehari-hari yang dialami langsung dalam praktik, bukan sekadar konsep abstrak.",
+  "lang": "ID",
+  "aliases": [],
+  "relations": [
+    {
+      "to": "pengalaman-mikro",
+      "type": "konsep_terkait"
+    }
+  ]
+}
