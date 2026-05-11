@@ -14,7 +14,7 @@ history:
 
 Salah satu masalah fundamental di masyarakat adalah ketidakmampuan menarik garis hubung antara realitas keseharian dan kebijakan sistemik. Kegagalan mendiagnosis akar persoalan ini membuat kita rabun dalam menilai ketepatan solusi. Kita kerap disuguhi kebijakan yang seolah hadir sebagai jawaban, padahal itu hanyalah jalan pintas yang dipilih penguasa untuk meredam keriuhan tanpa menyentuh akar persoalan.
 
-Dalam kekaburan pandangan ini, masyarakat akan mudah terbuai oleh solusi-solusi instan yang sifatnya kosmetik, alih-alih menuntut keadilan yang substantif. Menyadari hal ini, SuaraKami menempuh jalur pendidikan kritis. Melalui dialektika dalam forum-forum, kami bertujuan untuk membangun kesadaran berpikir kritis, tidak hanya untuk membedah realitas sosial yang tampak di permukaan, tetapi juga untuk menguak dominasi tersembunyi yang seringkali tidak disadari dalam budaya yang telah mapan. Dengan itu, masyarakat dapat lebih jernih melihat apakah solusi yang ditawarkan benar-benar menyembuhkan atau sekedar meninabobokan.
+Dalam kekaburan pandangan ini, masyarakat akan mudah terbuai oleh solusi-solusi instan yang sifatnya kosmetik, alih-alih menuntut keadilan yang substantif. Menyadari hal ini, SuaraKami menempuh jalur pendidikan kritis. Melalui dialektika dalam forum-forum, kami bertujuan untuk membangun kesadaran berpikir kritis, tidak hanya untuk membedah realitas sosial yang tampak di permukaan, tetapi juga untuk mengenali bagaimana nalar kita dalam menilai solusi turut dibentuk oleh kepentingan yang sama yang menghadirkan solusi itu. Dengan itu, masyarakat dapat lebih jernih melihat apakah solusi yang ditawarkan benar-benar menyembuhkan atau sekedar meninabobokan.
 
 ## Dialektika Inklusif
 
