@@ -3,6 +3,7 @@
   import type {
     ForceGraphConfig,
     ForceGraphData,
+    GraphInstance,
     GraphLink,
     GraphPalette,
     GraphSelectionPayload,
@@ -73,9 +74,6 @@
     ],
   }
 
-  let lastGraphData: ForceGraphData | null = null
-  let lastNormalized: NormalizedGraph | null = null
-
   interface Props {
     graphData?: ForceGraphData
     config?: ForceGraphConfig
@@ -93,6 +91,11 @@
   }: Props = $props()
 
   let stageEl = $state<HTMLDivElement | null>(null)
+  let graphInstance = $state.raw<GraphInstance | null>(null)
+  let latestOnSelect: (payload: GraphSelectionPayload) => void = () => {
+    // no-op
+  }
+  let latestActiveNodeId: string | null = null
   // svelte-ignore state_referenced_locally
   let hasRenderableGraph = $state(Boolean(graphData?.nodes?.length))
 
@@ -111,16 +114,6 @@
       .map(link => ({ source: link.source, target: link.target }))
 
     return { links, nodes }
-  }
-
-  function getNormalizedGraph(data: ForceGraphData): NormalizedGraph {
-    if (data === lastGraphData && lastNormalized) {
-      return lastNormalized
-    }
-    const normalized = normalizeGraphData(data)
-    lastGraphData = data
-    lastNormalized = normalized
-    return normalized
   }
 
   function computeDegreeMap(links: GraphLink[]) {
@@ -192,8 +185,8 @@
     }
   }
 
-  async function renderGraph(host: HTMLElement, options: RenderOptions) {
-    const { data, config: renderConfig, activeNodeId: renderActiveId, onNodeSelect } = options
+  async function createGraph(host: HTMLElement, options: RenderOptions): Promise<GraphInstance | null> {
+    const { data, config: renderConfig, isDisposed, onNodeSelect } = options
 
     const width = host.clientWidth || host.offsetWidth || 640
     const height = Math.max(host.clientHeight || host.offsetHeight || 320, 320)
@@ -210,7 +203,12 @@
       resolution: window.devicePixelRatio || 1,
       width,
     })
-    host.append(app.canvas)
+    if (isDisposed()) {
+      app.destroy(true, { children: true })
+      return null
+    }
+    const canvas = app.canvas
+    host.append(canvas)
 
     const {stage} = app
     stage.interactive = false
@@ -386,7 +384,7 @@
         hitArea: new Circle(0, 0, radius + 8),
       })
 
-      drawNode(gfx, radius, palette, node, renderActiveId)
+      drawNode(gfx, radius, palette, node, null)
 
       gfx
         .on('pointerover', () => {
@@ -420,12 +418,12 @@
     }
 
     type DragDatum = NormalizedNode | undefined
-    const canvasSelection = select<HTMLCanvasElement, DragDatum>(app.canvas)
+    const canvasSelection = select<HTMLCanvasElement, DragDatum>(canvas)
 
     if (renderConfig.drag) {
       canvasSelection.call(
         drag<HTMLCanvasElement, DragDatum>()
-          .container(() => app.canvas)
+          .container(() => canvas)
           .subject(() => hoveredNode ?? undefined)
           .on('start', (event) => {
             if (!event.active)
@@ -531,7 +529,14 @@
 
     frameRef = requestAnimationFrame(animate)
 
-    return () => {
+    function setActiveNode(id: string | null) {
+      for (const renderNode of nodeRenderData) {
+        const radius = nodeRadius(renderNode.simulationData, degreeMap)
+        drawNode(renderNode.gfx, radius, palette, renderNode.simulationData, id)
+      }
+    }
+
+    function destroy() {
       stopAnimation = true
       if (frameRef)
         {cancelAnimationFrame(frameRef)}
@@ -540,16 +545,26 @@
       simulation.stop()
       canvasSelection.on('.drag', null)
       canvasSelection.on('.zoom', null)
+      canvas.remove()
       app.destroy(true, { children: true })
-      host.replaceChildren()
+    }
+
+    return {
+      destroy,
+      setActiveNode,
     }
   }
 
   $effect(() => {
+    latestOnSelect = onSelect
+  })
+
+  $effect(() => {
     if (!stageEl || typeof window === 'undefined')
       {return}
+    const host = stageEl
 
-    const normalized = getNormalizedGraph(graphData)
+    const normalized = normalizeGraphData(graphData)
     const mergedConfig = { ...defaultGraphConfig, ...config }
     hasRenderableGraph = normalized.nodes.length > 0
     if (!hasRenderableGraph) {
@@ -558,24 +573,37 @@
     }
 
     let disposed = false
-    let localCleanup: (() => void) | null = null;
+    let localInstance: GraphInstance | null = null
 
-    (async () => {
-      localCleanup = await renderGraph(stageEl, {
-        activeNodeId,
+    ;(async () => {
+      const instance = await createGraph(host, {
         config: mergedConfig,
         data: normalized,
-        onNodeSelect: onSelect,
+        isDisposed: () => disposed,
+        onNodeSelect: payload => latestOnSelect(payload),
       })
-      if (disposed) {
-        localCleanup?.()
+      if (!instance) {
+        return
       }
+      if (disposed) {
+        instance.destroy()
+        return
+      }
+      instance.setActiveNode(latestActiveNodeId)
+      localInstance = instance
+      graphInstance = instance
     })()
 
     return () => {
       disposed = true
-      localCleanup?.()
+      localInstance?.destroy()
+      graphInstance = null
     }
+  })
+
+  $effect(() => {
+    latestActiveNodeId = activeNodeId
+    graphInstance?.setActiveNode(activeNodeId)
   })
 </script>
 

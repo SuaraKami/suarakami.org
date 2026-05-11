@@ -109,11 +109,21 @@
   const isMobile = useIsMobile()
   const isGlossaryEnabled = $derived(glossaryPreference.current)
 
-  function resetActive() {
+  function closeOverlay() {
+    // Keep content state while Bits UI closes; clearing it here swaps the panel
+    // to the empty state before the overlay is gone and makes the graph flicker.
     glossaryStates.isOpen = false
+  }
+
+  function clearOverlayContent() {
     anchorEl = null
     activeSlug = null
     detailSlug = null
+  }
+
+  function resetOverlayImmediately() {
+    closeOverlay()
+    clearOverlayContent()
   }
 
   function openFor(target: HTMLElement | null, slug: string) {
@@ -125,12 +135,12 @@
   }
 
   function closeAll() {
-    resetActive()
+    closeOverlay()
   }
 
   function handleVisibilityChange(next: boolean) {
     if (!next)
-      {resetActive()}
+      {closeOverlay()}
   }
 
   function focusRelation(slug: string | null) {
@@ -152,7 +162,7 @@
 
   $effect(() => {
     if (!isGlossaryEnabled) {
-      resetActive()
+      resetOverlayImmediately()
     }
   })
 </script>
@@ -202,7 +212,7 @@
             >
               <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-border/40'></div>
               <ScrollArea.Root class='pr-1'>
-                <ScrollArea.Viewport class='max-h-[90vh] rounded-t-3xl p-4 pr-3 pb-6'>
+                <ScrollArea.Viewport class='max-h-[70vh] rounded-t-3xl p-4 pr-3 pb-6'>
                   <div class='mx-auto max-w-xl space-y-4 pb-4'>
                     <div class='flex items-center justify-between gap-4'>
                       <p class='text-xs font-semibold text-foreground-muted uppercase'>Glosarium</p>

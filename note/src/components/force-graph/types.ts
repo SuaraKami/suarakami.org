@@ -97,8 +97,13 @@ export interface LinkRenderData {
 export interface RenderOptions {
   data: NormalizedGraph
   config: Required<ForceGraphConfig>
-  activeNodeId: string | null
+  isDisposed: () => boolean
   onNodeSelect: (payload: GraphSelectionPayload) => void
+}
+
+export interface GraphInstance {
+  destroy: () => void
+  setActiveNode: (id: string | null) => void
 }
 
 export interface TweenHandle {
