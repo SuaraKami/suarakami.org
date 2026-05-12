@@ -8,6 +8,8 @@
     forceManyBody,
     forceRadial,
     forceSimulation,
+    rollup,
+    scaleLinear,
     select,
     zoom,
     zoomIdentity,
@@ -84,17 +86,14 @@
   }
 
   function computeDegreeMap(links: NormalizedLink[]) {
-    const degree = new Map<string, number>()
-    for (const link of links) {
-      const sourceId = endpointId(link.source)
-      const targetId = endpointId(link.target)
-      degree.set(sourceId, (degree.get(sourceId) ?? 0) + 1)
-      degree.set(targetId, (degree.get(targetId) ?? 0) + 1)
-    }
-    return degree
+    return rollup(
+      links.flatMap(link => [endpointId(link.source), endpointId(link.target)]),
+      ids => ids.length,
+      id => id,
+    )
   }
 
-  function nodeRadius(node: NormalizedNode, degreeMap: Map<string, number>) {
+  function nodeRadius(node: NormalizedNode, degreeMap: ReadonlyMap<string, number>) {
     const degree = degreeMap.get(node.id) ?? 1
     return (node.kind === 'tag' ? 2 : 4) + Math.sqrt(degree + 1) * 2.1
   }
@@ -129,9 +128,14 @@
   }
 
   function centerInitialPositions(nodes: NormalizedNode[], width: number, height: number) {
-    for (const node of nodes) {
-      node.x = (node.x ?? 0) + width / 2
-      node.y = (node.y ?? 0) + height / 2
+    const centerX = width / 2
+    const centerY = height / 2
+    const angleStep = Math.PI * (3 - Math.sqrt(5))
+    for (const [index, node] of nodes.entries()) {
+      const radius = Math.sqrt(index) * 4
+      const angle = index * angleStep
+      node.x = centerX + Math.cos(angle) * radius
+      node.y = centerY + Math.sin(angle) * radius
     }
   }
 
@@ -157,9 +161,8 @@
     const degreeMap = computeDegreeMap(data.links)
     const nodes = data.nodes
     const links = data.links
-    const simulation: Simulation<NormalizedNode, NormalizedLink> = forceSimulation(nodes)
     centerInitialPositions(nodes, width, height)
-    simulation
+    const simulation: Simulation<NormalizedNode, NormalizedLink> = forceSimulation(nodes)
       .force('charge', forceManyBody().strength(-100 * renderConfig.repelForce))
       .force('center', forceCenter(width / 2, height / 2).strength(renderConfig.centerForce))
       .force('link', forceLink<NormalizedNode, NormalizedLink>(links).id(d => d.id).distance(renderConfig.linkDistance))
@@ -188,18 +191,21 @@
     let currentTransform = zoomIdentity
     let hoveredNode: NormalizedNode | null = null
     let activeId = null as string | null
+    const zoomProgressScale = scaleLinear().domain([1, 4.75]).range([0, 1]).clamp(true)
+
+    function zoomProgress() {
+      return zoomProgressScale(currentTransform.k * renderConfig.opacityScale)
+    }
 
     function labelOpacity(node: NormalizedNode) {
       if (hoveredNode?.id === node.id) { return 1 }
-      const zoomOpacity = Math.max(((currentTransform.k * renderConfig.opacityScale) - 1) / 3.75, 0)
-      return Math.min(zoomOpacity, 1)
+      return zoomProgress()
     }
 
     function labelScale(node: NormalizedNode) {
       const baseScale = 1 / renderConfig.scale
-      const zoomProgress = Math.min(Math.max(((currentTransform.k * renderConfig.opacityScale) - 1) / 3.75, 0), 1)
       const hoverBoost = hoveredNode?.id === node.id ? 0.1 : 0
-      return baseScale * (1 + (zoomProgress * 0.45) + hoverBoost)
+      return baseScale * (1 + (zoomProgress() * 0.05) + hoverBoost)
     }
 
     function updateLabels() {
@@ -282,9 +288,7 @@
           d.fx = null
           d.fy = null
         })
-      nodeSelection.each(function dragSetup() {
-        select(this as SVGCircleElement).call(dragBehavior as never)
-      })
+      nodeSelection.call(dragBehavior as never)
     }
 
     const zoomBehavior = zoom<SVGSVGElement, unknown>()
@@ -334,7 +338,6 @@
     const instance = createGraph(hostEl, { config: mergedConfig, data: normalized, isDisposed: () => disposed, onNodeSelect: onSelect })
     if (!instance) { return }
     graphInstance = instance
-    instance.setActiveNode(activeNodeId)
 
     return () => {
       disposed = true
