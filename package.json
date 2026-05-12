@@ -6,6 +6,7 @@
     "note/",
     "web/"
   ],
+  "type": "module",
   "scripts": {
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
