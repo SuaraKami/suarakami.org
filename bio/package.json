@@ -11,17 +11,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "10.0.1",
-    "@playform/compress": "^0.2.2",
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "6.0.5",
+    "@astrojs/vercel": "10.0.6",
+    "@playform/compress": "^0.2.3",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "6.3.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.2.1"
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.98",
-    "@iconify-json/simple-icons": "^1.2.74",
+    "@iconify-json/lucide": "^1.2.107",
+    "@iconify-json/simple-icons": "^1.2.82",
     "astro-icon": "^1.1.5"
   }
 }
