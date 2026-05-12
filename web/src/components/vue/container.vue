@@ -7,7 +7,6 @@ interface ContainerProps {
   strategy?: 'margin' | 'padding'
 }
 
-
 const {
   className = '',
   grid = false,

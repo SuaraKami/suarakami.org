@@ -3,10 +3,10 @@ import type { CollectionEntry } from 'astro:content'
 import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
 
 import type { LanguageKeys } from '@/i18n'
+
 import { cn } from '@/lib/utils'
 
 type EventItem = CollectionEntry<'event'>
-
 
 export interface AccordionProps<T extends EventItem = EventItem> extends Pick<
   AccordionRootProps,
@@ -45,7 +45,6 @@ const props = withDefaults(defineProps<AccordionProps<T>>(), {
 })
 const emits = defineEmits<AccordionRootEmits>()
 
-
 const rootProps = useForwardPropsEmits(
   reactivePick(
     props,
@@ -57,7 +56,6 @@ const rootProps = useForwardPropsEmits(
   ),
   emits
 )
-
 
 const datesString = computed(() =>
   props.items.map(({ data: { dates } }) =>

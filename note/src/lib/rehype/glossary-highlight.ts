@@ -1,8 +1,8 @@
+import type { Element, Root, Text } from 'hast'
+
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-
-import type { Element, Root, Text } from 'hast'
 import { visitParents } from 'unist-util-visit-parents'
 
 const DEFAULT_GLOSSARY_DIR = path.resolve(
@@ -53,8 +53,8 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
     }
     const filepath = path.join(directory, file)
     try {
-      const raw = JSON.parse(fs.readFileSync(filepath, 'utf8'))
-      const slug = file.replace(/\.json$/, '')
+      const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
+      const slug = file.replace(/\.json$/u, '')
       const base = [raw.term, ...(raw.aliases ?? [])]
       for (const candidate of base) {
         const normalized = typeof candidate === 'string' ? candidate.trim() : ''

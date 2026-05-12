@@ -7,15 +7,12 @@ import ClientOnly from './client-only.vue'
 const { x, y } = useMouse({ type: 'client' })
 const isHoveringLink = ref(false)
 
-
 const hasHover = useMediaQuery('(hover: hover) and (pointer: fine)')
-
 
 const cursorStyle = computed(() => ({
   left: `${x.value}px`,
   top: `${y.value}px`,
 }))
-
 
 function checkHoverTarget(event: MouseEvent, isEntering: boolean) {
   const target = event.target as HTMLElement
@@ -23,7 +20,6 @@ function checkHoverTarget(event: MouseEvent, isEntering: boolean) {
     isHoveringLink.value = isEntering
   }
 }
-
 
 useEventListener(document, 'mouseover', (event) =>
   checkHoverTarget(event, true)

@@ -1,8 +1,8 @@
-import { defineConfig } from "oxlint";
-import astro from "ultracite/oxlint/astro";
-import core from "ultracite/oxlint/core";
-import svelte from "ultracite/oxlint/svelte";
-import vue from "ultracite/oxlint/vue";
+import { defineConfig } from 'oxlint'
+import astro from 'ultracite/oxlint/astro'
+import core from 'ultracite/oxlint/core'
+import svelte from 'ultracite/oxlint/svelte'
+import vue from 'ultracite/oxlint/vue'
 
 export default defineConfig({
   categories: {},
@@ -14,21 +14,21 @@ export default defineConfig({
   ignorePatterns: [],
   overrides: [
     {
-      files: ["*.svelte"],
+      files: ['*.svelte'],
       rules: {
-        "prefer-const": "off",
+        'prefer-const': 'off',
       },
     },
     {
-      files: ["*.vue"],
+      files: ['*.vue'],
       rules: {
-        "vue/max-props": "off",
+        'vue/max-props': 'off',
       },
     },
   ],
   rules: {
-    "func-style": "off",
-    "prefer-destructuring": "off",
-    "unicorn/prefer-array-find": "off",
+    'func-style': 'off',
+    'prefer-destructuring': 'off',
+    'unicorn/prefer-array-find': 'off',
   },
-});
+})

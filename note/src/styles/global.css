@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 :root {
   --bg-app: #1e1e1e;
@@ -50,7 +50,7 @@
 }
 
 body {
-  @apply bg-background text-foreground font-sans antialiased;
+  @apply bg-background font-sans text-foreground antialiased;
 }
 
 *,

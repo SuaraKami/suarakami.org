@@ -1,6 +1,7 @@
 import { siteConfig } from '@/site.config'
 
 import type { LanguageKeys } from './ui'
+
 import { ui } from './ui'
 
 const { defaultLang, showDefaultLang } = siteConfig.i18n
@@ -38,7 +39,7 @@ export function getPathWithoutLang(pathname: string) {
 export function useTranslatedPath(lang: LanguageKeys) {
   return function translatePath(path: string, l: string = lang) {
     let pathName = path.startsWith('/') ? path : `/${path}`
-    pathName = pathName.replaceAll(/\/+/g, '/')
+    pathName = pathName.replaceAll(/\/+/gu, '/')
 
     if (pathName === '/') {
       return !showDefaultLang && l === defaultLang ? '/' : `/${l}`

@@ -1,12 +1,12 @@
-import { defineConfig } from "oxfmt";
+import { defineConfig } from 'oxfmt'
 
-import rootConfig from "../oxfmt.config.ts";
+import rootConfig from '../oxfmt.config.ts'
 
 export default defineConfig({
   ...rootConfig,
   sortTailwindcss: {
-    functions: ["clsx", "cn"],
+    functions: ['clsx', 'cn'],
     preserveWhitespace: true,
-    stylesheet: "./src/styles/global.css",
+    stylesheet: './src/styles/global.css',
   },
-});
+})

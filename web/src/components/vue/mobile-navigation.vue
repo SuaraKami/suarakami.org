@@ -15,6 +15,7 @@ import Mail from '~icons/lucide/mail'
 import X from '~icons/lucide/x'
 
 import type { LanguageKeys } from '@/i18n'
+
 import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 
@@ -25,7 +26,6 @@ import TimeLocal from './time-local.vue'
 const { lang } = defineProps<{
   lang: LanguageKeys
 }>()
-
 
 const { navigation, socialMediaLinks, email, footer } = siteConfig
 const t = useTranslations(lang)

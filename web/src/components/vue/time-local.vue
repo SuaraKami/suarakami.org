@@ -2,8 +2,9 @@
 import { computed } from 'vue'
 
 import type { FormatDateOptions } from '@/composables/use-format-date'
-import { useFormatDate } from '@/composables/use-format-date'
 import type { LanguageKeys } from '@/i18n'
+
+import { useFormatDate } from '@/composables/use-format-date'
 
 interface Props extends FormatDateOptions {
   lang?: LanguageKeys
@@ -11,12 +12,9 @@ interface Props extends FormatDateOptions {
   title?: boolean | string
 }
 
-
 const { datetime, lang, ...formatOptions } = defineProps<Props>()
 
-
 const { formattedDate, isoDate } = useFormatDate(datetime, lang, formatOptions)
-
 
 const title = computed(() => {
   if (formatOptions.title === true) {
