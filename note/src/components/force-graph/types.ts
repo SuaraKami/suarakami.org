@@ -1,5 +1,4 @@
 import type { SimulationLinkDatum, SimulationNodeDatum } from 'd3'
-import type { Graphics, Text } from 'pixi.js'
 
 export type GraphNodeKind = 'page' | 'tag'
 
@@ -43,6 +42,8 @@ export interface GraphSelectionPayload {
   slug?: string | null
 }
 
+export type GraphSelectHandler = (payload: GraphSelectionPayload) => void
+
 export interface GraphPalette {
   current: string
   tagFill: string
@@ -58,55 +59,18 @@ export interface NormalizedNode extends ForceGraphNode, SimulationNodeDatum {
   label: string
   tags: string[]
   kind: GraphNodeKind
-  __initialDragPos?: {
-    x: number
-    y: number
-    fx: number | null
-    fy: number | null
-  }
 }
 
-export interface NormalizedLink
-  extends ForceGraphLink, SimulationLinkDatum<NormalizedNode> {
-  source: string
-  target: string
-}
+export type NormalizedLinkEndpoint = ForceGraphLink['source'] | NormalizedNode
+
+export type NormalizedLink = Omit<ForceGraphLink, 'source' | 'target'>
+  & SimulationLinkDatum<NormalizedNode>
+  & {
+    source: NormalizedLinkEndpoint
+    target: NormalizedLinkEndpoint
+  }
 
 export interface NormalizedGraph {
   nodes: NormalizedNode[]
   links: NormalizedLink[]
-}
-
-export type GraphLink = ForceGraphLink
-
-export interface NodeRenderData {
-  simulationData: NormalizedNode
-  gfx: Graphics
-  label: Text
-  active: boolean
-}
-
-export interface LinkRenderData {
-  simulationData: SimulationLinkDatum<NormalizedNode>
-  gfx: Graphics
-  color: string | number
-  alpha: number
-  active: boolean
-}
-
-export interface RenderOptions {
-  data: NormalizedGraph
-  config: Required<ForceGraphConfig>
-  isDisposed: () => boolean
-  onNodeSelect: (payload: GraphSelectionPayload) => void
-}
-
-export interface GraphInstance {
-  destroy: () => void
-  setActiveNode: (id: string | null) => void
-}
-
-export interface TweenHandle {
-  update: (time: number) => void
-  stop: () => void
 }

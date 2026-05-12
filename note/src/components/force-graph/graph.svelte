@@ -1,21 +1,5 @@
 <script lang='ts'>
   import type { Simulation } from 'd3'
-  import type {
-    ForceGraphConfig,
-    ForceGraphData,
-    GraphInstance,
-    GraphLink,
-    GraphPalette,
-    GraphSelectionPayload,
-    LinkRenderData,
-    NodeRenderData,
-    NormalizedGraph,
-    NormalizedLink,
-    NormalizedNode,
-    RenderOptions,
-    TweenHandle,
-  } from './types'
-  import { Tween as Tweened, Group as TweenGroup } from '@tweenjs/tween.js'
   import {
     drag,
     forceCenter,
@@ -28,7 +12,17 @@
     zoom,
     zoomIdentity,
   } from 'd3'
-  import { Application, Circle, Container, Graphics, Text } from 'pixi.js'
+  import type {
+    ForceGraphConfig,
+    ForceGraphData,
+    GraphPalette,
+    GraphSelectHandler,
+    GraphSelectionPayload,
+    NormalizedGraph,
+    NormalizedLink,
+    NormalizedLinkEndpoint,
+    NormalizedNode,
+  } from './types'
 
   const defaultGraphConfig: Required<ForceGraphConfig> = {
     centerForce: 0.2,
@@ -45,125 +39,75 @@
     zoom: true,
   }
 
-  const sampleGraph: ForceGraphData = {
-    links: [
-      { source: 'configuration', target: 'editor' },
-      { source: 'configuration', target: 'synchronization' },
-      { source: 'configuration', target: 'deploy' },
-      { source: 'configuration', target: 'state' },
-      { source: 'editor', target: 'linting' },
-      { source: 'linting', target: 'glossary' },
-      { source: 'design-system', target: 'themes' },
-      { source: 'design-system', target: 'glossary' },
-      { source: 'deploy', target: 'shortcuts' },
-      { source: 'glossary', target: 'shortcuts' },
-      { source: 'state', target: 'design-system' },
-      { source: 'themes', target: 'synchronization' },
-    ],
-    nodes: [
-      { id: 'configuration', label: 'Configuration' },
-      { id: 'editor', label: 'Editor Setup' },
-      { id: 'synchronization', label: 'Sync' },
-      { id: 'deploy', label: 'Deployment' },
-      { id: 'design-system', label: 'Design System' },
-      { id: 'glossary', label: 'Glossary' },
-      { id: 'linting', label: 'Linting' },
-      { id: 'state', label: 'State Layer' },
-      { id: 'themes', label: 'Themes' },
-      { id: 'shortcuts', label: 'Shortcuts' },
-    ],
-  }
-
   interface Props {
     graphData?: ForceGraphData
     config?: ForceGraphConfig
     activeNodeId?: string | null
-    onSelect?: (payload: GraphSelectionPayload) => void
+    onSelect?: GraphSelectHandler
   }
 
-  const {
-    graphData = sampleGraph,
-    config = {},
-    activeNodeId = null,
-    onSelect = (() => {
-      // no-op
-    }) as (payload: GraphSelectionPayload) => void,
-  }: Props = $props()
-
-  let stageEl = $state<HTMLDivElement | null>(null)
-  let graphInstance = $state.raw<GraphInstance | null>(null)
-  let latestOnSelect: (payload: GraphSelectionPayload) => void = () => {
-    // no-op
+  interface LocalGraphInstance {
+    destroy: () => void
+    setActiveNode: (id: string | null) => void
   }
-  let latestActiveNodeId: string | null = null
-  // svelte-ignore state_referenced_locally
-  let hasRenderableGraph = $state(Boolean(graphData?.nodes?.length))
+
+  interface CreateGraphOptions {
+    data: NormalizedGraph
+    config: Required<ForceGraphConfig>
+    onNodeSelect?: GraphSelectHandler
+    isDisposed: () => boolean
+  }
+
+  const { graphData = { links: [], nodes: [] }, config = {}, activeNodeId = null, onSelect }: Props = $props()
+
+  let hostEl = $state<HTMLDivElement | null>(null)
+  let graphInstance = $state.raw<LocalGraphInstance | null>(null)
+  const hasRenderableGraph = $derived(Boolean(graphData?.nodes?.length))
 
   function normalizeGraphData(data: ForceGraphData): NormalizedGraph {
-    const nodes: NormalizedNode[] = data.nodes.map(node => ({
+    const nodes = data.nodes.map(node => ({
       id: node.id,
       kind: node.kind ?? (node.id.startsWith('tag:') ? 'tag' : 'page'),
       label: node.label ?? node.id,
       slug: node.slug,
       tags: node.tags ?? [],
     }))
-
     const validIds = new Set(nodes.map(node => node.id))
     const links: NormalizedLink[] = data.links
       .filter(link => validIds.has(link.source) && validIds.has(link.target))
-      .map(link => ({ source: link.source, target: link.target }))
-
+      .map(link => ({ ...link }))
     return { links, nodes }
   }
 
-  function computeDegreeMap(links: GraphLink[]) {
+  function endpointId(value: NormalizedLinkEndpoint) {
+    return typeof value === 'string' ? value : value.id
+  }
+
+  function computeDegreeMap(links: NormalizedLink[]) {
     const degree = new Map<string, number>()
     for (const link of links) {
-      degree.set(link.source, (degree.get(link.source) ?? 0) + 1)
-      degree.set(link.target, (degree.get(link.target) ?? 0) + 1)
+      const sourceId = endpointId(link.source)
+      const targetId = endpointId(link.target)
+      degree.set(sourceId, (degree.get(sourceId) ?? 0) + 1)
+      degree.set(targetId, (degree.get(targetId) ?? 0) + 1)
     }
     return degree
   }
 
   function nodeRadius(node: NormalizedNode, degreeMap: Map<string, number>) {
     const degree = degreeMap.get(node.id) ?? 1
-    const base = node.kind === 'tag' ? 2 : 4
-    return base + Math.sqrt(degree + 1) * 2.1
+    return (node.kind === 'tag' ? 2 : 4) + Math.sqrt(degree + 1) * 2.1
   }
 
-  function getNodeColor(
-    node: NormalizedNode,
-    palette: GraphPalette,
-    selectedId: string | null,
-  ) {
-    if (node.id === selectedId)
-      {return palette.current}
-    if (node.kind === 'tag')
-      {return palette.tagFill}
+  function getNodeColor(node: NormalizedNode, palette: GraphPalette, selectedId: string | null) {
+    if (node.id === selectedId) { return palette.current }
+    if (node.kind === 'tag') { return palette.tagFill }
     return palette.neutral
-  }
-
-  function drawNode(
-    gfx: Graphics,
-    radius: number,
-    palette: GraphPalette,
-    node: NormalizedNode,
-    selectedId: string | null,
-  ) {
-    gfx.clear()
-    const fill = getNodeColor(node, palette, selectedId)
-    gfx.circle(0, 0, radius)
-    gfx.fill({ color: fill })
-    if (node.kind === 'tag') {
-      gfx.stroke({ color: palette.tagBorder, width: 2 })
-    }
-    gfx.hitArea = new Circle(0, 0, radius + 8)
   }
 
   function readPalette(): GraphPalette {
     const styles = getComputedStyle(document.documentElement)
-    const fallback = (key: string, value: string) =>
-      styles.getPropertyValue(key)?.trim() || value
+    const fallback = (key: string, value: string) => styles.getPropertyValue(key)?.trim() || value
     return {
       current: fallback('--accent-primary', '#9b87ff'),
       fontFamily: fallback('--font-sans', 'Inter, sans-serif'),
@@ -177,444 +121,237 @@
   }
 
   function extractSelection(node: NormalizedNode): GraphSelectionPayload {
-    return {
-      id: node.id,
-      label: node.label,
-      slug: node.slug,
-      tags: node.tags,
+    return { id: node.id, label: node.label, slug: node.slug, tags: node.tags }
+  }
+
+  function getEndpointNode(value: NormalizedLinkEndpoint) {
+    return typeof value === 'string' ? null : value
+  }
+
+  function centerInitialPositions(nodes: NormalizedNode[], width: number, height: number) {
+    for (const node of nodes) {
+      node.x = (node.x ?? 0) + width / 2
+      node.y = (node.y ?? 0) + height / 2
     }
   }
 
-  async function createGraph(host: HTMLElement, options: RenderOptions): Promise<GraphInstance | null> {
-    const { data, config: renderConfig, isDisposed, onNodeSelect } = options
-
+  function createGraph(host: HTMLElement, options: CreateGraphOptions): LocalGraphInstance | null {
+    const { data, config: renderConfig, onNodeSelect, isDisposed } = options
     const width = host.clientWidth || host.offsetWidth || 640
     const height = Math.max(host.clientHeight || host.offsetHeight || 320, 320)
-
     host.replaceChildren()
 
-    const app = new Application()
-    await app.init({
-      antialias: true,
-      autoDensity: true,
-      backgroundAlpha: 0,
-      eventMode: 'static',
-      height,
-      resolution: window.devicePixelRatio || 1,
-      width,
-    })
-    if (isDisposed()) {
-      app.destroy(true, { children: true })
-      return null
-    }
-    const canvas = app.canvas
-    host.append(canvas)
+    const svg = select(host).append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet')
+      .style('display', 'block')
+      .style('overflow', 'visible')
 
-    const {stage} = app
-    stage.interactive = false
-    stage.sortableChildren = true
-
+    const root = svg.append('g')
+    const linkLayer = root.append('g').attr('fill', 'none').attr('stroke-linecap', 'round')
+    const nodeLayer = root.append('g')
+    const labelLayer = root.append('g')
     const palette = readPalette()
+    const degreeMap = computeDegreeMap(data.links)
+    const nodes = data.nodes
+    const links = data.links
+    const simulation: Simulation<NormalizedNode, NormalizedLink> = forceSimulation(nodes)
+    centerInitialPositions(nodes, width, height)
+    simulation
+      .force('charge', forceManyBody().strength(-100 * renderConfig.repelForce))
+      .force('center', forceCenter(width / 2, height / 2).strength(renderConfig.centerForce))
+      .force('link', forceLink<NormalizedNode, NormalizedLink>(links).id(d => d.id).distance(renderConfig.linkDistance))
+      .force('collide', forceCollide<NormalizedNode>(n => nodeRadius(n, degreeMap) + renderConfig.collisionPadding).iterations(3))
 
-    const tweens = new Map<string, TweenHandle>()
-    const linkContainer = new Container<Graphics>({
-      isRenderGroup: true,
-      zIndex: 1,
-    })
-    const nodeContainer = new Container<Graphics>({
-      isRenderGroup: true,
-      zIndex: 2,
-    })
-    const labelContainer = new Container<Text>({
-      isRenderGroup: true,
-      zIndex: 3,
-    })
-    stage.addChild(linkContainer, nodeContainer, labelContainer)
+    if (renderConfig.radial) { simulation.force('radial', forceRadial(Math.min(width, height) * 0.4).strength(renderConfig.radialStrength)) }
 
-    const {nodes} = data
-    const {links} = data
-    const degreeMap = computeDegreeMap(links)
+    const linkSelection = linkLayer.selectAll('line').data(links).join('line').attr('stroke-width', 1).attr('stroke', palette.lines).attr('opacity', 0.8)
+    const nodeSelection = nodeLayer.selectAll('circle').data(nodes).join('circle')
+      .attr('r', d => nodeRadius(d, degreeMap))
+      .attr('fill', d => getNodeColor(d, palette, null))
+      .attr('stroke', d => d.kind === 'tag' ? palette.tagBorder : 'none')
+      .attr('stroke-width', d => d.kind === 'tag' ? 2 : 0)
+      .attr('cursor', 'pointer')
+    nodeSelection.append('title').text(d => d.label)
+    const labelSelection = labelLayer.selectAll('text').data(nodes).join('text')
+      .text(d => d.label)
+      .attr('text-anchor', 'middle')
+      .attr('dy', '-1.2em')
+      .attr('font-family', palette.fontFamily)
+      .attr('font-size', renderConfig.fontSize * 16)
+      .attr('fill', palette.text)
+      .attr('opacity', 0)
+      .style('pointer-events', 'none')
 
-    const nodeRenderData: NodeRenderData[] = []
-    const linkRenderData: LinkRenderData[] = []
-    let hoveredNode: NormalizedNode | null = null
-    let dragStartTime = 0
-    let dragging = false
     let currentTransform = zoomIdentity
-    let labelBaseOpacity = 0
+    let hoveredNode: NormalizedNode | null = null
+    let activeId = null as string | null
 
-    function startTween(key: string, group: TweenGroup) {
-      for (const tween of group.getAll()) { tween.start() }
-      tweens.set(key, {
-        stop: () => { for (const tween of group.getAll()) { tween.stop() } },
-        update: group.update.bind(group),
-      })
+    function labelOpacity(node: NormalizedNode) {
+      if (hoveredNode?.id === node.id) { return 1 }
+      const zoomOpacity = Math.max(((currentTransform.k * renderConfig.opacityScale) - 1) / 3.75, 0)
+      return Math.min(zoomOpacity, 1)
     }
 
-    function renderNodes(tweenGroup: TweenGroup) {
-      for (const renderNode of nodeRenderData) {
-        const shouldDim = Boolean(hoveredNode && renderConfig.focusOnHover)
-        let targetAlpha = 1
-        if (shouldDim) {
-          targetAlpha = renderNode.active ? 1 : 0.25
-        }
-        tweenGroup.add(
-          new Tweened(renderNode.gfx, tweenGroup).to({ alpha: targetAlpha }, 160),
-        )
-      }
+    function labelScale(node: NormalizedNode) {
+      const baseScale = 1 / renderConfig.scale
+      const zoomProgress = Math.min(Math.max(((currentTransform.k * renderConfig.opacityScale) - 1) / 3.75, 0), 1)
+      const hoverBoost = hoveredNode?.id === node.id ? 0.1 : 0
+      return baseScale * (1 + (zoomProgress * 0.45) + hoverBoost)
     }
 
-    function renderLinks(tweenGroup: TweenGroup) {
-      for (const link of linkRenderData) {
-        let alpha = 0.8
-        if (hoveredNode) {
-          alpha = link.active ? 1 : 0.2
-        }
-        link.color = link.active ? palette.linesHighlight : palette.lines
-        tweenGroup.add(new Tweened(link, tweenGroup).to({ alpha }, 160))
-      }
+    function updateLabels() {
+      labelSelection
+        .attr('opacity', d => labelOpacity(d))
+        .attr('transform', d => `translate(${d.x ?? 0},${d.y ?? 0}) scale(${labelScale(d)})`)
     }
 
-    function renderLabels(tweenGroup: TweenGroup) {
-      const defaultScale = 1 / renderConfig.scale
-      const activeScale = defaultScale * 1.1
-      for (const renderNode of nodeRenderData) {
-        const isHovered = hoveredNode?.id === renderNode.simulationData.id
-        const targetAlpha = isHovered ? 1 : labelBaseOpacity
-        tweenGroup.add(
-          new Tweened(renderNode.label, tweenGroup).to(
-            {
-              alpha: targetAlpha,
-              scale: {
-                x: isHovered ? activeScale : defaultScale,
-                y: isHovered ? activeScale : defaultScale,
-              },
-            },
-            120,
-          ),
-        )
-      }
-    }
-
-    function renderInteraction() {
-      tweens.get('interaction')?.stop()
-      const tweenGroup = new TweenGroup()
-      renderNodes(tweenGroup)
-      renderLinks(tweenGroup)
-      renderLabels(tweenGroup)
-      startTween('interaction', tweenGroup)
-    }
-
-    function updateHover(targetNode: NormalizedNode | null, reRender = false) {
-      hoveredNode = targetNode
-
-      if (!hoveredNode) {
-        for (const n of nodeRenderData) { n.active = false }
-        for (const link of linkRenderData) { link.active = false }
-        if (reRender && !dragging)
-          {renderInteraction()}
-        return
-      }
-
-      const neighbours = new Set<string>()
-      for (const link of linkRenderData) {
-        const source = link.simulationData.source as NormalizedNode
-        const target = link.simulationData.target as NormalizedNode
-        const isNeighbour
-          = source.id === hoveredNode.id || target.id === hoveredNode.id
-        link.active = isNeighbour
-        if (isNeighbour) {
-          neighbours.add(source.id)
-          neighbours.add(target.id)
+    function updateStyles() {
+      const hoveredIds = new Set<string>()
+      let linkHover = false
+      if (hoveredNode && renderConfig.focusOnHover) {
+        for (const link of links) {
+          const s = getEndpointNode(link.source)
+          const t = getEndpointNode(link.target)
+          if (!s || !t) { continue }
+          if (s.id === hoveredNode.id || t.id === hoveredNode.id) {
+            linkHover = true
+            hoveredIds.add(s.id)
+            hoveredIds.add(t.id)
+          }
         }
       }
-
-      for (const n of nodeRenderData) {
-        n.active = neighbours.has(n.simulationData.id)
-      }
-      if (reRender && !dragging) {
-        renderInteraction()
-      }
-    }
-
-    const simulation: Simulation<NormalizedNode, NormalizedLink>
-      = forceSimulation<NormalizedNode>(nodes)
-        .force('charge', forceManyBody().strength(-100 * renderConfig.repelForce))
-        .force('center', forceCenter().strength(renderConfig.centerForce))
-        .force(
-          'link',
-          forceLink<NormalizedNode, NormalizedLink>(links)
-            .id(d => d.id)
-            .distance(renderConfig.linkDistance),
-        )
-        .force(
-          'collide',
-          forceCollide<NormalizedNode>(
-            n => nodeRadius(n, degreeMap) + renderConfig.collisionPadding,
-          ).iterations(3),
-        )
-
-    if (renderConfig.radial) {
-      simulation.force(
-        'radial',
-        forceRadial(Math.min(width, height) * 0.4).strength(
-          renderConfig.radialStrength,
-        ),
-      )
-    }
-
-    for (const node of nodes) {
-      const radius = nodeRadius(node, degreeMap)
-      const label = new Text({
-        alpha: 0,
-        anchor: { x: 0.5, y: 2 },
-        resolution: (window.devicePixelRatio || 1) * 3,
-        style: {
-          fill: palette.text,
-          fontFamily: palette.fontFamily,
-          fontSize: renderConfig.fontSize * 16,
-        },
-        text: node.label,
-      })
-      label.scale.set(1 / renderConfig.scale)
-
-      const gfx = new Graphics({
-        cursor: 'pointer',
-        eventMode: 'static',
-        hitArea: new Circle(0, 0, radius + 8),
-      })
-
-      drawNode(gfx, radius, palette, node, null)
-
-      gfx
-        .on('pointerover', () => {
-          updateHover(node, true)
+      linkSelection
+        .attr('stroke', d => {
+          if (hoveredNode && renderConfig.focusOnHover) {
+            const source = getEndpointNode(d.source)
+            const target = getEndpointNode(d.target)
+            const isHover = !!source && !!target && (source.id === hoveredNode.id || target.id === hoveredNode.id)
+            return isHover ? palette.linesHighlight : palette.lines
+          }
+          return palette.lines
         })
-        .on('pointerleave', () => {
-          updateHover(null, true)
+        .attr('opacity', d => {
+          if (hoveredNode && renderConfig.focusOnHover) {
+            const source = getEndpointNode(d.source)
+            const target = getEndpointNode(d.target)
+            const isHover = !!source && !!target && (source.id === hoveredNode.id || target.id === hoveredNode.id)
+            return isHover ? 1 : 0.2
+          }
+          return 0.8
         })
-
-      nodeContainer.addChild(gfx)
-      labelContainer.addChild(label)
-
-      nodeRenderData.push({
-        active: false,
-        gfx,
-        label,
-        simulationData: node,
+      nodeSelection.attr('fill', d => getNodeColor(d, palette, activeId)).attr('opacity', d => {
+        if (hoveredNode && renderConfig.focusOnHover && linkHover) {
+          return hoveredIds.has(d.id) ? 1 : 0.25
+        }
+        return 1
       })
+      updateLabels()
     }
 
-    for (const link of links) {
-      const gfx = new Graphics({ eventMode: 'none' })
-      linkContainer.addChild(gfx)
-      linkRenderData.push({
-        active: false,
-        alpha: 1,
-        color: palette.lines,
-        gfx,
-        simulationData: link,
-      })
+    function updatePositions() {
+      linkSelection
+        .attr('x1', d => getEndpointNode(d.source)?.x ?? 0)
+        .attr('y1', d => getEndpointNode(d.source)?.y ?? 0)
+        .attr('x2', d => getEndpointNode(d.target)?.x ?? 0)
+        .attr('y2', d => getEndpointNode(d.target)?.y ?? 0)
+      nodeSelection.attr('cx', d => d.x ?? 0).attr('cy', d => d.y ?? 0)
+      updateLabels()
     }
 
-    type DragDatum = NormalizedNode | undefined
-    const canvasSelection = select<HTMLCanvasElement, DragDatum>(canvas)
+    nodeSelection.on('pointerover', (_, d) => { hoveredNode = d; updateStyles() }).on('pointerleave', () => { hoveredNode = null; updateStyles() }).on('click', (event, d) => {
+      event.stopPropagation()
+      onNodeSelect?.(extractSelection(d))
+    })
 
     if (renderConfig.drag) {
-      canvasSelection.call(
-        drag<HTMLCanvasElement, DragDatum>()
-          .container(() => canvas)
-          .subject(() => hoveredNode ?? undefined)
-          .on('start', (event) => {
-            if (!event.active)
-              {simulation.alphaTarget(1).restart()}
-            event.subject.fx = event.subject.x ?? 0
-            event.subject.fy = event.subject.y ?? 0
-            event.subject.__initialDragPos = {
-              fx: event.subject.fx,
-              fy: event.subject.fy,
-              x: event.subject.x ?? 0,
-              y: event.subject.y ?? 0,
-            }
-            dragStartTime = Date.now()
-            dragging = true
-          })
-          .on('drag', (event) => {
-            const initPos = event.subject.__initialDragPos
-            if (!initPos)
-              {return}
-            event.subject.fx
-              = initPos.x + (event.x - initPos.x) / currentTransform.k
-            event.subject.fy
-              = initPos.y + (event.y - initPos.y) / currentTransform.k
-          })
-          .on('end', (event) => {
-            if (!event.active)
-              {simulation.alphaTarget(0)}
-            event.subject.fx = null
-            event.subject.fy = null
-            dragging = false
-
-            if (Date.now() - dragStartTime < 300) {
-              onNodeSelect(extractSelection(event.subject))
-            }
-            updateHover(null, true)
-          }),
-      )
-    }
-    else {
-      for (const renderNode of nodeRenderData) {
-        renderNode.gfx.on('pointertap', () => {
-          onNodeSelect(extractSelection(renderNode.simulationData))
+      const dragBehavior = drag<SVGCircleElement, NormalizedNode>()
+        .on('start', (event, d) => {
+          if (!event.active) { simulation.alphaTarget(1).restart() }
+          d.fx = d.x ?? 0
+          d.fy = d.y ?? 0
         })
-      }
+        .on('drag', (event, d) => {
+          d.fx = event.x
+          d.fy = event.y
+        })
+        .on('end', (event, d) => {
+          if (!event.active) { simulation.alphaTarget(0) }
+          d.fx = null
+          d.fy = null
+        })
+      nodeSelection.each(function dragSetup() {
+        select(this as SVGCircleElement).call(dragBehavior as never)
+      })
     }
 
-    if (renderConfig.zoom) {
-      canvasSelection.call(
-        zoom<HTMLCanvasElement, DragDatum>()
-          .extent([
-            [0, 0],
-            [width, height],
-          ])
-          .scaleExtent([0.25, 4])
-          .on('zoom', (event) => {
-            currentTransform = event.transform
-            stage.scale.set(event.transform.k, event.transform.k)
-            stage.position.set(event.transform.x, event.transform.y)
+    const zoomBehavior = zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.25, 4])
+      .on('zoom', (event) => {
+        currentTransform = event.transform
+        root.attr('transform', event.transform.toString())
+        updateLabels()
+      })
+    if (renderConfig.zoom) { svg.call(zoomBehavior) }
 
-            const scale = event.transform.k * renderConfig.opacityScale
-            labelBaseOpacity = Math.max((scale - 1) / 3.75, 0)
-            renderInteraction()
-          }),
-      )
-    }
+    simulation.on('tick', () => {
+      if (isDisposed()) { return }
+      updatePositions()
+      updateStyles()
+    })
 
-    let stopAnimation = false
-    let frameRef: number | null = null
-
-    function animate(time: number) {
-      if (stopAnimation)
-        {return}
-
-      for (const renderNode of nodeRenderData) {
-        const { x, y } = renderNode.simulationData
-        if (x === null || x === undefined || y === null || y === undefined)
-          {continue}
-        const posX = x + width / 2
-        const posY = y + height / 2
-        renderNode.gfx.position.set(posX, posY)
-        renderNode.label.position.set(posX, posY)
-      }
-
-      for (const link of linkRenderData) {
-        const source = link.simulationData.source as NormalizedNode
-        const target = link.simulationData.target as NormalizedNode
-        if (!source || !target)
-          {continue}
-        link.gfx.clear()
-        link.gfx.moveTo(
-          (source.x ?? 0) + width / 2,
-          (source.y ?? 0) + height / 2,
-        )
-        link.gfx
-          .lineTo((target.x ?? 0) + width / 2, (target.y ?? 0) + height / 2)
-          .stroke({ alpha: link.alpha, color: link.color, width: 1 })
-      }
-
-      for (const tween of tweens.values()) { tween.update(time) }
-      app.renderer.render(stage)
-      frameRef = requestAnimationFrame(animate)
-    }
-
-    frameRef = requestAnimationFrame(animate)
+    updatePositions()
+    updateStyles()
 
     function setActiveNode(id: string | null) {
-      for (const renderNode of nodeRenderData) {
-        const radius = nodeRadius(renderNode.simulationData, degreeMap)
-        drawNode(renderNode.gfx, radius, palette, renderNode.simulationData, id)
-      }
+      activeId = id
+      nodeSelection.attr('fill', d => getNodeColor(d, palette, activeId))
     }
 
     function destroy() {
-      stopAnimation = true
-      if (frameRef)
-        {cancelAnimationFrame(frameRef)}
-      for (const tween of tweens.values()) { tween.stop() }
-      tweens.clear()
       simulation.stop()
-      canvasSelection.on('.drag', null)
-      canvasSelection.on('.zoom', null)
-      canvas.remove()
-      app.destroy(true, { children: true })
+      svg.on('.zoom', null)
+      nodeSelection.on('.drag', null).on('pointerover', null).on('pointerleave', null).on('click', null)
+      host.replaceChildren()
     }
 
-    return {
-      destroy,
-      setActiveNode,
-    }
+    return { destroy, setActiveNode }
   }
 
   $effect(() => {
-    latestOnSelect = onSelect
-  })
-
-  $effect(() => {
-    if (!stageEl || typeof window === 'undefined')
-      {return}
-    const host = stageEl
-
+    if (!hostEl || typeof window === 'undefined') { return }
     const normalized = normalizeGraphData(graphData)
     const mergedConfig = { ...defaultGraphConfig, ...config }
-    hasRenderableGraph = normalized.nodes.length > 0
     if (!hasRenderableGraph) {
-      stageEl.replaceChildren()
+      hostEl.replaceChildren()
+      graphInstance = null
       return
     }
 
     let disposed = false
-    let localInstance: GraphInstance | null = null
-
-    ;(async () => {
-      const instance = await createGraph(host, {
-        config: mergedConfig,
-        data: normalized,
-        isDisposed: () => disposed,
-        onNodeSelect: payload => latestOnSelect(payload),
-      })
-      if (!instance) {
-        return
-      }
-      if (disposed) {
-        instance.destroy()
-        return
-      }
-      instance.setActiveNode(latestActiveNodeId)
-      localInstance = instance
-      graphInstance = instance
-    })()
+    const instance = createGraph(hostEl, { config: mergedConfig, data: normalized, isDisposed: () => disposed, onNodeSelect: onSelect })
+    if (!instance) { return }
+    graphInstance = instance
+    instance.setActiveNode(activeNodeId)
 
     return () => {
       disposed = true
-      localInstance?.destroy()
+      instance.destroy()
       graphInstance = null
     }
   })
 
   $effect(() => {
-    latestActiveNodeId = activeNodeId
     graphInstance?.setActiveNode(activeNodeId)
   })
 </script>
 
 <div class='relative size-full overflow-hidden'>
   <div class='pointer-events-none absolute inset-0' aria-hidden='true'></div>
-  <div class='absolute inset-0' bind:this={stageEl}></div>
+  <div class='absolute inset-0' bind:this={hostEl}></div>
   {#if !hasRenderableGraph}
-    <div
-      class='absolute inset-0 grid place-items-center text-sm text-foreground-muted'
-    >
-      No graph data.
-    </div>
+    <div class='absolute inset-0 grid place-items-center text-sm text-foreground-muted'>No graph data.</div>
   {/if}
 </div>
