@@ -4,14 +4,5 @@
   "definition": "Perlindungan yang muncul di tingkat populasi ketika proporsi besar individu telah kebal terhadap suatu penyakit, sehingga penularan tidak mudah terjadi.",
   "lang": "ID",
   "aliases": [],
-  "relations": [
-    {
-      "to": "vaksinasi",
-      "type": "konsep_terkait"
-    },
-    {
-      "to": "epidemiologi",
-      "type": "konsep_terkait"
-    }
-  ]
+  "relations": []
 }

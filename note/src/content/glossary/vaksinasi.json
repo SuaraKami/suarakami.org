@@ -1,8 +1,0 @@
-{
-  "$schema": "../../../.astro/collections/glossary.schema.json",
-  "term": "Vaksinasi",
-  "definition": "Pemberian vaksin untuk meningkatkan kekebalan tubuh, cara utama mencapai imunitas kolektif.",
-  "lang": "ID",
-  "aliases": [],
-  "relations": []
-}

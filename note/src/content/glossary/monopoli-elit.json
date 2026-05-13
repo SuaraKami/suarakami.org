@@ -6,10 +6,6 @@
   "aliases": [],
   "relations": [
     {
-      "to": "kekuasaan",
-      "type": "konsep_terkait"
-    },
-    {
       "to": "dominasi",
       "type": "konsep_terkait"
     }
