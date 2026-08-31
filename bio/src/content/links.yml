@@ -10,7 +10,7 @@ website:
   description: Visit our official website to learn more about our mission.
   url: https://suarakami.org
   icon: lucide:globe
-  featured: true
+  featured: false
 
 instagrarm:
   title: Instagram
