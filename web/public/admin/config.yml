@@ -1,0 +1,104 @@
+backend:
+  name: github
+  repo: SuaraKami/suarakami.org
+  branch: main
+  base_url: https://suarakami.org
+  auth_endpoint: /api/auth
+
+# Enable local backend server for local dev (npx decap-server)
+local_backend: true
+
+media_folder: "src/assets/images"
+public_folder: "@/assets/images"
+
+collections:
+  - name: "events_en"
+    label: "Events (English)"
+    folder: "src/content/en/events"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Dates", name: "dates", widget: "list", field: { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" } }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Time", name: "time", widget: "string", required: false }
+      - label: "Link"
+        name: "link"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string", required: false }
+          - { label: "URL", name: "to", widget: "string", required: false }
+          - { label: "Target", name: "target", widget: "select", options: ["_blank", "_self"], default: "_blank", required: false }
+
+  - name: "events_id"
+    label: "Events (Indonesian)"
+    folder: "src/content/id/events"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Dates", name: "dates", widget: "list", field: { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" } }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Time", name: "time", widget: "string", required: false }
+      - label: "Link"
+        name: "link"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string", required: false }
+          - { label: "URL", name: "to", widget: "string", required: false }
+          - { label: "Target", name: "target", widget: "select", options: ["_blank", "_self"], default: "_blank", required: false }
+
+  - name: "pages"
+    label: "Page Content"
+    files:
+      - name: "index_en"
+        label: "Landing Page (English)"
+        file: "src/content/en/index.yml"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string" }
+          - { label: "Meta Description", name: "description", widget: "text" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Hero Title", name: "title", widget: "string", required: false }
+              - { label: "Hero Description", name: "description", widget: "text" }
+              - { label: "Location", name: "location", widget: "string", required: false }
+              - { label: "Time", name: "time", widget: "string", required: false }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: false }
+              - label: "Link"
+                name: "link"
+                widget: "object"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "URL", name: "to", widget: "string" }
+                  - { label: "Target", name: "target", widget: "select", options: ["_blank", "_self"], default: "_self" }
+          - { label: "About Text", name: "about", widget: "markdown" }
+
+      - name: "index_id"
+        label: "Landing Page (Indonesian)"
+        file: "src/content/id/index.yml"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string" }
+          - { label: "Meta Description", name: "description", widget: "text" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Hero Title", name: "title", widget: "string", required: false }
+              - { label: "Hero Description", name: "description", widget: "text" }
+              - { label: "Location", name: "location", widget: "string", required: false }
+              - { label: "Time", name: "time", widget: "string", required: false }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: false }
+              - label: "Link"
+                name: "link"
+                widget: "object"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "URL", name: "to", widget: "string" }
+                  - { label: "Target", name: "target", widget: "select", options: ["_blank", "_self"], default: "_self" }
+          - { label: "About Text", name: "about", widget: "markdown" }
