@@ -29,6 +29,15 @@ const eventCollection = defineCollection({
     z.object({
       dates: z.array(z.coerce.date()).min(1).max(2),
       description: z.string(),
+      link: z
+        .object({
+          label: z.string().optional(),
+          target: z.string().optional().default('_blank'),
+          to: z.string(),
+        })
+        .or(z.string())
+        .optional(),
+      location: z.string().optional(),
       photos: z
         .array(
           z.object({
@@ -37,6 +46,7 @@ const eventCollection = defineCollection({
           })
         )
         .optional(),
+      time: z.string().optional(),
       title: z.string(),
     }),
 })

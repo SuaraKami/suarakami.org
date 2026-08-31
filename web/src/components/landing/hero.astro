@@ -1,53 +1,129 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import type { LanguageKeys } from '@/i18n'
 import Container from '@/components/vue/container.vue'
+import { useFormatDate } from '@/composables/use-format-date'
+import type { LanguageKeys } from '@/i18n'
+import { useTranslations } from '@/i18n'
 
 interface Props {
   page: CollectionEntry<'index'>
+  upcomingEvent?: CollectionEntry<'event'>
   lang: LanguageKeys
 }
-const { page } = Astro.props
+const { page, upcomingEvent, lang } = Astro.props
+
+const t = useTranslations(lang)
+
+const eventData = upcomingEvent?.data
+const isUpcomingEvent = !!upcomingEvent
+
+const title = eventData?.title || page.data.hero.title || ''
+const description = eventData?.description || page.data.hero.description
+
+const rawDate = eventData?.dates?.[0] || page.data.hero.date
+const formattedDate = rawDate
+  ? useFormatDate(rawDate, lang, {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    }).formattedDate.value
+  : null
+
+const time = eventData?.time || page.data.hero.time
+const location = eventData?.location || page.data.hero.location
+
+let linkTo = page.data.hero.link?.to || '#about'
+let linkLabel = page.data.hero.link?.label || t('landing.getTickets')
+let linkTarget = page.data.hero.link?.target || '_self'
+
+if (eventData?.link) {
+  if (typeof eventData.link === 'string') {
+    linkTo = eventData.link
+    linkLabel = t('landing.getTickets')
+    linkTarget = '_blank'
+  } else {
+    linkTo = eventData.link.to
+    linkLabel = eventData.link.label || t('landing.getTickets')
+    linkTarget = eventData.link.target || '_blank'
+  }
+}
 ---
 
 <section id="hero" class="relative overflow-hidden bg-background">
-  <Container grid className="gap-y-16 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64">
+  <Container grid className="gap-y-12 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64">
     <div class="z-10 col-span-12 lg:col-span-10 xl:col-span-9">
+      {
+        isUpcomingEvent && (
+          <div class="mb-6 inline-flex items-center gap-2 border border-foreground/30 px-3 py-1 font-mono text-xs font-semibold tracking-widest uppercase opacity-70">
+            <span class="inline-block size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            {t('landing.upcomingEvent')}
+          </div>
+        )
+      }
       <h1
         class={`
-          animate-in text-[3.5rem] leading-[0.95] font-black tracking-tighter
+          animate-in text-[3rem] leading-[0.95] font-black tracking-tighter
           text-balance
           duration-1000
           ease-out
           fade-in
-          slide-in-from-bottom-8 sm:text-7xl md:text-[6rem] lg:text-[7.5rem] xl:text-[9rem]
+          slide-in-from-bottom-8 sm:text-6xl md:text-[5.5rem] lg:text-[6.5rem] xl:text-[7.5rem]
         `}
       >
-        {page.data.hero.title}
+        {title}
       </h1>
     </div>
     <div
       class="z-10 col-span-12 flex animate-in flex-col items-start delay-300
-             duration-1000 ease-out fill-mode-both fade-in slide-in-from-bottom-4 lg:col-span-5 lg:col-start-8"
+             duration-1000 ease-out fill-mode-both fade-in slide-in-from-bottom-4 lg:col-span-6 lg:col-start-7"
     >
+      {
+        (formattedDate || time || location) && (
+          <div class="mb-8 flex flex-wrap gap-x-6 gap-y-2 border-l-2 border-foreground/40 pl-4 font-mono text-sm">
+            {formattedDate && (
+              <div>
+                <span class="text-xs uppercase tracking-wider opacity-50">{t('landing.date')}:</span>{' '}
+                <span class="font-medium">{formattedDate}</span>
+              </div>
+            )}
+            {time && (
+              <div>
+                <span class="text-xs uppercase tracking-wider opacity-50">{t('landing.time')}:</span>{' '}
+                <span class="font-medium">{time}</span>
+              </div>
+            )}
+            {location && (
+              <div>
+                <span class="text-xs uppercase tracking-wider opacity-50">{t('landing.location')}:</span>{' '}
+                <span class="font-medium">{location}</span>
+              </div>
+            )}
+          </div>
+        )
+      }
+
       <p class="mb-10 text-xl leading-relaxed font-medium tracking-tight text-balance opacity-80 md:text-2xl">
-        {page.data.hero.description}
+        {description}
       </p>
 
-      <a
-        href={page.data.hero.link.to}
-        target={page.data.hero.link.target}
-        rel="noopener noreferrer"
-        class={`
-          inline-flex items-center justify-center
-          border border-foreground bg-foreground px-8 py-5
-          text-sm font-semibold tracking-widest text-background uppercase
-          transition-all duration-300 ease-out
-          hover:bg-background hover:text-foreground
-        `}
-      >
-        {page.data.hero.link.label}
-      </a>
+      {
+        linkTo && (
+          <a
+            href={linkTo}
+            target={linkTarget}
+            rel="noopener noreferrer"
+            class={`
+              inline-flex items-center justify-center
+              border border-foreground bg-foreground px-8 py-5
+              text-sm font-semibold tracking-widest text-background uppercase
+              transition-all duration-300 ease-out
+              hover:bg-background hover:text-foreground
+            `}
+          >
+            {linkLabel}
+          </a>
+        )
+      }
     </div>
   </Container>
   <div class="pointer-events-none absolute inset-0 opacity-5">
