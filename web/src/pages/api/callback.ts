@@ -48,10 +48,23 @@ export const GET: APIRoute = async ({ url }) => {
     const successContent = `authorization:github:success:${JSON.stringify({ provider: 'github', token })}`
 
     return new Response(
-      `<!doctype html><html><body><script>
-        window.opener.postMessage(${JSON.stringify(successContent)}, '*');
-        window.close();
-      </script></body></html>`,
+      `<!doctype html>
+<html>
+  <head><title>Authenticating...</title></head>
+  <body>
+    <p>Authenticating with GitHub...</p>
+    <script>
+      (function() {
+        if (window.opener) {
+          window.opener.postMessage(${JSON.stringify(successContent)}, '*');
+          setTimeout(function() { window.close(); }, 300);
+        } else {
+          document.body.innerHTML = 'Authentication complete. You may close this window.';
+        }
+      })();
+    </script>
+  </body>
+</html>`,
       { headers: { 'Content-Type': 'text/html' } }
     )
   } catch (_err) {
