@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 type EventItem = CollectionEntry<'event'>
 
-export interface AccordionProps<T extends EventItem = EventItem> extends Pick<
+export interface AccordionProps<T extends EventItem = EventItem> extends /* @vue-ignore */ Pick<
   AccordionRootProps,
   | 'collapsible'
   | 'defaultValue'
