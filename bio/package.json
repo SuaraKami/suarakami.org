@@ -6,25 +6,23 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "typecheck": "astro check",
     "lint": "oxlint src",
     "lint:fix": "oxlint --fix src",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "10.0.6",
-    "@playform/compress": "^0.2.3",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "6.3.1",
+    "@astrojs/vercel": "^11.0.9",
+    "@playform/compress": "^0.2.5",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.10",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.6.0",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.107",
-    "@iconify-json/simple-icons": "^1.2.82",
-    "astro-icon": "^1.1.5"
-  },
-  "overrides": {
-    "vite": "^7.0.0"
+    "@iconify-json/lucide": "^1.2.128",
+    "@iconify-json/simple-icons": "^1.2.94",
+    "astro-icon": "^1.2.0"
   }
 }

@@ -7,6 +7,7 @@ import { defineConfig, fontProviders } from 'astro/config'
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
+  compressHTML: true,
   fonts: [
     {
       cssVariable: '--font-geist',

@@ -6,29 +6,30 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "typecheck": "astro check",
     "lint": "oxlint src",
     "lint:fix": "oxlint --fix src",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/svelte": "8.1.0",
-    "@astrojs/vercel": "10.0.6",
-    "@playform/compress": "^0.2.3",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "6.3.1",
-    "astro-icon": "^1.1.5",
-    "bits-ui": "^2.18.1",
+    "@astrojs/markdown-remark": "^7.3.0",
+    "@astrojs/svelte": "^9.0.1",
+    "@astrojs/vercel": "^11.0.9",
+    "@playform/compress": "^0.2.5",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.10",
+    "astro-icon": "^1.2.0",
+    "bits-ui": "^2.19.0",
     "d3": "^7.9.0",
     "runed": "^0.37.1",
-    "svelte": "^5.55.5",
-    "tailwindcss": "^4.3.0"
+    "svelte": "^5.57.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@iconify-json/hugeicons": "^1.2.27",
-    "@tailwindcss/typography": "^0.5.19",
+    "@iconify-json/hugeicons": "^1.2.33",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/d3": "^7.4.3",
-    "@types/hast": "^3.0.4",
-    "hast": "^1.0.0",
+    "@types/hast": "^3.0.5",
     "unist-util-visit-parents": "^6.0.2"
   }
 }

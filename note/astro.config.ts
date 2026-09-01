@@ -1,3 +1,4 @@
+import { unified } from '@astrojs/markdown-remark'
 import svelte from '@astrojs/svelte'
 import vercel from '@astrojs/vercel'
 import playformCompress from '@playform/compress'
@@ -10,6 +11,7 @@ import { rehypeGlossaryHighlight } from './src/lib/rehype/glossary-highlight'
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
+  compressHTML: true,
   fonts: [
     {
       cssVariable: '--font-inter',
@@ -36,7 +38,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    rehypePlugins: [rehypeGlossaryHighlight],
+    processor: unified({ rehypePlugins: [rehypeGlossaryHighlight] }),
   },
   vite: { plugins: [tailwindcss()] },
 })

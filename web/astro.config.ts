@@ -9,6 +9,7 @@ import Icons from 'unplugin-icons/vite'
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
+  compressHTML: true,
   fonts: [
     {
       cssVariable: '--font-cabinet',
