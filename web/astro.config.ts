@@ -48,11 +48,19 @@ export default defineConfig({
     plugins: [
       tailwindcss(),
       Icons({ compiler: 'vue3' }),
-      // Only Keystatic needs React, and it does not need refresh.
+      // Workaround, because `exclude` not honored in react() plugin.
       {
-        config: () => ({ oxc: { jsx: { refresh: false } } }),
+        applyToEnvironment: (environment) =>
+          environment.config.consumer === 'server',
         enforce: 'post',
-        name: 'disable-jsx-refresh',
+        name: 'stub-react-refresh-on-server',
+        transform: (code: string) =>
+          code.includes('$RefreshSig$')
+            ? {
+                code: `const $RefreshSig$ = () => (type) => type\n${code}`,
+                map: null,
+              }
+            : undefined,
       },
     ],
   },
