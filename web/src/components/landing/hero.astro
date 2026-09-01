@@ -47,88 +47,86 @@ if (eventData?.link) {
     linkTarget = '_blank'
   }
 }
+
+const facts = [
+  { label: t('landing.date'), value: formattedDate },
+  { label: t('landing.time'), value: time },
+  { label: t('landing.location'), value: location },
+].filter((fact) => !!fact.value)
 ---
 
-<section id="hero" class="relative overflow-hidden bg-background">
-  <Container grid className="gap-y-12 pt-32 pb-36 md:pt-40 md:pb-48 lg:pt-48 lg:pb-64">
-    <div class="z-10 col-span-12 lg:col-span-10 xl:col-span-9">
-      {
-        isUpcomingEvent && (
-          <div class="mb-6 inline-flex items-center gap-2 border border-foreground/30 px-3 py-1 font-mono text-xs font-semibold tracking-widest uppercase opacity-70">
-            <span class="inline-block size-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            {t('landing.upcomingEvent')}
-          </div>
-        )
-      }
-      <h1
-        class={`
-          animate-in text-[3rem] leading-[0.95] font-black tracking-tighter
-          text-balance
-          duration-1000
-          ease-out
-          fade-in
-          slide-in-from-bottom-8 sm:text-6xl md:text-[5.5rem] lg:text-[6.5rem] xl:text-[7.5rem]
-        `}
-      >
-        {title}
-      </h1>
-    </div>
+<section id="hero" class="overflow-hidden bg-background">
+  <Container grid className="gap-y-0 pt-20 pb-24 md:pt-28 md:pb-32 lg:pt-32 lg:pb-40">
+    {
+      isUpcomingEvent && (
+        <div
+          class="col-span-12 mb-10 flex animate-in items-center gap-4 duration-700
+                 ease-out fill-mode-both fade-in md:mb-14"
+        >
+          <span class="size-2 shrink-0 bg-foreground" aria-hidden="true" />
+          <span class="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-foreground/45">{t('landing.upcomingEvent')}</span>
+          <span class="h-px flex-1 bg-foreground/15" aria-hidden="true" />
+        </div>
+      )
+    }
+
+    {
+      title && (
+        <h1
+          class="col-span-12 animate-in text-[clamp(2.75rem,11vw,9.5rem)] leading-[0.88]
+                 font-bold tracking-[-0.035em] text-balance duration-700 ease-out
+                 fill-mode-both fade-in slide-in-from-bottom-4"
+        >
+          {title}
+        </h1>
+      )
+    }
+
     <div
-      class="z-10 col-span-12 flex animate-in flex-col items-start delay-300
-             duration-1000 ease-out fill-mode-both fade-in slide-in-from-bottom-4 lg:col-span-6 lg:col-start-7"
+      class="col-span-12 mt-12 grid animate-in grid-cols-12 gap-x-6 gap-y-10 border-t
+             border-foreground/15 pt-8 delay-150 duration-700 ease-out fill-mode-both
+             fade-in slide-in-from-bottom-2 md:mt-16 md:pt-10"
     >
       {
-        (formattedDate || time || location) && (
-          <div class="mb-8 flex flex-wrap gap-x-6 gap-y-2 border-l-2 border-foreground/40 pl-4 font-mono text-sm">
-            {formattedDate && (
+        facts.length > 0 && (
+          <dl class="col-span-12 flex flex-wrap gap-x-12 gap-y-6 md:col-span-4 md:flex-col md:gap-y-7">
+            {facts.map((fact) => (
               <div>
-                <span class="text-xs uppercase tracking-wider opacity-50">{t('landing.date')}:</span>{' '}
-                <span class="font-medium">{formattedDate}</span>
+                <dt class="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-foreground/45">{fact.label}</dt>
+                <dd class="mt-1.5 text-base font-medium tracking-tight tabular-nums md:text-lg">
+                  {fact.value}
+                </dd>
               </div>
-            )}
-            {time && (
-              <div>
-                <span class="text-xs uppercase tracking-wider opacity-50">{t('landing.time')}:</span>{' '}
-                <span class="font-medium">{time}</span>
-              </div>
-            )}
-            {location && (
-              <div>
-                <span class="text-xs uppercase tracking-wider opacity-50">{t('landing.location')}:</span>{' '}
-                <span class="font-medium">{location}</span>
-              </div>
-            )}
-          </div>
+            ))}
+          </dl>
         )
       }
 
-      <p class="mb-10 text-xl leading-relaxed font-medium tracking-tight text-balance opacity-80 md:text-2xl">
-        {description}
-      </p>
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
+        <p class="max-w-[48ch] text-xl leading-snug font-medium tracking-tight text-pretty md:text-2xl lg:text-[1.75rem]">
+          {description}
+        </p>
 
-      {
-        linkTo && (
-          <a
-            href={linkTo}
-            target={linkTarget}
-            rel="noopener noreferrer"
-            class={`
-              inline-flex items-center justify-center
-              border border-foreground bg-foreground px-8 py-5
-              text-sm font-semibold tracking-widest text-background uppercase
-              transition-all duration-300 ease-out
-              hover:bg-background hover:text-foreground
-            `}
-          >
-            {linkLabel}
-          </a>
-        )
-      }
+        {
+          linkTo && (
+            <a
+              href={linkTo}
+              target={linkTarget}
+              rel="noopener noreferrer"
+              class="group mt-10 inline-flex items-center gap-4 border border-foreground
+                     bg-foreground px-8 py-4 text-[0.8125rem] font-semibold tracking-[0.14em]
+                     text-background uppercase transition-colors duration-200 ease-out
+                     hover:bg-background hover:text-foreground md:mt-12"
+            >
+              {linkLabel}
+              <span
+                class="h-px w-6 bg-current transition-[width] duration-200 ease-out group-hover:w-10"
+                aria-hidden="true"
+              />
+            </a>
+          )
+        }
+      </div>
     </div>
   </Container>
-  <div class="pointer-events-none absolute inset-0 opacity-5">
-    <div class="absolute left-6 h-full w-px bg-foreground md:left-12 lg:left-20 xl:left-32"></div>
-    <div class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-foreground"></div>
-    <div class="absolute right-6 h-full w-px bg-foreground md:right-12 lg:right-20 xl:right-32"></div>
-  </div>
 </section>
