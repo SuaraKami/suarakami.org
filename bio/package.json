@@ -24,5 +24,6 @@
     "@iconify-json/lucide": "^1.2.128",
     "@iconify-json/simple-icons": "^1.2.94",
     "astro-icon": "^1.2.0"
-  }
+  },
+  "packageManager": "bun@1.4.0"
 }
