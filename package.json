@@ -22,5 +22,6 @@
     "oxlint": "1.80.0",
     "typescript": "^6.0.3",
     "ultracite": "^7.10.7"
-  }
+  },
+  "packageManager": "bun@1.4.0"
 }
