@@ -4,6 +4,7 @@ import Container from '@/components/vue/container.vue'
 import { useFormatDate } from '@/composables/use-format-date'
 import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
+import { siteConfig } from '@/site.config'
 
 interface Props {
   page: CollectionEntry<'index'>
@@ -21,15 +22,28 @@ const title = eventData?.title || page.data.hero.title || ''
 const description = eventData?.description || page.data.hero.description
 
 const rawDate = eventData?.dates?.[0] || page.data.hero.date
+const hasTime = !!rawDate && (rawDate.getUTCHours() > 0 || rawDate.getUTCMinutes() > 0)
+
 const formattedDate = rawDate
   ? useFormatDate(rawDate, lang, {
       day: 'numeric',
       month: 'short',
+      timeZone: siteConfig.timeZone,
       year: 'numeric',
     }).formattedDate.value
   : null
 
-const time = eventData?.time || page.data.hero.time
+const formattedTime =
+  rawDate && hasTime
+    ? rawDate.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        hourCycle: 'h23',
+        minute: '2-digit',
+        timeZone: siteConfig.timeZone,
+        timeZoneName: 'short',
+      })
+    : null
+
 const location = eventData?.location || page.data.hero.location
 
 let linkTo = page.data.hero.link?.to || '#about'
@@ -50,7 +64,7 @@ if (eventData?.link) {
 
 const facts = [
   { label: t('landing.date'), value: formattedDate },
-  { label: t('landing.time'), value: time },
+  { label: t('landing.time'), value: formattedTime },
   { label: t('landing.location'), value: location },
 ].filter((fact) => !!fact.value)
 ---

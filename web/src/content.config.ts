@@ -16,7 +16,6 @@ const indexCollection = defineCollection({
         to: z.string(),
       }),
       location: z.string().optional(),
-      time: z.string().optional(),
       title: z.string(),
     }),
     title: z.string(),
@@ -37,7 +36,6 @@ const eventCollection = defineCollection({
       .or(z.string())
       .optional(),
     location: z.string().optional(),
-    time: z.string().optional(),
     title: z.string(),
   }),
 })

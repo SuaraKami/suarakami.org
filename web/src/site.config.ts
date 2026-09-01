@@ -46,4 +46,5 @@ export const siteConfig = {
       to: 'https://x.com/suarakamiapp',
     },
   ],
+  timeZone: 'Europe/Berlin',
 } as const

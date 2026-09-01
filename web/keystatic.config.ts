@@ -23,14 +23,13 @@ function eventCollection(label: string, language: 'en' | 'id') {
       title: fields.slug({ name: { label: 'Title' } }),
       description: fields.text({ label: 'Description', multiline: true }),
       dates: fields.array(
-        fields.date({ label: 'Date', validation: { isRequired: true } }),
+        fields.datetime({ label: 'Date', validation: { isRequired: true } }),
         {
           itemLabel: ({ value }) => value ?? 'Date',
           label: 'Dates',
           validation: { length: { max: 2, min: 1 } },
         }
       ),
-      time: fields.text({ label: 'Time' }),
       location: fields.text({ label: 'Location' }),
       link: fields.object(linkFields, { label: 'Link' }),
       content: fields.markdoc({
@@ -68,8 +67,7 @@ function landingPage(label: string, language: 'en' | 'id') {
         {
           title: fields.text({ label: 'Title' }),
           description: fields.text({ label: 'Description', multiline: true }),
-          date: fields.date({ label: 'Date' }),
-          time: fields.text({ label: 'Time' }),
+          date: fields.datetime({ label: 'Date' }),
           location: fields.text({ label: 'Location' }),
           link: fields.object(linkFields, { label: 'Link' }),
         },
