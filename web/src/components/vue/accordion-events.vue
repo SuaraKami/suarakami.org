@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { CollectionEntry } from 'astro:content'
-import type { AccordionRootEmits, AccordionRootProps } from 'reka-ui'
 
 import type { LanguageKeys } from '@/i18n'
 
@@ -8,58 +7,26 @@ import { cn } from '@/lib/utils'
 
 type EventItem = CollectionEntry<'event'>
 
-type AccordionRootSubset = Pick<
-  AccordionRootProps,
-  | 'collapsible'
-  | 'defaultValue'
-  | 'modelValue'
-  | 'type'
-  | 'disabled'
-  | 'unmountOnHide'
->
-
-export interface AccordionProps<
-  T extends EventItem = EventItem,
-> extends AccordionRootSubset {
-  items: T[]
+export interface AccordionProps {
+  items: EventItem[]
   lang: LanguageKeys
 }
 </script>
 
-<script setup lang="ts" generic="T extends EventItem">
-import { reactivePick } from '@vueuse/core'
+<script setup lang="ts">
 import {
   AccordionContent,
   AccordionHeader,
   AccordionItem,
   AccordionRoot,
   AccordionTrigger,
-  useForwardPropsEmits,
 } from 'reka-ui'
 import { computed } from 'vue'
 import ChevronDown from '~icons/lucide/chevron-down'
 
 import { useFormatDate } from '@/composables/use-format-date'
 
-// oxlint-disable-next-line vue/define-props-destructuring
-const props = withDefaults(defineProps<AccordionProps<T>>(), {
-  collapsible: true,
-  type: 'single',
-  unmountOnHide: false,
-})
-const emits = defineEmits<AccordionRootEmits>()
-
-const rootProps = useForwardPropsEmits(
-  reactivePick(
-    props,
-    'collapsible',
-    'defaultValue',
-    'disabled',
-    'modelValue',
-    'unmountOnHide'
-  ),
-  emits
-)
+const props = defineProps<AccordionProps>()
 
 const datesString = computed(() =>
   props.items.map(({ data: { dates } }) =>
@@ -78,7 +45,7 @@ const datesString = computed(() =>
 </script>
 
 <template>
-  <AccordionRoot v-bind="rootProps" :type="type" class="w-full">
+  <AccordionRoot collapsible type="single" class="w-full">
     <AccordionItem
       v-for="(item, index) in props.items"
       :key="item.data.title"
