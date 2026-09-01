@@ -1,25 +1,15 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
 import About from '@/components/landing/about.astro'
 import Events from '@/components/landing/events.astro'
 import Hero from '@/components/landing/hero.astro'
 import { getLangFromUrl } from '@/i18n'
 import BaseLayout from '@/layouts/base-layout.astro'
+import { getLandingEvents } from '@/lib/events'
 
 const lang = getLangFromUrl(Astro.url)
 const page = await getEntry('index', lang)
-const rawEvents = await getCollection('event', (entry) => entry.id.startsWith(`${lang}`))
-
-const sortedEvents = rawEvents.toSorted(
-  (a, b) => Math.max(...a.data.dates.map((d) => d.getTime())) - Math.max(...b.data.dates.map((d) => d.getTime())),
-)
-
-const now = new Date()
-now.setHours(0, 0, 0, 0)
-const nowTime = now.getTime()
-
-const upcomingEvent = sortedEvents.find((e) => Math.max(...e.data.dates.map((d) => d.getTime())) >= nowTime)
-const events = sortedEvents.filter((e) => e.id !== upcomingEvent?.id)
+const { events, featuredEvent } = await getLandingEvents(lang)
 
 if (!page) {
   throw new Error('Could not find page')
@@ -27,7 +17,7 @@ if (!page) {
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description} lang={lang} includeLanguageRedirect>
-  <Hero page={page} upcomingEvent={upcomingEvent} lang={lang} />
+  <Hero page={page} featuredEvent={featuredEvent} lang={lang} />
   <About page={page} lang={lang} />
   <Events events={events} lang={lang} />
 </BaseLayout>

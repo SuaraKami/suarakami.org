@@ -31,6 +31,11 @@ function eventCollection(label: string, language: 'en' | 'id') {
         }
       ),
       location: fields.text({ label: 'Location' }),
+      featured: fields.checkbox({
+        defaultValue: false,
+        description: 'Show this event in the hero section',
+        label: 'Featured',
+      }),
       link: fields.object(linkFields, { label: 'Link' }),
       content: fields.markdoc({
         extension: 'md',

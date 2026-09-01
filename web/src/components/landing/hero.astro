@@ -8,16 +8,14 @@ import { siteConfig } from '@/site.config'
 
 interface Props {
   page: CollectionEntry<'index'>
-  upcomingEvent?: CollectionEntry<'event'>
+  featuredEvent?: CollectionEntry<'event'>
   lang: LanguageKeys
 }
-const { page, upcomingEvent, lang } = Astro.props
+const { page, featuredEvent, lang } = Astro.props
 
 const t = useTranslations(lang)
 
-const eventData = upcomingEvent?.data
-const isUpcomingEvent = !!upcomingEvent
-
+const eventData = featuredEvent?.data
 const title = eventData?.title || page.data.hero.title || ''
 const description = eventData?.description || page.data.hero.description
 
@@ -72,7 +70,7 @@ const facts = [
 <section id="hero" class="overflow-hidden bg-background">
   <Container grid className="gap-y-0 pt-20 pb-24 md:pt-28 md:pb-32 lg:pt-32 lg:pb-40">
     {
-      isUpcomingEvent && (
+      eventData && (
         <div
           class="col-span-12 mb-10 flex animate-in items-center gap-4 duration-700
                  ease-out fill-mode-both fade-in md:mb-14"
