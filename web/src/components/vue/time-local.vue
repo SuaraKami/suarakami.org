@@ -1,26 +1,26 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-import type { FormatDateOptions } from '@/composables/use-format-date'
 import type { LanguageKeys } from '@/i18n'
 
 import { useFormatDate } from '@/composables/use-format-date'
 
-interface Props extends FormatDateOptions {
-  lang?: LanguageKeys
+interface Props {
   datetime: string | number | Date
+  lang?: LanguageKeys
   title?: boolean | string
+  year?: 'numeric' | '2-digit'
 }
 
-const { datetime, lang, ...formatOptions } = defineProps<Props>()
+const { datetime, lang, title: titleProp, year } = defineProps<Props>()
 
-const { formattedDate, isoDate } = useFormatDate(datetime, lang, formatOptions)
+const { formattedDate, isoDate } = useFormatDate(datetime, lang, { year })
 
 const title = computed(() => {
-  if (formatOptions.title === true) {
+  if (titleProp === true) {
     return isoDate.value
   }
-  return formatOptions.title || ''
+  return titleProp || ''
 })
 </script>
 
