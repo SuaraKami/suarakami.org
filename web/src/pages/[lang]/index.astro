@@ -3,14 +3,12 @@ import { getCollection, getEntry } from 'astro:content'
 import About from '@/components/landing/about.astro'
 import Events from '@/components/landing/events.astro'
 import Hero from '@/components/landing/hero.astro'
-import type { LanguageKeys } from '@/i18n'
+import { languageKeys } from '@/i18n/ui'
 import BaseLayout from '@/layouts/base-layout.astro'
-import { siteConfig } from '@/site.config'
 
 export function getStaticPaths() {
-  const { languages } = siteConfig.i18n
-  return Object.keys(languages).map((l) => ({
-    params: { lang: l as LanguageKeys },
+  return languageKeys.map((lang) => ({
+    params: { lang },
   }))
 }
 

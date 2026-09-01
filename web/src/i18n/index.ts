@@ -2,18 +2,24 @@ import { siteConfig } from '@/site.config'
 
 import type { LanguageKeys } from './ui'
 
-import { ui } from './ui'
+import { languageKeys, ui } from './ui'
 
 const { defaultLang, showDefaultLang } = siteConfig.i18n
 const LANG_COOKIE = 'i18n_lang'
 
-export type { LanguageKeys }
+export type { LanguageKeys } from './ui'
+
+function isLanguageKey(value: string | undefined): value is LanguageKeys {
+  return (
+    value !== undefined && languageKeys.some((language) => language === value)
+  )
+}
 
 export function getLangFromUrl(url?: URL) {
   if (url) {
     const [, lang] = url.pathname.split('/')
-    if (lang in ui) {
-      return lang as LanguageKeys
+    if (isLanguageKey(lang)) {
+      return lang
     }
   }
   return defaultLang
@@ -72,7 +78,7 @@ export function getPreferredLangFromCookie(): LanguageKeys | null {
   }
 
   const lang = langCookie.split('=')[1]
-  return lang in ui ? (lang as LanguageKeys) : null
+  return isLanguageKey(lang) ? lang : null
 }
 
 export function setPreferredLangCookie(lang: LanguageKeys): void {
@@ -95,12 +101,11 @@ export function detectBrowserLanguage(): LanguageKeys {
     return defaultLang
   }
 
-  const languages = Object.keys(ui) as LanguageKeys[]
   const browserLangs = navigator.languages || [navigator.language]
 
   for (const browserLang of browserLangs) {
-    const langCode = browserLang.split('-')[0] as LanguageKeys
-    if (languages.includes(langCode)) {
+    const langCode = browserLang.split('-')[0]
+    if (isLanguageKey(langCode)) {
       return langCode
     }
   }

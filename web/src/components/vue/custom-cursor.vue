@@ -15,8 +15,10 @@ const cursorStyle = computed(() => ({
 }))
 
 function checkHoverTarget(event: MouseEvent, isEntering: boolean) {
-  const target = event.target as HTMLElement
-  if (target.closest('a, button')) {
+  if (
+    event.target instanceof HTMLElement &&
+    event.target.closest('a, button')
+  ) {
     isHoveringLink.value = isEntering
   }
 }

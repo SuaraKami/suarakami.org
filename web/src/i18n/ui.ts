@@ -2,6 +2,8 @@ import type { siteConfig } from '@/site.config'
 
 export type LanguageKeys = keyof typeof siteConfig.i18n.languages
 
+export const languageKeys = ['en', 'id'] satisfies LanguageKeys[]
+
 function defineUI<T extends string>(
   t: Record<LanguageKeys, Record<T, string>>
 ) {

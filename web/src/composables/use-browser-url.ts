@@ -1,10 +1,7 @@
 import { useBrowserLocation } from '@vueuse/core'
 import { computed } from 'vue'
 
-import type { LanguageKeys } from '@/i18n'
-
 import { getLangFromUrl, getPathWithoutLang } from '@/i18n'
-import { siteConfig } from '@/site.config'
 
 export function useBrowserUrl() {
   const location = useBrowserLocation()
@@ -18,9 +15,9 @@ export function useBrowserUrl() {
 
   const currentLang = computed(() => {
     if (!currentUrl.value) {
-      return siteConfig.i18n.defaultLang as LanguageKeys
+      return getLangFromUrl()
     }
-    return getLangFromUrl(currentUrl.value) as LanguageKeys
+    return getLangFromUrl(currentUrl.value)
   })
 
   const currentPathWithoutLang = computed(() => {

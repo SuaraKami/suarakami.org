@@ -37,14 +37,14 @@ let linkLabel = page.data.hero.link?.label || t('landing.getTickets')
 let linkTarget = page.data.hero.link?.target || '_self'
 
 if (eventData?.link) {
-  if (typeof eventData.link === 'string') {
-    linkTo = eventData.link
-    linkLabel = t('landing.getTickets')
-    linkTarget = '_blank'
-  } else {
+  if (eventData.link instanceof Object) {
     linkTo = eventData.link.to
     linkLabel = eventData.link.label || t('landing.getTickets')
     linkTarget = eventData.link.target || '_blank'
+  } else {
+    linkTo = eventData.link
+    linkLabel = t('landing.getTickets')
+    linkTarget = '_blank'
   }
 }
 ---

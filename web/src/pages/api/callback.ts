@@ -1,5 +1,14 @@
 import type { APIRoute } from 'astro'
 
+import { z } from 'astro/zod'
+
+const githubTokenResponseSchema = z
+  .object({
+    access_token: z.string().optional(),
+    error: z.string().optional(),
+  })
+  .loose()
+
 export const prerender = false
 
 export const GET: APIRoute = async ({ url }) => {
@@ -12,26 +21,32 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   if (!clientId || !clientSecret) {
-    return new Response('OAuth environment variables (OAUTH_CLIENT_ID / OAUTH_CLIENT_SECRET) are missing on Vercel', {
-      status: 500,
-    })
+    return new Response(
+      'OAuth environment variables (OAUTH_CLIENT_ID / OAUTH_CLIENT_SECRET) are missing on Vercel',
+      {
+        status: 500,
+      }
+    )
   }
 
   try {
-    const response = await fetch('https://github.com/login/oauth/access_token', {
-      body: JSON.stringify({
-        client_id: clientId,
-        client_secret: clientSecret,
-        code,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
+    const response = await fetch(
+      'https://github.com/login/oauth/access_token',
+      {
+        body: JSON.stringify({
+          client_id: clientId,
+          client_secret: clientSecret,
+          code,
+        }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      }
+    )
 
-    const data = await response.json()
+    const data = githubTokenResponseSchema.parse(await response.json())
 
     if (data.error || !data.access_token) {
       const errorContent = `authorization:github:error:${JSON.stringify(data)}`
@@ -67,7 +82,7 @@ export const GET: APIRoute = async ({ url }) => {
 </html>`,
       { headers: { 'Content-Type': 'text/html' } }
     )
-  } catch (_err) {
+  } catch {
     return new Response('Internal Server Error', { status: 500 })
   }
 }

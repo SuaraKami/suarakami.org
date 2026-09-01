@@ -20,10 +20,7 @@ const title = computed(() => {
   if (formatOptions.title === true) {
     return isoDate.value
   }
-  if (typeof formatOptions.title === 'string') {
-    return formatOptions.title
-  }
-  return ''
+  return formatOptions.title || ''
 })
 </script>
 

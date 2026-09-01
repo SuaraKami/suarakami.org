@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 type EventItem = CollectionEntry<'event'>
 
-export interface AccordionProps<T extends EventItem = EventItem> extends /* @vue-ignore */ Pick<
+type AccordionRootSubset = Pick<
   AccordionRootProps,
   | 'collapsible'
   | 'defaultValue'
@@ -16,7 +16,11 @@ export interface AccordionProps<T extends EventItem = EventItem> extends /* @vue
   | 'type'
   | 'disabled'
   | 'unmountOnHide'
-> {
+>
+
+export interface AccordionProps<
+  T extends EventItem = EventItem,
+> extends AccordionRootSubset {
   items: T[]
   lang: LanguageKeys
 }
