@@ -16,8 +16,9 @@
     "fix": "ultracite fix"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.80.0",
     "oxfmt": "^0.49.0",
-    "oxlint": "^1.64.0",
+    "oxlint": "1.80.0",
     "ultracite": "7.7.0"
   }
 }
