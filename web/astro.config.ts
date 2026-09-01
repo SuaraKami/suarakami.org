@@ -4,6 +4,7 @@ import vue from '@astrojs/vue'
 import playformCompress from '@playform/compress'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, fontProviders } from 'astro/config'
+import decapCmsOauth from 'astro-decap-cms-oauth'
 import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
@@ -27,6 +28,7 @@ export default defineConfig({
     },
   ],
   integrations: [
+    decapCmsOauth({ decapCMSVersion: '3.11.0' }),
     sitemap(),
     vue({ appEntrypoint: '/src/_app' }),
     playformCompress({

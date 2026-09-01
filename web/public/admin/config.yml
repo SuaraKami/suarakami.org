@@ -2,8 +2,9 @@ backend:
   name: github
   repo: SuaraKami/suarakami.org
   branch: main
+  site_domain: suarakami.org
   base_url: https://suarakami.org
-  auth_endpoint: /api/auth
+  auth_endpoint: oauth
 
 # Enable local backend server for local dev (npx decap-server)
 local_backend: true
