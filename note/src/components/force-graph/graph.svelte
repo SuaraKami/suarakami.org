@@ -82,7 +82,7 @@
   }
 
   function endpointId(value: NormalizedLinkEndpoint) {
-    return typeof value === 'string' ? value : value.id
+    return value instanceof Object ? value.id : value
   }
 
   function computeDegreeMap(links: NormalizedLink[]) {
@@ -124,7 +124,7 @@
   }
 
   function getEndpointNode(value: NormalizedLinkEndpoint) {
-    return typeof value === 'string' ? null : value
+    return value instanceof Object ? value : null
   }
 
   function centerInitialPositions(nodes: NormalizedNode[], width: number, height: number) {
@@ -190,7 +190,7 @@
 
     let currentTransform = zoomIdentity
     let hoveredNode: NormalizedNode | null = null
-    let activeId = null as string | null
+    let activeId: string | null = null
     const zoomProgressScale = scaleLinear().domain([1, 4.75]).range([0, 1]).clamp(true)
 
     function zoomProgress() {
@@ -288,7 +288,7 @@
           d.fx = null
           d.fy = null
         })
-      nodeSelection.call(dragBehavior as never)
+      nodeSelection.call(dragBehavior)
     }
 
     const zoomBehavior = zoom<SVGSVGElement, unknown>()

@@ -1,3 +1,4 @@
+import type { CollectionEntry } from 'astro:content'
 import type { Element, Root, Text } from 'hast'
 
 import fs from 'node:fs'
@@ -35,6 +36,11 @@ interface GlossaryToken {
   lower: string
 }
 
+type GlossaryFile = Pick<
+  CollectionEntry<'glossary'>['data'],
+  'aliases' | 'term'
+>
+
 function loadGlossaryTokens(directory: string): GlossaryToken[] {
   let files: string[] = []
   try {
@@ -53,11 +59,11 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
     }
     const filepath = path.join(directory, file)
     try {
-      const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
+      const raw: GlossaryFile = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
       const slug = file.replace(/\.json$/u, '')
-      const base = [raw.term, ...(raw.aliases ?? [])]
-      for (const candidate of base) {
-        const normalized = typeof candidate === 'string' ? candidate.trim() : ''
+      const candidates = [raw.term, ...raw.aliases]
+      for (const candidate of candidates) {
+        const normalized = candidate.trim()
         if (!normalized) {
           continue
         }
@@ -85,9 +91,6 @@ function shouldSkipNode(
   parent: Element,
   ancestors: (Element | Root | Text)[]
 ): boolean {
-  if (parent.type !== 'element') {
-    return true
-  }
   if (BANNED_TAGS.has(parent.tagName)) {
     return true
   }
@@ -95,8 +98,7 @@ function shouldSkipNode(
     ancestors.some(
       (node) =>
         node.type === 'element' &&
-        (BANNED_TAGS.has((node as Element).tagName) ||
-          BANNED_ANCESTORS.has((node as Element).tagName))
+        (BANNED_TAGS.has(node.tagName) || BANNED_ANCESTORS.has(node.tagName))
     )
   ) {
     return true
@@ -167,7 +169,7 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
 
   return (tree: Root) => {
     visitParents(tree, 'text', (node: Text, ancestors) => {
-      if (!node.value || typeof node.value !== 'string') {
+      if (!node.value) {
         return
       }
       if (!ancestors.length) {
@@ -178,7 +180,7 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
       if (!parent || parent.type !== 'element') {
         return
       }
-      if (shouldSkipNode(parent as Element, ancestors)) {
+      if (shouldSkipNode(parent, ancestors)) {
         return
       }
 
@@ -208,12 +210,12 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
         fragments.push({ type: 'text', value: node.value.slice(cursor) })
       }
 
-      const index = (parent as Element).children.indexOf(node)
+      const index = parent.children.indexOf(node)
       if (index === -1) {
         return
       }
 
-      ;(parent as Element).children.splice(index, 1, ...fragments)
+      parent.children.splice(index, 1, ...fragments)
     })
   }
 }

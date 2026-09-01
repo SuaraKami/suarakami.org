@@ -4,13 +4,12 @@ import BreadcrumbToolbar from '@/components/breadcrumb-toolbar.astro'
 import HistoryPanels from '@/components/history-panels.astro'
 import Layout from '@/layouts/layout.astro'
 
-export function getStaticPaths() {
-  return getCollection('docs').then((docs) =>
-    docs.map((doc) => ({
-      params: { id: doc.id },
-      props: { doc, id: doc.id },
-    })),
-  )
+export async function getStaticPaths() {
+  const docs = await getCollection('docs')
+  return docs.map((doc) => ({
+    params: { id: doc.id },
+    props: { doc, id: doc.id },
+  }))
 }
 
 const { doc, id } = Astro.props;

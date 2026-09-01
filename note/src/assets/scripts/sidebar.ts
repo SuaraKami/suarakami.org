@@ -37,8 +37,7 @@ function setupSidebarControls() {
     applyState()
   }
 
-  const handleClick = (e: MouseEvent) => {
-    const btn = e.currentTarget as HTMLButtonElement
+  const handleClick = (btn: HTMLButtonElement) => {
     const action = btn.dataset.sidebarToggle ?? 'toggle'
     if (action === 'open') {
       setOpen(true)
@@ -55,7 +54,7 @@ function setupSidebarControls() {
     if (btn.dataset.sidebarBound === 'true') {
       continue
     }
-    btn.addEventListener('click', handleClick)
+    btn.addEventListener('click', () => handleClick(btn))
     btn.dataset.sidebarBound = 'true'
   }
 

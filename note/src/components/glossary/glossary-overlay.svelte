@@ -27,13 +27,7 @@
 
   function resolveRelationId(relation: GlossaryRelation): string | null {
     const target = relation.to
-    if (!target)
-      {return null}
-    if (typeof target === 'string')
-      {return target}
-    if (typeof target === 'object' && 'id' in target)
-      {return target.id as string}
-    return null
+    return target ? target.id : null
   }
 
   function getRelations(rootSlug: string) {

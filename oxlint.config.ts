@@ -33,6 +33,13 @@ export default defineConfig({
   ],
   overrides: [
     {
+      files: ['note/src/assets/scripts/**/*.ts'],
+      rules: {
+        // Astro processes local client scripts as modules before serving them.
+        'eslint/no-implicit-globals': 'off',
+      },
+    },
+    {
       files: ['*.svelte'],
       rules: {
         'prefer-const': 'off',
