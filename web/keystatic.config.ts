@@ -94,8 +94,8 @@ export default config({
   },
   storage:
     process.env.NODE_ENV === 'production'
-      ? { kind: 'github', repo: 'SuaraKami/suarakami.org' }
-      : { kind: 'local' },
+      ? { kind: 'github', pathPrefix: 'web', repo: 'SuaraKami/suarakami.org' }
+      : { kind: 'local', pathPrefix: 'web' },
   ui: {
     navigation: {
       Events: ['eventsEn', 'eventsId'],
