@@ -2,7 +2,6 @@
 title: 'Climate Checkmate'
 description: "Marked SuaraKami's return to in-person discussions after two years. The discussion focused on climate change, energy transition, and civic responsibility, highlighting collaboration between science, policy, and activism to achieve sustainable progress."
 dates: [2022-08-06]
-photos: []
 ---
 
 Returning to an in-person forum after two years, SuaraKami hosted "Climate Checkmate" to examine the climate crisis where technology, policy, and civic life intersect. Framed by the global energy shock linked to the war in Ukraine and the race to meet climate targets, the event set out not to pick sides but to map a practical middle ground between fossil and renewable energy in Indonesia—politically and technically. It also compared approaches in Indonesia and Germany and invited students to see where public pressure and voting matter most in the run-up to elections.

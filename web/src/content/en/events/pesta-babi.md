@@ -8,5 +8,4 @@ link:
   label: 'Buy Tickets'
   to: 'https://apollo-aachen.de/programmuebersicht/movie/pig-feast'
   target: '_blank'
-photos: []
 ---

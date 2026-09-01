@@ -2,7 +2,6 @@
 title: 'Climate Checkmate'
 description: 'Menjadi kembalinya SuaraKami ke forum tatap muka setelah dua tahun. Diskusi ini menyoroti perubahan iklim, transisi energi, dan tanggung jawab masyarakat, dengan penekanan terhadap kolaborasi antara sains, kebijakan, dan aktivisme untuk mencapai progres keberlanjutan.'
 dates: [2022-08-06]
-photos: []
 ---
 
 Setelah dua tahun tanpa forum tatap muka, SuaraKami kembali dengan "Climate Checkmate" untuk membedah krisis iklim di titik temu antara teknologi, kebijakan, dan peran warga. Dengan latar krisis energi global akibat perang di Ukraina dan perlombaan menuju target iklim, acara ini tidak bermaksud memilih kubu, melainkan memetakan "jalan tengah" yang realistis antara energi fosil dan terbarukan di Indonesia—baik dari sisi politik maupun teknis. Perbandingan kebijakan Indonesia–Jerman turut diangkat, sekaligus ajakan agar mahasiswa berani memberi tekanan publik menjelang kontestasi politik.

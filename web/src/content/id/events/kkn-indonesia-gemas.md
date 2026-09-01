@@ -2,7 +2,6 @@
 title: 'The Series: KKN – Indonesia (G)Emas'
 description: "Acara ini mempertanyakan kesiapan Indonesia menuju 'Visi Emas 2045,' menyoroti jarak antara ambisi dan realitas sistemik, serta mengajak generasi muda untuk menafsirkan kembali makna kemajuan nasional melalui kesadaran dan partisipasi bersama."
 dates: [2025-05-31]
-photos: []
 ---
 
 Menjelang satu abad kemerdekaan Indonesia, SuaraKami kembali menghadirkan format diskusi santai Kadang Kadang Ngopi (KKN) dengan tema "Indonesia (G)Emas." Permainan kata "emas" dan "gemas" mencerminkan dua sisi harapan dan kegelisahan terhadap cita-cita "Indonesia Emas 2045."

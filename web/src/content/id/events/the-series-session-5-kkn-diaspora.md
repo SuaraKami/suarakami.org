@@ -2,7 +2,6 @@
 title: 'The Series: Session 5 - KKN - Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya'
 description: 'Peserta berbagi cerita tentang pengalaman hidup di luar negeri, rasa rindu tanah air, serta dilema antara kembali ke Indonesia atau tetap berkarier di luar. Dengan secangkir kopi dan obrolan hangat, KKN menjadi ruang refleksi yang ringan namun bermakna—menunjukkan bahwa kontribusi untuk Indonesia bisa dilakukan dari mana saja di dunia.'
 dates: [2023-06-17]
-photos: []
 ---
 
 The Series: KKN – Kadang Kadang Ngopi menjadi bentuk baru dari ruang dialog SuaraKami yang lebih santai, hangat, dan dekat dengan keseharian para diaspora muda Indonesia. Acara yang diselenggarakan pada 17 Juni 2023 di Humboldt-Haus RWTH Aachen ini mengangkat tema "Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya." Tidak seperti diskusi formal atau webinar sebelumnya, KKN dikemas dalam suasana nongkrong santai — ditemani kopi, gorengan, dan tawa ringan — namun tetap sarat makna dan refleksi.

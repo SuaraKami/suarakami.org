@@ -2,7 +2,6 @@
 title: 'The Series: Session 3 - Sofa Talk - Data Breach'
 description: 'Sesi ini menyoroti pentingnya kesadaran terhadap privasi data dan keamanan siber di Indonesia, menegaskan bahwa perlindungan data pribadi adalah hak asasi manusia, bukan sekadar urusan teknis.'
 dates: [2022-08-15]
-photos: []
 ---
 
 SuaraKami melanjutkan The Series: Sofa Talk dengan topik yang sangat relevan di era digital — meningkatnya kasus kebocoran data dan pentingnya kesadaran akan keamanan siber. Diskusi ini dipandu oleh Farhan Sasono dan Deyland, serta menghadirkan Evan, seorang konsultan keamanan siber, yang berbagi pandangan mengenai perlindungan data dan tanggung jawab digital di Indonesia.

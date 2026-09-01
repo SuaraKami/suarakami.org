@@ -2,7 +2,6 @@
 title: 'Apa Kabar Papua'
 description: 'Acara ini menyoroti secara khusus permasalahan yang sedang berlangsung di Papua. Forum ini menjadi ruang untuk mendengarkan langsung pandangan mahasiswa Papua dan para tamu mengenai perkembangan terkini, pengalaman diskriminasi, serta partisipasi masyarakat. Diskusi ini menghadirkan berbagai perspektif dari dunia jurnalisme, akademik, dan organisasi mahasiswa, yang mendorong dialog tentang tantangan sosial dan politik yang dihadapi masyarakat Papua serta kaitannya dengan konteks demokrasi Indonesia secara lebih luas.'
 dates: [2019-12-07]
-photos: []
 ---
 
 "Apa Kabar Papua" dirancang sebagai ruang untuk mendengar terlebih dahulu. Forum ini menghadirkan mahasiswa Papua dan tamu dari dunia jurnalisme dan akademik untuk berbagi pengalaman diskriminasi, membahas perkembangan terkini, serta menempatkan isu Papua dalam konteks demokrasi Indonesia yang lebih luas. Suasana diarahkan pada dialog yang empatik, bukan perdebatan yang menegangkan.

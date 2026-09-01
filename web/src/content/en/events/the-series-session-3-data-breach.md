@@ -2,7 +2,6 @@
 title: 'The Series: Session 3 - Sofa Talk - Data Breach'
 description: 'This episode focuses on the importance of data privacy and cybersecurity awareness in Indonesia, stressing that protecting personal information is a matter of human rights, not convenience.'
 dates: [2022-08-15]
-photos: []
 ---
 
 SuaraKami continued The Series: Sofa Talk with a discussion on one of Indonesia's most pressing digital issues — the rise of data breaches and the importance of cybersecurity awareness. Hosted by Farhan Sasono and Deyland, the session featured Evan, a cybersecurity consultant, who shared his perspective on data protection and digital responsibility in Indonesia.

@@ -25,8 +25,7 @@ const indexCollection = defineCollection({
 
 const eventCollection = defineCollection({
   loader: glob({ base: './src/content', pattern: '*/events/*.md' }),
-  schema: ({ image }) =>
-    z.object({
+  schema: z.object({
       dates: z.array(z.coerce.date()).min(1).max(2),
       description: z.string(),
       link: z
@@ -38,14 +37,6 @@ const eventCollection = defineCollection({
         .or(z.string())
         .optional(),
       location: z.string().optional(),
-      photos: z
-        .array(
-          z.object({
-            caption: z.string().optional(),
-            img: image(),
-          })
-        )
-        .optional(),
       time: z.string().optional(),
       title: z.string(),
     }),

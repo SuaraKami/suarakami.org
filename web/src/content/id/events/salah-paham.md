@@ -2,7 +2,6 @@
 title: 'The Series: Salah paHAM — Menengok ke Belakang, Merajut Masa Depan'
 description: 'Acara ini menyoroti perjuangan Indonesia menegakkan kebenaran dan keadilan 25 tahun pasca-Reformasi, dengan menekankan pentingnya ingatan kolektif, akuntabilitas, serta peran generasi muda dalam membangun demokrasi yang berlandaskan HAM.'
 dates: [2023-11-11]
-photos: []
 ---
 
 Dalam rangka memperingati dua puluh lima tahun Reformasi, SuaraKami bersama AK-Indonesien e.V. menyelenggarakan acara diskusi besar berjudul Salah paHAM, yang mengulas perjalanan panjang Indonesia dalam memahami dan menegakkan hak asasi manusia. Judulnya sendiri merupakan permainan kata—antara "paham" dan "salah paham"—yang mengajak publik merenungkan kembali makna HAM dalam konteks nasional.

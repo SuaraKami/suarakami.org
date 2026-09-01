@@ -2,7 +2,6 @@
 title: 'The Series: Session 5 - KKN - Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya'
 description: 'Participants reflected on their experiences as Indonesians abroad, sharing thoughts about identity, belonging, and whether to return home or continue their journeys overseas. With coffee, snacks, and open conversation, KKN became a warm and honest space for reflection—showing how young Indonesians abroad continue to find unique ways to contribute to their homeland from afar.'
 dates: [2023-06-17]
-photos: []
 ---
 
 The Series: KKN – Kadang Kadang Ngopi introduced a fresh and more personal format within SuaraKami's ongoing effort to foster open and inclusive discussions. Held on June 17th, 2023, at Humboldt-Haus RWTH Aachen, the event carried the theme "Diaspora: Di Luar Menjejak Dunia, Pulang Penuh Tanda Tanya." Unlike previous structured webinars, this session took the shape of a relaxed community gathering — coffee in hand, snacks on the table, and honest conversations all around.

@@ -2,7 +2,6 @@
 title: 'The Series: KKN – Indonesia (G)Emas'
 description: "The event questioned Indonesia's readiness to realize the '2045 Golden Vision,' highlighting the gap between ambition and systemic reality, and inviting the youth to redefine national progress through collective awareness and participation."
 dates: [2025-05-31]
-photos: []
 ---
 
 As Indonesia moves closer to its 2045 centennial milestone, SuaraKami revisits its Kadang Kadang Ngopi (KKN) format with an informal yet thought-provoking discussion titled "Indonesia (G)Emas." The title itself played on the words emas (gold) and gemas (frustrated-but-endearing)—reflecting both the optimism and skepticism surrounding the government's "Indonesia Emas 2045" vision.

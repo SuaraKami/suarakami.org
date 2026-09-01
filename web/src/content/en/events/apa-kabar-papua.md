@@ -2,7 +2,6 @@
 title: 'Apa Kabar Papua'
 description: "This event placed a stronger emphasis on the ongoing issues in Papua. It provided space to hear directly from Papuan students and invited guests about recent developments, experiences of discrimination, and civic participation. The discussion featured diverse perspectives from journalism, academia, and student organisations, encouraging dialogues about social and political challenges faced by Papuans and their relation to Indonesia's broader democratic context."
 dates: [2019-12-07]
-photos: []
 ---
 
 "Apa Kabar Papua" was a year-end forum designed to listen first. It created space for Papuan students and invited guests from journalism and academia to share experiences of discrimination, discuss current developments, and situate Papua's challenges within Indonesia's broader democratic context. The room mixed testimony and analysis, encouraging dialogue over debate and empathy over labels.

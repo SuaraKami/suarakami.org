@@ -2,7 +2,6 @@
 title: 'The Series: Salah paHAM — Menengok ke Belakang, Merajut Masa Depan'
 description: "The event explored Indonesia's struggle for truth and justice 25 years after Reformasi, highlighting the importance of collective memory, accountability, and youth participation in shaping a human-rights-oriented democracy."
 dates: [2023-11-11]
-photos: []
 ---
 
 Marking twenty-five years since Indonesia's Reformasi, SuaraKami and AK-Indonesien e.V. convened Salah paHAM ("Misunderstanding Human Rights"), a large public dialogue examining Indonesia's long and complicated relationship with human rights. The title played on the dual meaning of "understanding" and "misunderstanding," inviting participants to rethink what human rights truly mean in the Indonesian context.

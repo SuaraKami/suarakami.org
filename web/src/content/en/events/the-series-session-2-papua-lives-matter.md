@@ -2,7 +2,6 @@
 title: 'The Series: Session 2 - Sofa Talk - Papua Lives Matter'
 description: 'The session reflected on racial injustice and discrimination toward Papuans, drawing parallels with global movements and encouraging Indonesian youth to foster empathy, equality, and critical awareness.'
 dates: [2020-06-01]
-photos: []
 ---
 
 Amid the global wave of protests following the George Floyd case, SuaraKami launched "The Series: Sofa Talk" — an open conversation on racism in Indonesia, focusing on discrimination against Papuans. The discussion featured Yustisia Temongmere and W. P. Leo Leleran from the Papuan Students Association in Germany (PMP), who spoke candidly about everyday prejudice, historical injustice, and the parallels between Black Lives Matter and the Papuan experience.

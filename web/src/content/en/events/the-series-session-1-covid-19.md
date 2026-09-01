@@ -2,7 +2,6 @@
 title: 'The Series: Session 1 - COVID 19'
 description: 'This session focused on the early experiences of Indonesians during the COVID-19 pandemic, emphasizing awareness, shared understanding, and solidarity across borders.'
 dates: [2020-04-01]
-photos: []
 ---
 
 The first session of The Series, released in April 2020, featured conversations with Indonesians living in Japan, South Korea, Italy, and Indonesia, each offering a unique look into how different countries were handling the early months of the COVID-19 pandemic.

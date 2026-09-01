@@ -2,7 +2,6 @@
 title: 'Saatnya Pemuda Turun Tangan'
 description: 'The event addressed key issues such as racism in Papua, criminalization of activists, and controversial law revisions on the KPK, penal code, and land reform, along with environmental concerns like forest fires. The forum aimed to inform young Indonesians abroad about current political and social developments in Indonesia.'
 dates: [2019-10-19]
-photos: []
 ---
 
 In October 2019, SuaraKami held "Saatnya Pemuda Turun Tangan", a discussion event addressing key issues surrounding Indonesia's democracy and civic space. The forum explored pressing topics such as racism in Papua, criminalization of activists, and several controversial law revisions including those on the KPK, penal code, land reform, and correctional law, as well as environmental crises like forest fires. The aim was to provide a space for young Indonesians abroad to understand, question, and engage with these developments.

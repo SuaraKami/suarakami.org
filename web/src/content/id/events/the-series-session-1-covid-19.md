@@ -2,7 +2,6 @@
 title: 'The Series: Session 1 - COVID 19'
 description: 'Sesi ini berfokus pada pengalaman awal masyarakat Indonesia selama pandemi COVID-19, dengan menekankan kesadaran, pemahaman bersama, dan solidaritas lintas batas.'
 dates: [2020-04-01]
-photos: []
 ---
 
 Sesi pertama The Series yang tayang pada April 2020 menampilkan wawancara dengan empat WNI di Jepang, Korea Selatan, Italia, dan Indonesia, yang masing-masing memberikan gambaran unik tentang penanganan awal pandemi COVID-19 di negara mereka.
