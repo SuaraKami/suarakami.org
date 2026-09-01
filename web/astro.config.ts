@@ -1,10 +1,11 @@
+import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import vercel from '@astrojs/vercel'
 import vue from '@astrojs/vue'
+import keystatic from '@keystatic/astro'
 import playformCompress from '@playform/compress'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, fontProviders } from 'astro/config'
-import decapCmsOauth from 'astro-decap-cms-oauth'
 import Icons from 'unplugin-icons/vite'
 
 // https://astro.build/config
@@ -28,7 +29,8 @@ export default defineConfig({
     },
   ],
   integrations: [
-    decapCmsOauth({ decapCMSVersion: '3.11.0' }),
+    react(),
+    keystatic(),
     sitemap(),
     vue({ appEntrypoint: '/src/_app' }),
     playformCompress({
@@ -43,6 +45,15 @@ export default defineConfig({
   ],
   site: 'https://suarakami.org',
   vite: {
-    plugins: [tailwindcss(), Icons({ compiler: 'vue3' })],
+    plugins: [
+      tailwindcss(),
+      Icons({ compiler: 'vue3' }),
+      // Only Keystatic needs React, and it does not need refresh.
+      {
+        config: () => ({ oxc: { jsx: { refresh: false } } }),
+        enforce: 'post',
+        name: 'disable-jsx-refresh',
+      },
+    ],
   },
 })
