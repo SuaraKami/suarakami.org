@@ -1,0 +1,10 @@
+title: test
+description: testing
+hero:
+  title: TEST EVENT
+  description: TEST
+  date: 2026-09-03T10:00:00.000Z
+  location: Aachen
+  link:
+    to: suarakami.org
+    target: _blank
