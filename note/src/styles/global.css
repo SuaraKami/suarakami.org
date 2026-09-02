@@ -29,7 +29,6 @@
   --color-selection: var(--selection);
 
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
 }
 
 @layer base {

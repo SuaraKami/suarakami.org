@@ -68,7 +68,7 @@ const datesString = computed(() =>
         >
           <div class="grid grid-cols-12 items-start gap-6">
             <span
-              class="col-span-3 mt-1.5 font-mono text-xs font-semibold tracking-widest uppercase opacity-50 md:col-span-3"
+              class="col-span-3 mt-1.5 text-sm font-semibold tracking-widest uppercase opacity-50 md:col-span-3"
             >
               {{ datesString[index] }}
             </span>
