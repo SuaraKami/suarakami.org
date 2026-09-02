@@ -31,11 +31,6 @@ function eventCollection(label: string, language: 'en' | 'id') {
         }
       ),
       location: fields.text({ label: 'Location' }),
-      featured: fields.checkbox({
-        defaultValue: false,
-        description: 'Show this event in the hero section',
-        label: 'Featured',
-      }),
       link: fields.object(linkFields, { label: 'Link' }),
       content: fields.markdoc({
         extension: 'md',
@@ -78,6 +73,11 @@ function landingPage(label: string, language: 'en' | 'id') {
         },
         { label: 'Hero' }
       ),
+      promotedEvent: fields.relationship({
+        collection: language === 'en' ? 'eventsEn' : 'eventsId',
+        description: 'Show this event in the hero instead of the organization introduction',
+        label: 'Promoted event',
+      }),
       about: fields.text({ label: 'About', multiline: true }),
     },
   })

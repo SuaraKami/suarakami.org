@@ -8,14 +8,14 @@ import { siteConfig } from '@/site.config'
 
 interface Props {
   page: CollectionEntry<'index'>
-  featuredEvent?: CollectionEntry<'event'>
+  promotedEvent?: CollectionEntry<'event'>
   lang: LanguageKeys
 }
-const { page, featuredEvent, lang } = Astro.props
+const { page, promotedEvent, lang } = Astro.props
 
 const t = useTranslations(lang)
 
-const eventData = featuredEvent?.data
+const eventData = promotedEvent?.data
 const title = eventData?.title || page.data.hero.title || ''
 const description = eventData?.description || page.data.hero.description
 

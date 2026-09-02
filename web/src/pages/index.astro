@@ -9,15 +9,19 @@ import { getLandingEvents } from '@/lib/events'
 
 const lang = getLangFromUrl(Astro.url)
 const page = await getEntry('index', lang)
-const { events, featuredEvent } = await getLandingEvents(lang)
 
 if (!page) {
   throw new Error('Could not find page')
 }
+
+const { events, promotedEvent } = await getLandingEvents(
+  lang,
+  page.data.promotedEvent
+)
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description} lang={lang} includeLanguageRedirect>
-  <Hero page={page} featuredEvent={featuredEvent} lang={lang} />
+  <Hero page={page} promotedEvent={promotedEvent} lang={lang} />
   <About page={page} lang={lang} />
   <Events events={events} lang={lang} />
 </BaseLayout>

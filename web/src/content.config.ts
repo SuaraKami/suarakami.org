@@ -18,6 +18,7 @@ const indexCollection = defineCollection({
       location: z.string().optional(),
       title: z.string(),
     }),
+    promotedEvent: z.string().nullish(),
     title: z.string(),
   }),
 })
@@ -27,7 +28,6 @@ const eventCollection = defineCollection({
   schema: z.object({
     dates: z.array(z.coerce.date()).min(1).max(2),
     description: z.string(),
-    featured: z.boolean().default(false),
     link: z
       .object({
         label: z.string().optional(),
