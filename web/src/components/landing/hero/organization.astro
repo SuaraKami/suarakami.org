@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import HeroLayout from './layout.astro'
+
+type OrganizationHero = CollectionEntry<'index'>['data']['hero']
+
+interface Props {
+  hero: OrganizationHero
+}
+
+const { hero } = Astro.props
+---
+
+<HeroLayout
+  title={hero.title}
+  description={hero.description}
+  link={{ label: hero.link.label, target: hero.link.target, to: hero.link.to }}
+/>

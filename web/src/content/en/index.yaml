@@ -4,7 +4,6 @@ promotedEvent: pesta-babi
 hero:
   title: 'What are we?'
   description: 'SuaraKami is a safe and open space where ideas can be shared freely, curiosity is encouraged, and discussions grow into thoughtful and constructive debates.'
-  location: 'Aachen, Germany'
   link:
     label: Discover our mission
     to: '#about'

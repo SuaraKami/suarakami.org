@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import { useFormatDate } from '@/composables/use-format-date'
+import type { LanguageKeys } from '@/i18n'
+import { useTranslations } from '@/i18n'
+import { siteConfig } from '@/site.config'
+
+import HeroLayout from './layout.astro'
+
+interface Props {
+  event: CollectionEntry<'event'>
+  lang: LanguageKeys
+}
+
+const { event, lang } = Astro.props
+const t = useTranslations(lang)
+const { data } = event
+const rawDate = data.dates[0]
+const hasTime = rawDate.getUTCHours() > 0 || rawDate.getUTCMinutes() > 0
+const formattedDate = useFormatDate(rawDate, lang, {
+  day: 'numeric',
+  month: 'short',
+  timeZone: siteConfig.timeZone,
+  year: 'numeric',
+}).formattedDate.value
+const formattedTime = hasTime
+  ? rawDate.toLocaleTimeString('en-GB', {
+      hour: '2-digit',
+      hourCycle: 'h23',
+      minute: '2-digit',
+      timeZone: siteConfig.timeZone,
+      timeZoneName: 'short',
+    })
+  : undefined
+const facts = [
+  { label: t('landing.date'), value: formattedDate },
+  { label: t('landing.time'), value: formattedTime },
+  { label: t('landing.location'), value: data.location },
+].filter((fact): fact is { label: string; value: string } => !!fact.value)
+
+const eventLink = data.link
+const link = eventLink
+  ? {
+      label: eventLink.label || t('landing.getTickets'),
+      target: eventLink.target || '_blank',
+      to: eventLink.to,
+    }
+  : undefined
+---
+
+<HeroLayout
+  title={data.title}
+  description={data.description}
+  eyebrow={t('landing.upcomingEvent')}
+  facts={facts}
+  link={link}
+/>

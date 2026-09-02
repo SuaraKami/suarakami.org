@@ -67,15 +67,16 @@ function landingPage(label: string, language: 'en' | 'id') {
         {
           title: fields.text({ label: 'Title' }),
           description: fields.text({ label: 'Description', multiline: true }),
-          date: fields.datetime({ label: 'Date' }),
-          location: fields.text({ label: 'Location' }),
           link: fields.object(linkFields, { label: 'Link' }),
         },
-        { label: 'Hero' }
+        {
+          label: 'Organization hero',
+          description: 'Used when no event is promoted',
+        }
       ),
       promotedEvent: fields.relationship({
         collection: language === 'en' ? 'eventsEn' : 'eventsId',
-        description: 'Show this event in the hero instead of the organization introduction',
+        description: 'Show this event instead of the organization hero',
         label: 'Promoted event',
       }),
       about: fields.text({ label: 'About', multiline: true }),
@@ -85,21 +86,21 @@ function landingPage(label: string, language: 'en' | 'id') {
 
 export default config({
   collections: {
-    eventsEn: eventCollection('Events (English)', 'en'),
-    eventsId: eventCollection('Events (Indonesian)', 'id'),
+    eventsEn: eventCollection('Events', 'en'),
+    eventsId: eventCollection('Events', 'id'),
   },
   singletons: {
-    landingEn: landingPage('Landing page (English)', 'en'),
-    landingId: landingPage('Landing page (Indonesian)', 'id'),
+    landingEn: landingPage('Landing page', 'en'),
+    landingId: landingPage('Landing page', 'id'),
   },
   storage:
     process.env.NODE_ENV === 'production'
       ? { kind: 'github', pathPrefix: 'web', repo: 'SuaraKami/suarakami.org' }
-      : { kind: 'local', pathPrefix: 'web' },
+      : { kind: 'local' },
   ui: {
     navigation: {
-      Events: ['eventsEn', 'eventsId'],
-      Pages: ['landingEn', 'landingId'],
+      English: ['landingEn', 'eventsEn'],
+      'Bahasa Indonesia': ['landingId', 'eventsId'],
     },
   },
 })

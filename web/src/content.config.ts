@@ -8,14 +8,12 @@ const indexCollection = defineCollection({
     about: z.string(),
     description: z.string(),
     hero: z.object({
-      date: z.coerce.date().nullish(),
       description: z.string(),
       link: z.object({
         label: z.string(),
         target: z.string(),
         to: z.string(),
       }),
-      location: z.string().optional(),
       title: z.string(),
     }),
     promotedEvent: z.string().nullish(),
@@ -34,7 +32,6 @@ const eventCollection = defineCollection({
         target: z.string().optional().default('_blank'),
         to: z.string(),
       })
-      .or(z.string())
       .optional(),
     location: z.string().optional(),
     title: z.string(),
