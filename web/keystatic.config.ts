@@ -93,10 +93,9 @@ export default config({
     landingEn: landingPage('Landing page', 'en'),
     landingId: landingPage('Landing page', 'id'),
   },
-  storage:
-    process.env.NODE_ENV === 'production'
-      ? { kind: 'github', pathPrefix: 'web', repo: 'SuaraKami/suarakami.org' }
-      : { kind: 'local' },
+  storage: import.meta.env.PROD
+    ? { kind: 'github', pathPrefix: 'web', repo: 'SuaraKami/suarakami.org' }
+    : { kind: 'local' },
   ui: {
     navigation: {
       English: ['landingEn', 'eventsEn'],
