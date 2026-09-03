@@ -325,7 +325,7 @@
   }
 
   $effect(() => {
-    if (!hostEl || typeof window === 'undefined') { return }
+    if (!hostEl || !globalThis.window) { return }
     const normalized = normalizeGraphData(graphData)
     const mergedConfig = { ...defaultGraphConfig, ...config }
     if (!hasRenderableGraph) {

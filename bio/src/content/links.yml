@@ -1,7 +1,7 @@
 PestaBabi:
   title: Pesta Babi - Das Schweinefest
   description: Click here to purchase the tickets for our Pig Feast Movie screening.
-  url: https://apollo-aachen.de/programmuebersicht/movie/pig-feast 
+  url: https://apollo-aachen.de/programmuebersicht/movie/pig-feast
   icon: lucide:ticket
   featured: true
 

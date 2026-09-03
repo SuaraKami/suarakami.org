@@ -63,9 +63,8 @@ export interface NormalizedNode extends ForceGraphNode, SimulationNodeDatum {
 
 export type NormalizedLinkEndpoint = ForceGraphLink['source'] | NormalizedNode
 
-export type NormalizedLink = Omit<ForceGraphLink, 'source' | 'target'>
-  & SimulationLinkDatum<NormalizedNode>
-  & {
+export type NormalizedLink = Omit<ForceGraphLink, 'source' | 'target'> &
+  SimulationLinkDatum<NormalizedNode> & {
     source: NormalizedLinkEndpoint
     target: NormalizedLinkEndpoint
   }

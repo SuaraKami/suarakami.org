@@ -66,7 +66,7 @@ export function useTranslatedPath(lang: LanguageKeys) {
 }
 
 export function getPreferredLangFromCookie(): LanguageKeys | null {
-  if (typeof document === 'undefined') {
+  if (!globalThis.document) {
     return null
   }
 
@@ -82,7 +82,7 @@ export function getPreferredLangFromCookie(): LanguageKeys | null {
 }
 
 export function setPreferredLangCookie(lang: LanguageKeys): void {
-  if (typeof document === 'undefined') {
+  if (!globalThis.document) {
     return
   }
 
@@ -97,7 +97,7 @@ export function setPreferredLangCookie(lang: LanguageKeys): void {
 }
 
 export function detectBrowserLanguage(): LanguageKeys {
-  if (typeof navigator === 'undefined') {
+  if (!globalThis.navigator) {
     return defaultLang
   }
 
