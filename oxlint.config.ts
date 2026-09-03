@@ -1,4 +1,5 @@
 import { defineConfig } from 'oxlint'
+import antiSlop from 'ultracite/oxlint/anti-slop'
 import astro from 'ultracite/oxlint/astro'
 import core from 'ultracite/oxlint/core'
 import svelte from 'ultracite/oxlint/svelte'
@@ -9,28 +10,9 @@ export default defineConfig({
   env: {
     builtin: true,
   },
-  extends: [core, vue, svelte, astro],
+  extends: [core, antiSlop, vue, svelte, astro],
   globals: {},
-  ignorePatterns: [
-    '.agent/**',
-    '.agents/**',
-    '.claude/**',
-    '.codex/**',
-    '.continue/**',
-    '.cursor/**',
-    '.gemini/**',
-    '.opencode/**',
-    '.pi/**',
-    '.roo/**',
-    '.windsurf/**',
-    'tools/oxlint/anti-slop/**',
-  ],
-  jsPlugins: [
-    {
-      name: 'anti-slop',
-      specifier: './tools/oxlint/anti-slop/index.ts',
-    },
-  ],
+  ignorePatterns: core.ignorePatterns,
   overrides: [
     {
       files: ['note/src/assets/scripts/**/*.ts'],
@@ -53,21 +35,6 @@ export default defineConfig({
     },
   ],
   rules: {
-    'anti-slop/no-chained-type-assertions': 'error',
-    'anti-slop/no-conditional-empty-object-spread': 'error',
-    'anti-slop/no-known-value-widening': 'error',
-    'anti-slop/no-module-mocking': 'error',
-    'anti-slop/no-object-parameters': 'error',
-    'anti-slop/no-reflect-apply': 'error',
-    'anti-slop/no-reflect-get': 'error',
-    'anti-slop/no-runtime-typeof': 'error',
-    'anti-slop/no-shape-in-symbol-names': 'error',
-    'anti-slop/no-unknown-parameters': 'error',
-    'anti-slop/no-unknown-returns': 'error',
-    'anti-slop/no-unknown-type-aliases': 'error',
-    'anti-slop/no-unsafe-dictionary-type': 'error',
-    'anti-slop/no-widen-then-assert': 'error',
-    'anti-slop/require-safety-comment-for-type-assertion': 'error',
     'func-style': 'off',
     'prefer-destructuring': 'off',
     'unicorn/prefer-array-find': 'off',
