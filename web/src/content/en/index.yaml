@@ -1,19 +1,35 @@
 title: SuaraKami - Made for Indonesia
-description: 'SuaraKami adalah sebuah inisiatif non-profit diaspora muda Indonesia yang berpusat di Aachen, Jerman. Kami bergerak dalam lingkup demokrasi dan berdedikasi di bidang pendidikan kebijakan publik.'
-promotedEvent: pesta-babi
+description: >-
+  SuaraKami adalah sebuah inisiatif non-profit diaspora muda Indonesia yang
+  berpusat di Aachen, Jerman. Kami bergerak dalam lingkup demokrasi dan
+  berdedikasi di bidang pendidikan kebijakan publik.
 hero:
-  title: 'What are we?'
-  description: 'SuaraKami is a safe and open space where ideas can be shared freely, curiosity is encouraged, and discussions grow into thoughtful and constructive debates.'
+  title: What are we?
+  description: >-
+    SuaraKami is a safe and open space where ideas can be shared freely,
+    curiosity is encouraged, and discussions grow into thoughtful and
+    constructive debates.
   link:
     label: Discover our mission
     to: '#about'
     target: _self
+about: >
+  SuaraKami is a community made by Indonesians in Germany. We were born out of
+  the need for a safe and open space where ideas can be shared freely, curiosity
+  is encouraged, and discussions grow into thoughtful and constructive debates.
 
-about: |
-  SuaraKami is a community made by Indonesians in Germany. We were born out of the need for a safe and open space where ideas can be shared freely, curiosity is encouraged, and discussions grow into thoughtful and constructive debates.
 
-  Our goal is simple: to strengthen the public from the ground up and contribute to a fairer, more participatory Indonesia.
+  Our goal is simple: to strengthen the public from the ground up and contribute
+  to a fairer, more participatory Indonesia.
 
-  We organize open discussions, seminars, and community dialogues that invite people to engage critically with current events and public issues. Alongside that, we repackage these topics into accessible, human-centered conversations and continue developing digital platforms to turn shared knowledge into actions.
 
-  Rooted in the spirit of gotong royong, we stay idealistic yet pragmatic, always taking the side of the public and believing that change begins with open minds and collective effort.
+  We organize open discussions, seminars, and community dialogues that invite
+  people to engage critically with current events and public issues. Alongside
+  that, we repackage these topics into accessible, human-centered conversations
+  and continue developing digital platforms to turn shared knowledge into
+  actions.
+
+
+  Rooted in the spirit of gotong royong, we stay idealistic yet pragmatic,
+  always taking the side of the public and believing that change begins with
+  open minds and collective effort.
