@@ -1,12 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "preserve",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["unplugin-icons/types/vue"],
-    "strictNullChecks": true
+    "types": ["unplugin-icons/types/vue"]
   },
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"]
