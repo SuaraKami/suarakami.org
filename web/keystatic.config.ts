@@ -79,7 +79,16 @@ function landingPage(label: string, language: 'en' | 'id') {
         description: 'Show this event instead of the organization hero',
         label: 'Promoted event',
       }),
-      about: fields.text({ label: 'About', multiline: true }),
+      about: fields.text({
+        description: 'Origin and values. Shown under “Who we are”',
+        label: 'About',
+        multiline: true,
+      }),
+      activities: fields.text({
+        description: 'Shown under “What we do”, above the event list',
+        label: 'Activities',
+        multiline: true,
+      }),
     },
   })
 }

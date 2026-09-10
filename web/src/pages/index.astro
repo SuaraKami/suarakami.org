@@ -23,5 +23,5 @@ const { events, promotedEvent } = await getLandingEvents(
 <BaseLayout title={page.data.title} description={page.data.description} lang={lang} includeLanguageRedirect>
   <Hero page={page} promotedEvent={promotedEvent} lang={lang} />
   <About page={page} lang={lang} />
-  <Events events={events} lang={lang} />
+  <Events activities={page.data.activities} events={events} lang={lang} />
 </BaseLayout>

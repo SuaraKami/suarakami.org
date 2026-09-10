@@ -6,6 +6,7 @@ const indexCollection = defineCollection({
   loader: glob({ base: './src/content', pattern: '**/index.yaml' }),
   schema: z.object({
     about: z.string(),
+    activities: z.string(),
     description: z.string(),
     hero: z.object({
       description: z.string(),
