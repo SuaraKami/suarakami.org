@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 
-import { useFormatDate } from '@/composables/use-format-date'
 import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
+import { formatDate } from '@/lib/format-date'
 import { siteConfig } from '@/site.config'
 
 import HeroLayout from './layout.astro'
@@ -18,12 +18,12 @@ const t = useTranslations(lang)
 const { data } = event
 const rawDate = data.dates[0]
 const hasTime = rawDate.getUTCHours() > 0 || rawDate.getUTCMinutes() > 0
-const formattedDate = useFormatDate(rawDate, lang, {
+const formattedDate = formatDate(rawDate, lang, {
   day: 'numeric',
   month: 'short',
   timeZone: siteConfig.timeZone,
   year: 'numeric',
-}).formattedDate.value
+})
 const formattedTime = hasTime
   ? rawDate.toLocaleTimeString('en-GB', {
       hour: '2-digit',

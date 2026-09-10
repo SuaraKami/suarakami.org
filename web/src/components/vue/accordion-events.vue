@@ -24,7 +24,7 @@ import {
 import { computed } from 'vue'
 import ChevronDown from '~icons/lucide/chevron-down'
 
-import { useFormatDate } from '@/composables/use-format-date'
+import { formatDate } from '@/lib/format-date'
 import { siteConfig } from '@/site.config'
 
 const props = defineProps<AccordionProps>()
@@ -32,14 +32,13 @@ const props = defineProps<AccordionProps>()
 const datesString = computed(() =>
   props.items.map(({ data: { dates } }) =>
     dates
-      .map(
-        (date) =>
-          useFormatDate(date, props.lang, {
-            day: 'numeric',
-            month: 'short',
-            timeZone: siteConfig.timeZone,
-            year: 'numeric',
-          }).formattedDate.value
+      .map((date) =>
+        formatDate(date, props.lang, {
+          day: 'numeric',
+          month: 'short',
+          timeZone: siteConfig.timeZone,
+          year: 'numeric',
+        })
       )
       .join(' & ')
   )
