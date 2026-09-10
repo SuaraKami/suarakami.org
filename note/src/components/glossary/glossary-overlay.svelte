@@ -13,7 +13,7 @@
   type GlossaryEntry = CollectionEntry<'glossary'>
   interface GroupedRelations {
     label: string
-    items: { id: string | null, term: string, entry: GlossaryEntry | null }[]
+    items: { term: string, entry: GlossaryEntry | null }[]
   }
 
   const { entries = [] }: { entries: GlossaryEntry[] } = $props()
@@ -58,11 +58,9 @@
   const groupedRelations = $derived.by(() => {
     const groups: Record<string, GroupedRelations> = {}
     for (const relation of relations) {
-      const targetId = relation.to.id
-      const targetEntry = targetId ? entryMap.get(targetId) ?? null : null
+      const targetEntry = entryMap.get(relation.to.id) ?? null
       const item = {
         entry: targetEntry,
-        id: targetId,
         term: targetEntry?.data.term ?? relation.type,
       }
       const groupLabel = relation.type
@@ -249,7 +247,7 @@
                       { 'border-primary/60 text-foreground': active },
                       { 'text-foreground-muted': !active },
                     ]}
-                    disabled={!item.entry || !item.id}
+                    disabled={!item.entry}
                     onclick={() => item.entry && focusRelation(item.entry.id)}
                   >
                     {item.term}
