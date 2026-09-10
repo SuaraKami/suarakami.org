@@ -14,6 +14,8 @@ export const ui = defineUI({
   en: {
     'contact.email': 'Email',
     'contact.follow': 'Follow',
+    'events.event': 'Event',
+    'events.number': 'No.',
     'landing.basedIn': 'Based in',
     'landing.date': 'Date',
     'landing.eventsHeld': 'Events held',
@@ -32,6 +34,8 @@ export const ui = defineUI({
   id: {
     'contact.email': 'Email',
     'contact.follow': 'Follow',
+    'events.event': 'Acara',
+    'events.number': 'No.',
     'landing.basedIn': 'Berbasis di',
     'landing.date': 'Tanggal',
     'landing.eventsHeld': 'Acara terselenggara',

@@ -14,14 +14,20 @@ const { events, lang } = Astro.props
 const t = useTranslations(lang)
 ---
 
-<section id="events" class="relative bg-background">
+<section id="events" class="relative bg-surface">
   <Container grid class="gap-y-12 py-24 md:gap-y-16 md:py-32 lg:py-40">
-    <div class="col-span-12 md:col-span-4 lg:col-span-3">
-      <h2 class="cap-trim text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
-        {t('nav.events')}
-      </h2>
-    </div>
-    <div class="col-span-12 border-t border-foreground/15 pt-4 md:col-span-8 md:col-start-5 lg:col-span-8 lg:col-start-5">
+    <h2 class="cap-trim col-span-12 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
+      {t('nav.events')}
+    </h2>
+    <div class="col-span-12">
+      <div
+        class="hidden grid-cols-12 gap-x-6 border-b border-foreground/15 pb-3 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase md:grid"
+        aria-hidden="true"
+      >
+        <span class="col-span-1">{t('events.number')}</span>
+        <span class="col-span-2">{t('landing.date')}</span>
+        <span class="col-span-8">{t('events.event')}</span>
+      </div>
       <AccordionEvents items={events} lang={lang} client:visible />
     </div>
   </Container>

@@ -28,7 +28,7 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
     }
 
     <h1
-      class="col-span-12 max-w-[14ch] text-[clamp(2.75rem,8.5vw,7.5rem)] leading-[0.95] font-normal
+      class="col-span-12 max-w-[18ch] text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.98] font-normal
              tracking-[-0.03em] text-balance lg:col-span-11"
     >
       {title}
@@ -41,12 +41,17 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
       {
         facts.length > 0 && (
           <dl class="col-span-12 grid grid-cols-2 gap-x-6 gap-y-8 md:col-span-4 md:grid-cols-1 md:gap-y-8">
-            {facts.map((fact) => (
+            {facts.map((fact, i) => (
               <div>
                 <dt class="text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
                   {fact.label}
                 </dt>
-                <dd class="mt-2 text-lg leading-snug tracking-tight tabular-nums md:text-xl">
+                <dd
+                  class:list={[
+                    'mt-2 text-lg leading-snug tracking-tight tabular-nums md:text-xl',
+                    i === facts.length - 1 && 'md:cap-trim-both md:mt-3',
+                  ]}
+                >
                   {fact.value}
                 </dd>
               </div>
@@ -55,7 +60,7 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
         )
       }
 
-      <div class="col-span-12 md:col-span-7 md:col-start-6">
+      <div class="col-span-12 md:col-span-7 md:col-start-6 md:flex md:flex-col md:justify-between">
         <p class="max-w-[42ch] text-xl leading-snug tracking-tight text-pretty text-foreground/70 md:text-2xl">
           {description}
         </p>
@@ -66,7 +71,7 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
               href={link.to}
               target={link.target}
               rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-              class="mt-10 inline-flex min-h-11 items-center gap-4 border border-foreground
+              class="mt-10 inline-flex min-h-11 items-center self-start gap-4 border border-foreground
                      bg-foreground px-8 py-3 text-xs font-medium tracking-[0.16em] text-background
                      uppercase transition-colors hover:bg-background hover:text-foreground
                      focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2
