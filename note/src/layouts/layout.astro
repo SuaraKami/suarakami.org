@@ -27,7 +27,6 @@ const { title, description, slug } = Astro.props
     <link rel="icon" type="image/svg+xml" href={favicon.src} />
     <title>{title ?? siteConfig.title}</title>
     <Font cssVariable="--font-inter" preload />
-    <Font cssVariable="--font-jetbrains-mono" preload />
     <ClientRouter />
   </head>
   <body>

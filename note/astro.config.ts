@@ -18,11 +18,6 @@ export default defineConfig({
       name: 'Inter',
       provider: fontProviders.google(),
     },
-    {
-      cssVariable: '--font-jetbrains-mono',
-      name: 'JetBrains Mono',
-      provider: fontProviders.google(),
-    },
   ],
   integrations: [
     svelte(),
