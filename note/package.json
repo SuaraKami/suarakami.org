@@ -12,22 +12,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.0",
+    "@astrojs/markdown-remark": "7.3.1",
     "@astrojs/svelte": "^9.0.1",
-    "@astrojs/vercel": "^11.0.9",
+    "@astrojs/vercel": "11.0.10",
     "@harshmandan/svaul": "^2.0.0",
     "@playform/compress": "^0.2.5",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.10",
+    "astro": "7.3.2",
     "astro-icon": "^1.2.0",
-    "bits-ui": "^2.19.0",
+    "bits-ui": "^2.19.2",
     "d3": "^7.9.0",
     "runed": "^0.37.1",
     "svelte": "^5.57.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@iconify-json/hugeicons": "^1.2.33",
+    "@iconify-json/hugeicons": "^1.2.34",
     "@tailwindcss/typography": "^0.5.20",
     "@types/d3": "^7.4.3",
     "@types/hast": "^3.0.5",
