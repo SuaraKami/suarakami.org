@@ -4,6 +4,7 @@ export const siteConfig = {
     copyright: 'SuaraKami. All rights reserved.',
     tagline: 'Born in Aachen, made for Indonesians everywhere.',
   },
+  founded: 2018,
   i18n: {
     defaultLang: 'en',
     languages: {

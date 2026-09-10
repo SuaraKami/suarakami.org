@@ -6,7 +6,6 @@ import type { LanguageKeys } from '@/i18n'
 
 export interface EventStats {
   count: number
-  since: number
 }
 
 function latestDate(event: CollectionEntry<'event'>) {
@@ -31,7 +30,6 @@ export async function getLandingEvents(
     promotedEvent,
     stats: {
       count: sorted.length,
-      since: 2019,
     },
   }
 }

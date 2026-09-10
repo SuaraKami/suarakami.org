@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content'
 import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
 import type { EventStats } from '@/lib/events'
+import { siteConfig } from '@/site.config'
 
 import HeroLayout from './layout.astro'
 
@@ -20,7 +21,7 @@ const t = useTranslations(lang)
 
 const facts = [
   { label: t('landing.basedIn'), value: t('site.location') },
-  { label: t('landing.since'), value: String(stats.since) },
+  { label: t('landing.since'), value: String(siteConfig.founded) },
   { label: t('landing.eventsHeld'), value: String(stats.count) },
 ]
 ---
