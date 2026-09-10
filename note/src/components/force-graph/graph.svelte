@@ -64,7 +64,7 @@
 
   let hostEl = $state<HTMLDivElement | null>(null)
   let graphInstance = $state.raw<LocalGraphInstance | null>(null)
-  const hasRenderableGraph = $derived(Boolean(graphData?.nodes?.length))
+  const hasRenderableGraph = $derived(graphData.nodes.length > 0)
 
   function normalizeGraphData(data: ForceGraphData): NormalizedGraph {
     const nodes = data.nodes.map(node => ({
@@ -106,7 +106,7 @@
 
   function readPalette(): GraphPalette {
     const styles = getComputedStyle(document.documentElement)
-    const fallback = (key: string, value: string) => styles.getPropertyValue(key)?.trim() || value
+    const fallback = (key: string, value: string) => styles.getPropertyValue(key).trim() || value
     return {
       current: fallback('--accent-primary', '#9b87ff'),
       fontFamily: fallback('--font-sans', 'Inter, sans-serif'),
@@ -139,7 +139,7 @@
     }
   }
 
-  function createGraph(host: HTMLElement, options: CreateGraphOptions): LocalGraphInstance | null {
+  function createGraph(host: HTMLElement, options: CreateGraphOptions): LocalGraphInstance {
     const { data, config: renderConfig, onNodeSelect, isDisposed } = options
     const width = host.clientWidth || host.offsetWidth || 640
     const height = Math.max(host.clientHeight || host.offsetHeight || 320, 320)
@@ -229,24 +229,14 @@
           }
         }
       }
+      const highlightLinks = hoveredNode !== null && renderConfig.focusOnHover
+      const isHoveredLink = (link: NormalizedLink) =>
+        endpointId(link.source) === hoveredNode?.id || endpointId(link.target) === hoveredNode?.id
       linkSelection
-        .attr('stroke', d => {
-          if (hoveredNode && renderConfig.focusOnHover) {
-            const source = getEndpointNode(d.source)
-            const target = getEndpointNode(d.target)
-            const isHover = !!source && !!target && (source.id === hoveredNode.id || target.id === hoveredNode.id)
-            return isHover ? palette.linesHighlight : palette.lines
-          }
-          return palette.lines
-        })
-        .attr('opacity', d => {
-          if (hoveredNode && renderConfig.focusOnHover) {
-            const source = getEndpointNode(d.source)
-            const target = getEndpointNode(d.target)
-            const isHover = !!source && !!target && (source.id === hoveredNode.id || target.id === hoveredNode.id)
-            return isHover ? 1 : 0.2
-          }
-          return 0.8
+        .attr('stroke', link => highlightLinks && isHoveredLink(link) ? palette.linesHighlight : palette.lines)
+        .attr('opacity', link => {
+          if (!highlightLinks) { return 0.8 }
+          return isHoveredLink(link) ? 1 : 0.2
         })
       nodeSelection.attr('fill', d => getNodeColor(d, palette, activeId)).attr('opacity', d => {
         if (hoveredNode && renderConfig.focusOnHover && linkHover) {
@@ -303,7 +293,6 @@
     simulation.on('tick', () => {
       if (isDisposed()) { return }
       updatePositions()
-      updateStyles()
     })
 
     updatePositions()
@@ -325,7 +314,7 @@
   }
 
   $effect(() => {
-    if (!hostEl || !globalThis.window) { return }
+    if (!hostEl) { return }
     const normalized = normalizeGraphData(graphData)
     const mergedConfig = { ...defaultGraphConfig, ...config }
     if (!hasRenderableGraph) {
@@ -336,7 +325,6 @@
 
     let disposed = false
     const instance = createGraph(hostEl, { config: mergedConfig, data: normalized, isDisposed: () => disposed, onNodeSelect: onSelect })
-    if (!instance) { return }
     graphInstance = instance
 
     return () => {
@@ -352,7 +340,6 @@
 </script>
 
 <div class='relative size-full overflow-hidden'>
-  <div class='pointer-events-none absolute inset-0' aria-hidden='true'></div>
   <div class='absolute inset-0' bind:this={hostEl}></div>
   {#if !hasRenderableGraph}
     <div class='absolute inset-0 grid place-items-center text-sm text-foreground-muted'>No graph data.</div>
