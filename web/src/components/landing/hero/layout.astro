@@ -18,41 +18,35 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
 ---
 
 <section id="hero" class="overflow-hidden bg-background">
-  <Container grid class="gap-y-0 pt-20 pb-24 md:pt-28 md:pb-32 lg:pt-32 lg:pb-40">
+  <Container grid class="gap-y-0 pt-16 pb-24 md:pt-24 md:pb-32 lg:pt-32 lg:pb-40">
     {
       eyebrow && (
-        <div
-          class="col-span-12 mb-10 flex items-center gap-4 md:mb-14"
-        >
-          <span class="size-2 shrink-0 bg-foreground" aria-hidden="true" />
-          <span class="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-foreground/45">
-            {eyebrow}
-          </span>
-          <span class="h-px flex-1 bg-foreground/15" aria-hidden="true" />
-        </div>
+        <p class="col-span-12 mb-10 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase md:mb-14">
+          {eyebrow}
+        </p>
       )
     }
 
     <h1
-      class="col-span-12 text-[clamp(2.75rem,11vw,9.5rem)] leading-[0.88] font-bold
-             tracking-[-0.035em] text-balance"
+      class="col-span-12 max-w-[14ch] text-[clamp(2.75rem,8.5vw,7.5rem)] leading-[0.95] font-normal
+             tracking-[-0.03em] text-balance lg:col-span-11"
     >
       {title}
     </h1>
 
     <div
-      class="col-span-12 mt-12 grid grid-cols-12 gap-x-6 gap-y-10 border-t
-             border-foreground/15 pt-8 md:mt-16 md:pt-10"
+      class="col-span-12 mt-16 grid grid-cols-12 gap-x-6 gap-y-12 border-t
+             border-foreground/15 pt-8 md:mt-24 md:pt-10"
     >
       {
         facts.length > 0 && (
-          <dl class="col-span-12 flex flex-wrap gap-x-12 gap-y-6 md:col-span-4 md:flex-col md:gap-y-7">
+          <dl class="col-span-12 grid grid-cols-2 gap-x-6 gap-y-8 md:col-span-4 md:grid-cols-1 md:gap-y-8">
             {facts.map((fact) => (
               <div>
-                <dt class="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-foreground/45">
+                <dt class="text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
                   {fact.label}
                 </dt>
-                <dd class="mt-1.5 text-base font-medium tracking-tight tabular-nums md:text-lg">
+                <dd class="mt-2 text-lg leading-snug tracking-tight tabular-nums md:text-xl">
                   {fact.value}
                 </dd>
               </div>
@@ -62,7 +56,7 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
       }
 
       <div class="col-span-12 md:col-span-7 md:col-start-6">
-        <p class="max-w-[48ch] text-xl leading-snug font-medium tracking-tight text-pretty md:text-2xl lg:text-[1.75rem]">
+        <p class="max-w-[42ch] text-xl leading-snug tracking-tight text-pretty text-foreground/70 md:text-2xl">
           {description}
         </p>
 
@@ -71,10 +65,12 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
             <a
               href={link.to}
               target={link.target}
-              rel="noopener noreferrer"
-              class="mt-10 inline-flex items-center gap-4 border border-foreground
-                     bg-foreground px-8 py-4 text-[0.8125rem] font-semibold tracking-[0.14em]
-                     text-background uppercase hover:bg-background hover:text-foreground md:mt-12"
+              rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
+              class="mt-10 inline-flex min-h-11 items-center gap-4 border border-foreground
+                     bg-foreground px-8 py-3 text-xs font-medium tracking-[0.16em] text-background
+                     uppercase transition-colors hover:bg-background hover:text-foreground
+                     focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2
+                     focus-visible:ring-offset-background focus-visible:outline-none md:mt-12"
             >
               {link.label}
               <span class="h-px w-6 bg-current" aria-hidden="true" />

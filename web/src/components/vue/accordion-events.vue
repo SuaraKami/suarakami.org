@@ -57,23 +57,23 @@ const datesString = computed(() =>
         <AccordionTrigger
           :class="
             cn(
-              `group w-full py-8 text-left transition-opacity hover:opacity-50`,
+              `group w-full py-6 text-left transition-opacity hover:opacity-50 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none`,
               {
-                'md:pb-12': index === 0,
-                'md:py-12': index > 0,
+                'md:pb-8': index === 0,
+                'md:py-8': index > 0,
               }
             )
           "
         >
           <div class="grid grid-cols-12 items-start gap-6">
             <span
-              class="col-span-3 mt-1.5 text-sm font-semibold tracking-widest uppercase opacity-50 md:col-span-3"
+              class="col-span-3 mt-2 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase tabular-nums"
             >
               {{ datesString[index] }}
             </span>
             <div class="col-span-8 md:col-span-8">
               <h3
-                class="text-3xl font-medium tracking-tight text-balance md:text-4xl lg:text-5xl"
+                class="text-2xl font-normal tracking-tight text-balance md:text-3xl lg:text-4xl"
               >
                 {{ item.data.title }}
               </h3>
@@ -92,7 +92,9 @@ const datesString = computed(() =>
       >
         <div class="grid grid-cols-12 gap-6 pb-12">
           <div class="col-span-12 md:col-span-8 md:col-start-4">
-            <p class="text-xl leading-relaxed opacity-70">
+            <p
+              class="max-w-[60ch] text-lg leading-relaxed text-pretty text-foreground/70 md:text-xl"
+            >
               {{ item.data.description }}
             </p>
           </div>
