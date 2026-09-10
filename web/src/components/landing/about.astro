@@ -12,6 +12,7 @@ const { page, lang } = Astro.props
 
 const t = useTranslations(lang)
 const [lead, ...paragraphs] = page.data.about.split('\n').filter(Boolean)
+const columns = paragraphs.map((paragraph) => `${paragraph.length}fr`).join(' ')
 ---
 
 <section id="about" class="relative bg-surface">
@@ -27,7 +28,9 @@ const [lead, ...paragraphs] = page.data.about.split('\n').filter(Boolean)
       {lead}
     </p>
     <div
-      class="col-span-12 grid grid-cols-1 gap-x-6 gap-y-6 border-t border-foreground/15 pt-8 md:col-span-8 md:col-start-5 md:grid-cols-2"
+      class="col-span-12 grid grid-cols-1 gap-x-6 gap-y-6 border-t border-foreground/15 pt-8 md:col-span-8 md:col-start-5 md:grid-cols-[var(--columns)]"
+      style={{ '--columns': columns }}
+      data-balance-columns
     >
       {
         paragraphs.map((paragraph) => (
@@ -39,3 +42,59 @@ const [lead, ...paragraphs] = page.data.about.split('\n').filter(Boolean)
     </div>
   </Container>
 </section>
+
+<script>
+  import type { PreparedText } from '@chenglou/pretext'
+  import { layout, prepare } from '@chenglou/pretext'
+
+  const px = (value: string) => Number(value.replace('px', '')) || 0
+
+  function balance(container: HTMLElement, prepared: PreparedText[], lineHeight: number) {
+    const style = getComputedStyle(container)
+    if (style.gridTemplateColumns.split(' ').length < 2) {
+      return
+    }
+    const total = container.clientWidth - px(style.columnGap)
+    let bandStart = -1
+    let best: [number, number] | undefined
+
+    for (let step = 25; step <= 75; step += 1) {
+      const ratio = step / 100
+      const equal =
+        layout(prepared[0], total * ratio, lineHeight).lineCount ===
+        layout(prepared[1], total * (1 - ratio), lineHeight).lineCount
+
+      if (equal && bandStart < 0) {
+        bandStart = step
+      }
+      if (bandStart >= 0 && (!equal || step === 75)) {
+        const bandEnd = equal ? step : step - 1
+        if (!best || bandEnd - bandStart > best[1] - best[0]) {
+          best = [bandStart, bandEnd]
+        }
+        bandStart = -1
+      }
+    }
+
+    if (best) {
+      const ratio = (best[0] + best[1]) / 200
+      container.style.setProperty('--columns', `${ratio}fr ${1 - ratio}fr`)
+    }
+  }
+
+  const container = document.querySelector<HTMLElement>('[data-balance-columns]')
+  const paragraphs = [...(container?.querySelectorAll<HTMLElement>('p') ?? [])]
+
+  if (container && paragraphs.length === 2) {
+    const style = getComputedStyle(paragraphs[0])
+    const font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
+    const prepared = paragraphs.map((paragraph) =>
+      prepare(paragraph.textContent ?? '', font, { letterSpacing: px(style.letterSpacing) })
+    )
+    const run = () => balance(container, prepared, px(style.lineHeight))
+
+    await document.fonts.ready
+    run()
+    window.addEventListener('resize', run, { passive: true })
+  }
+</script>
