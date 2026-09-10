@@ -5,7 +5,6 @@
     "web/.astro/collections/index.schema.json": "/src/content/**/index.yml"
   },
   "js/ts.tsdk.path": "node_modules/typescript/lib",
-  "typescript.tsdk": "node_modules/typescript/lib",
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -59,5 +58,10 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.oxc": "explicit"
+  },
+  "tailwindCSS.experimental.configFile": {
+    "/bio/src/styles/global.css": "/bio/src/**/*",
+    "/note/src/styles/global.css": "/note/src/**/*",
+    "/web/src/styles/global.css": "/web/src/**/*"
   }
 }
