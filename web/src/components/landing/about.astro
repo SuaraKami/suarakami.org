@@ -17,7 +17,7 @@ const paragraphs = page.data.about.split('\n').filter(Boolean)
 <section id="about" class="relative border-t border-foreground/15 bg-background">
   <Container grid class="gap-y-12 py-24 md:gap-y-16 md:py-32 lg:py-40">
     <div class="col-span-12 md:col-span-4 lg:col-span-3">
-      <h2 class="text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
+      <h2 class="cap-trim text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
         {t('landing.whoWeAre')}
       </h2>
     </div>
@@ -27,7 +27,7 @@ const paragraphs = page.data.about.split('\n').filter(Boolean)
           <p
             class={
               i === 0
-                ? 'text-2xl leading-snug tracking-tight text-balance md:text-3xl lg:text-4xl'
+                ? 'cap-trim text-2xl leading-snug tracking-tight text-balance md:text-3xl lg:text-4xl'
                 : 'max-w-[60ch] text-lg leading-relaxed text-pretty text-foreground/70 md:text-xl'
             }
           >

@@ -66,18 +66,16 @@ const datesString = computed(() =>
           "
         >
           <div class="grid grid-cols-12 items-start gap-6">
-            <span
-              class="col-span-3 mt-2 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase tabular-nums"
+            <p
+              class="col-span-3 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase tabular-nums cap-trim"
             >
               {{ datesString[index] }}
-            </span>
-            <div class="col-span-8 md:col-span-8">
-              <h3
-                class="text-2xl font-normal tracking-tight text-balance md:text-3xl lg:text-4xl"
-              >
-                {{ item.data.title }}
-              </h3>
-            </div>
+            </p>
+            <h3
+              class="col-span-8 text-2xl font-normal tracking-tight text-balance cap-trim md:text-3xl lg:text-4xl"
+            >
+              {{ item.data.title }}
+            </h3>
             <div class="col-span-1 flex justify-end">
               <ChevronDown
                 class="ms-auto size-6 shrink-0 transition-transform duration-300 ease-out group-data-[state=open]:rotate-180"

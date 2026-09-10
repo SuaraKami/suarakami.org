@@ -54,6 +54,10 @@
   --color-ring: var(--ring);
 }
 
+@utility cap-trim {
+  text-box: trim-start cap alphabetic;
+}
+
 @layer base {
   * {
     @apply border-border-dark outline-ring/50;
