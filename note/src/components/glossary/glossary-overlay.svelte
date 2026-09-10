@@ -11,7 +11,6 @@
   import '@/components/glossary/glossary-term.svelte'
 
   type GlossaryEntry = CollectionEntry<'glossary'>
-  type GlossaryRelation = GlossaryEntry['data']['relations'][number]
   interface GroupedRelations {
     label: string
     items: { id: string | null, term: string, entry: GlossaryEntry | null }[]
@@ -26,22 +25,10 @@
   let activeSlug = $state<string | null>(null)
   let detailSlug = $state<string | null>(null)
 
-  function resolveRelationId(relation: GlossaryRelation): string | null {
-    const target = relation.to
-    return target ? target.id : null
-  }
+  const rootEntry = $derived(activeSlug ? entryMap.get(activeSlug) ?? null : null)
+  const relations = $derived(rootEntry?.data.relations ?? [])
 
-  function getRelations(rootSlug: string) {
-    const root = entryMap.get(rootSlug)
-    if (!root)
-      {return []}
-    return root.data.relations
-  }
-
-  function buildGraphData(rootSlug: string): ForceGraphData {
-    const root = entryMap.get(rootSlug)
-    if (!root)
-      {return { links: [], nodes: [] }}
+  function buildGraphData(root: GlossaryEntry): ForceGraphData {
     const nodes: ForceGraphData['nodes'] = [
       { id: root.id, kind: 'page', label: root.data.term, tags: [] },
     ]
@@ -49,15 +36,13 @@
     const seen = new Set([root.id])
 
     for (const relation of root.data.relations) {
-      const targetSlug = resolveRelationId(relation)
-      if (!targetSlug)
-        {continue}
+      const targetSlug = relation.to.id
       if (!seen.has(targetSlug)) {
         const targetEntry = entryMap.get(targetSlug)
         nodes.push({
           id: targetSlug,
           kind: 'tag',
-          label: targetEntry?.data.term ?? relation.type ?? targetSlug,
+          label: targetEntry?.data.term ?? relation.type,
           tags: [relation.type],
         })
         seen.add(targetSlug)
@@ -68,20 +53,17 @@
     return { links, nodes }
   }
 
-  const graphData = $derived<ForceGraphData | null>(activeSlug ? buildGraphData(activeSlug) : null)
-  const relations = $derived(activeSlug ? getRelations(activeSlug) : [])
+  const graphData = $derived<ForceGraphData | null>(rootEntry ? buildGraphData(rootEntry) : null)
   const hasRelations = $derived(relations.length > 0)
   const groupedRelations = $derived.by(() => {
-    if (!relations || relations.length === 0)
-      {return []}
     const groups: Record<string, GroupedRelations> = {}
     for (const relation of relations) {
-      const targetId = resolveRelationId(relation)
+      const targetId = relation.to.id
       const targetEntry = targetId ? entryMap.get(targetId) ?? null : null
       const item = {
         entry: targetEntry,
         id: targetId,
-        term: targetEntry ? targetEntry.data.term : (relation.type ?? 'Tidak Diketahui'),
+        term: targetEntry?.data.term ?? relation.type,
       }
       const groupLabel = relation.type
       if (!groups[groupLabel]) {
@@ -91,10 +73,10 @@
     }
     return Object.values(groups)
   })
-  const rootEntry = $derived(activeSlug ? entryMap.get(activeSlug) ?? null : null)
   const detailEntry = $derived.by(() => {
-    if (!activeSlug)
-      {return null}
+    if (!activeSlug) {
+      return null
+    }
     const slug = detailSlug ?? activeSlug
     return entryMap.get(slug) ?? null
   })
@@ -110,46 +92,41 @@
     glossaryStates.isOpen = false
   }
 
-  function clearOverlayContent() {
+  function resetOverlayImmediately() {
+    closeOverlay()
     anchorEl = null
     activeSlug = null
     detailSlug = null
   }
 
-  function resetOverlayImmediately() {
-    closeOverlay()
-    clearOverlayContent()
-  }
-
   function openFor(target: HTMLElement | null, slug: string) {
-    if (!entryMap.has(slug))
-      {return}
+    if (!entryMap.has(slug)) {
+      return
+    }
     anchorEl = target
     activeSlug = slug
     detailSlug = slug
   }
 
   function handleVisibilityChange(next: boolean) {
-    if (!next)
-      {closeOverlay()}
+    if (!next) {
+      closeOverlay()
+    }
   }
 
   function focusRelation(slug: string | null) {
-    if (!slug)
-      {return}
+    if (!slug) {
+      return
+    }
     detailSlug = slug
   }
 
   function handleGraphSelect(payload: GraphSelectionPayload) {
-    if (!payload?.id)
-      {return}
     detailSlug = payload.id
   }
 
   const { onOpen: onOpenGlossary } = useGlossaryEvents()
-  onOpenGlossary((el, slug) => {
-    openFor(el, slug)
-  })
+  onOpenGlossary(openFor)
 
   $effect(() => {
     if (!isGlossaryEnabled) {

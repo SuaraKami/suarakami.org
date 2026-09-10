@@ -31,8 +31,6 @@ interface GlossaryPluginOptions {
 
 interface GlossaryToken {
   slug: string
-  canonical: string
-  display: string
   lower: string
 }
 
@@ -73,8 +71,6 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
         }
         seen.add(key)
         tokens.push({
-          canonical: raw.term,
-          display: normalized,
           lower: key,
           slug,
         })
@@ -87,23 +83,11 @@ function loadGlossaryTokens(directory: string): GlossaryToken[] {
   return tokens.toSorted((a, b) => b.lower.length - a.lower.length)
 }
 
-function shouldSkipNode(
-  parent: Element,
-  ancestors: (Element | Root | Text)[]
-): boolean {
-  if (BANNED_TAGS.has(parent.tagName)) {
-    return true
-  }
-  if (
-    ancestors.some(
-      (node) =>
-        node.type === 'element' &&
-        (BANNED_TAGS.has(node.tagName) || BANNED_ANCESTORS.has(node.tagName))
-    )
-  ) {
-    return true
-  }
-  return false
+function shouldSkipNode(ancestors: (Element | Root)[]): boolean {
+  return ancestors.some(
+    node => node.type === 'element' &&
+      (BANNED_TAGS.has(node.tagName) || BANNED_ANCESTORS.has(node.tagName))
+  )
 }
 
 function isWordBoundary(text: string, start: number, end: number) {
@@ -172,15 +156,12 @@ export function rehypeGlossaryHighlight(options: GlossaryPluginOptions = {}) {
       if (!node.value) {
         return
       }
-      if (!ancestors.length) {
-        return
-      }
 
       const parent = ancestors.at(-1)
       if (!parent || parent.type !== 'element') {
         return
       }
-      if (shouldSkipNode(parent, ancestors)) {
+      if (shouldSkipNode(ancestors)) {
         return
       }
 
