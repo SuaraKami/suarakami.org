@@ -19,15 +19,15 @@ import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 
-import LanguagePicker from './language-picker.vue'
-import LinkLocal from './link-local.vue'
-import TimeLocal from './time-local.vue'
-
 const { lang } = defineProps<{
   lang: LanguageKeys
+  navItems: {
+    href: string
+    label: string
+  }[]
 }>()
 
-const { navigation, socialMediaLinks, email, footer } = siteConfig
+const { socialMediaLinks, email, footer } = siteConfig
 const t = useTranslations(lang)
 </script>
 
@@ -77,26 +77,26 @@ const t = useTranslations(lang)
           <div class="flex-1 overflow-y-auto">
             <div class="grid h-full grid-cols-12 gap-0">
               <DialogClose as-child>
-                <LinkLocal
-                  :href="navigation[0]!.to"
-                  class="group col-span-12 flex flex-col justify-between border-b border-border-dark p-6 transition-colors hover:bg-foreground/5"
+                <a
+                  :href="navItems[0]!.href"
+                  class="col-span-12 flex flex-col justify-between border-b border-border-dark p-6 transition-colors hover:bg-foreground/5"
                 >
                   <span class="text-xs tracking-widest uppercase opacity-20"
                     >01</span
                   >
                   <div>
                     <h2
-                      class="text-5xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
+                      class="text-5xl font-semibold tracking-tight transition-transform hover:translate-x-2"
                     >
-                      {{ t(`nav.${navigation[0]!.code}`) }}
+                      {{ navItems[0]!.label }}
                     </h2>
                   </div>
-                </LinkLocal>
+                </a>
               </DialogClose>
               <DialogClose as-child>
-                <LinkLocal
-                  :href="navigation[1]!.to"
-                  class="group relative col-span-7 flex flex-col justify-between overflow-hidden p-6 transition-colors hover:bg-foreground/5"
+                <a
+                  :href="navItems[1]!.href"
+                  class="relative col-span-7 flex flex-col justify-between overflow-hidden p-6 transition-colors hover:bg-foreground/5"
                 >
                   <div
                     class="absolute top-0 right-0 size-16 translate-x-8 -translate-y-8 rotate-45 bg-accent-foreground/10"
@@ -106,40 +106,36 @@ const t = useTranslations(lang)
                   >
                   <div>
                     <h2
-                      class="text-4xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
+                      class="text-4xl font-semibold tracking-tight transition-transform hover:translate-x-2"
                     >
-                      {{ t(`nav.${navigation[1]!.code}`) }}
+                      {{ navItems[1]!.label }}
                     </h2>
                   </div>
-                </LinkLocal>
+                </a>
               </DialogClose>
               <div
                 class="col-span-5 flex flex-col justify-between border-l border-border-dark p-6"
               >
                 <Languages class="size-4 opacity-20" />
-                <LanguagePicker
-                  class="space-y-3"
-                  lang-class="block text-2xl tracking-tight uppercase opacity-30 transition-opacity hover:opacity-60"
-                  active-lang-class="opacity-100"
-                />
+                <slot name="languages" />
               </div>
 
               <DialogClose as-child>
-                <LinkLocal
-                  :href="navigation[2]!.to"
-                  class="group col-span-7 flex flex-col justify-between border-t border-border-dark p-6 transition-colors hover:bg-foreground/5"
+                <a
+                  :href="navItems[2]!.href"
+                  class="col-span-7 flex flex-col justify-between border-t border-border-dark p-6 transition-colors hover:bg-foreground/5"
                 >
                   <span class="text-xs tracking-widest uppercase opacity-20"
                     >03</span
                   >
                   <div>
                     <h2
-                      class="text-4xl font-semibold tracking-tight transition-transform group-hover:translate-x-2"
+                      class="text-4xl font-semibold tracking-tight transition-transform hover:translate-x-2"
                     >
-                      {{ t(`nav.${navigation[2]!.code}`) }}
+                      {{ navItems[2]!.label }}
                     </h2>
                   </div>
-                </LinkLocal>
+                </a>
               </DialogClose>
               <div
                 class="relative col-span-5 flex flex-col justify-between border-t border-l border-border-dark bg-accent-foreground/5 p-6"
@@ -189,7 +185,7 @@ const t = useTranslations(lang)
                 <div
                   class="absolute top-1/2 right-6 -translate-y-1/2 text-[120px] leading-none opacity-10"
                 >
-                  <TimeLocal :lang :datetime="Date.now()" year="2-digit" />
+                  <slot name="year" />
                 </div>
                 <p class="relative z-10 text-xs tracking-widest uppercase">
                   {{ footer.tagline }}

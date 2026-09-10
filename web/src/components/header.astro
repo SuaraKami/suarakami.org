@@ -1,10 +1,12 @@
 ---
 import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
+import { localizeHref, useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
+import Container from './container.astro'
+import LanguagePicker from './language-picker.astro'
 import Logo from './logo.astro'
-import VHeader from './vue/header.vue'
-import LinkLocal from './vue/link-local.vue'
+import TimeLocal from './time-local.astro'
+import MobileNavigation from './vue/mobile-navigation.vue'
 
 interface Props {
   lang: LanguageKeys
@@ -12,17 +14,67 @@ interface Props {
 
 const { lang } = Astro.props
 const t = useTranslations(lang)
+
+const navItems = siteConfig.navigation.map((link) => ({
+  href: localizeHref(link.to, lang),
+  label: t(`nav.${link.code}`),
+}))
 ---
 
-<VHeader lang={lang} client:idle>
-  <Logo slot="logo" />
-  {
-    siteConfig.navigation.map((link) => (
-      <LinkLocal href={link.to} class="flex items-center" client:idle>
-        <span class="text-sm font-bold tracking-wide uppercase transition-opacity hover:opacity-50">
-          {t(`nav.${link.code}`)}
-        </span>
-      </LinkLocal>
-    ))
-  }
-</VHeader>
+<header
+  id="site-header"
+  class="sticky top-0 z-50 translate-y-0 border-b border-border-dark bg-background transition-[translate,background-color] duration-300 ease-out data-[hidden]:-translate-y-full md:relative md:translate-y-0"
+>
+  <Container>
+    <div class="flex items-center justify-between py-8 md:py-12">
+      <Logo lang={lang} />
+      <nav class="hidden items-center gap-12 md:flex lg:gap-16">
+        {
+          navItems.map((item) => (
+            <a href={item.href} class="flex items-center">
+              <span class="text-sm font-bold tracking-wide uppercase transition-opacity hover:opacity-50">
+                {item.label}
+              </span>
+            </a>
+          ))
+        }
+        <LanguagePicker
+          lang={lang}
+          separator="/"
+          class="flex items-center gap-2 border-l border-border-dark pl-6 text-xs font-bold tracking-wider uppercase"
+          langClass="opacity-40 transition-opacity hover:opacity-60"
+          activeLangClass="opacity-100"
+        />
+      </nav>
+      <MobileNavigation client:media="(width < 48rem)" lang={lang} navItems={navItems}>
+        <Logo slot="logo" lang={lang} />
+        <LanguagePicker
+          slot="languages"
+          lang={lang}
+          class="space-y-3"
+          langClass="block text-2xl tracking-tight uppercase opacity-30 transition-opacity hover:opacity-60"
+          activeLangClass="opacity-100"
+        />
+        <TimeLocal slot="year" datetime={Date.now()} lang={lang} year="2-digit" />
+      </MobileNavigation>
+    </div>
+  </Container>
+</header>
+
+<script>
+  const TOP_THRESHOLD = 100
+  const header = document.querySelector('#site-header')
+  let lastY = window.scrollY
+
+  // Hides the header while scrolling down on mobile (desktop is pinned via
+  // md:translate-y-0).
+  window.addEventListener(
+    'scroll',
+    () => {
+      const y = window.scrollY
+      header?.toggleAttribute('data-hidden', y > TOP_THRESHOLD && y > lastY)
+      lastY = y
+    },
+    { passive: true }
+  )
+</script>
