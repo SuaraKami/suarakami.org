@@ -16,13 +16,6 @@ export default defineConfig({
       styles: ['normal'],
       weights: ['300'],
     },
-    {
-      cssVariable: '--font-ibm-mono',
-      name: 'IBM Plex Mono',
-      provider: fontProviders.google(),
-      styles: ['normal'],
-      weights: ['300'],
-    },
   ],
 
   integrations: [
