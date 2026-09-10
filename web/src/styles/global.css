@@ -60,6 +60,10 @@
   text-box: trim-start cap alphabetic;
 }
 
+@utility cap-trim-both {
+  text-box: trim-both cap alphabetic;
+}
+
 @layer base {
   * {
     @apply border-border-dark outline-ring/50;

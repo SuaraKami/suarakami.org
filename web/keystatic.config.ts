@@ -84,11 +84,17 @@ function landingPage(label: string, language: 'en' | 'id') {
         label: 'About',
         multiline: true,
       }),
-      activities: fields.text({
-        description: 'Shown under “What we do”, above the event list',
-        label: 'Activities',
-        multiline: true,
-      }),
+      method: fields.object(
+        {
+          lead: fields.text({ label: 'Lead', multiline: true }),
+          body: fields.text({
+            description: 'One paragraph per blank line',
+            label: 'Body',
+            multiline: true,
+          }),
+        },
+        { label: 'How we work' }
+      ),
     },
   })
 }

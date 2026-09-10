@@ -6,7 +6,6 @@ const indexCollection = defineCollection({
   loader: glob({ base: './src/content', pattern: '**/index.yaml' }),
   schema: z.object({
     about: z.string(),
-    activities: z.string(),
     description: z.string(),
     hero: z.object({
       description: z.string(),
@@ -16,6 +15,10 @@ const indexCollection = defineCollection({
         to: z.string(),
       }),
       title: z.string(),
+    }),
+    method: z.object({
+      body: z.string(),
+      lead: z.string(),
     }),
     promotedEvent: z.string().nullish(),
     title: z.string(),

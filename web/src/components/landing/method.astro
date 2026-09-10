@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import Container from '@/components/container.astro'
+import type { LanguageKeys } from '@/i18n'
+import { useTranslations } from '@/i18n'
+
+interface Props {
+  method: CollectionEntry<'index'>['data']['method']
+  lang: LanguageKeys
+}
+const { method, lang } = Astro.props
+
+const t = useTranslations(lang)
+const paragraphs = method.body.split('\n').filter(Boolean)
+---
+
+<section id="method" class="relative bg-background">
+  <Container grid class="gap-y-12 py-24 md:gap-y-16 md:py-32 lg:py-40">
+    <h2
+      class="cap-trim col-span-12 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase"
+    >
+      {t('landing.howWeWork')}
+    </h2>
+    <p
+      class="cap-trim-both col-span-12 text-3xl leading-tight tracking-tight text-balance md:col-span-5 md:text-4xl lg:text-5xl"
+    >
+      {method.lead}
+    </p>
+    <div class="col-span-12 flex flex-col gap-4 md:col-span-6 md:col-start-7 md:justify-between">
+      {
+        paragraphs.map((paragraph, i) => (
+          <p
+            class:list={[
+              'max-w-[60ch] text-base leading-relaxed text-pretty text-foreground/70 md:text-lg',
+              i === 0 ? 'cap-trim' : 'border-t border-foreground/15 pt-4',
+              i === paragraphs.length - 1 && 'cap-trim-both',
+            ]}
+          >
+            {paragraph}
+          </p>
+        ))
+      }
+    </div>
+  </Container>
+</section>

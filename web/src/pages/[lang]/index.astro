@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content'
 import About from '@/components/landing/about.astro'
 import Events from '@/components/landing/events.astro'
 import Hero from '@/components/landing/hero.astro'
+import Method from '@/components/landing/method.astro'
 import { languageKeys } from '@/i18n/ui'
 import BaseLayout from '@/layouts/base-layout.astro'
 import { getLandingEvents } from '@/lib/events'
@@ -29,5 +30,6 @@ const { events, promotedEvent, stats } = await getLandingEvents(
 <BaseLayout title={page.data.title} description={page.data.description} lang={lang}>
   <Hero page={page} promotedEvent={promotedEvent} lang={lang} stats={stats} />
   <About page={page} lang={lang} />
-  <Events activities={page.data.activities} events={events} lang={lang} />
+  <Method method={page.data.method} lang={lang} />
+  <Events events={events} lang={lang} />
 </BaseLayout>
