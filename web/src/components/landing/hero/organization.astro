@@ -1,19 +1,33 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 
+import type { LanguageKeys } from '@/i18n'
+import { useTranslations } from '@/i18n'
+import type { EventStats } from '@/lib/events'
+
 import HeroLayout from './layout.astro'
 
 type OrganizationHero = CollectionEntry<'index'>['data']['hero']
 
 interface Props {
   hero: OrganizationHero
+  lang: LanguageKeys
+  stats: EventStats
 }
 
-const { hero } = Astro.props
+const { hero, lang, stats } = Astro.props
+const t = useTranslations(lang)
+
+const facts = [
+  { label: t('landing.basedIn'), value: t('site.location') },
+  { label: t('landing.since'), value: String(stats.since) },
+  { label: t('landing.eventsHeld'), value: String(stats.count) },
+]
 ---
 
 <HeroLayout
   title={hero.title}
   description={hero.description}
+  facts={facts}
   link={{ label: hero.link.label, target: hero.link.target, to: hero.link.to }}
 />

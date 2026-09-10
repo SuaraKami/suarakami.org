@@ -4,6 +4,11 @@ import { getCollection } from 'astro:content'
 
 import type { LanguageKeys } from '@/i18n'
 
+export interface EventStats {
+  count: number
+  since: number
+}
+
 function latestDate(event: CollectionEntry<'event'>) {
   return Math.max(...event.data.dates.map((date) => date.getTime()))
 }
@@ -24,5 +29,9 @@ export async function getLandingEvents(
   return {
     events: sorted.filter((event) => event.id !== promotedEvent?.id),
     promotedEvent,
+    stats: {
+      count: sorted.length,
+      since: 2019,
+    },
   }
 }

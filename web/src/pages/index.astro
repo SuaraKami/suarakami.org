@@ -14,14 +14,14 @@ if (!page) {
   throw new Error('Could not find page')
 }
 
-const { events, promotedEvent } = await getLandingEvents(
+const { events, promotedEvent, stats } = await getLandingEvents(
   lang,
   page.data.promotedEvent
 )
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description} lang={lang} includeLanguageRedirect>
-  <Hero page={page} promotedEvent={promotedEvent} lang={lang} />
+  <Hero page={page} promotedEvent={promotedEvent} lang={lang} stats={stats} />
   <About page={page} lang={lang} />
   <Events activities={page.data.activities} events={events} lang={lang} />
 </BaseLayout>
