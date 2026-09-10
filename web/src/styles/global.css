@@ -59,15 +59,15 @@
   }
 
   body {
-    @apply cursor-none! overflow-x-hidden text-foreground antialiased select-none!;
+    @apply overflow-x-hidden text-foreground antialiased select-none!;
   }
 
   ::selection {
     @apply bg-accent/20;
   }
 
-  a,
-  button {
-    cursor: none;
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
   }
 }
