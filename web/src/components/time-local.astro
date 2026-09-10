@@ -1,0 +1,14 @@
+---
+import type { LanguageKeys } from '@/i18n'
+import { formatDate } from '@/lib/format-date'
+
+interface Props {
+  datetime: string | number | Date
+  lang?: LanguageKeys
+  year?: 'numeric' | '2-digit'
+}
+
+const { datetime, lang, year } = Astro.props
+---
+
+<time datetime={new Date(datetime).toISOString()}>{formatDate(datetime, lang, { year })}</time>

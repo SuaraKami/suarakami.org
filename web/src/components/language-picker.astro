@@ -1,0 +1,49 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import type { LanguageKeys } from '@/i18n'
+import { getPathWithoutLang, localizeHref } from '@/i18n'
+import { languageKeys } from '@/i18n/ui'
+import { cn } from '@/lib/utils'
+
+interface Props extends HTMLAttributes<'div'> {
+  lang: LanguageKeys
+  langClass?: string
+  activeLangClass?: string
+  separator?: string
+}
+
+const { lang, langClass, activeLangClass, separator, class: className, ...rest } = Astro.props
+
+const path = getPathWithoutLang(Astro.url.pathname)
+---
+
+<div class={className} {...rest}>
+  {
+    languageKeys.map((code, i) => (
+      <>
+        <a
+          href={localizeHref(path, code)}
+          class={cn(langClass, code === lang && activeLangClass)}
+          data-lang={code}
+        >
+          {code}
+        </a>
+        {i < languageKeys.length - 1 && separator && <span>{separator}</span>}
+      </>
+    ))
+  }
+</div>
+
+<script>
+  import { isLanguageKey, setPreferredLangCookie } from '@/i18n'
+
+  document.addEventListener('click', (event) => {
+    const lang =
+      event.target instanceof Element
+        ? event.target.closest<HTMLElement>('a[data-lang]')?.dataset.lang
+        : undefined
+    if (isLanguageKey(lang)) {
+      setPreferredLangCookie(lang)
+    }
+  })
+</script>

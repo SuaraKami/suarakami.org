@@ -1,8 +1,15 @@
 ---
 import logo from '@/assets/logo.svg'
-import LinkLocal from './vue/link-local.vue'
+import type { LanguageKeys } from '@/i18n'
+import { localizeHref } from '@/i18n'
+
+interface Props {
+  lang: LanguageKeys
+}
+
+const { lang } = Astro.props
 ---
 
-<LinkLocal href="/" aria-label="SuaraKami" client:idle>
+<a href={localizeHref('/', lang)} aria-label="SuaraKami">
   <img src={logo.src} alt="SuaraKami Logo" class="h-7 w-auto shrink-0 md:h-8" />
-</LinkLocal>
+</a>
