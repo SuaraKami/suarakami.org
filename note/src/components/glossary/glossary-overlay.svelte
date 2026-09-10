@@ -1,7 +1,8 @@
 <script lang='ts'>
   import type { CollectionEntry } from 'astro:content'
   import type { ForceGraphData, GraphSelectionPayload } from '@/components/force-graph/types'
-  import { Dialog, Popover, ScrollArea } from 'bits-ui'
+  import { Popover, ScrollArea } from 'bits-ui'
+  import Drawer from '@harshmandan/svaul'
   import ForceGraph from '@/components/force-graph/graph.svelte'
   import { useGlossaryEvents } from '@/lib/hooks/use-glossary-events.svelte'
   import { useIsMobile } from '@/lib/hooks/use-is-mobile.svelte'
@@ -104,7 +105,7 @@
   const isGlossaryEnabled = $derived(glossaryPreference.current)
 
   function closeOverlay() {
-    // Keep content state while Bits UI closes; clearing it here swaps the panel
+    // Keep content state while the overlay closes; clearing it here swaps the panel
     // to the empty state before the overlay is gone and makes the graph flicker.
     glossaryStates.isOpen = false
   }
@@ -126,10 +127,6 @@
     anchorEl = target
     activeSlug = slug
     detailSlug = slug
-  }
-
-  function closeAll() {
-    closeOverlay()
   }
 
   function handleVisibilityChange(next: boolean) {
@@ -192,59 +189,41 @@
       </Popover.Portal>
     </Popover.Root>
   {:else}
-    <Dialog.Root
-      open={glossaryStates.isOpen}
-      onOpenChange={handleVisibilityChange}
+    <Drawer
+      bind:open={glossaryStates.isOpen}
+      ariaLabel={detailHeading ?? 'Glosarium'}
+      class='z-60 mt-0 flex max-h-[calc(100dvh-max(1rem,env(safe-area-inset-top)))] flex-col rounded-t-3xl border border-border/80 bg-panel/95 text-foreground shadow-2xl'
     >
-      <Dialog.Portal>
-        <Dialog.Overlay class='fixed inset-0 z-50 bg-black/70 backdrop-blur-sm' />
-        <Dialog.Content>
-          {#snippet child({ props })}
-            <div
-              {...props}
-              class='fixed inset-x-0 bottom-0 z-60 rounded-t-3xl border border-border/80 bg-panel/95 text-foreground shadow-2xl'
-            >
-              <div class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-border/40'></div>
-              <ScrollArea.Root class='pr-1'>
-                <ScrollArea.Viewport class='max-h-[70vh] rounded-t-3xl p-4 pr-3 pb-6'>
-                  <div class='mx-auto max-w-xl space-y-4 pb-4'>
-                    <div class='flex items-center justify-between gap-4'>
-                      <p class='text-xs font-semibold text-foreground-muted uppercase'>Glosarium</p>
-                      <button
-                        class='rounded-full border border-border/70 px-3 py-1 text-xs font-medium text-foreground-muted hover:border-primary/60 hover:text-foreground'
-                        onclick={closeAll}
-                      >
-                        Tutup
-                      </button>
-                    </div>
-                    {#if graphData && rootEntry}
-                      {@render panel({ dense: true })}
-                    {:else}
-                      {@render emptyState()}
-                    {/if}
-                  </div>
-                </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar
-                  orientation='vertical'
-                  class='flex w-1.5 touch-none rounded-full border-l border-l-transparent bg-panel p-px select-none hover:w-2'
-                >
-                  <ScrollArea.Thumb class='flex-1 rounded-full bg-foreground/20' />
-                </ScrollArea.Scrollbar>
-              </ScrollArea.Root>
-            </div>
-          {/snippet}
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+      {#snippet overlay(props)}
+        <div {...props} class='fixed inset-0 z-50 bg-black/70 backdrop-blur-sm'></div>
+      {/snippet}
+      {#snippet handle(props)}
+        <div {...props} class='mx-auto my-4 h-1.5 w-12 shrink-0 rounded-full bg-border/40'>
+          <span data-svaul-drawer-handle-hitarea></span>
+        </div>
+      {/snippet}
+      <div class='min-h-0 overflow-y-auto overscroll-contain p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))]'>
+        <div class='mx-auto max-w-xl space-y-4 pb-4'>
+          <h2 class='text-base font-semibold text-foreground'>{detailHeading}</h2>
+          {#if graphData && rootEntry}
+            {@render panel({ dense: true })}
+          {:else}
+            {@render emptyState()}
+          {/if}
+        </div>
+      </div>
+    </Drawer>
   {/if}
 {/if}
 
 {#snippet panel({ dense = false } = {})}
   {@const graphHeight = dense ? 'h-60' : 'h-64 md:h-72'}
   <div class='space-y-4 text-sm'>
-    <div class='mt-1 space-y-0.5'>
-      <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
-    </div>
+    {#if !dense}
+      <div class='mt-1 space-y-0.5'>
+        <h3 class='text-base font-semibold text-foreground'>{detailHeading}</h3>
+      </div>
+    {/if}
     <div
       class={['grid gap-3', { 'md:grid-cols-2': !dense && hasRelations }]}
     >
@@ -253,7 +232,7 @@
           <div class='flex items-center text-xs font-semibold text-foreground-muted uppercase'>
             <span>Peta Relasi</span>
           </div>
-          <div class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
+          <div data-svaul-drawer-no-drag class={`mt-2 ${graphHeight} min-h-56 rounded-lg border border-border/50 bg-panel/80 p-1`}>
             {#if graphData}
               <ForceGraph
                 graphData={graphData}

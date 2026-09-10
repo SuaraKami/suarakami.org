@@ -15,6 +15,7 @@
     "@astrojs/markdown-remark": "^7.3.0",
     "@astrojs/svelte": "^9.0.1",
     "@astrojs/vercel": "^11.0.9",
+    "@harshmandan/svaul": "^2.0.0",
     "@playform/compress": "^0.2.5",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.10",

@@ -36,6 +36,7 @@
         "@astrojs/markdown-remark": "^7.3.0",
         "@astrojs/svelte": "^9.0.1",
         "@astrojs/vercel": "^11.0.9",
+        "@harshmandan/svaul": "^2.0.0",
         "@playform/compress": "^0.2.5",
         "@tailwindcss/vite": "^4.3.3",
         "astro": "^7.2.10",
@@ -334,6 +335,8 @@
     "@floating-ui/vue": ["@floating-ui/vue@1.1.11", "", { "dependencies": { "@floating-ui/dom": "^1.7.6", "@floating-ui/utils": "^0.2.11", "vue-demi": ">=0.13.0" } }, "sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw=="],
 
     "@graphql-typed-document-node/core": ["@graphql-typed-document-node/core@3.2.0", "", { "peerDependencies": { "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0" } }, "sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ=="],
+
+    "@harshmandan/svaul": ["@harshmandan/svaul@2.0.0", "", { "peerDependencies": { "svelte": "^5.29.0" } }, "sha512-tNMm//83Y6s/ybU2CCPwYKkneahg/LpADbNQJiRENTBgDEdUti2EzeEDZfF90ToPBdLfeNw9/kN+qm6r0ePzHA=="],
 
     "@iconify-json/hugeicons": ["@iconify-json/hugeicons@1.2.33", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-x5a5/Ipd+v9c9qSisecCR+KMAegZuWDoVeZfp5RREdzOP9/Orec7w0BNUVZrkNOEt5oVtttCu/DXb5etc8Sfig=="],
 
