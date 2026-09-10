@@ -171,7 +171,7 @@
     if (renderConfig.radial) { simulation.force('radial', forceRadial(Math.min(width, height) * 0.4).strength(renderConfig.radialStrength)) }
 
     const linkSelection = linkLayer.selectAll('line').data(links).join('line').attr('stroke-width', 1).attr('stroke', palette.lines).attr('opacity', 0.8)
-    const nodeSelection = nodeLayer.selectAll('circle').data(nodes).join('circle')
+    const nodeSelection = nodeLayer.selectAll<SVGCircleElement, NormalizedNode>('circle').data(nodes).join('circle')
       .attr('r', d => nodeRadius(d, degreeMap))
       .attr('fill', d => getNodeColor(d, palette, null))
       .attr('stroke', d => d.kind === 'tag' ? palette.tagBorder : 'none')
