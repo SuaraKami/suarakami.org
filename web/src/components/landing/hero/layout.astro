@@ -22,8 +22,7 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
     {
       eyebrow && (
         <div
-          class="col-span-12 mb-10 flex animate-in items-center gap-4 duration-700
-                 ease-out fill-mode-both fade-in md:mb-14"
+          class="col-span-12 mb-10 flex items-center gap-4 md:mb-14"
         >
           <span class="size-2 shrink-0 bg-foreground" aria-hidden="true" />
           <span class="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-foreground/45">
@@ -35,17 +34,15 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
     }
 
     <h1
-      class="col-span-12 animate-in text-[clamp(2.75rem,11vw,9.5rem)] leading-[0.88]
-             font-bold tracking-[-0.035em] text-balance duration-700 ease-out
-             fill-mode-both fade-in slide-in-from-bottom-4"
+      class="col-span-12 text-[clamp(2.75rem,11vw,9.5rem)] leading-[0.88] font-bold
+             tracking-[-0.035em] text-balance"
     >
       {title}
     </h1>
 
     <div
-      class="col-span-12 mt-12 grid animate-in grid-cols-12 gap-x-6 gap-y-10 border-t
-             border-foreground/15 pt-8 delay-150 duration-700 ease-out fill-mode-both
-             fade-in slide-in-from-bottom-2 md:mt-16 md:pt-10"
+      class="col-span-12 mt-12 grid grid-cols-12 gap-x-6 gap-y-10 border-t
+             border-foreground/15 pt-8 md:mt-16 md:pt-10"
     >
       {
         facts.length > 0 && (
@@ -75,16 +72,12 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
               href={link.to}
               target={link.target}
               rel="noopener noreferrer"
-              class="group mt-10 inline-flex items-center gap-4 border border-foreground
+              class="mt-10 inline-flex items-center gap-4 border border-foreground
                      bg-foreground px-8 py-4 text-[0.8125rem] font-semibold tracking-[0.14em]
-                     text-background uppercase transition-colors duration-200 ease-out
-                     hover:bg-background hover:text-foreground md:mt-12"
+                     text-background uppercase hover:bg-background hover:text-foreground md:mt-12"
             >
               {link.label}
-              <span
-                class="h-px w-6 bg-current transition-[width] duration-200 ease-out group-hover:w-10"
-                aria-hidden="true"
-              />
+              <span class="h-px w-6 bg-current" aria-hidden="true" />
             </a>
           )
         }
