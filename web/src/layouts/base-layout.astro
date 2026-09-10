@@ -4,7 +4,6 @@ import Footer from '@/components/footer.astro'
 import Header from '@/components/header.astro'
 import LanguageRedirect from '@/components/language-redirect.astro'
 import CustomCursor from '@/components/vue/custom-cursor.vue'
-import SmoothScroll from '@/components/vue/smooth-scroll.vue'
 import type { LanguageKeys } from '@/i18n'
 
 interface Props {
@@ -24,12 +23,29 @@ const { title, description, lang = 'en', includeLanguageRedirect = false } = Ast
   </head>
   <body>
     {includeLanguageRedirect && <LanguageRedirect />}
-    <SmoothScroll client:load />
     <CustomCursor client:only="vue" />
     <Header lang={lang} />
     <main>
       <slot />
     </main>
     <Footer lang={lang} />
+    <script>
+      import Lenis from 'lenis'
+
+      const lenis = new Lenis({
+        anchors: true,
+        autoRaf: true,
+        wheelMultiplier: 0.8,
+      })
+
+      // Stashed by the inline script in base-head.astro.
+      const { hash } = document.documentElement.dataset
+
+      if (hash) {
+        delete document.documentElement.dataset.hash
+        lenis.scrollTo(hash)
+        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${hash}`)
+      }
+    </script>
   </body>
 </html>

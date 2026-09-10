@@ -47,11 +47,9 @@ const { title, description } = Astro.props
 
 <ClientRouter />
 
-<script>
-  const {hash} = window.location
-
-  if (hash) {
-    window.__SK_INITIAL_HASH__ = hash
-    history.replaceState(null, '', window.location.pathname + window.location.search)
+<script is:inline>
+  if (location.hash) {
+    document.documentElement.dataset.hash = location.hash
+    history.replaceState(null, '', location.pathname + location.search)
   }
 </script>

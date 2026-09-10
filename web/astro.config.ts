@@ -32,7 +32,7 @@ export default defineConfig({
     react(),
     keystatic(),
     sitemap(),
-    vue({ appEntrypoint: '/src/_app' }),
+    vue(),
     playformCompress({
       HTML: {
         'html-minifier-terser': {
