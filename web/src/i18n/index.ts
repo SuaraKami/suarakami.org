@@ -9,7 +9,9 @@ const LANG_COOKIE = 'i18n_lang'
 
 export type { LanguageKeys } from './ui'
 
-function isLanguageKey(value: string | undefined): value is LanguageKeys {
+export function isLanguageKey(
+  value: string | undefined
+): value is LanguageKeys {
   return (
     value !== undefined && languageKeys.some((language) => language === value)
   )
@@ -43,12 +45,12 @@ export function getPathWithoutLang(pathname: string) {
 }
 
 export function useTranslatedPath(lang: LanguageKeys) {
-  return function translatePath(path: string, l: string = lang) {
+  return function translatePath(path: string) {
     let pathName = path.startsWith('/') ? path : `/${path}`
     pathName = pathName.replaceAll(/\/+/gu, '/')
 
     if (pathName === '/') {
-      return !showDefaultLang && l === defaultLang ? '/' : `/${l}`
+      return !showDefaultLang && lang === defaultLang ? '/' : `/${lang}`
     }
 
     const hasTrailingSlash = pathName.endsWith('/') && pathName.length > 1
@@ -58,11 +60,17 @@ export function useTranslatedPath(lang: LanguageKeys) {
         ? `${pathWithoutLang}/`
         : pathWithoutLang
 
-    if (!showDefaultLang && l === defaultLang) {
+    if (!showDefaultLang && lang === defaultLang) {
       return normalizedPath
     }
-    return normalizedPath === '/' ? `/${l}` : `/${l}${normalizedPath}`
+    return normalizedPath === '/' ? `/${lang}` : `/${lang}${normalizedPath}`
   }
+}
+
+export function localizeHref(href: string, lang: LanguageKeys) {
+  // Dummy base only so relative hrefs like "#about" parse.
+  const { pathname, search, hash } = new URL(href, 'http://localhost')
+  return `${useTranslatedPath(lang)(pathname)}${search}${hash}`
 }
 
 export function getPreferredLangFromCookie(): LanguageKeys | null {
