@@ -2,7 +2,6 @@
 import type { CollectionEntry } from 'astro:content'
 
 import type { LanguageKeys } from '@/i18n'
-import type { EventStats } from '@/lib/events'
 
 import HeroEvent from './hero/event.astro'
 import HeroOrganization from './hero/organization.astro'
@@ -11,16 +10,15 @@ interface Props {
   page: CollectionEntry<'index'>
   promotedEvent?: CollectionEntry<'event'>
   lang: LanguageKeys
-  stats: EventStats
 }
 
-const { page, promotedEvent, lang, stats } = Astro.props
+const { page, promotedEvent, lang } = Astro.props
 ---
 
 {
   promotedEvent ? (
     <HeroEvent event={promotedEvent} lang={lang} />
   ) : (
-    <HeroOrganization hero={page.data.hero} lang={lang} stats={stats} />
+    <HeroOrganization hero={page.data.hero} />
   )
 }

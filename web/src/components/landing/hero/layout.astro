@@ -17,7 +17,7 @@ interface Props {
 const { description, eyebrow, facts = [], link, title } = Astro.props
 ---
 
-<section id="hero" class="overflow-hidden bg-background">
+<section id="hero" class="bg-background">
   <Container grid class="gap-y-0 pt-16 pb-24 md:pt-24 md:pb-32 lg:pt-32 lg:pb-40">
     {
       eyebrow && (
@@ -58,7 +58,12 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
         )
       }
 
-      <div class="col-span-12 md:col-span-7 md:col-start-6 md:flex md:flex-col md:justify-between">
+      <div
+        class:list={[
+          'col-span-12 md:flex md:flex-col md:justify-between',
+          facts.length > 0 ? 'md:col-span-7 md:col-start-5' : 'md:col-span-8 md:col-start-5 lg:col-span-5 lg:col-start-8',
+        ]}
+      >
         <p class="max-w-[42ch] text-xl leading-snug tracking-tight text-pretty text-foreground/70 md:text-2xl">
           {description}
         </p>
