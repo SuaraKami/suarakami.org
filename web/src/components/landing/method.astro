@@ -32,7 +32,7 @@ const paragraphs = method.body.split('\n').filter(Boolean)
           <p
             class:list={[
               'max-w-[60ch] text-base leading-relaxed text-pretty text-foreground/70 md:text-lg',
-              i === 0 ? 'cap-trim' : 'border-t border-foreground/15 pt-4',
+              i === 0 ? 'cap-trim' : 'pt-4',
               i === paragraphs.length - 1 && 'cap-trim-both',
             ]}
           >
