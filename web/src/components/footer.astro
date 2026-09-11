@@ -20,12 +20,12 @@ const t = useTranslations(lang)
         {t('nav.contacts')}
       </h2>
       <div class="col-span-12 min-w-0 lg:col-span-5 lg:col-start-8">
-        <a href={`mailto:${email}`} class="inline-block text-[clamp(1.5rem,1rem+2vw,3rem)] leading-tight tracking-tight break-words transition-opacity hover:opacity-65">
+        <a href={`mailto:${email}`} class="inline-block text-[clamp(1.5rem,1rem+2vw,3rem)] leading-tight tracking-tight break-words decoration-1 underline-offset-8 hover:underline">
           {email}
         </a>
         <div class="mt-8 flex flex-wrap gap-x-8 gap-y-4">
           {socialMediaLinks.map((social) => (
-            <a href={social.to} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2 text-base transition-opacity hover:opacity-65">
+            <a href={social.to} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2 text-base underline-offset-4 hover:underline">
               {social.label}<span aria-hidden="true">↗</span>
             </a>
           ))}
@@ -33,7 +33,7 @@ const t = useTranslations(lang)
       </div>
     </Container>
   </section>
-  <Container class="border-t border-foreground/15 py-6 text-sm text-foreground/65" strategy="margin">
+  <Container class="border-t border-foreground/15 py-6 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase" strategy="margin">
     <p>&copy; {new Date().getFullYear()} {footer.copyright}</p>
   </Container>
 </footer>
