@@ -39,7 +39,7 @@ const navItems = siteConfig.navigation.map((link) => ({
           lang={lang}
           separator="/"
           class="flex items-center gap-2 border-l border-border-dark pl-6 text-sm uppercase"
-          langClass="text-foreground/65 transition-colors hover:text-foreground"
+          langClass="text-foreground/65 underline-offset-4 hover:underline"
           activeLangClass="text-foreground"
         />
       </nav>
@@ -49,7 +49,7 @@ const navItems = siteConfig.navigation.map((link) => ({
           slot="languages"
           lang={lang}
           class="flex items-center gap-2 text-lg uppercase"
-          langClass="inline-flex min-h-11 min-w-11 items-center justify-center text-foreground/65 transition-colors hover:text-foreground"
+          langClass="inline-flex min-h-11 min-w-11 items-center justify-center text-foreground/65 underline-offset-4 hover:underline"
           activeLangClass="text-foreground"
         />
       </MobileNavigation>
