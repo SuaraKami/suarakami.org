@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import {
   DialogClose,
   DialogContent,
@@ -10,8 +10,7 @@ import {
   DialogTrigger,
   VisuallyHidden,
 } from 'reka-ui'
-import Languages from '~icons/lucide/languages'
-import Mail from '~icons/lucide/mail'
+import Menu from '~icons/lucide/menu'
 import X from '~icons/lucide/x'
 
 import type { LanguageKeys } from '@/i18n'
@@ -27,169 +26,89 @@ const { lang } = defineProps<{
   }[]
 }>()
 
-const { socialMediaLinks, email, footer } = siteConfig
+const { socialMediaLinks, email } = siteConfig
 const t = useTranslations(lang)
 </script>
 
 <template>
   <DialogRoot>
     <DialogTrigger
-      aria-label="Open menu"
-      class="transition-opacity hover:opacity-50 md:hidden"
+      :aria-label="t('nav.openMenu')"
+      class="inline-flex min-h-11 items-center md:hidden"
     >
-      <svg viewBox="0 0 24 24" class="size-6" stroke-width="1.5">
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          d="M0 5h24M0 12h24M0 19h24"
-        />
-      </svg>
+      <Menu class="size-6" :stroke-width="1.5" />
     </DialogTrigger>
     <DialogPortal>
-      <DialogOverlay
-        class="fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)] data-[state=closed]:fade-out data-[state=open]:animate-in data-[state=open]:duration-(--duration-circle-in) data-[state=open]:ease-in-out data-[state=open]:fade-in"
-      />
-      <DialogContent
-        class="group fixed inset-0 z-50 bg-background data-[state=closed]:animate-circle-out data-[state=open]:animate-circle-in"
-      >
+      <DialogOverlay class="fixed inset-0 z-50 bg-foreground/10" />
+      <DialogContent class="fixed inset-0 z-50 flex flex-col bg-background">
         <VisuallyHidden>
-          <DialogTitle>Mobile navigation menu</DialogTitle>
-          <DialogDescription>
-            Navigate to different sections of the website
-          </DialogDescription>
+          <DialogTitle>{{ t('nav.main') }}</DialogTitle>
+          <DialogDescription>{{ t('nav.description') }}</DialogDescription>
         </VisuallyHidden>
         <div
-          class="flex h-full flex-col group-data-[state=closed]:animate-out group-data-[state=closed]:duration-[calc(var(--duration-circle-out)+100ms)] group-data-[state=closed]:fade-out group-data-[state=open]:animate-in group-data-[state=open]:duration-(--duration-circle-in) group-data-[state=open]:fade-in"
+          class="flex shrink-0 items-center justify-between border-b border-border-dark px-6 py-8"
+        >
+          <slot name="logo" />
+          <DialogClose
+            :aria-label="t('nav.closeMenu')"
+            class="inline-flex min-h-11 items-center"
+          >
+            <X class="size-6" :stroke-width="1.5" />
+          </DialogClose>
+        </div>
+        <div
+          class="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+          data-lenis-prevent
         >
           <div
-            class="flex items-center justify-between border-b border-border-dark px-6 py-8"
+            class="flex min-h-full flex-col justify-between gap-12 px-6 pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
           >
-            <slot name="logo" />
-            <DialogClose as-child>
-              <button
-                aria-label="Close menu"
-                class="transition-opacity hover:opacity-50"
-              >
-                <X class="size-6" :stroke-width="1.5" />
-              </button>
-            </DialogClose>
-          </div>
-          <div class="flex-1 overflow-y-auto">
-            <div class="grid h-full grid-cols-12 gap-0">
-              <DialogClose as-child>
+            <nav :aria-label="t('nav.main')">
+              <DialogClose v-for="item in navItems" :key="item.href" as-child>
                 <a
-                  :href="navItems[0]!.href"
-                  class="col-span-12 flex flex-col justify-between border-b border-border-dark p-6 transition-colors hover:bg-foreground/5"
+                  :href="item.href"
+                  class="flex min-h-20 items-center justify-between gap-6 border-b border-border-dark py-4 text-[clamp(2.5rem,1.5rem+6vw,4rem)] leading-[1.15] tracking-[-0.035em] underline-offset-[0.15em] last:border-b-0 hover:underline hover:decoration-1"
                 >
-                  <span class="text-xs tracking-widest uppercase opacity-20"
-                    >01</span
-                  >
-                  <div>
-                    <h2
-                      class="text-5xl font-semibold tracking-tight transition-transform hover:translate-x-2"
-                    >
-                      {{ navItems[0]!.label }}
-                    </h2>
-                  </div>
+                  <span>{{ item.label }}</span>
+                  <span aria-hidden="true" class="text-2xl font-normal">↘</span>
                 </a>
               </DialogClose>
-              <DialogClose as-child>
-                <a
-                  :href="navItems[1]!.href"
-                  class="relative col-span-7 flex flex-col justify-between overflow-hidden p-6 transition-colors hover:bg-foreground/5"
-                >
-                  <div
-                    class="absolute top-0 right-0 size-16 translate-x-8 -translate-y-8 rotate-45 bg-accent-foreground/10"
-                  />
-                  <span class="text-xs tracking-widest uppercase opacity-20"
-                    >02</span
-                  >
-                  <div>
-                    <h2
-                      class="text-4xl font-semibold tracking-tight transition-transform hover:translate-x-2"
-                    >
-                      {{ navItems[1]!.label }}
-                    </h2>
-                  </div>
-                </a>
-              </DialogClose>
-              <div
-                class="col-span-5 flex flex-col justify-between border-l border-border-dark p-6"
-              >
-                <Languages class="size-4 opacity-20" />
+            </nav>
+            <div>
+              <div class="flex items-center justify-between gap-6">
+                <p class="text-sm text-foreground/65">
+                  {{ t('nav.language') }}
+                </p>
                 <slot name="languages" />
               </div>
-
-              <DialogClose as-child>
-                <a
-                  :href="navItems[2]!.href"
-                  class="col-span-7 flex flex-col justify-between border-t border-border-dark p-6 transition-colors hover:bg-foreground/5"
-                >
-                  <span class="text-xs tracking-widest uppercase opacity-20"
-                    >03</span
-                  >
-                  <div>
-                    <h2
-                      class="text-4xl font-semibold tracking-tight transition-transform hover:translate-x-2"
-                    >
-                      {{ navItems[2]!.label }}
-                    </h2>
-                  </div>
-                </a>
-              </DialogClose>
-              <div
-                class="relative col-span-5 flex flex-col justify-between border-t border-l border-border-dark bg-accent-foreground/5 p-6"
-              >
-                <div
-                  class="absolute top-6 bottom-6 left-0 w-0.5 bg-accent-foreground"
-                />
-                <Mail class="size-4 opacity-20" />
-                <div class="space-y-2">
-                  <p class="text-xs tracking-widest uppercase opacity-40">
-                    {{ t('contact.email') }}
-                  </p>
-                  <DialogClose as-child>
-                    <a
-                      :href="`mailto:${email}`"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      class="block text-sm break-all transition-opacity hover:opacity-50"
-                    >
-                      {{ email }}
-                    </a>
-                  </DialogClose>
-                </div>
-              </div>
-              <div class="col-span-12 border-t border-border-dark p-6">
-                <div class="grid grid-cols-3 gap-6">
-                  <DialogClose
-                    v-for="social in socialMediaLinks"
-                    :key="social.label"
-                    as-child
-                  >
-                    <a
-                      :href="social.to"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      class="flex items-center gap-2 text-xs tracking-widest uppercase transition-opacity hover:opacity-50"
-                    >
-                      <span class="size-1 rounded-full bg-foreground" />
-                      {{ social.label }}
-                    </a>
-                  </DialogClose>
-                </div>
-              </div>
-              <div
-                class="relative col-span-12 overflow-hidden bg-foreground p-6 text-background"
-              >
-                <div
-                  class="absolute top-1/2 right-6 -translate-y-1/2 text-[120px] leading-none opacity-10"
-                >
-                  <slot name="year" />
-                </div>
-                <p class="relative z-10 text-xs tracking-widest uppercase">
-                  {{ footer.tagline }}
+              <div class="mt-6 border-t border-border-dark pt-6">
+                <p class="text-sm text-foreground/65">
+                  {{ t('contact.email') }}
                 </p>
+                <DialogClose as-child>
+                  <a
+                    :href="`mailto:${email}`"
+                    class="mt-1 inline-flex min-h-11 items-center text-xl tracking-tight underline-offset-4 hover:underline"
+                  >
+                    {{ email }}
+                  </a>
+                </DialogClose>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                <DialogClose
+                  v-for="social in socialMediaLinks"
+                  :key="social.label"
+                  as-child
+                >
+                  <a
+                    :href="social.to"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex min-h-11 items-center gap-1 text-sm underline-offset-4 hover:underline"
+                  >
+                    {{ social.label }}<span aria-hidden="true">↗</span>
+                  </a>
+                </DialogClose>
               </div>
             </div>
           </div>
