@@ -3,69 +3,37 @@ import type { LanguageKeys } from '@/i18n'
 import { useTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 import Container from '@/components/container.astro'
-import TimeLocal from '@/components/time-local.astro'
 
 interface Props {
   lang: LanguageKeys
 }
 
 const { lang } = Astro.props
-
 const { email, footer, socialMediaLinks } = siteConfig
 const t = useTranslations(lang)
 ---
 
-<footer class="bg-foreground text-background">
-  <section id="contacts">
-    <Container grid class="gap-y-12 py-32 md:py-48 lg:py-64">
-      <div class="col-span-12">
-        <h2 class="text-5xl uppercase leading-tight font-semibold tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl">
-          {t('nav.contacts')}
-        </h2>
-      </div>
-
-      <div class="col-span-12 grid grid-cols-1 gap-16 md:grid-cols-12">
-        <div class="md:col-span-4">
-          <span class="text-sm tracking-wider uppercase opacity-50">
-            {t('contact.email')}
-          </span>
-          <a
-            href={`mailto:${email}`}
-            class="mt-4 block text-2xl leading-normal transition-opacity hover:opacity-50 md:text-3xl lg:text-4xl"
-          >
-            {email}
-          </a>
-        </div>
-
-        <div class="md:col-span-4 md:col-end-13">
-          <span class="text-sm tracking-wider uppercase opacity-50">
-            {t('contact.follow')}
-          </span>
-          <div class="mt-4 flex flex-col gap-4">
-            {
-              socialMediaLinks.map((social) => (
-                <a
-                  href={social.to}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-2xl leading-normal transition-opacity hover:opacity-50 md:text-3xl lg:text-4xl"
-                >
-                  {social.label}
-                </a>
-              ))
-            }
-          </div>
+<footer class="border-t border-border-dark bg-surface">
+  <section id="contacts" aria-labelledby="contact-title">
+    <Container grid class="gap-y-8 py-16 md:py-24">
+      <h2 id="contact-title" class="col-span-12 text-xl leading-tight font-medium tracking-tight lg:col-span-6">
+        {t('nav.contacts')}
+      </h2>
+      <div class="col-span-12 min-w-0 lg:col-span-5 lg:col-start-8">
+        <a href={`mailto:${email}`} class="inline-block text-[clamp(1.5rem,1rem+2vw,3rem)] leading-tight tracking-tight break-words transition-opacity hover:opacity-65">
+          {email}
+        </a>
+        <div class="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+          {socialMediaLinks.map((social) => (
+            <a href={social.to} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2 text-base transition-opacity hover:opacity-65">
+              {social.label}<span aria-hidden="true">↗</span>
+            </a>
+          ))}
         </div>
       </div>
     </Container>
   </section>
-  <Container class="border-t border-background/50 py-8 text-xs lg:py-16" strategy="margin" grid>
-    <p class="col-span-6 md:col-span-5">
-      &copy; <TimeLocal datetime={Date.now()} year="numeric" />
-      {footer.copyright}
-    </p>
-    <p class="col-span-6 text-right md:col-span-5 md:col-end-13">
-      {footer.tagline}
-    </p>
+  <Container class="border-t border-foreground/15 py-6 text-sm text-foreground/65" strategy="margin">
+    <p>&copy; {new Date().getFullYear()} {footer.copyright}</p>
   </Container>
 </footer>
