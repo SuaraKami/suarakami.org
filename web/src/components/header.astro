@@ -27,22 +27,20 @@ const navItems = siteConfig.navigation.map((link) => ({
   <Container>
     <div class="flex items-center justify-between py-8 md:py-12">
       <Logo lang={lang} />
-      <nav class="hidden items-center gap-12 md:flex lg:gap-16">
+      <nav class="hidden items-center gap-10 md:flex lg:gap-12">
         {
           navItems.map((item) => (
-            <a href={item.href} class="flex items-center">
-              <span class="text-sm font-bold tracking-wide uppercase transition-opacity hover:opacity-50">
-                {item.label}
-              </span>
+            <a href={item.href} class="inline-flex min-h-11 items-center text-base tracking-tight underline-offset-4 hover:underline">
+              {item.label}
             </a>
           ))
         }
         <LanguagePicker
           lang={lang}
           separator="/"
-          class="flex items-center gap-2 border-l border-border-dark pl-6 text-xs font-bold tracking-wider uppercase"
-          langClass="opacity-40 transition-opacity hover:opacity-60"
-          activeLangClass="opacity-100"
+          class="flex items-center gap-2 border-l border-border-dark pl-6 text-sm uppercase"
+          langClass="text-foreground/65 transition-colors hover:text-foreground"
+          activeLangClass="text-foreground"
         />
       </nav>
       <MobileNavigation client:media="(width < 48rem)" lang={lang} navItems={navItems}>
