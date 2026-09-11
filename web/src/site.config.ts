@@ -2,7 +2,6 @@ export const siteConfig = {
   email: 'info@suarakami.org',
   footer: {
     copyright: 'SuaraKami. All rights reserved.',
-    tagline: 'Born in Aachen, made for Indonesians everywhere.',
   },
   i18n: {
     defaultLang: 'en',

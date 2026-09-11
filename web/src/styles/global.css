@@ -6,9 +6,6 @@
   --surface: oklch(0.935 0.027 60);
   --foreground: oklch(0.12 0 0);
   --brand: #e75147;
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --border: oklch(0.922 0 0);
   --border-dark: oklch(0.145 0 0 / 0.1);
   --ring: oklch(0.708 0 0);
 }
@@ -22,9 +19,6 @@
   --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
   --color-border-dark: var(--border-dark);
   --color-ring: var(--ring);
 }
