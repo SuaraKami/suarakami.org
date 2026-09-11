@@ -22,7 +22,7 @@ const AccordionEvents = ({ items, lang }: Props) => (
         className="border-b border-foreground/15"
       >
         <Accordion.Header render={<div />} className="flex">
-          <Accordion.Trigger className="group w-full py-6 text-left transition-opacity hover:opacity-50 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none md:py-7">
+          <Accordion.Trigger className="group w-full py-6 text-left transition-opacity hover:opacity-65 focus-visible:ring-2 focus-visible:ring-foreground focus-visible:outline-none md:py-7">
             <div className="grid grid-cols-12 items-start gap-x-6 gap-y-3">
               <p className="col-span-2 text-xs font-medium tracking-[0.18em] text-foreground/40 tabular-nums cap-trim md:col-span-1">
                 {String(index + 1).padStart(2, '0')}
