@@ -14,7 +14,7 @@ interface Props {
 }
 
 const AccordionEvents = ({ items, lang }: Props) => (
-  <Accordion.Root className="w-full">
+  <Accordion.Root className="w-full" hiddenUntilFound>
     {items.map(({ data }, index) => (
       <Accordion.Item
         key={data.title}
