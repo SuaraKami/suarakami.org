@@ -2,15 +2,15 @@ import { defineConfig } from 'oxlint'
 import antiSlop from 'ultracite/oxlint/anti-slop'
 import astro from 'ultracite/oxlint/astro'
 import core from 'ultracite/oxlint/core'
+import react from 'ultracite/oxlint/react'
 import svelte from 'ultracite/oxlint/svelte'
-import vue from 'ultracite/oxlint/vue'
 
 export default defineConfig({
   categories: {},
   env: {
     builtin: true,
   },
-  extends: [core, antiSlop, vue, svelte, astro],
+  extends: [core, antiSlop, react, svelte, astro],
   globals: {},
   ignorePatterns: core.ignorePatterns,
   overrides: [
@@ -25,12 +25,6 @@ export default defineConfig({
       files: ['*.svelte'],
       rules: {
         'prefer-const': 'off',
-      },
-    },
-    {
-      files: ['*.vue'],
-      rules: {
-        'vue/max-props': 'off',
       },
     },
   ],

@@ -1,7 +1,6 @@
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import vercel from '@astrojs/vercel'
-import vue from '@astrojs/vue'
 import keystatic from '@keystatic/astro'
 import playformCompress from '@playform/compress'
 import tailwindcss from '@tailwindcss/vite'
@@ -31,7 +30,6 @@ export default defineConfig({
     react(),
     keystatic(),
     sitemap(),
-    vue(),
     playformCompress({
       HTML: {
         'html-minifier-terser': {
@@ -46,7 +44,7 @@ export default defineConfig({
   vite: {
     plugins: [
       tailwindcss(),
-      Icons({ compiler: 'vue3' }),
+      Icons({ compiler: 'jsx', jsx: 'react' }),
       // Workaround, because `exclude` not honored in react() plugin.
       {
         applyToEnvironment: (environment) =>

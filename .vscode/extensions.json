@@ -5,8 +5,7 @@
     "csstools.postcss",
     "oxc.oxc-vscode",
     "svelte.svelte-vscode",
-    "unifiedjs.vscode-mdx",
-    "vue.volar"
+    "unifiedjs.vscode-mdx"
   ],
   "unwantedRecommendations": []
 }

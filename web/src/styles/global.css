@@ -1,11 +1,7 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 @import 'lenis/dist/lenis.css';
 
 :root {
-  --duration-circle-in: 0.8s;
-  --duration-circle-out: 0.6s;
-
   --background: oklch(0.955 0.025 70);
   --surface: oklch(0.935 0.027 60);
   --foreground: oklch(0.12 0 0);
@@ -19,29 +15,6 @@
 
 @theme {
   --font-sans: var(--font-cabinet), sans-serif, system-ui;
-
-  --animate-circle-in: circle-in var(--duration-circle-in)
-    cubic-bezier(0.4, 0, 0.2, 1);
-  --animate-circle-out: circle-out var(--duration-circle-in)
-    cubic-bezier(0.6, 0, 0.4, 1);
-
-  @keyframes circle-in {
-    from {
-      clip-path: circle(0% at 50% 50%);
-    }
-    to {
-      clip-path: circle(150% at 50% 50%);
-    }
-  }
-
-  @keyframes circle-out {
-    from {
-      clip-path: circle(150% at 50% 50%);
-    }
-    to {
-      clip-path: circle(0% at 50% 50%);
-    }
-  }
 }
 
 @theme inline {
