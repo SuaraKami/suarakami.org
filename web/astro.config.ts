@@ -45,20 +45,6 @@ export default defineConfig({
     plugins: [
       tailwindcss(),
       Icons({ compiler: 'jsx', jsx: 'react' }),
-      // Workaround, because `exclude` not honored in react() plugin.
-      {
-        applyToEnvironment: (environment) =>
-          environment.config.consumer === 'server',
-        enforce: 'post',
-        name: 'stub-react-refresh-on-server',
-        transform: (code: string) =>
-          code.includes('$RefreshSig$')
-            ? {
-                code: `const $RefreshSig$ = () => (type) => type\n${code}`,
-                map: null,
-              }
-            : undefined,
-      },
     ],
   },
 })
