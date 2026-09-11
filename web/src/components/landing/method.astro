@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import Container from '@/components/container.astro'
 import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
+import { getTranslations } from '@/i18n'
 
 interface Props {
   method: CollectionEntry<'index'>['data']['method']
@@ -10,7 +10,7 @@ interface Props {
 }
 const { method, lang } = Astro.props
 
-const t = useTranslations(lang)
+const t = getTranslations(lang)
 const paragraphs = method.body.split('\n').filter(Boolean)
 ---
 

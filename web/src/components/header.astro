@@ -1,6 +1,6 @@
 ---
 import type { LanguageKeys } from '@/i18n'
-import { localizeHref, useTranslations } from '@/i18n'
+import { localizeHref, getTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 import Container from './container.astro'
 import LanguagePicker from './language-picker.astro'
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { lang } = Astro.props
-const t = useTranslations(lang)
+const t = getTranslations(lang)
 
 const navItems = siteConfig.navigation.map((link) => ({
   href: localizeHref(link.to, lang),

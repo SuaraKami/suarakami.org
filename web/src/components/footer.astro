@@ -1,6 +1,6 @@
 ---
 import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
+import { getTranslations } from '@/i18n'
 import { siteConfig } from '@/site.config'
 import Container from '@/components/container.astro'
 
@@ -10,7 +10,7 @@ interface Props {
 
 const { lang } = Astro.props
 const { email, footer, socialMediaLinks } = siteConfig
-const t = useTranslations(lang)
+const t = getTranslations(lang)
 ---
 
 <footer class="border-t border-border-dark bg-surface">

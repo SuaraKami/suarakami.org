@@ -27,7 +27,7 @@ export function getLangFromUrl(url?: URL) {
   return defaultLang
 }
 
-export function useTranslations(lang: LanguageKeys) {
+export function getTranslations(lang: LanguageKeys) {
   return function t(key: keyof (typeof ui)[LanguageKeys]) {
     return ui[lang][key] || ui[defaultLang][key]
   }
@@ -44,7 +44,7 @@ export function getPathWithoutLang(pathname: string) {
   return pathname
 }
 
-export function useTranslatedPath(lang: LanguageKeys) {
+export function getTranslatedPath(lang: LanguageKeys) {
   return function translatePath(path: string) {
     let pathName = path.startsWith('/') ? path : `/${path}`
     pathName = pathName.replaceAll(/\/+/gu, '/')
@@ -70,7 +70,7 @@ export function useTranslatedPath(lang: LanguageKeys) {
 export function localizeHref(href: string, lang: LanguageKeys) {
   // Dummy base only so relative hrefs like "#about" parse.
   const { pathname, search, hash } = new URL(href, 'http://localhost')
-  return `${useTranslatedPath(lang)(pathname)}${search}${hash}`
+  return `${getTranslatedPath(lang)(pathname)}${search}${hash}`
 }
 
 export function getPreferredLangFromCookie(): LanguageKeys | null {

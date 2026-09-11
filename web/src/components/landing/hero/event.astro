@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 
 import type { LanguageKeys } from '@/i18n'
-import { useTranslations } from '@/i18n'
+import { getTranslations } from '@/i18n'
 import { formatDate } from '@/lib/format-date'
 import { siteConfig } from '@/site.config'
 
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { event, lang } = Astro.props
-const t = useTranslations(lang)
+const t = getTranslations(lang)
 const { data } = event
 const rawDate = data.dates[0]
 const hasTime = rawDate.getUTCHours() > 0 || rawDate.getUTCMinutes() > 0
