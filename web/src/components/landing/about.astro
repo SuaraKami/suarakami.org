@@ -12,29 +12,28 @@ const { page, lang } = Astro.props
 
 const t = useTranslations(lang)
 const [lead, ...paragraphs] = page.data.about.split('\n').filter(Boolean)
-const columns = paragraphs.map((paragraph) => `${paragraph.length}fr`).join(' ')
 ---
 
 <section id="about" class="relative bg-surface">
   <Container grid class="gap-y-12 py-24 md:gap-y-16 md:py-32 lg:py-40">
-    <div class="col-span-12 md:col-span-4 lg:col-span-3">
-      <h2 class="cap-trim text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
-        {t('landing.whoWeAre')}
-      </h2>
-    </div>
+    <h2 class="cap-trim col-span-12 text-xs font-medium tracking-[0.18em] text-foreground/40 uppercase">
+      {t('landing.whoWeAre')}
+    </h2>
     <p
-      class="cap-trim col-span-12 text-2xl leading-snug tracking-tight text-balance md:col-span-8 md:col-start-5 md:text-3xl lg:col-span-7 lg:col-start-5 lg:text-4xl"
+      class="cap-trim col-span-12 text-3xl leading-tight tracking-tight text-balance md:text-4xl lg:text-5xl xl:text-6xl"
     >
       {lead}
     </p>
-    <div
-      class="col-span-12 grid grid-cols-1 gap-x-6 gap-y-6 border-t border-foreground/15 pt-8 md:col-span-8 md:col-start-5 md:grid-cols-[var(--columns)]"
-      style={{ '--columns': columns }}
-      data-balance-columns
-    >
+    <div class="col-span-12 flex flex-col gap-4 border-t border-foreground/15 pt-8 md:col-span-8 md:col-start-5 lg:col-span-5 lg:col-start-8">
       {
-        paragraphs.map((paragraph) => (
-          <p class="text-base leading-relaxed text-pretty text-foreground/70 md:text-lg">
+        paragraphs.map((paragraph, i) => (
+          <p
+            class:list={[
+              'text-base leading-relaxed text-pretty text-foreground/70 md:text-lg',
+              i > 0 && 'pt-4',
+              i === paragraphs.length - 1 && 'cap-trim-both',
+            ]}
+          >
             {paragraph}
           </p>
         ))
@@ -43,58 +42,3 @@ const columns = paragraphs.map((paragraph) => `${paragraph.length}fr`).join(' ')
   </Container>
 </section>
 
-<script>
-  import type { PreparedText } from '@chenglou/pretext'
-  import { layout, prepare } from '@chenglou/pretext'
-
-  const px = (value: string) => Number(value.replace('px', '')) || 0
-
-  function balance(container: HTMLElement, prepared: PreparedText[], lineHeight: number) {
-    const style = getComputedStyle(container)
-    if (style.gridTemplateColumns.split(' ').length < 2) {
-      return
-    }
-    const total = container.clientWidth - px(style.columnGap)
-    let bandStart = -1
-    let best: [number, number] | undefined
-
-    for (let step = 25; step <= 75; step += 1) {
-      const ratio = step / 100
-      const equal =
-        layout(prepared[0], total * ratio, lineHeight).lineCount ===
-        layout(prepared[1], total * (1 - ratio), lineHeight).lineCount
-
-      if (equal && bandStart < 0) {
-        bandStart = step
-      }
-      if (bandStart >= 0 && (!equal || step === 75)) {
-        const bandEnd = equal ? step : step - 1
-        if (!best || bandEnd - bandStart > best[1] - best[0]) {
-          best = [bandStart, bandEnd]
-        }
-        bandStart = -1
-      }
-    }
-
-    if (best) {
-      const ratio = (best[0] + best[1]) / 200
-      container.style.setProperty('--columns', `${ratio}fr ${1 - ratio}fr`)
-    }
-  }
-
-  const container = document.querySelector<HTMLElement>('[data-balance-columns]')
-  const paragraphs = [...(container?.querySelectorAll<HTMLElement>('p') ?? [])]
-
-  if (container && paragraphs.length === 2) {
-    const style = getComputedStyle(paragraphs[0])
-    const font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
-    const prepared = paragraphs.map((paragraph) =>
-      prepare(paragraph.textContent ?? '', font, { letterSpacing: px(style.letterSpacing) })
-    )
-    const run = () => balance(container, prepared, px(style.lineHeight))
-
-    await document.fonts.ready
-    run()
-    window.addEventListener('resize', run, { passive: true })
-  }
-</script>
