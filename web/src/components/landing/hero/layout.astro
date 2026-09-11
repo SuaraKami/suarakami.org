@@ -74,10 +74,9 @@ const { description, eyebrow, facts = [], link, title } = Astro.props
               href={link.to}
               target={link.target}
               rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
-              class="mt-10 inline-flex min-h-11 items-center gap-2 self-start text-lg tracking-tight underline-offset-4 hover:underline md:mt-12 md:text-xl"
+              class="mt-10 inline-block self-start py-2 text-lg tracking-tight underline decoration-1 underline-offset-4 transition-colors hover:text-foreground/65 md:mt-12 md:text-xl"
             >
-              {link.label}
-              <span aria-hidden="true">{link.target === '_blank' ? '↗' : '↘'}</span>
+              {link.label} <span aria-hidden="true">{link.target === '_blank' ? '↗' : '↘'}</span>
             </a>
           )
         }
